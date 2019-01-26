@@ -8,6 +8,7 @@ game.MomEntity = me.Entity.extend({
     init: function(x, y, settings) {
         // call the constructor
         this._super(me.Entity, "init", [x, y , settings]);
+        this.body.collisionType = game.collisionTypes.MOM;
 
         // walking & jumping speed
         this.body.setVelocity(2.5, 2.5);
