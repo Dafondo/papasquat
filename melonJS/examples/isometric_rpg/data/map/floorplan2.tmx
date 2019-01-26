@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.1" orientation="isometric" renderorder="right-down" width="60" height="49" tilewidth="64" tileheight="32" infinite="0" nextlayerid="27" nextobjectid="90">
+<map version="1.2" tiledversion="1.2.1" orientation="isometric" renderorder="right-down" width="60" height="49" tilewidth="64" tileheight="32" infinite="0" nextlayerid="27" nextobjectid="116">
  <tileset firstgid="1" source="floortiles.tsx"/>
  <tileset firstgid="5" source="sofaimages.tsx"/>
  <tileset firstgid="17" source="block.tsx"/>
@@ -80,6 +80,29 @@
   <object id="77" x="1542" y="1362"/>
   <object id="78" x="1472" y="1056" width="32" height="224"/>
   <object id="82" x="640.667" y="162" width="32" height="223.333"/>
+  <object id="91" x="588.667" y="96.6667"/>
+  <object id="92" x="4.33333" y="1534.67" width="1914" height="34"/>
+  <object id="93" x="1772" y="1580"/>
+  <object id="94" x="997" y="1579"/>
+  <object id="95" x="1131" y="1581"/>
+  <object id="96" x="1551.5" y="509.5" width="111.5" height="146"/>
+  <object id="97" x="1629.75" y="999" width="96.5" height="135"/>
+  <object id="98" x="1242.75" y="1097" width="99.5" height="132"/>
+  <object id="99" x="1263.67" y="286" width="49.3333" height="24.6667"/>
+  <object id="100" x="1315" y="285"/>
+  <object id="101" x="1203.67" y="286" width="39.3333" height="28"/>
+  <object id="102" x="1202" y="355.333" width="44" height="85.3333"/>
+  <object id="103" x="1273.33" y="352"/>
+  <object id="104" x="972.333" y="1098.33"/>
+  <object id="105" x="2" y="-4" width="1914" height="34"/>
+  <object id="107" x="1885" y="-1" width="36" height="1570"/>
+  <object id="108" x="5" y="0" width="36" height="1570"/>
+  <object id="109" x="1196.67" y="331.667" width="16.6667" height="91.3333"/>
+  <object id="110" x="1186.67" y="268.333" width="44" height="20.3333"/>
+  <object id="111" x="1252.5" y="266.833" width="42.3333" height="20.3333"/>
+  <object id="112" x="1377.67" y="460.667" width="65" height="47"/>
+  <object id="113" x="1390" y="531.333"/>
+  <object id="114" x="1421.17" y="490.167" width="51.6667" height="53.6667"/>
  </objectgroup>
  <objectgroup id="26" name="family">
   <object id="86" name="mom" type="family" x="1541.33" y="736" width="32" height="32"/>
