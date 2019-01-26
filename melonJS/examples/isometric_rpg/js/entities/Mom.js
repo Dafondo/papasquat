@@ -36,6 +36,8 @@ game.MomEntity = me.Entity.extend({
 
     ------            */
     update : function (dt) {
+        this.body.vel.x += 12 * ( Math.random() - .5);
+        this.body.vel.y += 12 * ( Math.random() - .5);
         
 
         
