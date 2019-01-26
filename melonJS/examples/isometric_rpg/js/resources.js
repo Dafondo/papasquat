@@ -6,7 +6,7 @@ game.resources = [
      */
     { name: "forest",  type:"image", src: "data/img/forest.png" },
     { name: "meta_collide",  type:"image", src: "data/img/meta_collide.png" },
-    { name: "Blank_Sprite_Sheet_4_2_by_KnightYamato", type:"image", src: "data/img/Blank_Sprite_Sheet_4_2_by_KnightYamato.png" },
+    { name: "Papa_Squat-01", type:"image", src: "data/img/Papa_Squat-01.png" },
 
     /* Maps.
      * @example

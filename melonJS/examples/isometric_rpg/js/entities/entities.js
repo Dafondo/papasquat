@@ -24,14 +24,14 @@ game.PlayerEntity = me.Entity.extend({
 
         // the main player spritesheet
         var texture =  new me.video.renderer.Texture(
-            { framewidth: 32, frameheight: 32 },
-            me.loader.getImage("Blank_Sprite_Sheet_4_2_by_KnightYamato")
+            { framewidth: 640, frameheight: 1024 },
+            me.loader.getImage("Papa_Squat-01")
         );
 
         // create a new sprite object
-        this.renderable = texture.createAnimationFromName([0, 1, 2, 3, 4, 5, 6, 7, 8]);
+        this.renderable = texture.createAnimationFromName([0]);
         // define an additional basic walking animation
-        this.renderable.addAnimation ("simple_walk", [0,1,2]);
+        this.renderable.addAnimation ("simple_walk", [0]);
 
         // set the renderable position to bottom center
         this.anchorPoint.set(0.5, 0.5);
