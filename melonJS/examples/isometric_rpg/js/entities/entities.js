@@ -8,6 +8,7 @@ game.PlayerEntity = me.Entity.extend({
     init: function(x, y, settings) {
         // call the constructor
         this._super(me.Entity, "init", [x, y , settings]);
+        this.body.collisionType = me.collision.types.PLAYER_OBJECT;
 
         // walking & jumping speed
         this.body.setVelocity(2.5, 2.5);
@@ -88,9 +89,19 @@ game.PlayerEntity = me.Entity.extend({
      * colision handler
      * (called when colliding with other objects)
      */
-    onCollision : function (/*response, other*/) {
+    onCollision : function (response, other) {
         // Make all other objects solid
-        return true;
+
+        switch(other.body.collisionType){
+            case game.collisionTypes.PUDDLE:
+             return false;
+            case game.collisionTypes.FOOD:
+            case game.collisionTypes.PLANT:
+                return true;
+            default:
+                return true;
+        }
+        
     }
 });
 
