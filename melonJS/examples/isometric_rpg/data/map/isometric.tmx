@@ -17,6 +17,10 @@
  <objectgroup id="3" name="Player">
   <object id="1" name="mainPlayer" type="actor1m" x="96" y="96" width="32" height="32"/>
  </objectgroup>
+ 
+ <objectgroup id="3" name="Plant">
+  <object id="1" name="plant" type="actoasdfm" x="46" y="46" width="32" height="32"/>
+ </objectgroup>
 
  <layer id="4" name="level 3" width="20" height="20">
 
