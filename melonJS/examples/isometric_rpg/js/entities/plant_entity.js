@@ -16,12 +16,18 @@ game.PlantEntity = me.Entity.extend({
         );
 
         // create a new sprite object
-        this.renderable = texture.createAnimationFromName([0]);
+        this.renderable = texture.createAnimationFromName([0, 1, 2]);
         // define an additional basic walking animation
-        this.renderable.addAnimation ("simple_walk", [0]);
+        this.renderable.addAnimation ("healthy", [0]);
+        this.renderable.addAnimation ("sick", [1]);
+        this.renderable.addAnimation ("dead", [2]);
+        
+        this.state = "healthy";
 
         // set the renderable position to bottom center
         this.anchorPoint.set(0.5, 0.5);
+        
+        me.input.registerPointerEvent("pointerdown", this, this.onMouseDown.bind(this));
     },
 
     /* -----
@@ -33,6 +39,40 @@ game.PlantEntity = me.Entity.extend({
         
         
     },
+    
+    onMouseDown : function() {
+        console.log("peed");
+        if (this.state === "healthy") {
+            this.state = "sick";
+            // set touch animation
+            this.renderable.setCurrentAnimation("sick");
+            // make it flicker
+            //this.renderable.flicker(75);
+            // play ow FX
+            
+
+            game.data.urine = 0;
+
+           
+            return false;
+
+        }
+        if (this.state === "sick") {
+            this.state = "dead";
+            // set touch animation
+            this.renderable.setCurrentAnimation("dead");
+            // make it flicker
+            //this.renderable.flicker(75);
+            // play ow FX
+            
+
+            game.data.urine = 0;
+
+           
+            return false;
+
+        }
+},
 
     /**
      * colision handler

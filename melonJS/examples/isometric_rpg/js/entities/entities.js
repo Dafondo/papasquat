@@ -29,9 +29,9 @@ game.PlayerEntity = me.Entity.extend({
         );
 
         // create a new sprite object
-        this.renderable = texture.createAnimationFromName([0]);
+        this.renderable = texture.createAnimationFromName([0, 2, 4, 6, 8, 10, 12, 14]);
         // define an additional basic walking animation
-        this.renderable.addAnimation ("simple_walk", [0]);
+        this.renderable.addAnimation ("simple_walk", [0, 2, 4, 6, 8, 10, 12]);
 
         // set the renderable position to bottom center
         this.anchorPoint.set(0.5, 0.5);

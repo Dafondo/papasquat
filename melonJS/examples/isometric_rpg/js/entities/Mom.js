@@ -60,7 +60,7 @@ game.MomEntity = me.Entity.extend({
      * (called when colliding with other objects)
      */
     onCollision : function (response, other) {
-        console.log(response, other)
+        //console.log(response, other)
         if (response.b.body.collisionType !== me.collision.types.WORLD_SHAPE) {
              // res.y >0 means touched by something on the bottom
              // which mean at top position for this one
