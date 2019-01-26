@@ -49,6 +49,7 @@ game.MomEntity = me.Entity.extend({
 
         // handle collisions against other shapes
         me.collision.check(this);
+        me.collision.rayCast()
 
         // check if we moved (an "idle" animation would definitely be cleaner)
         if (this.body.vel.x !== 0 || this.body.vel.y !== 0) {
