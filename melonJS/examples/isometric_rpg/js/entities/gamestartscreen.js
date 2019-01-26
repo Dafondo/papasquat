@@ -1,9 +1,9 @@
 /**
  * a HUD container and child items
  */
-game.EndScreen = game.EndScreen || {};
+game.StartScreen = game.StartScreen || {};
 
-game.EndScreen.Container = me.Container.extend({
+game.StartScreen.Container = me.Container.extend({
   init: function () {
     // call the constructor
     this._super(me.Container, 'init');
@@ -15,14 +15,14 @@ game.EndScreen.Container = me.Container.extend({
     this.floating = true;
 
     // give a name
-    this.name = "EndScreen";
+    this.name = "StartScreen";
 
     // add our child score object
     
     
     var texture =  new me.video.renderer.Texture(
             { framewidth: 800, frameheight: 600 },
-            me.loader.getImage("END-SCREEN")
+            me.loader.getImage("START-SCREEN")
         );
     this.panelSprite = texture.createSpriteFromName(0);
     this.panelSprite.anchorPoint.set(0, 0);
