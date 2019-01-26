@@ -89,9 +89,19 @@ game.PlayerEntity = me.Entity.extend({
      * colision handler
      * (called when colliding with other objects)
      */
-    onCollision : function (/*response, other*/) {
+    onCollision : function (response, other) {
         // Make all other objects solid
-        return true;
+
+        switch(other.body.collisionType){
+            case game.collisionTypes.PUDDLE:
+             return false;
+            case game.collisionTypes.FOOD:
+            case game.collisionTypes.PLANT:
+                return true;
+            default:
+                return true;
+        }
+        
     }
 });
 
