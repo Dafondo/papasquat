@@ -47,6 +47,11 @@ game.PlayerEntity = me.Entity.extend({
         game.data.urine += .03
         game.data.food -= .01
 
+        if (game.data.food < 0){
+            this.alive = false;
+            me.state.change(me.state.GAMEOVER);
+        }
+
         if ( game.data.urine > 100 ){
            me.audio.play("Piss");
            var puddle = me.pool.pull("puddle", this.pos.x, this.pos.y, {});
