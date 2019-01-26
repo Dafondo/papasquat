@@ -7,12 +7,12 @@
 game.PlantEntity = me.Entity.extend({
     init: function(x, y, settings) {
         // call the constructor
-        this._super(me.Entity, "init", [x, y , {width:32, height:32}]);
+        this._super(me.Entity, "init", [x, y , {width:64, height:128}]);
         this.body.collisionType = game.collisionTypes.PLANT;
 
         
         var texture =  new me.video.renderer.Texture(
-            { framewidth: 200, frameheight: 300 },
+            { framewidth: 64, frameheight: 128 },
             me.loader.getImage("plant")
         );
 

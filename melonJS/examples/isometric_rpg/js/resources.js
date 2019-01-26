@@ -13,7 +13,7 @@ game.resources = [
 
     { name: "Papa_Pee", type:"image", src: "data/img/peetimsheet.png" },
     { name: "Mama_Squat-01", type:"image", src: "data/img/Mama_Squat-01.png" },
-    { name: "plant", type:"image", src: "data/img/plansheet.png"},
+    { name: "plant", type:"image", src: "data/img/plasheet.png"},
 
     { name: "floortiles", type:"image", src: "data/img/floortiles.png"},
     { name: "floortiles", type:"tsx", src: "data/map/floortiles.tsx"},
