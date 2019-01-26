@@ -57,7 +57,7 @@ game.PlantEntity = me.Entity.extend({
             return false;
 
         }
-        if (this.state === "sick") {
+        if (this.state === "sick" || this.state === "dead") {
             this.state = "dead";
             // set touch animation
             this.renderable.setCurrentAnimation("dead");
