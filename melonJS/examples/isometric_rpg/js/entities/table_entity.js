@@ -18,13 +18,15 @@ game.TableEntity = me.Entity.extend({
         );
 
         // create a new sprite object
-        this.renderable = texture.createAnimationFromName([0, 1, 2, 3, 4, 5]);
+        this.renderable = texture.createAnimationFromName([0, 1, 2, 3, 4]);
         // define an additional basic walking animation
-        this.renderable.addAnimation ("empty", [0]);
-        this.renderable.addAnimation ("sick", [1]);
-        this.renderable.addAnimation ("dead", [2]);
+        this.renderable.addAnimation ("empty", [2]);
+        this.renderable.addAnimation ("a", [1]);
+        this.renderable.addAnimation ("b", [2]);
+        this.renderable.addAnimation ("c", [3]);
+        this.renderable.addAnimation ("d", [4]);
         
-        this.state = "healthy";
+        this.state = "empty";
 
         // set the renderable position to bottom center
         this.anchorPoint.set(0.5, -.7);
@@ -43,37 +45,24 @@ game.TableEntity = me.Entity.extend({
     },
     
     onMouseDown : function() {
-        console.log("peed");
-        if (this.state === "healthy") {
-            this.state = "sick";
+        console.log("ate");
+        if (this.state === "full") {
+            this.state = "empty";
             // set touch animation
             this.renderable.setCurrentAnimation("sick");
             // make it flicker
             //this.renderable.flicker(75);
-            // play ow FX
+            
+            me.audio.play("BREAKING NEWS", false, null, .5);
             
 
-            game.data.urine = 0;
+            game.data.food = 100;
 
            
             return false;
 
         }
-        if (this.state === "sick" || this.state === "dead") {
-            this.state = "dead";
-            // set touch animation
-            this.renderable.setCurrentAnimation("dead");
-            // make it flicker
-            //this.renderable.flicker(75);
-            // play ow FX
-            
-
-            game.data.urine = 0;
-
-           
-            return false;
-
-        }
+        
 },
 
     /**
