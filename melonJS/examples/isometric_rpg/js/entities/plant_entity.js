@@ -8,6 +8,7 @@ game.PlantEntity = me.Entity.extend({
     init: function(x, y, settings) {
         // call the constructor
         this._super(me.Entity, "init", [x, y , {width:32, height:32}]);
+        this.body.collisionType = game.collisionTypes.PLANT;
 
         
         var texture =  new me.video.renderer.Texture(

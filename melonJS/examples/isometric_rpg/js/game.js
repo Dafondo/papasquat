@@ -41,3 +41,9 @@ var game = {
         me.state.change(me.state.PLAY);
     }
 };
+
+game.collisionTypes = {
+    PUDDLE : me.collision.types.USER << 0,
+    PLANT : me.collision.types.USER << 1,
+    FOOD : me.collision.types.USER << 2,
+};
