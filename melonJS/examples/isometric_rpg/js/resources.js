@@ -26,6 +26,12 @@ game.resources = [
     { name: "sofaimages", type:"image", src: "data/img/sofaimages.png"},
     { name: "sofaimages", type:"tsx", src: "data/map/sofaimages.tsx"},
 
+    { name: "toilet-block", type:"image", src: "data/img/toilet-block.png"},
+    { name: "toilet-block", type:"tsx", src: "data/map/toilet-block.tsx"},
+
+    { name: "stove1-02", type:"image", src: "data/img/stove1-02.png"},
+    { name: "stove1-02", type:"tsx", src: "data/map/stove1-02.tsx"},
+
     { name: "wardrobe-block", type:"image", src: "data/img/wardrobe-block.png"},
     { name: "wardrobe-block", type:"tsx", src: "data/map/wardrobe-block.tsx"},
 
