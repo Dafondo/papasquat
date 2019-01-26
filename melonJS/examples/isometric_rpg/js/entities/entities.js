@@ -24,7 +24,7 @@ game.PlayerEntity = me.Entity.extend({
 
         // the main player spritesheet
         var texture =  new me.video.renderer.Texture(
-            { framewidth: 640, frameheight: 1024 },
+            { framewidth: 200, frameheight: 300 },
             me.loader.getImage("Papa_Squat-01")
         );
 
