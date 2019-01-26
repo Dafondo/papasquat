@@ -20,11 +20,12 @@ game.TableEntity = me.Entity.extend({
         // create a new sprite object
         this.renderable = texture.createAnimationFromName([0, 1, 2, 3, 4]);
         // define an additional basic walking animation
+        
+        this.renderable.addAnimation ("a", [0]);
+        this.renderable.addAnimation ("b", [1]);
         this.renderable.addAnimation ("empty", [2]);
-        this.renderable.addAnimation ("a", [1]);
-        this.renderable.addAnimation ("b", [2]);
-        this.renderable.addAnimation ("c", [3]);
-        this.renderable.addAnimation ("d", [4]);
+        this.renderable.addAnimation ("c", [2]);
+        this.renderable.addAnimation ("d", [3]);
         
         this.state = "empty";
 
@@ -49,11 +50,11 @@ game.TableEntity = me.Entity.extend({
         if (this.state === "full") {
             this.state = "empty";
             // set touch animation
-            this.renderable.setCurrentAnimation("sick");
+            this.renderable.setCurrentAnimation("empty");
             // make it flicker
             //this.renderable.flicker(75);
             
-            me.audio.play("BREAKING NEWS", false, null, .5);
+            me.audio.play("Food Get", false, null, .5);
             
 
             game.data.food = 100;
