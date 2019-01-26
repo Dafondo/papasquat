@@ -8,7 +8,6 @@ game.MomEntity = me.Entity.extend({
     init: function(x, y, settings) {
         // call the constructor
         this._super(me.Entity, "init", [x, y , settings]);
-        this.body.collisionType = game.collisionTypes.MOM;
 
         // walking & jumping speed
         this.body.setVelocity(2.5, 2.5);
@@ -18,7 +17,7 @@ game.MomEntity = me.Entity.extend({
 
         // the main player spritesheet
         var texture =  new me.video.renderer.Texture(
-            { framewidth: 200, frameheight: 300 },
+            { framewidth: 64, frameheight: 128 },
             me.loader.getImage("Mama_Squat-01")
         );
 

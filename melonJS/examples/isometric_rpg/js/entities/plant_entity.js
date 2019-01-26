@@ -7,6 +7,7 @@
 game.PlantEntity = me.Entity.extend({
     init: function(x, y, settings) {
         // call the constructor
+        game.data.player = this
         this._super(me.Entity, "init", [x, y , {width:64, height:128}]);
         this.body.collisionType = game.collisionTypes.PLANT;
 

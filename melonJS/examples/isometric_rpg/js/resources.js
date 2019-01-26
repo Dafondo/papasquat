@@ -9,10 +9,10 @@ game.resources = [
 
     { name: "Papa_Squat-01", type:"image", src: "data/img/walksisheet.png" },
 
-    { name: "Papa_Squat-small", type:"image", src: "data/img/Papa_Squat-small.png" },
+    
 
     { name: "Papa_Pee", type:"image", src: "data/img/peetimsheet.png" },
-    { name: "Mama_Squat-01", type:"image", src: "data/img/Mama_Squat-01.png" },
+    { name: "Mama_Squat-01", type:"image", src: "data/img/mamawalsheet.png" },
     { name: "plant", type:"image", src: "data/img/plasheet.png"},
 
     { name: "floortiles", type:"image", src: "data/img/floortiles.png"},
