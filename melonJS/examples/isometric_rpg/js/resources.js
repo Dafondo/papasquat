@@ -30,9 +30,18 @@ game.resources = [
 
     { name: "toilet-block", type:"image", src: "data/img/toilet-block.png"},
     { name: "toilet-block", type:"tsx", src: "data/map/toilet-block.tsx"},
+    
+    { name: "toilet-block2", type:"image", src: "data/img/toilet-block2.png"},
+    { name: "toilet-block2", type:"tsx", src: "data/map/toilet-block.tsx"},
+
+    { name: "tub_shower-02", type:"image", src: "data/img/tub_shower-02.png"},
+    { name: "tub_shower-02", type:"tsx", src: "data/map/tub_shower-02.tsx"},
 
     { name: "stove1-02", type:"image", src: "data/img/stove1-02.png"},
     { name: "stove1-02", type:"tsx", src: "data/map/stove1-02.tsx"},
+
+    { name: "bathroom-sink-01", type:"image", src: "data/img/bathroom-sink-01.png"},
+    { name: "bathroom-sink-01", type:"tsx", src: "data/map/bathroom-sink-01.tsx"},
 
     { name: "wardrobe-block", type:"image", src: "data/img/wardrobe-block.png"},
     { name: "wardrobe-block", type:"tsx", src: "data/map/wardrobe-block.tsx"},
