@@ -8,7 +8,7 @@ game.PlantEntity = me.Entity.extend({
     init: function(x, y, settings) {
         // call the constructor
         game.data.player = this
-        this._super(me.Entity, "init", [x, y , {width:64, height:128}]);
+        this._super(me.Entity, "init", [x, y , {width:48, height:32}]);
         this.body.collisionType = game.collisionTypes.PLANT;
 
         
@@ -27,7 +27,7 @@ game.PlantEntity = me.Entity.extend({
         this.state = "healthy";
 
         // set the renderable position to bottom center
-        this.anchorPoint.set(0.5, 0.5);
+        this.anchorPoint.set(0.5, -.7);
         
         me.input.registerPointerEvent("pointerdown", this, this.onMouseDown.bind(this));
     },
