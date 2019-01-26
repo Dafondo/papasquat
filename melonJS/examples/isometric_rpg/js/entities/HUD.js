@@ -18,44 +18,7 @@ game.HUD.Container = me.Container.extend({
     this.name = "HUD";
 
     // add our child score object
-    this.addChild(new game.HUD.ScoreItem(-10, -10));
-  }
-});
-
-/**
- * a basic HUD item to display score
- */
-game.HUD.ScoreItem = me.Renderable.extend({
-  /**
-   * constructor
-   */
-  init : function (x, y) {
-      // call the parent constructor
-      // (size does not matter here)
-      this._super(me.Renderable, 'init', [x, y, 10, 10]);
-
-      // local copy of the global score
-      this.score = -1;
-  },
-
-  /**
-   * update function
-   */
-  update : function (dt) {
-    // we don't do anything fancy here, so just
-    // return true if the score has been updated
-    if (this.score !== game.data.score) {
-      this.score = game.data.score;
-      return true;
-    }
-    return false;
-  },
-
-  /**
-   * draw the score
-   */
-  draw : function (renderer) {
-    // draw it baby !
+    this.addChild(new game.HUD.ScoreItem(-90, -10));
   }
 });
 
@@ -70,7 +33,7 @@ game.HUD.ScoreItem = me.Renderable.extend( {
   init : function (x, y) {
     // call the parent constructor
     // (size does not matter here)
-    this._super(me.Renderable, 'init', [x, y, 10, 10]);
+    this._super(me.Renderable, 'init', [x, y, 90, 10]);
 
     // create the font object
     this.font = new me.Font("Arial", 30, "#FF00FF");
@@ -107,6 +70,7 @@ game.HUD.ScoreItem = me.Renderable.extend( {
    * draw the score
    */
   draw : function (renderer) {
+        //renderer.fill(me.Rect(me.game.viewport.width + this.pos.x, me.game.viewport.height + this.pos.y,  -this.pos.x, -this.pos.y));
         // this.pos.x, this.pos.y are the relative position from the screen right bottom
 		this.font.draw (renderer, "URINE: " + Math.round(game.data.urine), me.game.viewport.width + this.pos.x, me.game.viewport.height + this.pos.y);
 		this.font.draw (renderer, "FOOD: " + Math.round(game.data.food), me.game.viewport.width + this.pos.x, me.game.viewport.height + this.pos.y - 40)
