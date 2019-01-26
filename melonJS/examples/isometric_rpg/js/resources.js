@@ -9,13 +9,14 @@ game.resources = [
 
     { name: "Papa_Squat-01", type:"image", src: "data/img/walksisheet.png" },
 
-    
+
 
     { name: "Papa_Pee", type:"image", src: "data/img/peetisheet.png" },
     { name: "Mama_Squat-01", type:"image", src: "data/img/mamawalsheet.png" },
     { name: "Son_Squat-01", type:"image", src: "data/img/sonwalsheet.png" },
     { name: "Susie_Squat-01", type:"image", src: "data/img/susiewalsheet.png" },
     { name: "plant", type:"image", src: "data/img/plasheet.png"},
+    { name: "table", type:"image", src: "data/img/tabsheet.png"},
 
     { name: "floortiles", type:"image", src: "data/img/floortiles.png"},
     { name: "floortiles", type:"tsx", src: "data/map/floortiles.tsx"},
@@ -43,9 +44,9 @@ game.resources = [
 
     { name: "BED-pink-01", type:"image", src: "data/img/BED-pink-01.png"},
     { name: "BED-pink-01", type:"tsx", src: "data/map/BED-pink-01.tsx"},
-    
+
     { name: "END-SCREEN", type:"image", src: "data/img/END-SCREEN-01.png"},
-    {name: "START-SCREEN", type:"data\img\Papa_Squat_start_screen.jpg"},
+    {name: "START-SCREEN", type:"image", src: "data/img/Papa_Squat_start_screen.jpg"},
 
     /* Maps.
      * @example
