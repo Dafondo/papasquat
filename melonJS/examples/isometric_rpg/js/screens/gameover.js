@@ -3,6 +3,8 @@ game.GameOverScreen = me.ScreenObject.extend({
      * action to perform on state change
      */
     onResetEvent : function () {
+      this.EndScreen = new game.EndScreen.Container();
+      me.game.world.addChild(this.EndScreen);
 
       // change to play state on press Enter or click/tap
       me.input.bindKey(me.input.KEY.ENTER, "enter", true);

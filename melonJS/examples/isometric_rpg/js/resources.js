@@ -37,6 +37,8 @@ game.resources = [
 
     { name: "BED-pink-01", type:"image", src: "data/img/BED-pink-01.png"},
     { name: "BED-pink-01", type:"tsx", src: "data/map/BED-pink-01.tsx"},
+    
+    { name: "END-SCREEN", type:"image", src: "data/img/END-SCREEN-01.png"},
 
     /* Maps.
      * @example
