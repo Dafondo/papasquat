@@ -108,8 +108,8 @@ game.HUD.ScoreItem = me.Renderable.extend( {
    */
   draw : function (renderer) {
         // this.pos.x, this.pos.y are the relative position from the screen right bottom
-		this.font.draw (renderer, "URINE: " + game.data.urine, me.game.viewport.width + this.pos.x, me.game.viewport.height + this.pos.y);
-		this.font.draw (renderer, "FOOD: " + game.data.food, me.game.viewport.width + this.pos.x, me.game.viewport.height + this.pos.y - 40)
+		this.font.draw (renderer, "URINE: " + Math.round(game.data.urine), me.game.viewport.width + this.pos.x, me.game.viewport.height + this.pos.y);
+		this.font.draw (renderer, "FOOD: " + Math.round(game.data.food), me.game.viewport.width + this.pos.x, me.game.viewport.height + this.pos.y - 40)
   }
 });
 

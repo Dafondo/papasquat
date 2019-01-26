@@ -43,6 +43,8 @@ game.PlayerEntity = me.Entity.extend({
 
     ------            */
     update : function (dt) {
+        game.data.urine += .03
+        game.data.food -= .01
 
         if (me.input.isKeyPressed("left")) {
             // update the entity velocity
