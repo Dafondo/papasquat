@@ -18,9 +18,9 @@ for folder in filter(os.path.isdir, os.listdir()):
            print(images[-1].shape)
            
            images[-1] = cv2.resize(images[-1], (64, 128))
-           #cv2.imshow("k", images[-1])
+           cv2.imshow("k", images[-1])
            #print(images[-1].shape)
-           #cv2.waitKey(30)
+           cv2.waitKey(30)
        else:
            images.append(cv2.imread(folder + "/" + f, cv2.IMREAD_UNCHANGED))
             

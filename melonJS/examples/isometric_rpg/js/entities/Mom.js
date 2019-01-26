@@ -84,7 +84,7 @@ game.SusieEntity = me.Entity.extend({
         this.body.setVelocity(2.5, 2.5);
         this.body.setFriction(0.4,0.4);
 
-        
+        this.body.collisionType = game.collisionTypes.MOM;
 
         // the main player spritesheet
         var texture =  new me.video.renderer.Texture(
@@ -154,7 +154,7 @@ game.SonEntity = me.Entity.extend({
         this.body.setVelocity(2.5, 2.5);
         this.body.setFriction(0.4,0.4);
 
-        
+        this.body.collisionType = game.collisionTypes.MOM;
 
         // the main player spritesheet
         var texture =  new me.video.renderer.Texture(
