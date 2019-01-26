@@ -7,7 +7,7 @@ game.resources = [
     { name: "forest",  type:"image", src: "data/img/forest.png" },
     { name: "meta_collide",  type:"image", src: "data/img/meta_collide.png" },
 
-    { name: "Papa_Squat-01", type:"image", src: "data/img/walksidsheet.png" },
+    { name: "Papa_Squat-01", type:"image", src: "data/img/walksisheet.png" },
 
     { name: "Papa_Squat-small", type:"image", src: "data/img/Papa_Squat-small.png" },
 
@@ -52,7 +52,7 @@ game.resources = [
      * @example
      * { name: "example_sfx", type: "audio", src: "data/sfx/" }
      */
-    { name: "pee", type: "audio", src: "data/sfx/Piss.mp3" }
+    //{ name: "pee", type: "audio", src: "data/sfx/Piss.mp3" }
     /* Atlases
      * @example
      * { name: "example_tps", type: "json", src: "data/img/example_tps.json" },
