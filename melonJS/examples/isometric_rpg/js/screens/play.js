@@ -17,6 +17,7 @@ game.PlayScreen = me.Stage.extend({
         
         game.data.urine = 0;
         game.data.food = 100;
+        me.audio.play("Gameplay Theme (Day)", false, null, .5);
 
         // display a basic tile selector
         me.game.world.addChild(new (me.Renderable.extend({

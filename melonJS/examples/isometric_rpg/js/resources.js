@@ -56,7 +56,14 @@ game.resources = [
      * @example
      * { name: "example_sfx", type: "audio", src: "data/sfx/" }
      */
-    //{ name: "pee", type: "audio", src: "data/sfx/Piss.mp3" }
+    { name: "Piss", type: "audio", src: "data/sfx/" },
+    { name: "Lose", type: "audio", src: "data/sfx/" },
+    { name: "Gameplay Theme (Day)", type: "audio", src: "data/sfx/" },
+    { name: "Game Over Screen Theme", type: "audio", src: "data/sfx/" },
+    { name: "Toilet Flush", type: "audio", src: "data/sfx/" },
+    { name: "Cabinet Close", type: "audio", src: "data/sfx/" },
+    { name: "Cabinet Open", type: "audio", src: "data/sfx/" },
+    { name: "BREAKING NEWS", type: "audio", src: "data/sfx/" },
     /* Atlases
      * @example
      * { name: "example_tps", type: "json", src: "data/img/example_tps.json" },
