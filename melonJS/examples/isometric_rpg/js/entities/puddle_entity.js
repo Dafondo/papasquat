@@ -12,7 +12,7 @@ game.PuddleEntity = me.Entity.extend({
         
         var texture =  new me.video.renderer.Texture(
             { framewidth: 64, frameheight: 32 },
-            me.loader.getImage("floortiles")
+            me.loader.getImage("floorimages")
         );
 
         // create a new sprite object
