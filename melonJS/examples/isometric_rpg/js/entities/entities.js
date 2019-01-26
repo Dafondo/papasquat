@@ -98,8 +98,10 @@ game.PlayerEntity = me.Entity.extend({
             case game.collisionTypes.FOOD:
             case game.collisionTypes.PLANT:
                 return true;
+            case me.collision.types.ENEMY_OBJECT:
+                me.state.change(me.state.GAMEOVER);
             default:
-                return true;
+                return true
         }
         
     }
