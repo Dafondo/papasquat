@@ -47,4 +47,5 @@ game.collisionTypes = {
     PUDDLE : me.collision.types.USER << 0,
     PLANT :  me.collision.types.USER << 1,
     FOOD : me.collision.types.USER << 2,
+    MOM : me.collision.types.USER << 3
 };
