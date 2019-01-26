@@ -9,6 +9,7 @@ game.MomEntity = me.Entity.extend({
         // call the constructor
         this._super(me.Entity, "init", [x, y , settings]);
         this.body.collisionType = game.collisionTypes.MOM;
+        this.alwaysUpdate = true;
 
         // walking & jumping speed
         this.body.setVelocity(2.5, 2.5);
@@ -41,13 +42,14 @@ game.MomEntity = me.Entity.extend({
         this.body.vel.y += 12 * ( Math.random() - .5);
         
 
-        
+        console.log("THIS IS A TEST");
 
         // apply physics to the body (this moves the entity)
         this.body.update(dt);
 
         // handle collisions against other shapes
         me.collision.check(this);
+        me.collision.rayCast()
 
         // check if we moved (an "idle" animation would definitely be cleaner)
         if (this.body.vel.x !== 0 || this.body.vel.y !== 0) {
@@ -79,6 +81,7 @@ game.SusieEntity = me.Entity.extend({
     init: function(x, y, settings) {
         // call the constructor
         this._super(me.Entity, "init", [x, y , settings]);
+        this.alwaysUpdate = true;
 
         // walking & jumping speed
         this.body.setVelocity(2.5, 2.5);
@@ -109,9 +112,6 @@ game.SusieEntity = me.Entity.extend({
     update : function (dt) {
         this.body.vel.x += 12 * ( Math.random() - .5);
         this.body.vel.y += 12 * ( Math.random() - .5);
-        
-
-        
 
         // apply physics to the body (this moves the entity)
         this.body.update(dt);
@@ -149,6 +149,7 @@ game.SonEntity = me.Entity.extend({
     init: function(x, y, settings) {
         // call the constructor
         this._super(me.Entity, "init", [x, y , settings]);
+        this.alwaysUpdate = true;
 
         // walking & jumping speed
         this.body.setVelocity(2.5, 2.5);

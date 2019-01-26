@@ -45,6 +45,7 @@ game.PlantEntity = me.Entity.extend({
     onMouseDown : function() {
         console.log("peed");
         if (this.state === "healthy") {
+            me.audio.play("Piss");
             this.state = "sick";
             // set touch animation
             this.renderable.setCurrentAnimation("sick");
@@ -60,6 +61,7 @@ game.PlantEntity = me.Entity.extend({
 
         }
         if (this.state === "sick" || this.state === "dead") {
+            me.audio.play("Piss");
             this.state = "dead";
             // set touch animation
             this.renderable.setCurrentAnimation("dead");

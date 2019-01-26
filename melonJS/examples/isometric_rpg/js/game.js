@@ -16,6 +16,7 @@ var game = {
         }
 
         // set all ressources to be loaded
+        me.audio.init("mp3,ogg");
         me.loader.preload(game.resources, this.loaded.bind(this));
     },
 
