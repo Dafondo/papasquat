@@ -33,6 +33,7 @@ var game = {
 
         // register our objects entity in the object pool
         me.pool.register("mainPlayer", game.PlayerEntity);
+        me.pool.register("puddle", game.PuddleEntity);
 
         // switch to PLAY state
         me.state.change(me.state.PLAY);

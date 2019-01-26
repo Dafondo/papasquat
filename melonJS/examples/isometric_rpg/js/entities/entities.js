@@ -45,6 +45,12 @@ game.PlayerEntity = me.Entity.extend({
     update : function (dt) {
         game.data.urine += .03
         game.data.food -= .01
+        
+        if ( game.data.urine > 100 ){
+           var puddle = me.pool.pull("puddle", this.pos.x, this.pos.y, {});
+           me.game.world.addChild(puddle);
+           game.data.urine = 1;
+        }
 
         if (me.input.isKeyPressed("left")) {
             // update the entity velocity
