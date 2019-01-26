@@ -24,8 +24,8 @@ game.TableEntity = me.Entity.extend({
         this.renderable.addAnimation ("a", [0]);
         this.renderable.addAnimation ("b", [1]);
         this.renderable.addAnimation ("empty", [2]);
-        this.renderable.addAnimation ("c", [2]);
-        this.renderable.addAnimation ("d", [3]);
+        this.renderable.addAnimation ("c", [3]);
+        this.renderable.addAnimation ("d", [4]);
         
         this.renderable.setCurrentAnimation(["a", "b", "c", "d"][Math.floor(Math.random() * 4)]);
         
