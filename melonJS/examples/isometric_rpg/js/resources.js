@@ -16,7 +16,6 @@ game.resources = [
     { name: "Son_Squat-01", type:"image", src: "data/img/sonwalsheet.png" },
     { name: "Susie_Squat-01", type:"image", src: "data/img/susiewalsheet.png" },
     { name: "plant", type:"image", src: "data/img/plasheet.png"},
-    { name: "table", type:"image", src: "data/img/tabsheet.png"},
 
     { name: "floortiles", type:"image", src: "data/img/floortiles.png"},
     { name: "floortiles", type:"tsx", src: "data/map/floortiles.tsx"},
@@ -46,6 +45,7 @@ game.resources = [
     { name: "BED-pink-01", type:"tsx", src: "data/map/BED-pink-01.tsx"},
     
     { name: "END-SCREEN", type:"image", src: "data/img/END-SCREEN-01.png"},
+    {name: "START-SCREEN", type:"data\img\Papa_Squat_start_screen.jpg"},
 
     /* Maps.
      * @example
@@ -71,7 +71,6 @@ game.resources = [
     { name: "Cabinet Close", type: "audio", src: "data/sfx/" },
     { name: "Cabinet Open", type: "audio", src: "data/sfx/" },
     { name: "BREAKING NEWS", type: "audio", src: "data/sfx/" },
-    { name: "Food Get", type: "audio", src: "data/sfx/" },
     /* Atlases
      * @example
      * { name: "example_tps", type: "json", src: "data/img/example_tps.json" },
