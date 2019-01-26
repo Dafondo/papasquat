@@ -24,8 +24,8 @@ game.PlayerEntity = me.Entity.extend({
 
         // the main player spritesheet
         var texture =  new me.video.renderer.Texture(
-            { framewidth: 200, frameheight: 300 },
-            me.loader.getImage("Papa_Squat-01")
+            { framewidth: 64, frameheight: 128 },
+            me.loader.getImage("Papa_Squat-small")
         );
 
         // create a new sprite object
@@ -34,7 +34,7 @@ game.PlayerEntity = me.Entity.extend({
         this.renderable.addAnimation ("simple_walk", [0]);
 
         // set the renderable position to bottom center
-        this.anchorPoint.set(0.5, 0.5);
+        this.anchorPoint.set(0.5, -1);
     },
 
     /* -----
@@ -45,7 +45,7 @@ game.PlayerEntity = me.Entity.extend({
     update : function (dt) {
         game.data.urine += .03
         game.data.food -= .01
-        
+
         if ( game.data.urine > 100 ){
            var puddle = me.pool.pull("puddle", this.pos.x, this.pos.y, {});
            me.game.world.addChild(puddle);
