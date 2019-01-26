@@ -27,6 +27,7 @@ var game = {
 
         // set the "Play/Ingame" Screen Object
         me.state.set(me.state.PLAY, new game.PlayScreen());
+        me.state.set(me.state.GAMEOVER, new game.GameOverScreen());
 
         // set the fade transition effect
         me.state.transition("fade","#FFFFFF", 250);
@@ -44,6 +45,6 @@ var game = {
 
 game.collisionTypes = {
     PUDDLE : me.collision.types.USER << 0,
-    PLANT : me.collision.types.USER << 1,
+    PLANT :  me.collision.types.USER << 1,
     FOOD : me.collision.types.USER << 2,
 };

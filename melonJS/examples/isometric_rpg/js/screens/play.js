@@ -113,8 +113,8 @@ game.PlayScreen = me.Stage.extend({
     onDestroyEvent: function() {
         // unsubscribe to all events
         me.game.world.removeChild(this.HUD);
-        me.event.unsubscribe(this.pointerEvent);
-        me.event.unsubscribe(this.viewportEvent);
+        //me.event.unsubscribe(this.pointerEvent);
+        //me.event.unsubscribe(this.viewportEvent);
         me.input.releasePointerEvent("pointermove", me.game.viewport);
     }
 });
