@@ -17,6 +17,7 @@ game.resources = [
     { name: "Susie_Squat-01", type:"image", src: "data/img/susiewalsheet.png" },
     { name: "plant", type:"image", src: "data/img/plasheet.png"},
     { name: "table", type:"image", src: "data/img/tabsheet.png"},
+    { name: "wardrobe", type:"image", src: "data/img/hide-wardrobe-ansheet.png"},
 
     { name: "floortiles", type:"image", src: "data/img/floortiles.png"},
     { name: "floortiles", type:"tsx", src: "data/map/floortiles.tsx"},
