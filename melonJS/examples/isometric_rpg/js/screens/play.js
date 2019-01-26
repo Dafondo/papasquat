@@ -1,3 +1,5 @@
+game.data = game.data || {};
+
 game.PlayScreen = me.Stage.extend({
     /**
      *  action to perform on state change
@@ -9,6 +11,12 @@ game.PlayScreen = me.Stage.extend({
 
         // load a level
         me.levelDirector.loadLevel("isometric");
+        
+        this.HUD = new game.HUD.Container();
+        me.game.world.addChild(this.HUD);
+        
+        game.data.urine = 0;
+        game.data.food = 100;
 
         // display a basic tile selector
         me.game.world.addChild(new (me.Renderable.extend({
@@ -35,7 +43,7 @@ game.PlayScreen = me.Stage.extend({
                 this.currentTile = null;
 
                 // simple font to display tile coordinates
-                this.font = new me.Font("Arial", 10, "#FFFFFF");
+                this.font = new me.Font("Arial", 10, "#FF00FF");
                 this.font.textAlign = "center";
 
                 // dirty flag to enable/disable redraw
@@ -104,6 +112,7 @@ game.PlayScreen = me.Stage.extend({
      */
     onDestroyEvent: function() {
         // unsubscribe to all events
+        me.game.world.removeChild(this.HUD);
         me.event.unsubscribe(this.pointerEvent);
         me.event.unsubscribe(this.viewportEvent);
         me.input.releasePointerEvent("pointermove", me.game.viewport);
