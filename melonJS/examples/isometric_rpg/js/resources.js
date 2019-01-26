@@ -35,7 +35,7 @@ game.resources = [
      * @example
      * { name: "example_sfx", type: "audio", src: "data/sfx/" }
      */
-
+    { name: "pee", type: "audio", src: "data/sfx/Piss.mp3" }
     /* Atlases
      * @example
      * { name: "example_tps", type: "json", src: "data/img/example_tps.json" },
