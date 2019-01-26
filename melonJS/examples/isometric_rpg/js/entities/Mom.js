@@ -42,14 +42,28 @@ game.MomEntity = me.Entity.extend({
         this.body.vel.y += 12 * ( Math.random() - .5);
         
 
-        console.log("THIS IS A TEST");
+        // console.log("THIS IS A TEST");
 
         // apply physics to the body (this moves the entity)
         this.body.update(dt);
 
         // handle collisions against other shapes
         me.collision.check(this);
-        me.collision.rayCast()
+
+        // var ray = new me.Line(
+        //     // absolute position of the line
+        //     0, 0, [
+        //     // starting point relative to the initial position
+        //     new me.Vector2d(0, 0),
+        //     // ending point
+        //     new me.Vector2d(me.game.viewport.width, me.game.viewport.height)
+        // ]);
+
+        // result = me.collision.rayCast(ray);
+
+        // if(result.length > 0 ){
+        //     console.log(result);
+        // }
 
         // check if we moved (an "idle" animation would definitely be cleaner)
         if (this.body.vel.x !== 0 || this.body.vel.y !== 0) {
