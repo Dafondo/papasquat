@@ -27,7 +27,9 @@ game.TableEntity = me.Entity.extend({
         this.renderable.addAnimation ("c", [2]);
         this.renderable.addAnimation ("d", [3]);
         
-        this.state = "empty";
+        this.renderable.setCurrentAnimation(["a", "b", "c", "d"][Math.floor(Math.random() * 4)]);
+        
+        this.state = "full";
 
         // set the renderable position to bottom center
         this.anchorPoint.set(0.5, -.7);
