@@ -36,6 +36,8 @@ var game = {
         me.pool.register("mainPlayer", game.PlayerEntity);
         me.pool.register("puddle", game.PuddleEntity);
         me.pool.register("mom", game.MomEntity);
+        me.pool.register("son", game.SonEntity);
+        me.pool.register("susie", game.SusieEntity);
         me.pool.register("plant", game.PlantEntity);
 
         // switch to PLAY state
