@@ -22,6 +22,10 @@ game.PlayerEntity = me.Entity.extend({
         me.input.bindKey(me.input.KEY.RIGHT, "right");
         me.input.bindKey(me.input.KEY.UP,    "up");
         me.input.bindKey(me.input.KEY.DOWN,  "down");
+        me.input.bindKey(me.input.KEY.A,  "left");
+        me.input.bindKey(me.input.KEY.D, "right");
+        me.input.bindKey(me.input.KEY.W,    "up");
+        me.input.bindKey(me.input.KEY.S,  "down");
 
         // the main player spritesheet
         var texture =  new me.video.renderer.Texture(
@@ -109,7 +113,7 @@ game.PlayerEntity = me.Entity.extend({
             default:
                 return true
         }
-        
+
     }
 });
 

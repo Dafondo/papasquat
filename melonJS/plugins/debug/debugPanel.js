@@ -244,7 +244,7 @@
             var self = this;
 
             // add some keyboard shortcuts
-            this.debugToggle = debugToggle || me.input.KEY.S;
+            this.debugToggle = debugToggle || me.input.KEY.F;
             this.keyHandler = me.event.subscribe(me.event.KEYDOWN, function (action, keyCode) {
                 if (keyCode === self.debugToggle) {
                     me.plugins.debugPanel.toggle();
