@@ -61,8 +61,16 @@ game.MomEntity = me.Entity.extend({
      */
     onCollision : function (response, other) {
         console.log(response, other)
-        // Make all other objects solid
-        return true;
+        if (response.b.body.collisionType !== me.collision.types.WORLD_SHAPE) {
+             // res.y >0 means touched by something on the bottom
+             // which mean at top position for this one
+             if (this.alive && (response.overlapV.y > 0) && response.a.body.falling) {
+                 this.renderable.flicker(750);
+             }
+             return false;
+         }
+         // Make all other objects solid
+         return true;
     }
 });
 
