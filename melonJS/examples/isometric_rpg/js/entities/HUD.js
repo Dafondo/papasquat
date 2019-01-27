@@ -87,11 +87,13 @@ game.HUD.ScoreItem = me.Renderable.extend( {
   draw : function (renderer) {
         //renderer.fill(me.Rect(me.game.viewport.width + this.pos.x, me.game.viewport.height + this.pos.y,  -this.pos.x, -this.pos.y));
         // this.pos.x, this.pos.y are the relative position from the screen right bottom
-        this.font.draw (renderer, "SUS: " + Math.round(game.data.suspicion), me.game.viewport.width + this.pos.x, me.game.viewport.height + this.pos.y - 30);
-		this.font.draw (renderer, "URINE: " + Math.round(game.data.urine), me.game.viewport.width + this.pos.x, me.game.viewport.height + this.pos.y - 60);
         this.font.draw (renderer, "FOOD: " + Math.round(game.data.food), me.game.viewport.width + this.pos.x, me.game.viewport.height + this.pos.y - 90);
-		this.font.draw (renderer, game.data.messages[game.data.messages.length - 2], me.game.viewport.width + this.pos.x - 300, me.game.viewport.height + this.pos.y - 70)
-		this.font.draw (renderer, game.data.messages[game.data.messages.length - 1], me.game.viewport.width + this.pos.x - 300, me.game.viewport.height + this.pos.y - 30)
+        this.font.draw (renderer, "URINE: " + Math.round(game.data.urine), me.game.viewport.width + this.pos.x, me.game.viewport.height + this.pos.y - 60);
+        this.font.draw (renderer, "SUS: " + Math.round(game.data.suspicion), me.game.viewport.width + this.pos.x, me.game.viewport.height + this.pos.y - 30);
+
+		this.font.draw (renderer, game.data.messages[game.data.messages.length - 3], me.game.viewport.width + this.pos.x - 300, me.game.viewport.height + this.pos.y - 90)
+        this.font.draw (renderer, game.data.messages[game.data.messages.length - 2], me.game.viewport.width + this.pos.x - 300, me.game.viewport.height + this.pos.y - 60)
+        this.font.draw (renderer, game.data.messages[game.data.messages.length - 1], me.game.viewport.width + this.pos.x - 300, me.game.viewport.height + this.pos.y - 30)
   }
 });
 
