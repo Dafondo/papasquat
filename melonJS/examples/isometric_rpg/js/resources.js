@@ -98,6 +98,7 @@ game.resources = [
     { name: "Cabinet Open", type: "audio", src: "data/sfx/" },
     { name: "BREAKING NEWS", type: "audio", src: "data/sfx/" },
     { name: "Food Get", type: "audio", src: "data/sfx/" },
+    { name: "Crunch 2", type: "audio", src: "data/sfx/" },
     { name: "Game Start", type: "audio", src: "data/sfx/"},
     { name: "Start Theme", type: "audio", src: "data/sfx/"},
     { name: "Sigh 2", type: "audio", src: "data/sfx/"},
