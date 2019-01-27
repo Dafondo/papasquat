@@ -26,6 +26,7 @@ game.PlayScreen = me.Stage.extend({
         game.data.momsus = false;
         game.data.sonsus = false;
         game.data.sussus = false;
+        game.data.emptytables = [];
         game.data.messages = ["", "", ""];
         game.data.newsmain = "STRANGER FOUND\n LIVING IN HOUSE"
         game.data.newsreel = "     FAMILY TRAUMATIZED --";

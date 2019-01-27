@@ -35,6 +35,21 @@ game.TableEntity = me.Entity.extend({
         this.anchorPoint.set(0.5, -.7);
 
         me.input.registerPointerEvent("pointerdown", this, this.onMouseDown.bind(this));
+        me.input.registerPointerEvent("pointerenter", this, this.onMouseEnter.bind(this));
+        me.input.registerPointerEvent("pointerleave", this, this.onMouseLeave.bind(this));
+        
+    },
+    onMouseEnter : function() {
+    
+        console.log("enter")
+        document.body.style.cursor = 'pointer';
+        return false;
+    },
+    onMouseLeave : function() {
+    
+        console.log("leave")
+        document.body.style.cursor = 'default';
+        return true;
     },
 
     /* -----
@@ -62,7 +77,9 @@ game.TableEntity = me.Entity.extend({
             // make it flicker
             //this.renderable.flicker(75);
 
-            me.audio.play("Food Get", false, this.eatFood(), .5);
+            me.audio.play("Crunch 2", false, this.eatFood(), 1.0);
+            game.data.emptytables.push(this);
+            // console.log(game.data.emptytables[0]);
 
 
             game.data.food = 100;
@@ -85,7 +102,7 @@ game.TableEntity = me.Entity.extend({
     },
 
     eatFood : function() {
-        me.audio.play("Crunch 2", true, null, 0.7);
+        me.audio.play("Crunch 2", true, null, 1.0);
         setTimeout(function() {
             me.audio.stop("Crunch 2")
         }, 3500);

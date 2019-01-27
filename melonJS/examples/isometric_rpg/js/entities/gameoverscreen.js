@@ -34,6 +34,8 @@ game.EndScreen.Container = me.Container.extend({
     this.addChild(this.panelSprite);
     this.addChild(new game.EndScreen.NewsItem(-90, -10));
     me.audio.setVolume(1.0);
+    me.audio.mute("Bitcrushed Footstep");
+    me.audio.stop("Bitcrushed Footstep");
     me.audio.stop("Gameplay Theme (Day)");
     me.audio.stop("Gameplay Theme (Night)")
 

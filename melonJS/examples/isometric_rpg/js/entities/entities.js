@@ -63,7 +63,7 @@ game.PlayerEntity = me.Entity.extend({
             game.data.suspicion += 0.1;
         }
         else if (!game.data.momsus && !game.data.sonsus && !game.data.sussus && game.data.suspicion >= 0.1) {
-            game.data.suspicion -= 0.1;
+            game.data.suspicion -= 0.02;
         }
 
         if (!game.data.panic && game.data.suspicion >= 30) {
