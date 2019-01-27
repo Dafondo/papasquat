@@ -62,7 +62,7 @@ game.TableEntity = me.Entity.extend({
             // make it flicker
             //this.renderable.flicker(75);
 
-            me.audio.play("Food Get", false, this.eatFood(), .5);
+            me.audio.play("Crunch 2", false, this.eatFood(), 1.0);
 
 
             game.data.food = 100;
@@ -85,7 +85,7 @@ game.TableEntity = me.Entity.extend({
     },
 
     eatFood : function() {
-        me.audio.play("Crunch 2", true, null, 0.7);
+        me.audio.play("Crunch 2", true, null, 1.0);
         setTimeout(function() {
             me.audio.stop("Crunch 2")
         }, 3500);
