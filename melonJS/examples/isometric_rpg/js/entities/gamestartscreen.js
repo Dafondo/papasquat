@@ -28,6 +28,6 @@ game.StartScreen.Container = me.Container.extend({
     this.addChild(this.panelSprite)
     // scale to match the container size
 
-    me.audio.play("Game Start", false, null, 0.5);
-    me.audio.play("Start Theme", true, null, 0.5);
+    me.audio.play("Game Start", false, null, 0.3);
+    me.audio.play("Start Theme", true, null, 0.3);
 }})

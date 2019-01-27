@@ -99,7 +99,8 @@ game.resources = [
     { name: "BREAKING NEWS", type: "audio", src: "data/sfx/" },
     { name: "Food Get", type: "audio", src: "data/sfx/" },
     { name: "Game Start", type: "audio", src: "data/sfx/"},
-    { name: "Start Theme", type: "audio", src: "data/sfx/"}
+    { name: "Start Theme", type: "audio", src: "data/sfx/"},
+    { name: "Sigh 2", type: "audio", src: "data/sfx/"}
     /* Atlases
      * @example
      * { name: "example_tps", type: "json", src: "data/img/example_tps.json" },

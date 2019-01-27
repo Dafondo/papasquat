@@ -19,7 +19,7 @@ game.PlayScreen = me.Stage.extend({
         game.data.food = 100;
         game.data.messages = ["", ""];
         me.audio.stop("Start Theme");
-        me.audio.play("Gameplay Theme (Day)", true, null, .5);
+        me.audio.play("Gameplay Theme (Day)", true, null, 0.3);
 
         // display a basic tile selector
         me.game.world.addChild(new (me.Renderable.extend({
