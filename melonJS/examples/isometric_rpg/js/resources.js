@@ -22,6 +22,9 @@ game.resources = [
     { name: "floortiles", type:"image", src: "data/img/floortiles.png"},
     { name: "floortiles", type:"tsx", src: "data/map/floortiles.tsx"},
 
+    { name: "GRASS-02", type:"image", src: "data/img/GRASS-02.png"},
+    { name: "GRASS-02", type:"tsx", src: "data/map/GRASS-02.tsx"},   
+
     { name: "block", type:"image", src: "data/img/block.png"},
     { name: "block", type:"tsx", src: "data/map/block.tsx"},
 
