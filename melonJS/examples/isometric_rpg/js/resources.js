@@ -25,7 +25,7 @@ game.resources = [
     { name: "solid-PEE-PUDDLE1-01", type:"image", src: "data/img/psheet.png"},
 
     { name: "GRASS-02", type:"image", src: "data/img/GRASS-02.png"},
-    { name: "GRASS-02", type:"tsx", src: "data/map/GRASS-02.tsx"},   
+    { name: "GRASS-02", type:"tsx", src: "data/map/GRASS-02.tsx"},
 
     { name: "block", type:"image", src: "data/img/block.png"},
     { name: "block", type:"tsx", src: "data/map/block.tsx"},
@@ -38,7 +38,7 @@ game.resources = [
 
     { name: "toilet-block", type:"image", src: "data/img/toilet-block.png"},
     { name: "toilet-block", type:"tsx", src: "data/map/toilet-block.tsx"},
-    
+
     { name: "toilet-block2", type:"image", src: "data/img/toilet-block2.png"},
     { name: "toilet-block2", type:"tsx", src: "data/map/toilet-block.tsx"},
 
@@ -53,7 +53,7 @@ game.resources = [
 
     { name: "wardrobe-block", type:"image", src: "data/img/wardrobe-block.png"},
     { name: "wardrobe-block", type:"tsx", src: "data/map/wardrobe-block.tsx"},
-   
+
     { name: "TABLE-empty-notiles-01", type:"image", src: "data/img/TABLE-empty-notiles-01.png"},
     { name: "TABLE-empty-notiles-01", type:"tsx", src: "data/map/TABLE-empty-notiles-01.tsx"},
 
@@ -99,6 +99,7 @@ game.resources = [
     { name: "BREAKING NEWS", type: "audio", src: "data/sfx/" },
     { name: "Food Get", type: "audio", src: "data/sfx/" },
     { name: "Game Start", type: "audio", src: "data/sfx/"},
+    { name: "Start Theme", type: "audio", src: "data/sfx/"}
     /* Atlases
      * @example
      * { name: "example_tps", type: "json", src: "data/img/example_tps.json" },
