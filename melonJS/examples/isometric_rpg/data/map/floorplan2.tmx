@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.1" orientation="isometric" renderorder="right-down" width="60" height="49" tilewidth="64" tileheight="32" infinite="0" nextlayerid="27" nextobjectid="207">
+<map version="1.2" tiledversion="1.2.1" orientation="isometric" renderorder="right-down" width="60" height="49" tilewidth="64" tileheight="32" infinite="0" nextlayerid="27" nextobjectid="208">
  <tileset firstgid="1" source="floortiles.tsx"/>
  <tileset firstgid="5" source="sofaimages.tsx"/>
  <tileset firstgid="17" source="block.tsx"/>
@@ -45,8 +45,8 @@
   <object id="19" x="224" y="348" width="32" height="712"/>
   <object id="30" x="1792" y="160" width="32" height="1280"/>
   <object id="31" x="1180" y="228" width="672" height="32"/>
-  <object id="34" x="1156" y="1412" width="704" height="32"/>
-  <object id="35" x="420" y="1184" width="540" height="32"/>
+  <object id="34" x="1152" y="1408" width="672" height="32"/>
+  <object id="35" x="448" y="1184" width="512" height="32"/>
   <object id="36" x="644" y="508" width="32" height="576"/>
   <object id="37" x="951" y="177"/>
   <object id="38" x="646" y="998"/>
@@ -177,7 +177,7 @@
   <object id="153" x="1442" y="1027" width="32" height="251"/>
   <object id="156" x="1465" y="1027" width="38" height="30"/>
   <object id="158" x="1508" y="1253.33" width="32" height="181.333"/>
-  <object id="159" x="1016" y="1448" width="704" height="32"/>
+  <object id="159" x="1184" y="1444" width="640" height="32"/>
   <object id="160" x="1761" y="159" width="32" height="1280"/>
   <object id="162" x="1535" y="213" width="32" height="224"/>
   <object id="164" x="1504.67" y="415.333" width="128" height="32"/>
@@ -231,7 +231,7 @@
   <object id="199" x="1641.5" y="221.5">
    <polygon points="0,0 14.3333,3 24.3333,10.3333 40.3333,29 9.33333,25.3333 2.33333,35 7.66667,45.6667 19.3333,55.3333 23.3333,62 28,61.3333 28.3333,57 52,58.6667 59.3333,60.6667 56.6667,55.3333 57.3333,46.6667 51.3333,34 42.6667,30.6667 41,28.3333 15.3333,0.666667 1.66667,-5.66667"/>
   </object>
-  <object id="201" x="195.5" y="1058.5" width="256" height="34"/>
+  <object id="201" x="224" y="1058.5" width="256" height="34"/>
   <object id="202" x="204.5" y="1079.5"/>
   <object id="203" x="1590.5" y="379.5"/>
   <object id="204" x="238" y="994">
@@ -241,6 +241,7 @@
    <polygon points="0,0 0.5,9.5 12.5,21.5 13,35 28,46 37,53 45,45 38.5,39.5 33,29 25.5,22.5 17,9"/>
   </object>
   <object id="206" x="255.5" y="1026" width="176.5" height="24.5"/>
+  <object id="207" x="288" y="448" width="32" height="32"/>
  </objectgroup>
  <objectgroup id="7" name="Player">
   <object id="80" name="mainPlayer" type="actor1m" x="962" y="1089.5" width="28" height="28"/>
