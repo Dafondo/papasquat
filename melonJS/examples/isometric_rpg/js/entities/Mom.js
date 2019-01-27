@@ -47,16 +47,15 @@ game.MomEntity = me.Entity.extend({
         // Check if papasquat is in viewable range
         papapos = new me.Vector2d(game.data.player.pos.x, game.data.player.pos.y);
         mamapos = new me.Vector2d(this.centerX, this.centerY);
-        this.sightline = new me.Line(this.centerX, this.centerY, [
+        this.sightline = new me.Line(0, 0, [
             mamapos,
             papapos
         ]);
-        result = me.collision.rayCast(this.sightline);
+        result = [];
+        me.collision.rayCast(this.sightline, result);
 
-        console.log(mamapos.distance(papapos));
-        console.log(result);
-
-        if (result.length == 0) {
+        // TODO:  add a detection range
+        if (result.length < 3 && game.data.player.renderable.getOpacity() > 0.5) {
             // Get angle between mama and papa
             dir = this.angleTo(game.data.player);
             this.body.vel.x = MAMA_VEL * Math.cos(dir);
