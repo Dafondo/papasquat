@@ -9,7 +9,7 @@ MOTION_CONSTANT = 2.5;
 
 game.MomEntity = me.Entity.extend({
     init: function(x, y, settings) {
-        // call the constructor
+        // call the constructornpx 
         this._super(me.Entity, "init", [x, y , settings]);
         this.body.collisionType = game.collisionTypes.MOM;
 
@@ -138,11 +138,11 @@ game.SusieEntity = me.Entity.extend({
              // which mean at top position for this one
              if (this.alive && (response.overlapV.y > 0) && response.a.body.falling) {
                  this.renderable.flicker(750);
-             } else {
-                 roombaLogic(this, 5);
              }
 
              return false;
+         } else {
+             roombaLogic(this, 5);
          }
          // Make all other objects solid
          return true;
@@ -216,7 +216,7 @@ game.SonEntity = me.Entity.extend({
 
 
 function roombaLogic(entityName, baseVel) {
-    initDir = Math.floor(Math.random() * 360);
+    initDir = Math.random() * Math.PI * 2;
     entityName.body.vel.x = baseVel * Math.cos(initDir);
     entityName.body.vel.y = baseVel * Math.sin(initDir);
 }
