@@ -6,6 +6,7 @@
 /************************************************************************************/
 
 MAMA_VEL = 2.5;
+isSus = false;
 
 game.MomEntity = me.Entity.extend({
     init: function(x, y, settings) {
@@ -80,16 +81,15 @@ game.MomEntity = me.Entity.extend({
                     puddlepos
                 ]);
                 obs = me.collision.rayCast(puddleView);
-
                 if (obs.length < 3 && mamapos.distance(puddlepos) < 30) {
                     // Remove the puddle
                     me.game.world.removeChildNow(puddle);
                     game.data.puddles.splice(i, 1);
-
+                    isSus = true;
                     // Momma is suspicious
                     game.data.suspicion += 30
                     game.data.messages.push("mom saw piss and is sus");
-
+                    game.data.newsreel = game.data.newsreel + " MAMA GOT SUSPICIOUS AFTER FINDING PUDDLE OF PISS -- "
                     break;
                 } else if (obs.length < 3) {
                     dir = this.angleTo(puddle);

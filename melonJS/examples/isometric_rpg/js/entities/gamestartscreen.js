@@ -29,10 +29,10 @@ game.StartScreen.Container = me.Container.extend({
     this.addChild(this.panelSprite)
     this.addChild(new game.StartScreen.PressEnter(-90, -10));
     // scale to match the container size
-
     me.audio.stop("BREAKING NEWS");
     me.audio.stop("Bitcrushed PSA");
-    me.audio.play("Game Start", false, null, 0.3);
+    me.audio.unmute("Bitcrushed Footstep");
+    me.audio.stop("Game Start");
     me.audio.play("Start Theme", true, null, 0.3);
 }})
 
@@ -71,7 +71,7 @@ game.StartScreen.PressEnter = me.Renderable.extend( {
    */
   draw : function (renderer) {
         if(enterino){
-		this.font.draw (renderer, "PRESS ENTER", me.game.viewport.width + this.pos.x - Math.random() * 3, me.game.viewport.height + this.pos.y - Math.random() * 3);
+		this.font.draw (renderer, "PRESS ENTER", me.game.viewport.width/1.069 + this.pos.x - Math.random() * 3, me.game.viewport.height + this.pos.y - Math.random() * 3);
 		}
   }
 });
