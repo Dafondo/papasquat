@@ -1,4 +1,5 @@
 game.data = game.data || {};
+game.utils = game.utils || {};
 
 game.PlayScreen = me.Stage.extend({
     /**
@@ -17,13 +18,22 @@ game.PlayScreen = me.Stage.extend({
 
         game.data.urine = 0;
         game.data.food = 100;
-        game.data.suspicion = 0;
+        game.data.suspicion = 50;
+        game.data.panic = false;
         game.data.momsus = false;
         game.data.sonsus = false;
         game.data.sussus = false;
         game.data.messages = ["", "", ""];
         game.data.night = false;
         game.data.days = 0;
+        game.data.fadeduration = 1.0;
+        game.data.fadecurrent = 0.0;
+        game.data.fadeoutpanic = false;
+        game.data.fadeouttheme = false;
+        game.data.fadein = false;
+        game.utils.lerp = function (p0, p1, t) {
+            return p0 * (1 - t) + p1 * t;
+        }
         var intro_message_i = 0;
         setTimeout(intro_message, 1500);
         function intro_message() {
@@ -38,13 +48,13 @@ game.PlayScreen = me.Stage.extend({
               setTimeout(intro_message, 2000)
             }
         }
-        
+
         game.data.tid = me.timer.setInterval(() => {this.nighttime(this.HUD)} , 30000);
 
         me.audio.stop("Start Theme");
         me.audio.play("Gameplay Theme (Day)", true, null, 0.3);
         me.audio.play("Panic Theme", true, null, 0.3);
-        me.audio.mute("Panic Theme", true);
+        me.audio.mute("Panic Theme");
 
         // display a basic tile selector
         me.game.world.addChild(new (me.Renderable.extend({
@@ -106,7 +116,41 @@ game.PlayScreen = me.Stage.extend({
             },
             /** Update function */
             update : function (dt) {
-                return (typeof(this.currentTile) === "object");
+                ;
+                if (game.data.fadeouttheme) {
+                    game.data.fadecurrent += dt/1000.0;
+                    var gvolume = game.utils.lerp(0.0, 1.0, game.data.fadeduration - game.data.fadecurrent);
+                    me.audio.setVolume(gvolume);
+                    if (game.data.fadecurrent >= game.data.fadeduration) {
+                        me.audio.mute("Gameplay Theme (Day)");
+                        me.audio.mute("Gameplay Theme (Night)");
+                        me.audio.unmute("Panic Theme");
+                        game.data.fadecurrent = 0.0;
+                        game.data.fadeouttheme = false;
+                        game.data.fadein = true;
+                    }
+                } else if (game.data.fadeoutpanic) {
+                    game.data.fadecurrent += dt/1000.0;
+                    var gvolume = game.utils.lerp(0.0, 1.0, game.data.fadeduration - game.data.fadecurrent);
+                    me.audio.setVolume(gvolume);
+                    if (game.data.fadecurrent >= game.data.fadeduration) {
+                        me.audio.unmute("Gameplay Theme (Day)");
+                        me.audio.unmute("Gameplay Theme (Night)");
+                        me.audio.mute("Panic Theme");
+                        game.data.fadecurrent = 0.0;
+                        game.data.fadeoutpanic = false;
+                        game.data.fadein = true;
+                    }
+                } else if (game.data.fadein) {
+                    game.data.fadecurrent += dt/1000.0;
+                    var gvolume = game.utils.lerp(1.0, 0.0, game.data.fadeduration - game.data.fadecurrent);
+                    me.audio.setVolume(gvolume);
+                    if (game.data.fadecurrent >= game.data.fadeduration) {
+                        game.data.fadecurrent = 0.0;
+                        game.data.fadein = false;
+                    }
+                }
+                return (typeof(this.currentTile) === "object")
             },
             /** draw function */
             draw: function(renderer) {

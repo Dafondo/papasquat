@@ -65,15 +65,18 @@ game.PlayerEntity = me.Entity.extend({
             game.data.suspicion -= 0.1;
         }
 
-        if (game.data.suspicion >= 30) {
-            me.audio.unmute("Panic Theme");
-            me.audio.mute("Gameplay Theme (Day)");
-            me.audio.mute("Gameplay Theme (Night)");
-        }
-        else {
-            me.audio.mute("Panic Theme");
-            me.audio.unmute("Gameplay Theme (Day)");
-            me.audio.unmute("Gameplay Theme (Night)");
+        if (!game.data.panic && game.data.suspicion >= 30) {
+            console.log("FADE TO PANIC");
+            game.data.panic = true;
+            game.data.fadeoutpanic = false;
+            game.data.fadeouttheme = true;
+            game.data.fadecurrent = 0.0;
+        } else if(game.data.panic && game.data.suspicion < 30) {
+            console.log("FADE TO THEME");
+            game.data.panic = false;
+            game.data.fadeoutpanic = true;
+            game.data.fadeouttheme = false;
+            game.data.fadecurrent = 0.0;
         }
 
         if (game.data.food < 0 || game.data.suspicion > 100){
