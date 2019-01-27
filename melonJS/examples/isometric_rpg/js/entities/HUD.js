@@ -25,7 +25,18 @@ game.HUD.Container = me.Container.extend({
     this.panelSprite = texture.createSpriteFromName(0);
     this.panelSprite.anchorPoint.set(0, -3.6);
     // scale to match the container size
+
+    var nightTexture =  new me.video.renderer.Texture(
+      { framewidth: 800, frameheight: 600 },
+        me.loader.getImage("NIGHT")
+    );
+
+    this.nightSprite = nightTexture.createSpriteFromName(0);
+    this.nightSprite.anchorPoint.set(0, 0);
+    // scale to match the container size
     
+    this.addChild(this.nightSprite);
+    this.nightSprite.alpha = 0;
     this.addChild(this.panelSprite);
     this.addChild(new game.HUD.ScoreItem(-90, 10));
   }
