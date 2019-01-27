@@ -11,14 +11,14 @@ game.PuddleEntity = me.Entity.extend({
         this.body.collisionType = game.collisionTypes.PUDDLE;
         
         var texture =  new me.video.renderer.Texture(
-            { framewidth: 64, frameheight: 32 },
-            me.loader.getImage("floortiles")
+            { framewidth: 64, frameheight: 128 },
+            me.loader.getImage("solid-PEE-PUDDLE1-01")
         );
 
         // create a new sprite object
-        this.renderable = texture.createAnimationFromName([3]);
+        this.renderable = texture.createAnimationFromName([0]);
         // define an additional basic walking animation
-        this.renderable.addAnimation ("simple_walk", [3]);
+        this.renderable.addAnimation ("simple_walk", [0]);
 
         // set the renderable position to bottom center
         this.anchorPoint.set(0.5, 0.5);
