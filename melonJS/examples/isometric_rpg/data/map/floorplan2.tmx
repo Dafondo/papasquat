@@ -29,7 +29,7 @@
  <objectgroup id="25" name="Plant">
   <object id="83" name="plant" type="actoasdfm" x="777.5" y="525.167" width="32" height="32"/>
   <object id="85454" name="table" type="actoasdfm" x="361.333" y="531.667" width="32" height="32"/>
-  <object id="83085" name="wardrobe" type="actoasdfm" x="961" y="531.667" width="32" height="32"/>
+  <object id="83085" name="desk" type="actoasdfm" x="961" y="531.667" width="32" height="32"/>
   <object id="84" x="978.667" y="1096"/>
   <object id="85" x="1080" y="541.333"/>
   <object id="208" name="table" type="actoasdfm" x="909" y="884" width="32" height="32"/>
@@ -37,6 +37,7 @@
   <object id="210" name="plant" type="actoasdfm" x="324" y="820" width="32" height="32"/>
   <object id="211" name="table" type="actoasdfm" x="1460" y="366.667" width="32" height="32"/>
   <object id="212" name="plant" type="actoasdfm" x="1648.67" y="1309" width="32" height="32"/>
+  <object id="21232" name="desk" type="actoasdfm" x="1748.67" y="1309" width="32" height="32"/>
  </objectgroup>
  <layer id="24" name="level 3" width="60" height="49">
   <data encoding="base64">

@@ -43,6 +43,7 @@ var game = {
         me.pool.register("plant", game.PlantEntity);
         me.pool.register("table", game.TableEntity);
         me.pool.register("wardrobe", game.WardrobeEntity);
+        me.pool.register("desk", game.DeskEntity);
 
         // switch to PLAY state
         me.state.change(me.state.START);
