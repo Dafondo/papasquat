@@ -129,7 +129,7 @@ game.PlayScreen = me.Stage.extend({
         game.data.night = !game.data.night;
         if(game.data.night){
             me.audio.stop("Gameplay Theme (Day)");
-            me.audio.play("Gameplay Theme (Night)", true, null, .5);
+            me.audio.play("Gameplay Theme (Night)", true, null, 0.3);
         }else{
             game.data.days++;
             me.audio.stop("Gameplay Theme (Night)");
