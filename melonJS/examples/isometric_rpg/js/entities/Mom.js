@@ -66,8 +66,7 @@ game.MomEntity = me.Entity.extend({
                 game.data.messages.push("mom has spotted you");
                 game.data.momsus = true;
             }
-        } else
-        if (game.data.momsus === true) {
+        } else if (game.data.momsus === true) {
             game.data.messages.push("mom no longer sees you");
             game.data.momsus = false;
         } else if (game.data.puddles.length > 0) {
