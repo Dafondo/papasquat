@@ -38,6 +38,7 @@ game.EndScreen.Container = me.Container.extend({
 
     if (hapeprere == "false"){
         hapeprere = "horse";
+        game.data.newsreel = game.data.newsreel + " SQUATTER LIVED IN HOME FOR " + game.data.days + " DAYS --"
         
         me.audio.stop("Panic Theme");
         me.audio.play("BREAKING NEWS", false, null, .5);
@@ -59,6 +60,7 @@ game.EndScreen.NewsItem = me.Renderable.extend( {
    * constructor
    */
   init : function (x, y) {
+    this.offset = 0;
     // call the parent constructor
     // (size does not matter here)
     this._super(me.Renderable, 'init', [x, y, 90, 10]);
@@ -68,15 +70,11 @@ game.EndScreen.NewsItem = me.Renderable.extend( {
     this.peeFont = new me.Font("Arial", 26, "#330033");
 
     // font alignment to right, bottom
-    this.font.textAlign = "right";
+    this.font.textAlign = "left";
     this.font.textBaseline = "bottom";
     this.peeFont.textAlign = "right";
     this.peeFont.textBaseline = "bottom";
 
-
-    // local copy of the global score
-    this.urine = -1;
-    this.food = -1;
   },
 
   /**
@@ -85,17 +83,8 @@ game.EndScreen.NewsItem = me.Renderable.extend( {
   update : function (dt) {
     // we don't draw anything fancy here, so just
     // return true if the score has been updated
-    var changed = false;
-    if (this.urine !== game.data.urine) {
-      this.urine = game.data.urine;
-      changed = true;
-    }
-
-    if (this.food !== game.data.food) {
-      this.food = game.data.food;
-      changed = true;
-    }
-    return changed;
+    this.offset -= 2.5
+    return true;
   },
 
   /**
@@ -104,8 +93,10 @@ game.EndScreen.NewsItem = me.Renderable.extend( {
   draw : function (renderer) {
         //renderer.fill(me.Rect(me.game.viewport.width + this.pos.x, me.game.viewport.height + this.pos.y,  -this.pos.x, -this.pos.y));
         // this.pos.x, this.pos.y are the relative position from the screen right bottom
-		this.peeFont.draw (renderer, "URINE: " + Math.round(game.data.urine), me.game.viewport.width + this.pos.x, me.game.viewport.height + this.pos.y);
-		this.font.draw (renderer, "FOOD: " + Math.round(game.data.food), me.game.viewport.width + this.pos.x, me.game.viewport.height + this.pos.y - 40)
+
+		this.font.draw (renderer, game.data.newsmain, me.game.viewport.width + this.pos.x - 300, me.game.viewport.height + this.pos.y - 150)
+		this.font.draw (renderer, game.data.newsreel, me.game.viewport.width + this.pos.x + this.offset, me.game.viewport.height + this.pos.y - 60)
+
   }
 });
 

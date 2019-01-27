@@ -4,6 +4,7 @@
 /*        a player entity                                                           */
 /*                                                                                  */
 /************************************************************************************/
+
 game.PlayerEntity = me.Entity.extend({
     init: function(x, y, settings) {
         // call the constructor
@@ -50,7 +51,7 @@ game.PlayerEntity = me.Entity.extend({
     ------            */
     update : function (dt) {
         game.data.urine += .03
-        game.data.food -= .01
+        game.data.food -= .02
 
         if (game.data.momsus) {
             game.data.suspicion += 0.3;
@@ -78,6 +79,18 @@ game.PlayerEntity = me.Entity.extend({
 
         if (game.data.food < 0 || game.data.suspicion > 100){
             this.alive = false;
+            
+            if(game.data.food < 0) {
+                game.data.newsmain = "STRANGER DISCOVERED\n DEAD IN HOUSE";
+                if(assmuchie == 1) {
+                    assmuchie = 0;
+                    game.data.newsreel = game.data.newsreel + "SQUATTER STARVED TO DEATH --";
+                    if(game.data.player.renderable.getOpacity() < .5) {
+                        game.data.newsreel = game.data.newsreel + "BODY FELL ON SUSIE WHEN SHE OPENED WARDROBE --";
+                    }
+                }
+            }
+            
             me.state.change(me.state.GAMEOVER);
         }
 
