@@ -22,6 +22,8 @@ game.resources = [
     { name: "floortiles", type:"image", src: "data/img/floortiles.png"},
     { name: "floortiles", type:"tsx", src: "data/map/floortiles.tsx"},
 
+    { name: "solid-PEE-PUDDLE1-01", type:"image", src: "data/img/psheet.png"},
+
     { name: "GRASS-02", type:"image", src: "data/img/GRASS-02.png"},
     { name: "GRASS-02", type:"tsx", src: "data/map/GRASS-02.tsx"},   
 
