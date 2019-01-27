@@ -3,8 +3,11 @@
  */
 game.EndScreen = game.EndScreen || {};
 
+var hapeprere = "false";
+
 game.EndScreen.Container = me.Container.extend({
   init: function () {
+    console.log("only once")
     // call the constructor
     this._super(me.Container, 'init');
 
@@ -18,8 +21,8 @@ game.EndScreen.Container = me.Container.extend({
     this.name = "EndScreen";
 
     // add our child score object
-    
-    
+
+
     var texture =  new me.video.renderer.Texture(
             { framewidth: 800, frameheight: 600 },
             me.loader.getImage("END-SCREEN")
@@ -27,13 +30,22 @@ game.EndScreen.Container = me.Container.extend({
     this.panelSprite = texture.createSpriteFromName(0);
     this.panelSprite.anchorPoint.set(0, 0);
     // scale to match the container size
-    
+
     this.addChild(this.panelSprite);
     this.addChild(new game.EndScreen.NewsItem(-90, -10));
     me.audio.stop("Gameplay Theme (Day)");
-    me.audio.play("BREAKING NEWS", false, null, .1);
-    setTimeout(function() {me.audio.play("Bitcrushed PSA", false, null, .2)}, 1500);   
+    me.audio.stop("Gameplay Theme (Night)")
+    if (hapeprere == "false"){
+        hapeprere = "horse";
+        
+        me.audio.play("BREAKING NEWS", false, null, .5);
+        
+        setTimeout(function() {me.audio.play("Bitcrushed PSA", false, null, .8)}, 1500);
+        setTimeout(function() {hapeprere = "false"}, 3000);
+    }   
   } 
+
+
 });
 
 
@@ -55,8 +67,8 @@ game.EndScreen.NewsItem = me.Renderable.extend( {
     // font alignment to right, bottom
     this.font.textAlign = "right";
     this.font.textBaseline = "bottom";
-    
-    
+
+
 
     // local copy of the global score
     this.urine = -1;
@@ -74,7 +86,7 @@ game.EndScreen.NewsItem = me.Renderable.extend( {
       this.urine = game.data.urine;
       changed = true;
     }
-    
+
     if (this.food !== game.data.food) {
       this.food = game.data.food;
       changed = true;
