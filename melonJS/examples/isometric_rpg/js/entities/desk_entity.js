@@ -18,14 +18,15 @@ game.DeskEntity = me.Entity.extend({
         );
 
         // create a new sprite object
-        this.renderable = texture.createAnimationFromName([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+        this.renderable = texture.createAnimationFromName(Array(50).fill(1).map(function(a, b, c) { return b}));
         // define an additional basic walking animation
         
-        this.renderable.addAnimation ("static", [10]);
-        this.renderable.addAnimation ("get in", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
-        this.renderable.addAnimation ("get out", [7, 6, 5, 4, 3, 2, 1, 0]);
+        this.renderable.addAnimation ("empty", [49]);
+        this.renderable.addAnimation ("full", [48]);
+        this.renderable.addAnimation ("get in", Array(50).fill(1).map(function(a, b, c) { return b}));
+        this.renderable.addAnimation ("get out", Array(50).fill(1).map(function(a, b, c) { return 49 - b}));
 
-        this.renderable.setCurrentAnimation(["static"]);
+        this.renderable.setCurrentAnimation(["empty"]);
         
         this.state = "empty";
 
@@ -66,9 +67,9 @@ game.DeskEntity = me.Entity.extend({
             //me.audio.play("Cabinet Open", false, null, .5);
             var that = this
             setTimeout(function() {
-                that.renderable.setCurrentAnimation("static");
+                that.renderable.setCurrentAnimation("full");
                 that.state = "full"
-            }, 700);
+            }, 4700);
 
            
             return false;
@@ -85,12 +86,12 @@ game.DeskEntity = me.Entity.extend({
             var that = this
             setTimeout(function() {
                 game.data.messages.push("you left the desk");
-                that.renderable.setCurrentAnimation("static");
+                that.renderable.setCurrentAnimation("empty");
                 that.state = "empty"
                 game.data.player.pos.x = that.pos.x + 124;
                 game.data.player.pos.y = that.pos.y + 24;
                 game.data.player.renderable.setOpacity(1)
-            }, 700);
+            }, 4700);
             
 
 
