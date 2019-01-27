@@ -57,16 +57,16 @@ game.HUD.ScoreItem = me.Renderable.extend( {
 
     // create the font object
     this.font = new me.Font("Arial", 26, "#330033");
-    // this.peeFont = new me.Font("Arial", 26, "826800");
-    // this.susFont = new me.Font("Arial", 26, "820000");
+    this.peeFont = new me.Font("Arial", 26, "#826800");
+    this.susFont = new me.Font("Arial", 26, "#820000");
 
     // font alignment to right, bottom
     this.font.textAlign = "right";
     this.font.textBaseline = "bottom";
-    // this.peeFont.textAlign = "right";
-    // this.peeFont.textBaseline = "bottom";
-    // this.susFont.textAlign = "right";
-    // this.susFont.textBaseline = "bottom";
+    this.peeFont.textAlign = "right";
+    this.peeFont.textBaseline = "bottom";
+    this.susFont.textAlign = "right";
+    this.susFont.textBaseline = "bottom";
 
     // local copy of the global score
     this.urine = -1;
@@ -105,9 +105,11 @@ game.HUD.ScoreItem = me.Renderable.extend( {
         //renderer.fill(me.Rect(me.game.viewport.width + this.pos.x, me.game.viewport.height + this.pos.y,  -this.pos.x, -this.pos.y));
         // this.pos.x, this.pos.y are the relative position from the screen right bottom
         this.font.draw (renderer, "FOOD: " + Math.round(game.data.food), me.game.viewport.width + this.pos.x, me.game.viewport.height + this.pos.y - 90);
-        this.font.draw (renderer, "URINE: " + Math.round(game.data.urine), me.game.viewport.width + this.pos.x, me.game.viewport.height + this.pos.y - 60);
-        this.font.draw (renderer, "SUS: " + Math.round(game.data.suspicion), me.game.viewport.width + this.pos.x, me.game.viewport.height + this.pos.y - 30);
+        this.peeFont.draw (renderer, "URINE: " + Math.round(game.data.urine), me.game.viewport.width + this.pos.x, me.game.viewport.height + this.pos.y - 60);
+        this.susFont.draw (renderer, "SUS: " + Math.round(game.data.suspicion), me.game.viewport.width + this.pos.x, me.game.viewport.height + this.pos.y - 30);
 
+
+        //Notifications counter for immediate suspicion and urine counts
 		this.font.draw (renderer, game.data.messages[game.data.messages.length - 3], me.game.viewport.width + this.pos.x - 300, me.game.viewport.height + this.pos.y - 90)
         this.font.draw (renderer, game.data.messages[game.data.messages.length - 2], me.game.viewport.width + this.pos.x - 300, me.game.viewport.height + this.pos.y - 60)
         this.font.draw (renderer, game.data.messages[game.data.messages.length - 1], me.game.viewport.width + this.pos.x - 300, me.game.viewport.height + this.pos.y - 30)
