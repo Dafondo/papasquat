@@ -97,7 +97,39 @@ game.MomEntity = me.Entity.extend({
                     this.body.vel.y = MAMA_VEL * Math.sin(dir);
                     break;
                 }
+<<<<<<< Updated upstream
             } 
+=======
+            }
+        } else {
+            // look and see if there any puddles if she can't see a vagrant in her house
+            for (i = 0; i < game.data.emptytables.length; i++) {
+                    table = game.data.emptytables[i];
+
+                    tablepos = new me.Vector2d(table.centerX, table.centerY)
+                    tableView = new me.Line(0, 0, [
+                        mamapos,
+                        tablepos
+                    ]);
+                    obs = me.collision.rayCast(tableView);
+                    if (obs.length < 3 && mamapos.distance(tablepos) < 30) {
+                        // Remove the table
+                        // me.game.world.removeChildNow(table);
+                        game.data.emptytables.splice(i, 1);
+                        isSus = true;
+                        // Momma is suspicious
+                        game.data.suspicion += 5
+                        game.data.messages.push("mom saw empty table and is sus");
+                        game.data.newsreel = game.data.newsreel + " MAMA GOT SUSPICIOUS AFTER FINDING AN EMPTY TABLE -- "
+                        break;
+                    } else if (obs.length < 3) {
+                        dir = this.angleTo(table);
+                        this.body.vel.x = MAMA_VEL * Math.cos(dir);
+                        this.body.vel.y = MAMA_VEL * Math.sin(dir);
+                        break;
+                    }
+                }
+>>>>>>> Stashed changes
         }
 
         // check if we moved (an "idle" animation would definitely be cleaner)
