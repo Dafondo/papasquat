@@ -66,6 +66,7 @@ game.resources = [
 
     { name: "END-SCREEN", type:"image", src: "data/img/END-SCREEN-01.png"},
     {name: "START-SCREEN", type:"image", src: "data/img/Papa_Squat_start_screen.png"},
+    {name: "NEWS-BOX", type:"image", src: "data/img/text-box-opt2-01.png"},
 
     /* Maps.
      * @example
