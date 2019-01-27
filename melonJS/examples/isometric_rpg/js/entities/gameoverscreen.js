@@ -18,8 +18,8 @@ game.EndScreen.Container = me.Container.extend({
     this.name = "EndScreen";
 
     // add our child score object
-    
-    
+
+
     var texture =  new me.video.renderer.Texture(
             { framewidth: 800, frameheight: 600 },
             me.loader.getImage("END-SCREEN")
@@ -27,13 +27,14 @@ game.EndScreen.Container = me.Container.extend({
     this.panelSprite = texture.createSpriteFromName(0);
     this.panelSprite.anchorPoint.set(0, 0);
     // scale to match the container size
-    
+
     this.addChild(this.panelSprite);
     this.addChild(new game.EndScreen.NewsItem(-90, -10));
     me.audio.stop("Gameplay Theme (Day)");
+    me.audio.stop("Gameplay Theme (Night)")
     me.audio.play("BREAKING NEWS", false, null, .05);
-    
-  } 
+
+  }
 });
 
 
@@ -55,8 +56,8 @@ game.EndScreen.NewsItem = me.Renderable.extend( {
     // font alignment to right, bottom
     this.font.textAlign = "right";
     this.font.textBaseline = "bottom";
-    
-    
+
+
 
     // local copy of the global score
     this.urine = -1;
@@ -74,7 +75,7 @@ game.EndScreen.NewsItem = me.Renderable.extend( {
       this.urine = game.data.urine;
       changed = true;
     }
-    
+
     if (this.food !== game.data.food) {
       this.food = game.data.food;
       changed = true;
