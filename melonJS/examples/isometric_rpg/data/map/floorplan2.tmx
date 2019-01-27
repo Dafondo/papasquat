@@ -246,7 +246,7 @@
   </object>
  </objectgroup>
  <objectgroup id="27" name="Toilet">
-  <object id="208" name="toilet" x="350.333" y="960.333" width="34" height="30"/>
+  <object id="208" name="toilet" type="acodja" x="351.333" y="960.333" width="34" height="30"/>
   <object id="209" x="365.833" y="986.833"/>
   <object id="210" x="359.5" y="965.167"/>
   <object id="211" x="364.5" y="983.5"/>
