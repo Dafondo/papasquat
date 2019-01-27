@@ -89,7 +89,7 @@ game.MomEntity = me.Entity.extend({
                     // Momma is suspicious
                     game.data.suspicion += 30
                     game.data.messages.push("mom saw piss and is sus");
-                    game.data.newsreel = game.data.newsreel + "MAMA GOT SUSPICIOUS AFTER FINDING PUDDLE OF PISS -- "
+                    game.data.newsreel = game.data.newsreel + " MAMA GOT SUSPICIOUS AFTER FINDING PUDDLE OF PISS -- "
                     break;
                 } else if (obs.length < 3) {
                     dir = this.angleTo(puddle);
