@@ -17,22 +17,7 @@ game.MomEntity = me.Entity.extend({
         // this.body.setVelocity(2.5, 2.5);
         // this.body.setFriction(0.4,0.4);
         this.alwaysUpdate = true;
-
-        initdir = Math.floor(Math.random() * 4);
-        switch(initdir) {
-            case 0:
-                this.body.vel.x = MOTION_CONSTANT;
-                break;
-            case 1:
-                this.body.vel.y = MOTION_CONSTANT;
-                break;
-            case 2:
-                this.body.vel.x = -MOTION_CONSTANT;
-                break;
-            case 3:
-                this.body.vel.y = -MOTION_CONSTANT;
-                break;
-        }
+        roombaLogic(this, 2.5);
 
         // the main player spritesheet
         var texture =  new me.video.renderer.Texture(
@@ -88,21 +73,7 @@ game.MomEntity = me.Entity.extend({
              }
              return false;
          } else {
-            initdir = Math.floor(Math.random() * 4);
-            switch(initdir) {
-                case 0:
-                    this.body.vel.x = MOTION_CONSTANT;
-                    break;
-                case 1:
-                    this.body.vel.y = MOTION_CONSTANT;
-                    break;
-                case 2:
-                    this.body.vel.x = -MOTION_CONSTANT;
-                    break;
-                case 3:
-                    this.body.vel.y = -MOTION_CONSTANT;
-                    break;
-            }
+            roombaLogic(this, 2.5);
          }
          // Make all other objects solid
          return true;
@@ -114,12 +85,9 @@ game.SusieEntity = me.Entity.extend({
         // call the constructor
         this._super(me.Entity, "init", [x, y , settings]);
         this.body.collisionType = game.collisionTypes.MOM; 
+
         this.alwaysUpdate = true;
-
-        // walking & jumping speed
-        this.body.setVelocity(2.5, 2.5);
-        this.body.setFriction(0.4,0.4);
-
+        roombaLogic(this, 5);
         
 
         // the main player spritesheet
@@ -143,11 +111,6 @@ game.SusieEntity = me.Entity.extend({
 
     ------            */
     update : function (dt) {
-        this.body.vel.x += 12 * ( Math.random() - .5);
-        this.body.vel.y += 12 * ( Math.random() - .5);
-        
-
-        
 
         // apply physics to the body (this moves the entity)
         this.body.update(dt);
@@ -175,7 +138,10 @@ game.SusieEntity = me.Entity.extend({
              // which mean at top position for this one
              if (this.alive && (response.overlapV.y > 0) && response.a.body.falling) {
                  this.renderable.flicker(750);
+             } else {
+                 roombaLogic(this, 5);
              }
+
              return false;
          }
          // Make all other objects solid
@@ -190,11 +156,8 @@ game.SonEntity = me.Entity.extend({
         this.body.collisionType = game.collisionTypes.MOM;
         this.alwaysUpdate = true;
 
-        // walking & jumping speed
-        this.body.setVelocity(2.5, 2.5);
-        this.body.setFriction(0.4,0.4);
-
-        
+        this.alwaysUpdate = true;
+        roombaLogic(this, 5);
 
         // the main player spritesheet
         var texture =  new me.video.renderer.Texture(
@@ -217,12 +180,6 @@ game.SonEntity = me.Entity.extend({
 
     ------            */
     update : function (dt) {
-        this.body.vel.x += 12 * ( Math.random() - .5);
-        this.body.vel.y += 12 * ( Math.random() - .5);
-        
-
-        
-
         // apply physics to the body (this moves the entity)
         this.body.update(dt);
 
@@ -249,6 +206,8 @@ game.SonEntity = me.Entity.extend({
                  this.renderable.flicker(750);
              }
              return false;
+         } else {
+             roombaLogic(this, 5);
          }
          // Make all other objects solid
          return true;
@@ -256,3 +215,8 @@ game.SonEntity = me.Entity.extend({
 });
 
 
+function roombaLogic(entityName, baseVel) {
+    initDir = Math.floor(Math.random() * 360);
+    entityName.body.vel.x = baseVel * Math.cos(initDir);
+    entityName.body.vel.y = baseVel * Math.sin(initDir);
+}
