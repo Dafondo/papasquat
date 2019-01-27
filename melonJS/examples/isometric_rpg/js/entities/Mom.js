@@ -87,7 +87,7 @@ game.MomEntity = me.Entity.extend({
              // res.y >0 means touched by something on the bottom
              // which mean at top position for this one
              if (this.alive && (response.overlapV.y > 0) && response.a.body.falling) {
-                 this.renderable.flicker(750);
+                 
              }
              return false;
          } else {
@@ -173,7 +173,7 @@ game.SusieEntity = me.Entity.extend({
              // res.y >0 means touched by something on the bottom
              // which mean at top position for this one
              if (this.alive && (response.overlapV.y > 0) && response.a.body.falling) {
-                 this.renderable.flicker(750);
+                 
              }
 
              return false;
@@ -257,7 +257,7 @@ game.SonEntity = me.Entity.extend({
              // res.y >0 means touched by something on the bottom
              // which mean at top position for this one
              if (this.alive && (response.overlapV.y > 0) && response.a.body.falling) {
-                 this.renderable.flicker(750);
+                
              }
              return false;
          } else {

@@ -3,8 +3,11 @@
  */
 game.EndScreen = game.EndScreen || {};
 
+var hapeprere = "false";
+
 game.EndScreen.Container = me.Container.extend({
   init: function () {
+    console.log("only once")
     // call the constructor
     this._super(me.Container, 'init');
 
@@ -32,10 +35,19 @@ game.EndScreen.Container = me.Container.extend({
     this.addChild(new game.EndScreen.NewsItem(-90, -10));
     me.audio.stop("Gameplay Theme (Day)");
     me.audio.stop("Gameplay Theme (Night)")
-    me.audio.stop("Panic Theme");
-    me.audio.play("BREAKING NEWS", false, null, .05);
 
-  }
+    if (hapeprere == "false"){
+        hapeprere = "horse";
+        
+        me.audio.stop("Panic Theme");
+        me.audio.play("BREAKING NEWS", false, null, .5);
+        
+        setTimeout(function() {me.audio.play("Bitcrushed PSA", false, null, .8)}, 1500);
+        setTimeout(function() {hapeprere = "false"}, 3000);
+    }   
+  } 
+
+
 });
 
 

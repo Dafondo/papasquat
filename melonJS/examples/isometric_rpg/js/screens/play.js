@@ -38,8 +38,8 @@ game.PlayScreen = me.Stage.extend({
               setTimeout(intro_message, 2000)
             }
         }
-
-        me.timer.setInterval(() => {this.nighttime(this.HUD)} , 30000);
+        
+        game.data.tid = me.timer.setInterval(() => {this.nighttime(this.HUD)} , 30000);
 
         me.audio.stop("Start Theme");
         me.audio.play("Gameplay Theme (Day)", true, null, 0.3);
@@ -141,6 +141,7 @@ game.PlayScreen = me.Stage.extend({
     onDestroyEvent: function() {
         // unsubscribe to all events
         me.game.world.removeChild(this.HUD);
+        me.timer.clearInterval(game.data.tid);
         //me.event.unsubscribe(this.pointerEvent);
         //me.event.unsubscribe(this.viewportEvent);
         me.input.releasePointerEvent("pointermove", me.game.viewport);

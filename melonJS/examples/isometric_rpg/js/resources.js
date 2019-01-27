@@ -105,6 +105,7 @@ game.resources = [
     { name: "Sigh 2", type: "audio", src: "data/sfx/"},
     { name: "Gameplay Theme (Night)", type: "audio", src: "data/sfx/"},
     { name: "Panic Theme", type: "audio", src: "data/sfx/"},
+    { name: "Bitcrushed PSA", type: "audio", src: "data/sfx/"}
     /* Atlases
      * @example
      * { name: "example_tps", type: "json", src: "data/img/example_tps.json" },
