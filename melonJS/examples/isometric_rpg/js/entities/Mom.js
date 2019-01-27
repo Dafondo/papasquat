@@ -4,6 +4,9 @@
 /*        a mom entity                                                           */
 /*                                                                                  */
 /************************************************************************************/
+
+MOTION_CONSTANT = 2.5;
+
 game.MomEntity = me.Entity.extend({
     init: function(x, y, settings) {
         // call the constructor
@@ -18,16 +21,16 @@ game.MomEntity = me.Entity.extend({
         initdir = Math.floor(Math.random() * 4);
         switch(initdir) {
             case 0:
-                this.body.vel.x = 2;
+                this.body.vel.x = MOTION_CONSTANT;
                 break;
             case 1:
-                this.body.vel.y = 2;
+                this.body.vel.y = MOTION_CONSTANT;
                 break;
             case 2:
-                this.body.vel.x = -2;
+                this.body.vel.x = -MOTION_CONSTANT;
                 break;
             case 3:
-                this.body.vel.y = -2;
+                this.body.vel.y = -MOTION_CONSTANT;
                 break;
         }
 
@@ -88,16 +91,16 @@ game.MomEntity = me.Entity.extend({
             initdir = Math.floor(Math.random() * 4);
             switch(initdir) {
                 case 0:
-                    this.body.vel.x = 2;
+                    this.body.vel.x = MOTION_CONSTANT;
                     break;
                 case 1:
-                    this.body.vel.y = 2;
+                    this.body.vel.y = MOTION_CONSTANT;
                     break;
                 case 2:
-                    this.body.vel.x = -2;
+                    this.body.vel.x = -MOTION_CONSTANT;
                     break;
                 case 3:
-                    this.body.vel.y = -2;
+                    this.body.vel.y = -MOTION_CONSTANT;
                     break;
             }
          }
