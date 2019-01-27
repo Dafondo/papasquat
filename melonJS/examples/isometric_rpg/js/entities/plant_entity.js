@@ -43,6 +43,11 @@ game.PlantEntity = me.Entity.extend({
     },
     
     onMouseDown : function() {
+        if(Math.pow(Math.pow(this.pos.x - game.data.player.pos.x, 2) + 
+           Math.pow(this.pos.y - game.data.player.pos.y, 2), .5) > 120){
+           game.data.messages.push("too far to interact");
+           return false;
+        }
         console.log("peed");
         if (this.state === "healthy") {
             me.audio.play("Piss");
