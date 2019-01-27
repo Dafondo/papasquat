@@ -18,8 +18,7 @@ game.StartScreen.Container = me.Container.extend({
     this.name = "StartScreen";
 
     // add our child score object
-    
-    
+
     var texture =  new me.video.renderer.Texture(
             { framewidth: 800, frameheight: 600 },
             me.loader.getImage("START-SCREEN")
@@ -28,4 +27,7 @@ game.StartScreen.Container = me.Container.extend({
     this.panelSprite.anchorPoint.set(0, 0);
     this.addChild(this.panelSprite)
     // scale to match the container size
+
+    me.audio.play("Game Start", false, null, 0.5);
+    me.audio.play("Start Theme", true, null, 0.5);
 }})
