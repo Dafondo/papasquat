@@ -64,12 +64,14 @@ game.EndScreen.NewsItem = me.Renderable.extend( {
     this._super(me.Renderable, 'init', [x, y, 90, 10]);
 
     // create the font object
-    this.font = new me.Font("Arial", 30, "#000000");
+    this.font = new me.Font("Arial", 26, "#330033");
+    this.peeFont = new me.Font("Arial", 26, "#330033");
 
     // font alignment to right, bottom
     this.font.textAlign = "right";
     this.font.textBaseline = "bottom";
-
+    this.peeFont.textAlign = "right";
+    this.peeFont.textBaseline = "bottom";
 
 
     // local copy of the global score
@@ -102,7 +104,7 @@ game.EndScreen.NewsItem = me.Renderable.extend( {
   draw : function (renderer) {
         //renderer.fill(me.Rect(me.game.viewport.width + this.pos.x, me.game.viewport.height + this.pos.y,  -this.pos.x, -this.pos.y));
         // this.pos.x, this.pos.y are the relative position from the screen right bottom
-		this.font.draw (renderer, "URINE: " + Math.round(game.data.urine), me.game.viewport.width + this.pos.x, me.game.viewport.height + this.pos.y);
+		this.peeFont.draw (renderer, "URINE: " + Math.round(game.data.urine), me.game.viewport.width + this.pos.x, me.game.viewport.height + this.pos.y);
 		this.font.draw (renderer, "FOOD: " + Math.round(game.data.food), me.game.viewport.width + this.pos.x, me.game.viewport.height + this.pos.y - 40)
   }
 });
