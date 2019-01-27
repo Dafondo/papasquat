@@ -31,6 +31,7 @@ game.StartScreen.Container = me.Container.extend({
     // scale to match the container size
     me.audio.stop("BREAKING NEWS");
     me.audio.stop("Bitcrushed PSA");
+    me.audio.unmute("Bitcrushed Footstep");
     me.audio.play("Game Start", false, null, 0.3);
     me.audio.play("Start Theme", true, null, 0.3);
 }})
