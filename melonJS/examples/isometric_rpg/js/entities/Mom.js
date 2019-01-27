@@ -51,7 +51,7 @@ game.MomEntity = me.Entity.extend({
             mamapos,
             papapos
         ]);
-        result = [];
+        var result = [];
         me.collision.rayCast(this.sightline, result);
 
         // TODO:  add a detection range
@@ -61,10 +61,12 @@ game.MomEntity = me.Entity.extend({
             this.body.vel.x = MAMA_VEL * Math.cos(dir);
             this.body.vel.y = MAMA_VEL * Math.sin(dir);
 
-            game.data.suspicion += 0.1;
-        }
-        else if (game.data.suspicion >= 0.02) {
-            game.data.suspicion -= 0.02;
+            if (game.data.momsus === false) {
+                game.data.messages.push("mom has spotted you");
+                game.data.momsus = true;
+            }
+        } else {
+            game.data.momsus = false;
         }
 
         // check if we moved (an "idle" animation would definitely be cleaner)
@@ -133,6 +135,24 @@ game.SusieEntity = me.Entity.extend({
         // handle collisions against other shapes
         me.collision.check(this);
 
+        // Check if papasquat is in viewable range
+        papapos = new me.Vector2d(game.data.player.pos.x, game.data.player.pos.y);
+        susiepos = new me.Vector2d(this.centerX, this.centerY);
+        this.sightline = new me.Line(0, 0, [
+            susiepos,
+            papapos
+        ]);
+        var result = [];
+        me.collision.rayCast(this.sightline, result);
+
+        // TODO:  add a detection range
+        if (result.length < 3 && game.data.player.renderable.getOpacity() > 0.5 && game.data.sussus === false) {
+            // game.data.messages.push("susie has spotted you");
+            game.data.sussus = true;
+        } else {
+            game.data.sussus = false;
+        }
+
         // check if we moved (an "idle" animation would definitely be cleaner)
         if (this.body.vel.x !== 0 || this.body.vel.y !== 0) {
             this._super(me.Entity, "update", [dt]);
@@ -200,6 +220,24 @@ game.SonEntity = me.Entity.extend({
 
         // handle collisions against other shapes
         me.collision.check(this);
+
+        // Check if papasquat is in viewable range
+        papapos = new me.Vector2d(game.data.player.pos.x, game.data.player.pos.y);
+        sonpos = new me.Vector2d(this.centerX, this.centerY);
+        this.sightline = new me.Line(0, 0, [
+            sonpos,
+            papapos
+        ]);
+        var result = [];
+        me.collision.rayCast(this.sightline, result);
+
+        // TODO:  add a detection range
+        if (result.length < 3 && game.data.player.renderable.getOpacity() > 0.5 && game.data.sonsus === false) {
+            // game.data.messages.push("son has spotted you");
+            game.data.sonsus = true;
+        } else {
+            game.data.sonsus = false;
+        }
 
         // check if we moved (an "idle" animation would definitely be cleaner)
         if (this.body.vel.x !== 0 || this.body.vel.y !== 0) {

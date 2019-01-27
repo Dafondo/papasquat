@@ -18,6 +18,9 @@ game.PlayScreen = me.Stage.extend({
         game.data.urine = 0;
         game.data.food = 100;
         game.data.suspicion = 0;
+        game.data.momsus = false;
+        game.data.sonsus = false;
+        game.data.sussus = false;
         game.data.messages = ["", "", ""];
         game.data.night = false;
         game.data.days = 0;
@@ -35,7 +38,7 @@ game.PlayScreen = me.Stage.extend({
               setTimeout(intro_message, 2000)
             }
         }
-        
+
         me.timer.setInterval(() => {this.nighttime(this.HUD)} , 30000);
 
         me.audio.stop("Start Theme");
