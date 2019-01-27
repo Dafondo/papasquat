@@ -49,8 +49,8 @@ game.resources = [
     { name: "wardrobe-block", type:"image", src: "data/img/wardrobe-block.png"},
     { name: "wardrobe-block", type:"tsx", src: "data/map/wardrobe-block.tsx"},
    
-    { name: "FRIDGE-02", type:"image", src: "data/img/FRIDGE-02.png"},
-    { name: "FRIDGE-02", type:"tsx", src: "data/map/FRIDGE-02.tsx"},
+    { name: "Fridge-02", type:"image", src: "data/img/Fridge-02.png"},
+    { name: "Fridge-02", type:"tsx", src: "data/map/Fridge-02.tsx"},
 
     { name: "BED-green-01", type:"image", src: "data/img/BED-green-01.png"},
     { name: "BED-green-01", type:"tsx", src: "data/map/BED-green-01.tsx"},
