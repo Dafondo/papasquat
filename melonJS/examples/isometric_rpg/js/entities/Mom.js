@@ -41,63 +41,74 @@ game.MomEntity = me.Entity.extend({
         // apply physics to the body (this moves the entity)
         this.body.update(dt);
 
-        // handle collisions against other shapes
-        me.collision.check(this);
+        if (!game.data.night) {
 
-        // Check if papasquat is in viewable range
-        papapos = new me.Vector2d(game.data.player.pos.x, game.data.player.pos.y);
-        mamapos = new me.Vector2d(this.centerX, this.centerY);
-        this.sightline = new me.Line(0, 0, [
-            mamapos,
-            papapos
-        ]);
-        var result = [];
-        me.collision.rayCast(this.sightline, result);
+            // handle collisions against other shapes
+            me.collision.check(this);
 
-        // TODO:  add a detection range
-        if (result.length < 3 && game.data.player.renderable.getOpacity() > 0.5) {
-            // Get angle between mama and papa
-            dir = this.angleTo(game.data.player);
-            this.body.vel.x = MAMA_VEL * Math.cos(dir);
-            this.body.vel.y = MAMA_VEL * Math.sin(dir);
+            // Check if papasquat is in viewable range
+            papapos = new me.Vector2d(game.data.player.pos.x, game.data.player.pos.y);
+            mamapos = new me.Vector2d(this.centerX, this.centerY);
+            this.sightline = new me.Line(0, 0, [
+                mamapos,
+                papapos
+            ]);
+            var result = [];
+            me.collision.rayCast(this.sightline, result);
 
-            if (game.data.momsus === false) {
-                game.data.messages.push("mom has spotted you");
-                game.data.momsus = true;
-            }
-        } else if (game.data.momsus === true) {
-            game.data.messages.push("mom no longer sees you");
-            game.data.momsus = false;
-        } else {
-            // look and see if there any puddles if she can't see a vagrant in her house
-            for (i = 0; i < game.data.puddles.length; i++) {
-            // for (puddle of game.data.puddles) {
-                puddle = game.data.puddles[i];
+            // TODO:  add a detection range
+            if (result.length < 3 && game.data.player.renderable.getOpacity() > 0.5) {
+                // Get angle between mama and papa
+                dir = this.angleTo(game.data.player);
+                this.body.vel.x = MAMA_VEL * Math.cos(dir);
+                this.body.vel.y = MAMA_VEL * Math.sin(dir);
 
-                puddlepos = new me.Vector2d(puddle.centerX, puddle.centerY)
-                puddleView = new me.Line(0, 0, [
-                    mamapos,
-                    puddlepos
-                ]);
-                obs = me.collision.rayCast(puddleView);
-
-                if (obs.length < 3 && mamapos.distance(puddlepos) < 30) {
-                    // Remove the puddle
-                    me.game.world.removeChildNow(puddle);
-                    game.data.puddles.splice(i, 1);
-
-                    // Momma is suspicious
-                    game.data.suspicion += 30
-                    game.data.messages.push("mom saw piss and is sus");
-
-                    break;
-                } else if (obs.length < 3) {
-                    dir = this.angleTo(puddle);
-                    this.body.vel.x = MAMA_VEL * Math.cos(dir);
-                    this.body.vel.y = MAMA_VEL * Math.sin(dir);
-                    break;
+                if (game.data.momsus === false) {
+                    game.data.messages.push("mom has spotted you");
+                    game.data.momsus = true;
                 }
-            } 
+            } else if (game.data.momsus === true) {
+                game.data.messages.push("mom no longer sees you");
+                game.data.momsus = false;
+            } else {
+                // look and see if there any puddles if she can't see a vagrant in her house
+                for (i = 0; i < game.data.puddles.length; i++) {
+                // for (puddle of game.data.puddles) {
+                    puddle = game.data.puddles[i];
+
+                    puddlepos = new me.Vector2d(puddle.centerX, puddle.centerY)
+                    puddleView = new me.Line(0, 0, [
+                        mamapos,
+                        puddlepos
+                    ]);
+                    obs = me.collision.rayCast(puddleView);
+
+                    if (obs.length < 3 && mamapos.distance(puddlepos) < 30) {
+                        // Remove the puddle
+                        me.game.world.removeChildNow(puddle);
+                        game.data.puddles.splice(i, 1);
+
+                        // Momma is suspicious
+                        game.data.suspicion += 30
+                        game.data.messages.push("mom saw piss and is sus");
+
+                        break;
+                    } else if (obs.length < 3) {
+                        dir = this.angleTo(puddle);
+                        this.body.vel.x = MAMA_VEL * Math.cos(dir);
+                        this.body.vel.y = MAMA_VEL * Math.sin(dir);
+                        break;
+                    }
+                } 
+            }
+        } else {
+            // move to bed
+            // this.pos.x = 
+            // this.pos.y = 
+
+            // stop them moving
+            this.body.vel.x = 0;
+            this.body.vel.y = 0;
         }
 
         // check if we moved (an "idle" animation would definitely be cleaner)
@@ -163,25 +174,38 @@ game.SusieEntity = me.Entity.extend({
         // apply physics to the body (this moves the entity)
         this.body.update(dt);
 
-        // handle collisions against other shapes
-        me.collision.check(this);
+        if (!game.data.night) {
+            // handle collisions against other shapes
+            me.collision.check(this);
 
-        // Check if papasquat is in viewable range
-        papapos = new me.Vector2d(game.data.player.pos.x, game.data.player.pos.y);
-        susiepos = new me.Vector2d(this.centerX, this.centerY);
-        this.sightline = new me.Line(0, 0, [
-            susiepos,
-            papapos
-        ]);
-        var result = [];
-        me.collision.rayCast(this.sightline, result);
+            // Check if papasquat is in viewable range
+            papapos = new me.Vector2d(game.data.player.pos.x, game.data.player.pos.y);
+            susiepos = new me.Vector2d(this.centerX, this.centerY);
+            this.sightline = new me.Line(0, 0, [
+                susiepos,
+                papapos
+            ]);
+            var result = [];
+            me.collision.rayCast(this.sightline, result);
 
-        // TODO:  add a detection range
-        if (result.length < 3 && game.data.player.renderable.getOpacity() > 0.5 && game.data.sussus === false) {
-            // game.data.messages.push("susie has spotted you");
-            game.data.sussus = true;
+            // TODO:  add a detection range
+            if (result.length < 3 && game.data.player.renderable.getOpacity() > 0.5 && game.data.sussus === false) {
+                // game.data.messages.push("susie has spotted you");
+                game.data.sussus = true;
+            } else {
+                game.data.sussus = false;
+            }
+                
         } else {
-            game.data.sussus = false;
+            // What to do at night
+            // this.body.translate(
+            //     this.body.centerX - 1660,
+            //     this.body.centerY - 1175
+            // );
+            this.pos.x = 1680;
+            this.pos.y = 1200;
+            this.body.vel.x = 0;
+            this.body.vel.y = 0;
         }
 
         // check if we moved (an "idle" animation would definitely be cleaner)
@@ -249,25 +273,31 @@ game.SonEntity = me.Entity.extend({
         // apply physics to the body (this moves the entity)
         this.body.update(dt);
 
-        // handle collisions against other shapes
-        me.collision.check(this);
+        if (!game.data.night) {
 
-        // Check if papasquat is in viewable range
-        papapos = new me.Vector2d(game.data.player.pos.x, game.data.player.pos.y);
-        sonpos = new me.Vector2d(this.centerX, this.centerY);
-        this.sightline = new me.Line(0, 0, [
-            sonpos,
-            papapos
-        ]);
-        var result = [];
-        me.collision.rayCast(this.sightline, result);
+            // handle collisions against other shapes
+            me.collision.check(this);
 
-        // TODO:  add a detection range
-        if (result.length < 3 && game.data.player.renderable.getOpacity() > 0.5 && game.data.sonsus === false) {
-            // game.data.messages.push("son has spotted you");
-            game.data.sonsus = true;
+            // Check if papasquat is in viewable range
+            papapos = new me.Vector2d(game.data.player.pos.x, game.data.player.pos.y);
+            sonpos = new me.Vector2d(this.centerX, this.centerY);
+            this.sightline = new me.Line(0, 0, [
+                sonpos,
+                papapos
+            ]);
+            var result = [];
+            me.collision.rayCast(this.sightline, result);
+
+            // TODO:  add a detection range
+            if (result.length < 3 && game.data.player.renderable.getOpacity() > 0.5 && game.data.sonsus === false) {
+                // game.data.messages.push("son has spotted you");
+                game.data.sonsus = true;
+            } else {
+                game.data.sonsus = false;
+            }
         } else {
-            game.data.sonsus = false;
+            this.body.vel.x = 0;
+            this.body.vel.y = 0;
         }
 
         // check if we moved (an "idle" animation would definitely be cleaner)
