@@ -22,6 +22,9 @@ game.PuddleEntity = me.Entity.extend({
 
         // set the renderable position to bottom center
         this.anchorPoint.set(0.5, 0.5);
+
+        // Add this puddle to the puddles array
+        game.data.puddles.push(this);
     },
 
     /* -----

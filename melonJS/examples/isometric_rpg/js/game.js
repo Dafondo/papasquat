@@ -46,6 +46,9 @@ var game = {
 
         // switch to PLAY state
         me.state.change(me.state.START);
+
+        // Create a game data for all the puddles
+        game.data.puddles = [];
     }
 };
 
