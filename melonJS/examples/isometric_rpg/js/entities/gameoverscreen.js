@@ -33,22 +33,23 @@ game.EndScreen.Container = me.Container.extend({
 
     this.addChild(this.panelSprite);
     this.addChild(new game.EndScreen.NewsItem(-90, -10));
+    me.audio.setVolume(1.0);
     me.audio.stop("Gameplay Theme (Day)");
     me.audio.stop("Gameplay Theme (Night)")
 
     if (hapeprere == "false"){
         hapeprere = "horse";
         game.data.newsreel = game.data.newsreel + " SQUATTER LIVED IN HOME FOR " + game.data.days + " DAYS --"
-        
+
         me.audio.stop("Panic Theme");
         me.audio.play("Lose",false, null, .5);
 
         setTimeout(() => {me.audio.play("BREAKING NEWS", false, null, .5)}, 1000);
-        
+
         setTimeout(function() {me.audio.play("Bitcrushed PSA", false, null, .8)}, 1750);
         setTimeout(function() {hapeprere = "false"}, 3000);
-    }   
-  } 
+    }
+  }
 
 
 });
@@ -130,7 +131,7 @@ game.EndScreen.NewsItem = me.Renderable.extend( {
 // Rhoncus dolor purus non enim praesent elementum facilisis.
 // Nec ultrices dui sapien eget mi proin.
 // Laoreet non curabitur gravida arcu ac tortor.
-// Pellentesque pulvinar pellentesque habitant morbi. 
+// Pellentesque pulvinar pellentesque habitant morbi.
 // aculis eu non diam phasellus vestibulum lorem.
 // Viverra tellus in hac habitasse platea dictumst.
 // Iaculis urna id volutpat lacus laoreet non curabitur gravida arcu.
