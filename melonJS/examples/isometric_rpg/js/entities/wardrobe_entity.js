@@ -33,6 +33,21 @@ game.WardrobeEntity = me.Entity.extend({
         this.anchorPoint.set(0, -.7);
         
         me.input.registerPointerEvent("pointerdown", this, this.onMouseDown.bind(this));
+    me.input.registerPointerEvent("pointerenter", this, this.onMouseEnter.bind(this));
+        me.input.registerPointerEvent("pointerleave", this, this.onMouseLeave.bind(this));
+        
+    },
+    onMouseEnter : function() {
+    
+        console.log("enter")
+        document.body.style.cursor = 'pointer';
+        return false;
+    },
+    onMouseLeave : function() {
+    
+        console.log("leave")
+        document.body.style.cursor = 'default';
+        return true;
     },
 
     /* -----
