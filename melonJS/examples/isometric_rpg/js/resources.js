@@ -28,6 +28,9 @@ game.resources = [
     { name: "block", type:"image", src: "data/img/block.png"},
     { name: "block", type:"tsx", src: "data/map/block.tsx"},
 
+    { name: "dishwasher-notile-02", type:"image", src: "data/img/dishwasher-notile-02.png"},
+    { name: "dishwasher-notile-02", type:"tsx", src: "data/map/dishwasher-notile-02.tsx"},
+
     { name: "sofaimages", type:"image", src: "data/img/sofaimages.png"},
     { name: "sofaimages", type:"tsx", src: "data/map/sofaimages.tsx"},
 
