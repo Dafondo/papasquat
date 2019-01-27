@@ -9,13 +9,27 @@ game.MomEntity = me.Entity.extend({
         // call the constructor
         this._super(me.Entity, "init", [x, y , settings]);
         this.body.collisionType = game.collisionTypes.MOM;
-        this.alwaysUpdate = true;
 
         // walking & jumping speed
-        this.body.setVelocity(2.5, 2.5);
-        this.body.setFriction(0.4,0.4);
+        // this.body.setVelocity(2.5, 2.5);
+        // this.body.setFriction(0.4,0.4);
+        this.alwaysUpdate = true;
 
-        
+        initdir = Math.floor(Math.random() * 4);
+        switch(initdir) {
+            case 0:
+                this.body.vel.x = 2;
+                break;
+            case 1:
+                this.body.vel.y = 2;
+                break;
+            case 2:
+                this.body.vel.x = -2;
+                break;
+            case 3:
+                this.body.vel.y = -2;
+                break;
+        }
 
         // the main player spritesheet
         var texture =  new me.video.renderer.Texture(
@@ -38,32 +52,17 @@ game.MomEntity = me.Entity.extend({
 
     ------            */
     update : function (dt) {
-        this.body.vel.x += 12 * ( Math.random() - .5);
-        this.body.vel.y += 12 * ( Math.random() - .5);
-        
+        // 
+        //this.body.vel.x += 12 * ( Math.random() - .5);
+        //this.body.vel.y += 12 * ( Math.random() - .5);
 
-        // console.log("THIS IS A TEST");
+        // console.log(this.body.vel.x);
 
         // apply physics to the body (this moves the entity)
         this.body.update(dt);
 
         // handle collisions against other shapes
         me.collision.check(this);
-
-        // var ray = new me.Line(
-        //     // absolute position of the line
-        //     0, 0, [
-        //     // starting point relative to the initial position
-        //     new me.Vector2d(0, 0),
-        //     // ending point
-        //     new me.Vector2d(me.game.viewport.width, me.game.viewport.height)
-        // ]);
-
-        // result = me.collision.rayCast(ray);
-
-        // if(result.length > 0 ){
-        //     console.log(result);
-        // }
 
         // check if we moved (an "idle" animation would definitely be cleaner)
         if (this.body.vel.x !== 0 || this.body.vel.y !== 0) {
@@ -85,6 +84,22 @@ game.MomEntity = me.Entity.extend({
                  this.renderable.flicker(750);
              }
              return false;
+         } else {
+            initdir = Math.floor(Math.random() * 4);
+            switch(initdir) {
+                case 0:
+                    this.body.vel.x = 2;
+                    break;
+                case 1:
+                    this.body.vel.y = 2;
+                    break;
+                case 2:
+                    this.body.vel.x = -2;
+                    break;
+                case 3:
+                    this.body.vel.y = -2;
+                    break;
+            }
          }
          // Make all other objects solid
          return true;
@@ -95,13 +110,12 @@ game.SusieEntity = me.Entity.extend({
     init: function(x, y, settings) {
         // call the constructor
         this._super(me.Entity, "init", [x, y , settings]);
-        this.alwaysUpdate = true;
 
         // walking & jumping speed
         this.body.setVelocity(2.5, 2.5);
         this.body.setFriction(0.4,0.4);
 
-        this.body.collisionType = game.collisionTypes.MOM;
+        
 
         // the main player spritesheet
         var texture =  new me.video.renderer.Texture(
@@ -126,6 +140,9 @@ game.SusieEntity = me.Entity.extend({
     update : function (dt) {
         this.body.vel.x += 12 * ( Math.random() - .5);
         this.body.vel.y += 12 * ( Math.random() - .5);
+        
+
+        
 
         // apply physics to the body (this moves the entity)
         this.body.update(dt);
@@ -138,6 +155,8 @@ game.SusieEntity = me.Entity.extend({
             this._super(me.Entity, "update", [dt]);
             return true;
         }
+
+        
     },
 
     /**
@@ -163,13 +182,12 @@ game.SonEntity = me.Entity.extend({
     init: function(x, y, settings) {
         // call the constructor
         this._super(me.Entity, "init", [x, y , settings]);
-        this.alwaysUpdate = true;
 
         // walking & jumping speed
         this.body.setVelocity(2.5, 2.5);
         this.body.setFriction(0.4,0.4);
 
-        this.body.collisionType = game.collisionTypes.MOM;
+        
 
         // the main player spritesheet
         var texture =  new me.video.renderer.Texture(
@@ -229,4 +247,5 @@ game.SonEntity = me.Entity.extend({
          return true;
     }
 });
+
 
