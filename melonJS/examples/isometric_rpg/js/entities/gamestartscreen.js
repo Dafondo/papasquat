@@ -61,7 +61,7 @@ game.StartScreen.PressEnter = me.Renderable.extend( {
    * update function
    */
   update : function (dt) {
-    
+    return true;
   },
 
   /**
@@ -69,7 +69,7 @@ game.StartScreen.PressEnter = me.Renderable.extend( {
    */
   draw : function (renderer) {
         if(enterino){
-		this.font.draw (renderer, "PRESS ENTER", me.game.viewport.width + this.pos.x, me.game.viewport.height + this.pos.y);
+		this.font.draw (renderer, "PRESS ENTER", me.game.viewport.width + this.pos.x - Math.random() * 3, me.game.viewport.height + this.pos.y - Math.random() * 3);
 		}
   }
 });
