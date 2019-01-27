@@ -18,6 +18,15 @@ game.HUD.Container = me.Container.extend({
     this.name = "HUD";
 
     // add our child score object
+    var texture =  new me.video.renderer.Texture(
+            { framewidth: 800, frameheight: 600 },
+            me.loader.getImage("NEWS-BOX")
+        );
+    this.panelSprite = texture.createSpriteFromName(0);
+    this.panelSprite.anchorPoint.set(0, 0);
+    // scale to match the container size
+    
+    this.addChild(this.panelSprite);
     this.addChild(new game.HUD.ScoreItem(-90, -10));
   }
 });
