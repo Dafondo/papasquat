@@ -35,7 +35,7 @@ game.PlayScreen = me.Stage.extend({
             }
         }
         
-        me.timer.setInterval(this.nighttime, 30000);
+        me.timer.setInterval(() => {this.nighttime(this.HUD)} , 30000);
 
         me.audio.stop("Start Theme");
         me.audio.play("Gameplay Theme (Day)", true, null, 0.3);
