@@ -43,6 +43,8 @@ game.PlayScreen = me.Stage.extend({
 
         me.audio.stop("Start Theme");
         me.audio.play("Gameplay Theme (Day)", true, null, 0.3);
+        me.audio.play("Panic Theme", true, null, 0.3);
+        me.audio.mute("Panic Theme", true);
 
         // display a basic tile selector
         me.game.world.addChild(new (me.Renderable.extend({

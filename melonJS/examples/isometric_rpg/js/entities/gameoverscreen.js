@@ -32,6 +32,7 @@ game.EndScreen.Container = me.Container.extend({
     this.addChild(new game.EndScreen.NewsItem(-90, -10));
     me.audio.stop("Gameplay Theme (Day)");
     me.audio.stop("Gameplay Theme (Night)")
+    me.audio.stop("Panic Theme");
     me.audio.play("BREAKING NEWS", false, null, .05);
 
   }
