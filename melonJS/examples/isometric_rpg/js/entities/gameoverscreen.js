@@ -41,9 +41,11 @@ game.EndScreen.Container = me.Container.extend({
         game.data.newsreel = game.data.newsreel + " SQUATTER LIVED IN HOME FOR " + game.data.days + " DAYS --"
         
         me.audio.stop("Panic Theme");
-        me.audio.play("BREAKING NEWS", false, null, .5);
+        me.audio.play("Lose",false, null, .5);
+
+        setTimeout(() => {me.audio.play("BREAKING NEWS", false, null, .5)}, 1000);
         
-        setTimeout(function() {me.audio.play("Bitcrushed PSA", false, null, .8)}, 1500);
+        setTimeout(function() {me.audio.play("Bitcrushed PSA", false, null, .8)}, 1750);
         setTimeout(function() {hapeprere = "false"}, 3000);
     }   
   } 
