@@ -87,7 +87,7 @@ game.MomEntity = me.Entity.extend({
                     game.data.puddles.splice(i, 1);
                     isSus = true;
                     // Momma is suspicious
-                    game.data.suspicion += 30
+                    game.data.suspicion += 30;
                     game.data.messages.push("mom saw piss and is sus");
                     game.data.newsreel = game.data.newsreel + " MAMA GOT SUSPICIOUS AFTER FINDING PUDDLE OF PISS -- "
                     break;
@@ -115,7 +115,7 @@ game.MomEntity = me.Entity.extend({
                         game.data.emptytables.splice(i, 1);
                         isSus = true;
                         // Momma is suspicious
-                        game.data.suspicion += 30
+                        game.data.suspicion += 5;
                         game.data.messages.push("mom saw empty table and is sus");
                         game.data.newsreel = game.data.newsreel + " MAMA GOT SUSPICIOUS AFTER FINDING AN EMPTY TABLE -- "
                         break;
