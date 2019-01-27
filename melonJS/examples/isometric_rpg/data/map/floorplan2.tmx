@@ -35,8 +35,8 @@
   <object id="85" x="1080" y="541.333"/>
   <object id="208" name="table" type="actoasdfm" x="909" y="884" width="32" height="32"/>
   <object id="209" name="table" type="actoasdfm" x="1332" y="1329.33" width="32" height="32"/>
-  
-  <object id="2132" name="wardrobe" type="actoasdfm" x="324" y="760" width="32" height="32"/>
+
+  <object id="2132" name="wardrobe" type="actoasdfm" x="576" y="768" width="32" height="32"/>
   <object id="211" name="table" type="actoasdfm" x="1460" y="366.667" width="32" height="32"/>
   <object id="212" name="plant" type="actoasdfm" x="1648.67" y="1309" width="32" height="32"/>
   <object id="212435" name="wardrobe" type="actoasdfm" x="1648.67" y="1209" width="32" height="32"/>
