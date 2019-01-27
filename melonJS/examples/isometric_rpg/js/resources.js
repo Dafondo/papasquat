@@ -90,6 +90,7 @@ game.resources = [
     { name: "Cabinet Open", type: "audio", src: "data/sfx/" },
     { name: "BREAKING NEWS", type: "audio", src: "data/sfx/" },
     { name: "Food Get", type: "audio", src: "data/sfx/" },
+    { name: "Game Start", type: "audio", src: "data/sfx/"},
     /* Atlases
      * @example
      * { name: "example_tps", type: "json", src: "data/img/example_tps.json" },
