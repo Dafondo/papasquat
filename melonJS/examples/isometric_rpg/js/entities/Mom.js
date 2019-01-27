@@ -5,7 +5,7 @@
 /*                                                                                  */
 /************************************************************************************/
 
-MOTION_CONSTANT = 2.5;
+MAMA_VEL = 2.5;
 
 game.MomEntity = me.Entity.extend({
     init: function(x, y, settings) {
@@ -14,10 +14,8 @@ game.MomEntity = me.Entity.extend({
         this.body.collisionType = game.collisionTypes.MOM;
 
         // walking & jumping speed
-        // this.body.setVelocity(2.5, 2.5);
-        // this.body.setFriction(0.4,0.4);
         this.alwaysUpdate = true;
-        roombaLogic(this, 2.5);
+        roombaLogic(this, MAMA_VEL);
 
         // the main player spritesheet
         var texture =  new me.video.renderer.Texture(
@@ -40,17 +38,30 @@ game.MomEntity = me.Entity.extend({
 
     ------            */
     update : function (dt) {
-        // 
-        //this.body.vel.x += 12 * ( Math.random() - .5);
-        //this.body.vel.y += 12 * ( Math.random() - .5);
-
-        // console.log(this.body.vel.x);
-
         // apply physics to the body (this moves the entity)
         this.body.update(dt);
 
         // handle collisions against other shapes
         me.collision.check(this);
+
+        // Check if papasquat is in viewable range
+        papapos = new me.Vector2d(game.data.player.pos.x, game.data.player.pos.y);
+        mamapos = new me.Vector2d(this.centerX, this.centerY);
+        this.sightline = new me.Line(this.centerX, this.centerY, [
+            mamapos,
+            papapos
+        ]);
+        result = me.collision.rayCast(this.sightline);
+
+        console.log(mamapos.distance(papapos));
+        console.log(result);
+
+        if (result.length == 0) {
+            // Get angle between mama and papa
+            dir = this.angleTo(game.data.player);
+            this.body.vel.x = MAMA_VEL * Math.cos(dir);
+            this.body.vel.y = MAMA_VEL * Math.sin(dir);
+        }
 
         // check if we moved (an "idle" animation would definitely be cleaner)
         if (this.body.vel.x !== 0 || this.body.vel.y !== 0) {
