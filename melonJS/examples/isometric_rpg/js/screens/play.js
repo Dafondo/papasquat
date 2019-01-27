@@ -23,7 +23,7 @@ game.PlayScreen = me.Stage.extend({
 
         me.timer.setInterval(this.nighttime, 30000);
         me.audio.stop("Start Theme");
-        me.audio.play("Gameplay Theme (Day)", true, null, .5);
+        me.audio.play("Gameplay Theme (Day)", true, null, 0.3);
 
         // display a basic tile selector
         me.game.world.addChild(new (me.Renderable.extend({
