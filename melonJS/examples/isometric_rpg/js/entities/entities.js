@@ -88,7 +88,7 @@ game.PlayerEntity = me.Entity.extend({
 
         if (game.data.food < 0 || game.data.suspicion > 100){
             this.alive = false;
-            
+
             if(game.data.food < 0) {
                 game.data.newsmain = "STRANGER DISCOVERED\n DEAD IN HOUSE";
                 if(assmuchie == 1) {
@@ -99,7 +99,7 @@ game.PlayerEntity = me.Entity.extend({
                     }
                 }
             }
-            
+
             me.state.change(me.state.GAMEOVER);
         }
 
@@ -116,23 +116,31 @@ game.PlayerEntity = me.Entity.extend({
             game.data.urine = 1;
         }
 
+        var noHorizontal = false;
+
         if (me.input.isKeyPressed("left")) {
             // update the entity velocity
             this.body.vel.x -= this.body.accel.x * me.timer.tick;
+            this.startFootsteps();
         } else if (me.input.isKeyPressed("right")) {
             // update the entity velocity
             this.body.vel.x += this.body.accel.x * me.timer.tick;
+            this.startFootsteps();
         } else {
             this.body.vel.x = 0;
+            noHorizontal = true;
         }
         if (me.input.isKeyPressed("up")) {
             // update the entity velocity
             this.body.vel.y -= this.body.accel.y * me.timer.tick;
+            this.startFootsteps();
         } else if (me.input.isKeyPressed("down")) {
             // update the entity velocity
             this.body.vel.y += this.body.accel.y * me.timer.tick;
+            this.startFootsteps();
         } else {
             this.body.vel.y = 0;
+            if (noHorizontal) this.stopFootsteps();
         }
 
         // apply physics to the body (this moves the entity)
@@ -172,6 +180,16 @@ game.PlayerEntity = me.Entity.extend({
                 return true
         }
 
+    },
+
+    startFootsteps : function () {
+        if (!game.data.walking) me.audio.play("Bitcrushed Footstep", true, null, 0.5);
+        game.data.walking = true;
+    },
+
+    stopFootsteps : function () {
+        if (game.data.walking) me.audio.stop("Bitcrushed Footstep");
+        game.data.walking = false;
     }
 });
 

@@ -15,9 +15,9 @@ game.PlayScreen = me.Stage.extend({
 
         this.HUD = new game.HUD.Container();
         me.game.world.addChild(this.HUD);
-        
+
         //don't ask
-        assmuchie = 1 
+        assmuchie = 1
 
         game.data.urine = 0;
         game.data.food = 100;
@@ -38,6 +38,7 @@ game.PlayScreen = me.Stage.extend({
         game.data.fadeoutday = false;
         game.data.fadeoutnight = false;
         game.data.fadein = false;
+        game.data.walking = false;
         game.utils.lerp = function (p0, p1, t) {
             return p0 * (1 - t) + p1 * t;
         }
