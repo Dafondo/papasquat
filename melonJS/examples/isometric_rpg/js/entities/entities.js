@@ -52,7 +52,7 @@ game.PlayerEntity = me.Entity.extend({
         game.data.urine += .03
         game.data.food -= .01
 
-        if (game.data.food < 0){
+        if (game.data.food < 0 || game.data.suspicion > 100){
             this.alive = false;
             me.state.change(me.state.GAMEOVER);
         }

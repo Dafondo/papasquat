@@ -61,10 +61,10 @@ game.MomEntity = me.Entity.extend({
             this.body.vel.x = MAMA_VEL * Math.cos(dir);
             this.body.vel.y = MAMA_VEL * Math.sin(dir);
 
-            game.data.suspicion += 0.05;
+            game.data.suspicion += 0.1;
         }
-        else if (game.data.suspicion >= 0.01) {
-            game.data.suspicion -= 0.01;
+        else if (game.data.suspicion >= 0.02) {
+            game.data.suspicion -= 0.02;
         }
 
         // check if we moved (an "idle" animation would definitely be cleaner)
