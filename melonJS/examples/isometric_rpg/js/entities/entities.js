@@ -117,6 +117,9 @@ game.PlayerEntity = me.Entity.extend({
             case game.collisionTypes.PLANT:
                 return true;
             case game.collisionTypes.MOM:
+                if (this.renderable.getOpacity() < 0.5){
+                    return false;
+                }
                 me.state.change(me.state.GAMEOVER);
             default:
                 return true
