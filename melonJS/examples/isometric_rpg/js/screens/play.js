@@ -11,14 +11,14 @@ game.PlayScreen = me.Stage.extend({
 
         // load a level
         me.levelDirector.loadLevel("isometric");
-        
+
         this.HUD = new game.HUD.Container();
         me.game.world.addChild(this.HUD);
-        
+
         game.data.urine = 0;
         game.data.food = 100;
         game.data.messages = ["", ""];
-        me.audio.play("Gameplay Theme (Day)", false, null, .5);
+        me.audio.play("Gameplay Theme (Day)", true, null, .5);
 
         // display a basic tile selector
         me.game.world.addChild(new (me.Renderable.extend({
