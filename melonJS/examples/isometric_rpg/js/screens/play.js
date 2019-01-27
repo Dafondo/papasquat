@@ -18,7 +18,7 @@ game.PlayScreen = me.Stage.extend({
 
         game.data.urine = 0;
         game.data.food = 100;
-        game.data.suspicion = 50;
+        game.data.suspicion = 0;
         game.data.panic = false;
         game.data.momsus = false;
         game.data.sonsus = false;
