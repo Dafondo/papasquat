@@ -19,15 +19,15 @@ game.HUD.Container = me.Container.extend({
 
     // add our child score object
     var texture =  new me.video.renderer.Texture(
-            { framewidth: 800, frameheight: 600 },
+            { framewidth: 800, frameheight: 130 },
             me.loader.getImage("NEWS-BOX")
         );
     this.panelSprite = texture.createSpriteFromName(0);
-    this.panelSprite.anchorPoint.set(0, 0);
+    this.panelSprite.anchorPoint.set(0, -3.6);
     // scale to match the container size
     
     this.addChild(this.panelSprite);
-    this.addChild(new game.HUD.ScoreItem(-90, -10));
+    this.addChild(new game.HUD.ScoreItem(-90, 10));
   }
 });
 
@@ -81,8 +81,8 @@ game.HUD.ScoreItem = me.Renderable.extend( {
   draw : function (renderer) {
         //renderer.fill(me.Rect(me.game.viewport.width + this.pos.x, me.game.viewport.height + this.pos.y,  -this.pos.x, -this.pos.y));
         // this.pos.x, this.pos.y are the relative position from the screen right bottom
-		this.font.draw (renderer, "URINE: " + Math.round(game.data.urine), me.game.viewport.width + this.pos.x, me.game.viewport.height + this.pos.y);
-		this.font.draw (renderer, "FOOD: " + Math.round(game.data.food), me.game.viewport.width + this.pos.x, me.game.viewport.height + this.pos.y - 40)
+		this.font.draw (renderer, "URINE: " + Math.round(game.data.urine), me.game.viewport.width + this.pos.x, me.game.viewport.height + this.pos.y - 30);
+		this.font.draw (renderer, "FOOD: " + Math.round(game.data.food), me.game.viewport.width + this.pos.x, me.game.viewport.height + this.pos.y - 70)
   }
 });
 
