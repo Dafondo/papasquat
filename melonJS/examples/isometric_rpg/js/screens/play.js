@@ -30,6 +30,8 @@ game.PlayScreen = me.Stage.extend({
         game.data.fadecurrent = 0.0;
         game.data.fadeoutpanic = false;
         game.data.fadeouttheme = false;
+        game.data.fadeoutday = false;
+        game.data.fadeoutnight = false;
         game.data.fadein = false;
         game.utils.lerp = function (p0, p1, t) {
             return p0 * (1 - t) + p1 * t;
@@ -49,7 +51,7 @@ game.PlayScreen = me.Stage.extend({
             }
         }
 
-        game.data.tid = me.timer.setInterval(() => {this.nighttime(this.HUD)} , 30000);
+        game.data.tid = me.timer.setInterval(() => {this.nighttime(this.HUD)} , 10000);
 
         me.audio.stop("Start Theme");
         me.audio.play("Gameplay Theme (Day)", true, null, 0.3);
@@ -141,6 +143,28 @@ game.PlayScreen = me.Stage.extend({
                         game.data.fadeoutpanic = false;
                         game.data.fadein = true;
                     }
+                } else if (game.data.fadeoutday) {
+                    game.data.fadecurrent += dt/1000.0;
+                    var gvolume = game.utils.lerp(0.0, 1.0, game.data.fadeduration - game.data.fadecurrent);
+                    me.audio.setVolume(gvolume);
+                    if (game.data.fadecurrent >= game.data.fadeduration) {
+                        me.audio.stop("Gameplay Theme (Day)");
+                        me.audio.play("Gameplay Theme (Night)", true, null, .5);
+                        game.data.fadecurrent = 0.0;
+                        game.data.fadeoutday = false;
+                        game.data.fadein = true;
+                    }
+                } else if (game.data.fadeoutnight) {
+                    game.data.fadecurrent += dt/1000.0;
+                    var gvolume = game.utils.lerp(0.0, 1.0, game.data.fadeduration - game.data.fadecurrent);
+                    me.audio.setVolume(gvolume);
+                    if (game.data.fadecurrent >= game.data.fadeduration) {
+                        me.audio.stop("Gameplay Theme (Night)");
+                        me.audio.play("Gameplay Theme (Day)", true, null, .5);
+                        game.data.fadecurrent = 0.0;
+                        game.data.fadeoutnight = false;
+                        game.data.fadein = true;
+                    }
                 } else if (game.data.fadein) {
                     game.data.fadecurrent += dt/1000.0;
                     var gvolume = game.utils.lerp(1.0, 0.0, game.data.fadeduration - game.data.fadecurrent);
@@ -195,13 +219,15 @@ game.PlayScreen = me.Stage.extend({
         game.data.night = !game.data.night;
         if(game.data.night){
             HUD.nightSprite.alpha = 1;
-            me.audio.stop("Gameplay Theme (Day)");
-            me.audio.play("Gameplay Theme (Night)", true, null, 0.3);
+            game.data.fadeoutday = true;
+            // me.audio.stop("Gameplay Theme (Day)");
+            // me.audio.play("Gameplay Theme (Night)", true, null, 0.3);
         }else{
             game.data.days++;
             HUD.nightSprite.alpha = 0;
-            me.audio.stop("Gameplay Theme (Night)");
-            me.audio.play("Gameplay Theme (Day)", true, null, .5);
+            game.data.fadeoutnight = true;
+            // me.audio.stop("Gameplay Theme (Night)");
+            // me.audio.play("Gameplay Theme (Day)", true, null, .5);
         }
     }
 });

@@ -68,14 +68,20 @@ game.PlayerEntity = me.Entity.extend({
         if (!game.data.panic && game.data.suspicion >= 30) {
             console.log("FADE TO PANIC");
             game.data.panic = true;
-            game.data.fadeoutpanic = false;
             game.data.fadeouttheme = true;
+            game.data.fadeoutpanic = false;
+            game.data.fadeoutday = false;
+            game.data.fadeoutnight = false;
+            game.data.fadein = false;
             game.data.fadecurrent = 0.0;
         } else if(game.data.panic && game.data.suspicion < 30) {
             console.log("FADE TO THEME");
             game.data.panic = false;
-            game.data.fadeoutpanic = true;
             game.data.fadeouttheme = false;
+            game.data.fadeoutpanic = true;
+            game.data.fadeoutday = false;
+            game.data.fadeoutnight = false;
+            game.data.fadein = false;
             game.data.fadecurrent = 0.0;
         }
 
