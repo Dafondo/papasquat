@@ -18,6 +18,10 @@ game.PlayScreen = me.Stage.extend({
         game.data.urine = 0;
         game.data.food = 100;
         game.data.messages = ["", ""];
+        game.data.night = false;
+        game.data.days = 0;
+
+        me.timer.setInterval(this.nighttime, 30000);
         me.audio.stop("Start Theme");
         me.audio.play("Gameplay Theme (Day)", true, null, .5);
 
@@ -119,5 +123,17 @@ game.PlayScreen = me.Stage.extend({
         //me.event.unsubscribe(this.pointerEvent);
         //me.event.unsubscribe(this.viewportEvent);
         me.input.releasePointerEvent("pointermove", me.game.viewport);
+    },
+
+    nighttime : function(){
+        game.data.night = !game.data.night;
+        if(game.data.night){
+            me.audio.stop("Gameplay Theme (Day)");
+            me.audio.play("Gameplay Theme (Night)", true, null, .5);
+        }else{
+            game.data.days++;
+            me.audio.stop("Gameplay Theme (Night)");
+            me.audio.play("Gameplay Theme (Day)", true, null, .5);
+        }
     }
 });
