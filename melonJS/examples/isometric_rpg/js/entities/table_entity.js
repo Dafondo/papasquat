@@ -63,6 +63,8 @@ game.TableEntity = me.Entity.extend({
             //this.renderable.flicker(75);
 
             me.audio.play("Crunch 2", false, this.eatFood(), 1.0);
+            game.data.emptytables.push(this);
+            // console.log(game.data.emptytables[0]);
 
 
             game.data.food = 100;

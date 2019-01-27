@@ -66,10 +66,11 @@ game.MomEntity = me.Entity.extend({
                 game.data.messages.push("mom has spotted you");
                 game.data.momsus = true;
             }
-        } else if (game.data.momsus === true) {
+        } else
+        if (game.data.momsus === true) {
             game.data.messages.push("mom no longer sees you");
             game.data.momsus = false;
-        } else {
+        } else if (game.data.puddles.length > 0) {
             // look and see if there any puddles if she can't see a vagrant in her house
             for (i = 0; i < game.data.puddles.length; i++) {
             // for (puddle of game.data.puddles) {
@@ -97,7 +98,35 @@ game.MomEntity = me.Entity.extend({
                     this.body.vel.y = MAMA_VEL * Math.sin(dir);
                     break;
                 }
-            } 
+            }
+        } else {
+            // look and see if there any puddles if she can't see a vagrant in her house
+            for (i = 0; i < game.data.emptytables.length; i++) {
+                    table = game.data.emptytables[i];
+
+                    tablepos = new me.Vector2d(table.centerX, table.centerY)
+                    tableView = new me.Line(0, 0, [
+                        mamapos,
+                        tablepos
+                    ]);
+                    obs = me.collision.rayCast(tableView);
+                    if (obs.length < 3 && mamapos.distance(tablepos) < 30) {
+                        // Remove the table
+                        // me.game.world.removeChildNow(table);
+                        game.data.emptytables.splice(i, 1);
+                        isSus = true;
+                        // Momma is suspicious
+                        game.data.suspicion += 30
+                        game.data.messages.push("mom saw empty table and is sus");
+                        game.data.newsreel = game.data.newsreel + " MAMA GOT SUSPICIOUS AFTER FINDING AN EMPTY TABLE -- "
+                        break;
+                    } else if (obs.length < 3) {
+                        dir = this.angleTo(table);
+                        this.body.vel.x = MAMA_VEL * Math.cos(dir);
+                        this.body.vel.y = MAMA_VEL * Math.sin(dir);
+                        break;
+                    }
+                }
         }
 
         // check if we moved (an "idle" animation would definitely be cleaner)
@@ -117,7 +146,7 @@ game.MomEntity = me.Entity.extend({
              // res.y >0 means touched by something on the bottom
              // which mean at top position for this one
              if (this.alive && (response.overlapV.y > 0) && response.a.body.falling) {
-                 
+
              }
              return false;
          } else {
@@ -203,7 +232,7 @@ game.SusieEntity = me.Entity.extend({
              // res.y >0 means touched by something on the bottom
              // which mean at top position for this one
              if (this.alive && (response.overlapV.y > 0) && response.a.body.falling) {
-                 
+
              }
 
              return false;
@@ -287,7 +316,7 @@ game.SonEntity = me.Entity.extend({
              // res.y >0 means touched by something on the bottom
              // which mean at top position for this one
              if (this.alive && (response.overlapV.y > 0) && response.a.body.falling) {
-                
+
              }
              return false;
          } else {
