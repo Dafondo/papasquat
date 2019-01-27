@@ -59,6 +59,7 @@ game.PlayerEntity = me.Entity.extend({
 
         if ( game.data.urine > 100 ){
            me.audio.play("Piss");
+           game.data.messages.push("you peed on the floor");
            var puddle = me.pool.pull("puddle", this.pos.x, this.pos.y, {});
            me.game.world.addChild(puddle);
            game.data.urine = 1;

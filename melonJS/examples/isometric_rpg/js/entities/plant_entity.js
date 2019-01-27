@@ -53,7 +53,7 @@ game.PlantEntity = me.Entity.extend({
             //this.renderable.flicker(75);
             // play ow FX
             
-
+            game.data.messages.push("you peed in the plant");
             game.data.urine = 0;
 
            
@@ -68,7 +68,7 @@ game.PlantEntity = me.Entity.extend({
             // make it flicker
             //this.renderable.flicker(75);
             // play ow FX
-            
+            game.data.messages.push("you peed in the plant");
 
             game.data.urine = 0;
 

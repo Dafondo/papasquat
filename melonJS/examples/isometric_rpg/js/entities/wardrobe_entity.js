@@ -48,6 +48,7 @@ game.WardrobeEntity = me.Entity.extend({
     onMouseDown : function() {
         console.log("clicked");
         if (this.state === "empty") {
+            game.data.messages.push("you hid in the wardrobe");
             this.state = "transition";
             // set touch animation
             this.renderable.setCurrentAnimation("get in");
@@ -76,6 +77,7 @@ game.WardrobeEntity = me.Entity.extend({
             me.audio.play("Cabinet Close", false, null, .5);
             var that = this
             setTimeout(function() {
+                game.data.messages.push("you left the wardrobe");
                 that.renderable.setCurrentAnimation("static");
                 that.state = "empty"
                 game.data.player.pos.x = that.pos.x - 24;

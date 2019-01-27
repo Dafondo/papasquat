@@ -50,6 +50,7 @@ game.TableEntity = me.Entity.extend({
     onMouseDown : function() {
         console.log("ate");
         if (this.state === "full") {
+            game.data.messages.push("you stole some food!");
             this.state = "empty";
             // set touch animation
             this.renderable.setCurrentAnimation("empty");
@@ -65,6 +66,7 @@ game.TableEntity = me.Entity.extend({
             return false;
 
         }
+        game.data.messages.push("the plate was empty :(");
         
 },
 
