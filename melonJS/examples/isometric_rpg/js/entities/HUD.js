@@ -25,7 +25,7 @@ game.HUD.Container = me.Container.extend({
     this.panelSprite = texture.createSpriteFromName(0);
     this.panelSprite.anchorPoint.set(0, -3.6);
     // scale to match the container size
-    
+
     this.addChild(this.panelSprite);
     this.addChild(new game.HUD.ScoreItem(-90, 10));
   }
@@ -45,7 +45,7 @@ game.HUD.ScoreItem = me.Renderable.extend( {
     this._super(me.Renderable, 'init', [x, y, 90, 10]);
 
     // create the font object
-    this.font = new me.Font("Arial", 30, "#330033");
+    this.font = new me.Font("Arial", 26, "#330033");
 
     // font alignment to right, bottom
     this.font.textAlign = "right";
@@ -54,6 +54,7 @@ game.HUD.ScoreItem = me.Renderable.extend( {
     // local copy of the global score
     this.urine = -1;
     this.food = -1;
+    this.suspicion = -1;
   },
 
   /**
@@ -67,10 +68,15 @@ game.HUD.ScoreItem = me.Renderable.extend( {
       this.urine = game.data.urine;
       changed = true;
     }
-    
+
     if (this.food !== game.data.food) {
       this.food = game.data.food;
       changed = true;
+    }
+
+    if (this.suspicion !== game.data.suspicion) {
+        this.suspicion = game.data.suspicion;
+        changed = true;
     }
     return changed;
   },
@@ -81,8 +87,9 @@ game.HUD.ScoreItem = me.Renderable.extend( {
   draw : function (renderer) {
         //renderer.fill(me.Rect(me.game.viewport.width + this.pos.x, me.game.viewport.height + this.pos.y,  -this.pos.x, -this.pos.y));
         // this.pos.x, this.pos.y are the relative position from the screen right bottom
-		this.font.draw (renderer, "URINE: " + Math.round(game.data.urine), me.game.viewport.width + this.pos.x, me.game.viewport.height + this.pos.y - 30);
-		this.font.draw (renderer, "FOOD: " + Math.round(game.data.food), me.game.viewport.width + this.pos.x, me.game.viewport.height + this.pos.y - 70)
+        this.font.draw (renderer, "SUS: " + Math.round(game.data.suspicion), me.game.viewport.width + this.pos.x, me.game.viewport.height + this.pos.y - 30);
+		this.font.draw (renderer, "URINE: " + Math.round(game.data.urine), me.game.viewport.width + this.pos.x, me.game.viewport.height + this.pos.y - 60);
+        this.font.draw (renderer, "FOOD: " + Math.round(game.data.food), me.game.viewport.width + this.pos.x, me.game.viewport.height + this.pos.y - 90);
 		this.font.draw (renderer, game.data.messages[game.data.messages.length - 2], me.game.viewport.width + this.pos.x - 300, me.game.viewport.height + this.pos.y - 70)
 		this.font.draw (renderer, game.data.messages[game.data.messages.length - 1], me.game.viewport.width + this.pos.x - 300, me.game.viewport.height + this.pos.y - 30)
   }

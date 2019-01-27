@@ -17,24 +17,25 @@ game.PlayScreen = me.Stage.extend({
 
         game.data.urine = 0;
         game.data.food = 100;
+        game.data.suspicion = 0;
         game.data.messages = ["", ""];
         game.data.night = false;
         game.data.days = 0;
         var intro_message_i = 0;
         setTimeout(intro_message, 1500);
         function intro_message() {
-            var intro_messages = ["survive in this family's home", 
+            var intro_messages = ["survive in this family's home",
                                   "don't let them notice you",
                                   "use arrow keys to move",
                                   "click on items to interact"
                                   ];
-            
+
             game.data.messages.push(intro_messages[intro_message_i++])
             if(intro_message_i < 4){
               setTimeout(intro_message, 2000)
             }
         }
-        
+
         me.timer.setInterval(this.nighttime, 30000);
         me.audio.stop("Start Theme");
         me.audio.play("Gameplay Theme (Day)", true, null, 0.3);

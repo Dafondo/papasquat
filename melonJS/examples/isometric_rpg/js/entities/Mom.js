@@ -9,7 +9,7 @@ MAMA_VEL = 2.5;
 
 game.MomEntity = me.Entity.extend({
     init: function(x, y, settings) {
-        // call the constructornpx 
+        // call the constructornpx
         this._super(me.Entity, "init", [x, y , settings]);
         this.body.collisionType = game.collisionTypes.MOM;
 
@@ -60,6 +60,11 @@ game.MomEntity = me.Entity.extend({
             dir = this.angleTo(game.data.player);
             this.body.vel.x = MAMA_VEL * Math.cos(dir);
             this.body.vel.y = MAMA_VEL * Math.sin(dir);
+
+            game.data.suspicion += 0.05;
+        }
+        else if (game.data.suspicion >= 0.01) {
+            game.data.suspicion -= 0.01;
         }
 
         // check if we moved (an "idle" animation would definitely be cleaner)
@@ -94,11 +99,11 @@ game.SusieEntity = me.Entity.extend({
     init: function(x, y, settings) {
         // call the constructor
         this._super(me.Entity, "init", [x, y , settings]);
-        this.body.collisionType = game.collisionTypes.MOM; 
+        this.body.collisionType = game.collisionTypes.MOM;
 
         this.alwaysUpdate = true;
         roombaLogic(this, 5);
-        
+
 
         // the main player spritesheet
         var texture =  new me.video.renderer.Texture(
@@ -134,7 +139,7 @@ game.SusieEntity = me.Entity.extend({
             return true;
         }
 
-        
+
     },
 
     /**
