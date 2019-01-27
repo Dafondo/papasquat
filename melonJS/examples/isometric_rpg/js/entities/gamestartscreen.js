@@ -26,5 +26,6 @@ game.StartScreen.Container = me.Container.extend({
         );
     this.panelSprite = texture.createSpriteFromName(0);
     this.panelSprite.anchorPoint.set(0, 0);
+    this.addChild(this.panelSprite)
     // scale to match the container size
 }})
