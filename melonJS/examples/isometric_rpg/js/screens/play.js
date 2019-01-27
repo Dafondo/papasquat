@@ -14,6 +14,9 @@ game.PlayScreen = me.Stage.extend({
 
         this.HUD = new game.HUD.Container();
         me.game.world.addChild(this.HUD);
+        
+        //don't ask
+        assmuchie = 1 
 
         game.data.urine = 0;
         game.data.food = 100;
@@ -22,6 +25,8 @@ game.PlayScreen = me.Stage.extend({
         game.data.sonsus = false;
         game.data.sussus = false;
         game.data.messages = ["", "", ""];
+        game.data.newsmain = "STRANGER FOUND\n LIVING IN HOUSE"
+        game.data.newsreel = "     FAMILY TRAUMATIZED --";
         game.data.night = false;
         game.data.days = 0;
         var intro_message_i = 0;
