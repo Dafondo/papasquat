@@ -28,6 +28,7 @@
  <objectgroup id="25" name="Plant">
   <object id="83" name="plant" type="actoasdfm" x="738" y="576.667" width="32" height="32"/>
   <object id="85454" name="table" type="actoasdfm" x="338" y="576.667" width="32" height="32"/>
+  <object id="83" name="wardrobe" type="actoasdfm" x="938" y="576.667" width="32" height="32"/>
   <object id="84" x="978.667" y="1096"/>
   <object id="85" x="1080" y="541.333"/>
  </objectgroup>
