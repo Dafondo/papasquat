@@ -56,7 +56,7 @@ game.resources = [
     { name: "BED-pink-01", type:"tsx", src: "data/map/BED-pink-01.tsx"},
 
     { name: "END-SCREEN", type:"image", src: "data/img/END-SCREEN-01.png"},
-    {name: "START-SCREEN", type:"image", src: "data/img/Papa_Squat_start_screen.jpg"},
+    {name: "START-SCREEN", type:"image", src: "data/img/Papa_Squat_start_screen.png"},
 
     /* Maps.
      * @example

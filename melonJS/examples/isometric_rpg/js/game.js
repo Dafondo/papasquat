@@ -27,6 +27,7 @@ var game = {
     loaded: function ()    {
 
         // set the "Play/Ingame" Screen Object
+        me.state.set(me.state.START, new game.GameStartScreen());
         me.state.set(me.state.PLAY, new game.PlayScreen());
         me.state.set(me.state.GAMEOVER, new game.GameOverScreen());
 
@@ -43,7 +44,7 @@ var game = {
         me.pool.register("table", game.TableEntity);
 
         // switch to PLAY state
-        me.state.change(me.state.PLAY);
+        me.state.change(me.state.START);
     }
 };
 
