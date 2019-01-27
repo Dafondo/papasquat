@@ -36,6 +36,7 @@ game.PlayScreen = me.Stage.extend({
         }
         
         me.timer.setInterval(this.nighttime, 30000);
+
         me.audio.stop("Start Theme");
         me.audio.play("Gameplay Theme (Day)", true, null, 0.3);
 
@@ -139,13 +140,15 @@ game.PlayScreen = me.Stage.extend({
         me.input.releasePointerEvent("pointermove", me.game.viewport);
     },
 
-    nighttime : function(){
+    nighttime : function(HUD){
         game.data.night = !game.data.night;
         if(game.data.night){
+            HUD.nightSprite.alpha = 1;
             me.audio.stop("Gameplay Theme (Day)");
             me.audio.play("Gameplay Theme (Night)", true, null, 0.3);
         }else{
             game.data.days++;
+            HUD.nightSprite.alpha = 0;
             me.audio.stop("Gameplay Theme (Night)");
             me.audio.play("Gameplay Theme (Day)", true, null, .5);
         }
