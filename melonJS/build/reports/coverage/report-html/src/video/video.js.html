@@ -1,0 +1,1712 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/video/video.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">all files</a> / <a href="index.html">src/video/</a> video.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">59.41% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>101/170</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">37.96% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>41/108</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">43.75% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>7/16</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">59.41% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>101/170</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line medium'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430
+431
+432
+433
+434
+435
+436
+437
+438
+439
+440
+441
+442
+443
+444
+445
+446
+447
+448
+449
+450
+451
+452
+453
+454
+455
+456
+457
+458
+459
+460
+461
+462
+463
+464
+465
+466
+467
+468
+469
+470
+471
+472
+473
+474
+475
+476
+477
+478
+479
+480
+481
+482
+483
+484
+485
+486
+487
+488
+489
+490
+491
+492
+493
+494
+495
+496
+497
+498
+499
+500
+501
+502
+503
+504
+505
+506
+507
+508
+509
+510
+511
+512
+513
+514
+515
+516
+517
+518
+519
+520
+521
+522
+523
+524
+525
+526
+527
+528
+529
+530
+531
+532
+533
+534
+535
+536
+537
+538
+539
+540
+541
+542
+543
+544
+545
+546
+547
+548
+549
+550</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/*
+ * MelonJS Game Engine
+ * Copyright (C) 2011 - 2018 Olivier Biot
+ * http://www.melonjs.org
+ *
+ */
+(function () {
+    /**
+     * video functions
+     * There is no constructor function for me.video
+     * @namespace me.video
+     * @memberOf me
+     */
+    me.video = (function () {
+        // hold public stuff in our apig
+        var api = {};
+&nbsp;
+        var deferResizeId = 0;
+&nbsp;
+        var designRatio = 1;
+        var designWidth = 0;
+        var designHeight = 0;
+&nbsp;
+        // max display size
+        var maxWidth = Infinity;
+        var maxHeight = Infinity;
+&nbsp;
+        // default video settings
+        var settings = {
+            wrapper : undefined,
+            renderer : 0, // canvas
+            doubleBuffering : false,
+            autoScale : false,
+            scale : 1.0,
+            scaleMethod : "fit",
+            transparent : false,
+            blendMode : "normal",
+            antiAlias : false,
+            failIfMajorPerformanceCaveat : true,
+            subPixel : false,
+            verbose : false,
+            consoleHeader : true
+        };
+&nbsp;
+&nbsp;
+        /**
+         * Auto-detect the best renderer to use
+         * @ignore
+         */
+<span class="fstat-no" title="function not covered" >        function autoDetectRenderer(c, width, height, options) {</span>
+<span class="cstat-no" title="statement not covered" >            try {</span>
+<span class="cstat-no" title="statement not covered" >                return new me.WebGLRenderer(c, width, height, options);</span>
+            }
+            catch (e) {
+<span class="cstat-no" title="statement not covered" >                return new me.CanvasRenderer(c, width, height, options);</span>
+            }
+        }
+&nbsp;
+        /*
+         * PUBLIC STUFF
+         */
+&nbsp;
+        /**
+         * Base class for Video exception handling.
+         * @name Error
+         * @class
+         * @constructor
+         * @memberOf me.video
+         * @param {String} msg Error message.
+         */
+        api.Error = me.Error.extend({
+            /**
+             * @ignore
+             */
+            init : <span class="fstat-no" title="function not covered" >function (msg) {</span>
+<span class="cstat-no" title="statement not covered" >                this._super(me.Error, "init", [ msg ]);</span>
+<span class="cstat-no" title="statement not covered" >                this.name = "me.video.Error";</span>
+            }
+        });
+&nbsp;
+        /**
+         * cache value for the offset of the canvas position within the page
+         * @ignore
+         */
+        api._canvasOffset = null;
+&nbsp;
+        /**
+         * Select the HTML5 Canvas renderer
+         * @public
+         * @name CANVAS
+         * @memberOf me.video
+         * @enum {Number}
+         */
+        api.CANVAS = 0;
+&nbsp;
+        /**
+         * Select the WebGL renderer
+         * @public
+         * @name WEBGL
+         * @memberOf me.video
+         * @enum {Number}
+         */
+        api.WEBGL = 1;
+&nbsp;
+        /**
+         * Auto-select the renderer (Attempt WebGL first, with fallback to Canvas)
+         * @public
+         * @name AUTO
+         * @memberOf me.video
+         * @enum {Number}
+         */
+        api.AUTO = 2;
+&nbsp;
+        /**
+         * Initialize the "video" system (create a canvas based on the given arguments, and the related renderer). &lt;br&gt;
+         * melonJS support various scaling mode, that can be enabled &lt;u&gt;once the scale option is set to &lt;b&gt;`auto`&lt;/b&gt;&lt;/u&gt; : &lt;br&gt;
+         *  - &lt;i&gt;&lt;b&gt;`fit`&lt;/b&gt;&lt;/i&gt; : Letterboxed; content is scaled to design aspect ratio &lt;br&gt;
+         * &lt;center&gt;&lt;img src="images/scale-fit.png"/&gt;&lt;/center&gt;&lt;br&gt;
+         *  - &lt;i&gt;&lt;b&gt;`fill-min`&lt;/b&gt;&lt;/i&gt; : Canvas is resized to fit minimum design resolution; content is scaled to design aspect ratio &lt;br&gt;
+         * &lt;center&gt;&lt;img src="images/scale-fill-min.png"/&gt;&lt;/center&gt;&lt;br&gt;
+         *  - &lt;i&gt;&lt;b&gt;`fill-max`&lt;/b&gt;&lt;/i&gt; : Canvas is resized to fit maximum design resolution; content is scaled to design aspect ratio &lt;br&gt;
+         * &lt;center&gt;&lt;img src="images/scale-fill-max.png"/&gt;&lt;/center&gt;&lt;br&gt;
+         *  - &lt;i&gt;&lt;b&gt;`flex`&lt;/b&gt;&lt;&lt;/i&gt; : Canvas width &amp; height is resized to fit; content is scaled to design aspect ratio &lt;br&gt;
+         * &lt;center&gt;&lt;img src="images/scale-flex.png"/&gt;&lt;/center&gt;&lt;br&gt;
+         *  - &lt;i&gt;&lt;b&gt;`flex-width`&lt;/b&gt;&lt;/i&gt; : Canvas width is resized to fit; content is scaled to design aspect ratio &lt;br&gt;
+         * &lt;center&gt;&lt;img src="images/scale-flex-width.png"/&gt;&lt;/center&gt;&lt;br&gt;
+         *  - &lt;i&gt;&lt;b&gt;`flex-height`&lt;/b&gt;&lt;/i&gt; : Canvas height is resized to fit; content is scaled to design aspect ratio &lt;br&gt;
+         * &lt;center&gt;&lt;img src="images/scale-flex-height.png"/&gt;&lt;/center&gt;&lt;br&gt;
+         *  - &lt;i&gt;&lt;b&gt;`stretch`&lt;/b&gt;&lt;/i&gt; : Canvas is resized to fit; content is scaled to screen aspect ratio
+         * &lt;center&gt;&lt;img src="images/scale-stretch.png"/&gt;&lt;/center&gt;&lt;br&gt;
+         * @name init
+         * @memberOf me.video
+         * @function
+         * @param {Number} width the width of the canvas viewport
+         * @param {Number} height the height of the canvas viewport
+         * @param {Object} [options] The optional video/renderer parameters.&lt;br&gt; (see Renderer(s) documentation for further specific options)
+         * @param {String} [options.wrapper=document.body] the "div" element name to hold the canvas in the HTML file
+         * @param {Number} [options.renderer=me.video.CANVAS] renderer to use.
+         * @param {Boolean} [options.doubleBuffering=false] enable/disable double buffering
+         * @param {Number|String} [options.scale=1.0] enable scaling of the canvas ('auto' for automatic scaling)
+         * @param {String} [options.scaleMethod="fit"] screen scaling modes ('fit','fill-min','fill-max','flex','flex-width','flex-height','stretch')
+         * @param {Boolean} [options.useParentDOMSize=false] on browser devices, limit the canvas width and height to its parent container dimensions as returned by getBoundingClientRect(),
+         *                                                   as opposed to the browser window dimensions
+         * @param {Boolean} [options.transparent=false] whether to allow transparent pixels in the front buffer (screen)
+         * @param {Boolean} [options.antiAlias=false] whether to enable or not video scaling interpolation
+         * @param {Boolean} [options.consoleHeader=true] whether to display melonJS version and basic device information in the console
+         * @return {Boolean} false if initialization failed (canvas not supported)
+         * @see me.CanvasRenderer
+         * @see me.WebGLRenderer
+         * @example
+         * // init the video with a 640x480 canvas
+         * me.video.init(640, 480, {
+         *     wrapper : "screen",
+         *     renderer : me.video.CANVAS,
+         *     scale : "auto",
+         *     scaleMethod : "fit",
+         *     doubleBuffering : true
+         * });
+         */
+        api.init = function (game_width, game_height, options) {
+            // ensure melonjs has been properly initialized
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (!me.initialized) {
+<span class="cstat-no" title="statement not covered" >                throw new api.Error("me.video.init() called before engine initialization.");</span>
+            }
+&nbsp;
+            // revert to default options if not defined
+            settings = Object.assign(settings, options || <span class="branch-1 cbranch-no" title="branch not covered" >{})</span>;
+&nbsp;
+            // sanitize potential given parameters
+            settings.doubleBuffering = !!(settings.doubleBuffering);
+            settings.useParentDOMSize = !!(settings.useParentDOMSize);
+            settings.autoScale = (settings.scale === "auto") || false;
+            settings.transparent = !!(settings.transparent);
+            settings.antiAlias = !!(settings.antiAlias);
+            settings.failIfMajorPerformanceCaveat = !!(settings.failIfMajorPerformanceCaveat);
+            settings.subPixel = !!(settings.subPixel);
+            settings.verbose = !!(settings.verbose);
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (settings.scaleMethod.search(/^(fill-(min|max)|fit|flex(-(width|height))?|stretch)$/) !== 0) {
+<span class="cstat-no" title="statement not covered" >                settings.scaleMethod = "fit";</span>
+            }
+&nbsp;
+            // override renderer settings if &amp;webgl is defined in the URL
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (me.game.HASH.webgl === true) {
+<span class="cstat-no" title="statement not covered" >                settings.renderer = api.WEBGL;</span>
+            }
+&nbsp;
+            // normalize scale
+            settings.scale = (settings.autoScale) ? <span class="branch-0 cbranch-no" title="branch not covered" >1.0 </span>: (+settings.scale || <span class="branch-1 cbranch-no" title="branch not covered" >1.0)</span>;
+            me.sys.scale = new me.Vector2d(settings.scale, settings.scale);
+&nbsp;
+            // force double buffering if scaling is required
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (settings.autoScale || (settings.scale !== 1.0)) {
+<span class="cstat-no" title="statement not covered" >                settings.doubleBuffering = true;</span>
+            }
+&nbsp;
+            // hold the requested video size ratio
+            designRatio = game_width / game_height;
+            designWidth = game_width;
+            designHeight = game_height;
+&nbsp;
+            // default scaled size value
+            var game_width_zoom = game_width * me.sys.scale.x;
+            var game_height_zoom = game_height * me.sys.scale.y;
+            settings.zoomX = game_width_zoom;
+            settings.zoomY = game_height_zoom;
+&nbsp;
+            //add a channel for the onresize/onorientationchange event
+            window.addEventListener(
+                "resize",
+                me.utils.function.throttle(
+<span class="fstat-no" title="function not covered" >                    function (event) {</span>
+<span class="cstat-no" title="statement not covered" >                        me.event.publish(me.event.WINDOW_ONRESIZE, [ event ]);</span>
+                    }, 100
+                ), false
+            );
+&nbsp;
+            // Screen Orientation API
+            window.addEventListener(
+                "orientationchange",
+<span class="fstat-no" title="function not covered" >                function (event) {</span>
+<span class="cstat-no" title="statement not covered" >                    me.event.publish(me.event.WINDOW_ONORIENTATION_CHANGE, [ event ]);</span>
+                },
+                false
+            );
+            // pre-fixed implementation on mozzila
+            window.addEventListener(
+                "onmozorientationchange",
+<span class="fstat-no" title="function not covered" >                function (event) {</span>
+<span class="cstat-no" title="statement not covered" >                    me.event.publish(me.event.WINDOW_ONORIENTATION_CHANGE, [ event ]);</span>
+                },
+                false
+            );
+            <span class="missing-if-branch" title="else path not taken" >E</span>if (typeof window.screen !== "undefined") {
+                // is this one required ?
+                window.screen.onorientationchange = <span class="fstat-no" title="function not covered" >function (event) {</span>
+<span class="cstat-no" title="statement not covered" >                    me.event.publish(me.event.WINDOW_ONORIENTATION_CHANGE, [ event ]);</span>
+                };
+            }
+&nbsp;
+            // Automatically update relative canvas position on scroll
+            window.addEventListener("scroll", me.utils.function.throttle(
+<span class="fstat-no" title="function not covered" >                function (e) {</span>
+                    // invalidate the current canvas position cache so that it
+                    // get recalculated the next time getPos is called
+<span class="cstat-no" title="statement not covered" >                    api._canvasOffset = null;</span>
+<span class="cstat-no" title="statement not covered" >                    me.event.publish(me.event.WINDOW_ONSCROLL, [ e ]);</span>
+                }, 100
+            ), false);
+&nbsp;
+            // register to the channel
+            me.event.subscribe(
+                me.event.WINDOW_ONRESIZE,
+                me.video.onresize.bind(me.video)
+            );
+            me.event.subscribe(
+                me.event.WINDOW_ONORIENTATION_CHANGE,
+                me.video.onresize.bind(me.video)
+            );
+&nbsp;
+            // create the main screen canvas
+            var canvas;
+&nbsp;
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (me.device.ejecta === true) {
+                // a main canvas is already automatically created by Ejecta
+<span class="cstat-no" title="statement not covered" >                canvas = document.getElementById("canvas");</span>
+            } else <span class="missing-if-branch" title="if path not taken" >I</span>if (typeof window.canvas !== "undefined") {
+                // a global canvas is available, e.g. webapp adapter for wechat
+<span class="cstat-no" title="statement not covered" >                canvas = window.canvas;</span>
+            } else {
+                canvas = api.createCanvas(game_width_zoom, game_height_zoom, true);
+            }
+&nbsp;
+            // add our canvas
+            <span class="missing-if-branch" title="else path not taken" >E</span>if (options.wrapper) {
+                settings.wrapper = document.getElementById(options.wrapper);
+            }
+            // if wrapperid is not defined (null)
+            <span class="missing-if-branch" title="else path not taken" >E</span>if (!settings.wrapper) {
+                // add the canvas to document.body
+                settings.wrapper = document.body;
+            }
+            settings.wrapper.appendChild(canvas);
+&nbsp;
+            // stop here if not supported
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (typeof canvas.getContext === "undefined") {
+<span class="cstat-no" title="statement not covered" >                return false;</span>
+            }
+&nbsp;
+            /**
+             * A reference to the current video renderer
+             * @public
+             * @memberOf me.video
+             * @name renderer
+             * @type {me.Renderer|me.CanvasRenderer|me.WebGLRenderer}
+             */
+            switch (settings.renderer) {
+<span class="branch-0 cbranch-no" title="branch not covered" >                case api.AUTO:</span>
+<span class="branch-1 cbranch-no" title="branch not covered" >                case api.WEBGL:</span>
+<span class="cstat-no" title="statement not covered" >                    this.renderer = autoDetectRenderer(canvas, game_width, game_height, settings);</span>
+<span class="cstat-no" title="statement not covered" >                    break;</span>
+                default:
+                    this.renderer = new me.CanvasRenderer(canvas, game_width, game_height, settings);
+                    break;
+            }
+&nbsp;
+            // adjust CSS style for High-DPI devices
+            var ratio = me.device.devicePixelRatio;
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (ratio &gt; 1) {
+<span class="cstat-no" title="statement not covered" >                canvas.style.width = (canvas.width / ratio) + "px";</span>
+<span class="cstat-no" title="statement not covered" >                canvas.style.height = (canvas.height / ratio) + "px";</span>
+            }
+&nbsp;
+&nbsp;
+            // set max the canvas max size if CSS values are defined
+            <span class="missing-if-branch" title="else path not taken" >E</span>if (window.getComputedStyle) {
+                var style = window.getComputedStyle(canvas, null);
+                me.video.setMaxSize(parseInt(style.maxWidth, 10), parseInt(style.maxHeight, 10));
+            }
+&nbsp;
+            me.game.init();
+&nbsp;
+            // trigger an initial resize();
+            me.video.onresize();
+&nbsp;
+            // add an observer to detect when the dom tree is modified
+            <span class="missing-if-branch" title="else path not taken" >E</span>if ("MutationObserver" in window) {
+                // Create an observer instance linked to the callback function
+                var observer = new MutationObserver(me.video.onresize.bind(me.video));
+&nbsp;
+                // Start observing the target node for configured mutations
+                observer.observe(settings.wrapper, {
+                    attributes: false, childList: true, subtree: true
+                });
+            }
+&nbsp;
+            <span class="missing-if-branch" title="else path not taken" >E</span>if (options.consoleHeader !== false) {
+                var renderType = (me.video.renderer instanceof me.CanvasRenderer) ? "CANVAS" : <span class="branch-1 cbranch-no" title="branch not covered" >"WebGL";</span>
+                var audioType = me.device.hasWebAudio ? "Web Audio" : <span class="branch-1 cbranch-no" title="branch not covered" >"HTML5 Audio";</span>
+                // output video information in the console
+                console.log(me.mod + " " + me.version + " | http://melonjs.org" );
+                console.log(
+                    renderType + " | " +
+                    audioType + " | " +
+                    "pixel ratio " + me.device.devicePixelRatio + " | " +
+                    (me.device.isMobile ? <span class="branch-0 cbranch-no" title="branch not covered" >"mobile" </span>: "desktop") + " | " +
+                    me.device.getScreenOrientation() + " | " +
+                    me.device.language
+                );
+                console.log( "resolution: " + "requested " + game_width + "x" + game_height +
+                    ", got " + me.video.renderer.getWidth() + "x" + me.video.renderer.getHeight()
+                );
+            }
+            return true;
+        };
+&nbsp;
+        /**
+         * return the relative (to the page) position of the specified Canvas
+         * @name getPos
+         * @memberOf me.video
+         * @function
+         * @param {Canvas} [canvas] system one if none specified
+         * @return {DOMRect}
+         */
+        api.getPos = function (c) {
+            <span class="missing-if-branch" title="else path not taken" >E</span>if (typeof c === "undefined") {
+                <span class="missing-if-branch" title="else path not taken" >E</span>if (api._canvasOffset === null) {
+                    c = this.renderer.getScreenCanvas();
+                    api._canvasOffset = c &amp;&amp; c.getBoundingClientRect ? c.getBoundingClientRect() : <span class="branch-1 cbranch-no" title="branch not covered" >{ left : 0, top : 0 };</span>
+                }
+                return api._canvasOffset;
+            } else  {
+<span class="cstat-no" title="statement not covered" >                return c.getBoundingClientRect ? c.getBoundingClientRect() : { left : 0, top : 0 };</span>
+            }
+        };
+&nbsp;
+        /**
+         * set the max canvas display size (when scaling)
+         * @name setMaxSize
+         * @memberOf me.video
+         * @function
+         * @param {Number} width width
+         * @param {Number} height height
+         */
+        api.setMaxSize = function (w, h) {
+            // max display size
+            maxWidth = w || Infinity;
+            maxHeight = h || Infinity;
+            // trigger a resize
+            // defer it to ensure everything is properly intialized
+            me.utils.function.defer(me.video.onresize, me.video);
+&nbsp;
+        };
+&nbsp;
+        /**
+         * Create and return a new Canvas
+         * @name createCanvas
+         * @memberOf me.video
+         * @function
+         * @param {Number} width width
+         * @param {Number} height height
+         * @param {Boolean} [screencanvas=false] set to true if this canvas renders directly to the screen
+         * @return {Canvas}
+         */
+        api.createCanvas = function (width, height, screencanvas) {
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (width === 0 || height === 0)  {
+<span class="cstat-no" title="statement not covered" >                throw new api.Error("width or height was zero, Canvas could not be initialized !");</span>
+            }
+&nbsp;
+            var _canvas = document.createElement("canvas");
+&nbsp;
+            <span class="missing-if-branch" title="if path not taken" >I</span>if ((screencanvas === true) &amp;&amp; (me.device.cocoon) &amp;&amp; (<span class="branch-2 cbranch-no" title="branch not covered" >me.device.android2 !== true)</span>) {
+                // http://docs.cocoon.io/article/screencanvas/
+<span class="cstat-no" title="statement not covered" >                _canvas.screencanvas = true;</span>
+            }
+&nbsp;
+            _canvas.width = width;
+            _canvas.height = height;
+&nbsp;
+            return _canvas;
+        };
+&nbsp;
+        /**
+         * return a reference to the wrapper
+         * @name getWrapper
+         * @memberOf me.video
+         * @function
+         * @return {Document}
+         */
+        api.getWrapper = <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            return settings.wrapper;</span>
+        };
+&nbsp;
+        /**
+         * callback for window resize event
+         * @ignore
+         */
+        api.onresize = function () {
+            // default (no scaling)
+            var scaleX = 1, scaleY = 1;
+&nbsp;
+            // invalidate the current canvas position cache so that it
+            // get recalculated the next time getPos is called
+            api._canvasOffset = null;
+&nbsp;
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (settings.autoScale) {
+<span class="cstat-no" title="statement not covered" >                var parentNodeWidth;</span>
+<span class="cstat-no" title="statement not covered" >                var parentNodeHeight;</span>
+<span class="cstat-no" title="statement not covered" >                var parentNode = me.video.renderer.getScreenCanvas().parentNode;</span>
+<span class="cstat-no" title="statement not covered" >                if (typeof (parentNode) !== "undefined") {</span>
+<span class="cstat-no" title="statement not covered" >                    if (settings.useParentDOMSize &amp;&amp; typeof parentNode.getBoundingClientRect === "function") {</span>
+<span class="cstat-no" title="statement not covered" >                        var rect = parentNode.getBoundingClientRect();</span>
+<span class="cstat-no" title="statement not covered" >                        parentNodeWidth = rect.width || (rect.right - rect.left);</span>
+<span class="cstat-no" title="statement not covered" >                        parentNodeHeight = rect.height || (rect.bottom - rect.top);</span>
+                    } else {
+                        // for cased where DOM is not implemented and so parentNode (e.g. Ejecta, Weixin)
+<span class="cstat-no" title="statement not covered" >                        parentNodeWidth = parentNode.width;</span>
+<span class="cstat-no" title="statement not covered" >                        parentNodeHeight = parentNode.height;</span>
+                    }
+                }
+<span class="cstat-no" title="statement not covered" >                var _max_width = Math.min(maxWidth, parentNodeWidth || window.innerWidth);</span>
+<span class="cstat-no" title="statement not covered" >                var _max_height = Math.min(maxHeight, parentNodeHeight || window.innerHeight);</span>
+<span class="cstat-no" title="statement not covered" >                var screenRatio = _max_width / _max_height;</span>
+<span class="cstat-no" title="statement not covered" >                var sWidth = Infinity;</span>
+<span class="cstat-no" title="statement not covered" >                var sHeight = Infinity;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                if (</span>
+                    (settings.scaleMethod === "fill-min" &amp;&amp; screenRatio &gt; designRatio) ||
+                    (settings.scaleMethod === "fill-max" &amp;&amp; screenRatio &lt; designRatio) ||
+                    (settings.scaleMethod === "flex-width")
+                ) {
+                    // resize the display canvas to fill the parent container
+<span class="cstat-no" title="statement not covered" >                    sWidth = Math.min(maxWidth, designHeight * screenRatio);</span>
+<span class="cstat-no" title="statement not covered" >                    scaleX = scaleY = _max_width / sWidth;</span>
+<span class="cstat-no" title="statement not covered" >                    sWidth = ~~(sWidth + 0.5);</span>
+<span class="cstat-no" title="statement not covered" >                    this.renderer.resize(sWidth, designHeight);</span>
+                }
+                else <span class="cstat-no" title="statement not covered" >if (</span>
+                    (settings.scaleMethod === "fill-min" &amp;&amp; screenRatio &lt; designRatio) ||
+                    (settings.scaleMethod === "fill-max" &amp;&amp; screenRatio &gt; designRatio) ||
+                    (settings.scaleMethod === "flex-height")
+                ) {
+                    // resize the display canvas to fill the parent container
+<span class="cstat-no" title="statement not covered" >                    sHeight = Math.min(maxHeight, designWidth * (_max_height / _max_width));</span>
+<span class="cstat-no" title="statement not covered" >                    scaleX = scaleY = _max_height / sHeight;</span>
+<span class="cstat-no" title="statement not covered" >                    sHeight = ~~(sHeight + 0.5);</span>
+<span class="cstat-no" title="statement not covered" >                    this.renderer.resize(designWidth, sHeight);</span>
+                }
+                else <span class="cstat-no" title="statement not covered" >if (settings.scaleMethod === "flex") {</span>
+                    // resize the display canvas to fill the parent container
+<span class="cstat-no" title="statement not covered" >                    this.renderer.resize(_max_width, _max_height);</span>
+                }
+                else <span class="cstat-no" title="statement not covered" >if (settings.scaleMethod === "stretch") {</span>
+                    // scale the display canvas to fit with the parent container
+<span class="cstat-no" title="statement not covered" >                    scaleX = _max_width / designWidth;</span>
+<span class="cstat-no" title="statement not covered" >                    scaleY = _max_height / designHeight;</span>
+                }
+                else {
+                    // scale the display canvas to fit the parent container
+                    // make sure we maintain the original aspect ratio
+<span class="cstat-no" title="statement not covered" >                    if (screenRatio &lt; designRatio) {</span>
+<span class="cstat-no" title="statement not covered" >                        scaleX = scaleY = _max_width / designWidth;</span>
+                    }
+                    else {
+<span class="cstat-no" title="statement not covered" >                        scaleX = scaleY = _max_height / designHeight;</span>
+                    }
+                }
+&nbsp;
+                // adjust scaling ratio based on the device pixel ratio
+<span class="cstat-no" title="statement not covered" >                scaleX *= me.device.devicePixelRatio;</span>
+<span class="cstat-no" title="statement not covered" >                scaleY *= me.device.devicePixelRatio;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                if (deferResizeId) {</span>
+                    // cancel any previous pending resize
+<span class="cstat-no" title="statement not covered" >                    clearTimeout(deferResizeId);</span>
+                }
+<span class="cstat-no" title="statement not covered" >                deferResizeId = me.utils.function.defer(me.video.updateDisplaySize, this, scaleX, scaleY);</span>
+            }
+        };
+&nbsp;
+        /**
+         * Modify the "displayed" canvas size
+         * @name updateDisplaySize
+         * @memberOf me.video
+         * @function
+         * @param {Number} scaleX X scaling multiplier
+         * @param {Number} scaleY Y scaling multiplier
+         */
+        api.updateDisplaySize = <span class="fstat-no" title="function not covered" >function (scaleX, scaleY) {</span>
+&nbsp;
+            // invalidate the current canvas position cache so that it
+            // get recalculated the next time getPos is called
+<span class="cstat-no" title="statement not covered" >            api._canvasOffset = null;</span>
+&nbsp;
+            // update the global scale variable
+<span class="cstat-no" title="statement not covered" >            me.sys.scale.set(scaleX, scaleY);</span>
+&nbsp;
+            // renderer resize logic
+<span class="cstat-no" title="statement not covered" >            this.renderer.scaleCanvas(scaleX, scaleY);</span>
+<span class="cstat-no" title="statement not covered" >            me.game.repaint();</span>
+&nbsp;
+            // clear the timeout id
+<span class="cstat-no" title="statement not covered" >            deferResizeId = 0;</span>
+        };
+&nbsp;
+        // return our api
+        return api;
+    })();
+&nbsp;
+})();
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sat Jan 26 2019 12:46:17 GMT-0500 (Eastern Standard Time)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

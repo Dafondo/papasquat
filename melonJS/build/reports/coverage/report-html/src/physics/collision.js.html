@@ -1,0 +1,2684 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/physics/collision.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">all files</a> / <a href="index.html">src/physics/</a> collision.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">22.77% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>69/303</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">4.38% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>6/137</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">37.5% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>6/16</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">22.41% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>67/299</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430
+431
+432
+433
+434
+435
+436
+437
+438
+439
+440
+441
+442
+443
+444
+445
+446
+447
+448
+449
+450
+451
+452
+453
+454
+455
+456
+457
+458
+459
+460
+461
+462
+463
+464
+465
+466
+467
+468
+469
+470
+471
+472
+473
+474
+475
+476
+477
+478
+479
+480
+481
+482
+483
+484
+485
+486
+487
+488
+489
+490
+491
+492
+493
+494
+495
+496
+497
+498
+499
+500
+501
+502
+503
+504
+505
+506
+507
+508
+509
+510
+511
+512
+513
+514
+515
+516
+517
+518
+519
+520
+521
+522
+523
+524
+525
+526
+527
+528
+529
+530
+531
+532
+533
+534
+535
+536
+537
+538
+539
+540
+541
+542
+543
+544
+545
+546
+547
+548
+549
+550
+551
+552
+553
+554
+555
+556
+557
+558
+559
+560
+561
+562
+563
+564
+565
+566
+567
+568
+569
+570
+571
+572
+573
+574
+575
+576
+577
+578
+579
+580
+581
+582
+583
+584
+585
+586
+587
+588
+589
+590
+591
+592
+593
+594
+595
+596
+597
+598
+599
+600
+601
+602
+603
+604
+605
+606
+607
+608
+609
+610
+611
+612
+613
+614
+615
+616
+617
+618
+619
+620
+621
+622
+623
+624
+625
+626
+627
+628
+629
+630
+631
+632
+633
+634
+635
+636
+637
+638
+639
+640
+641
+642
+643
+644
+645
+646
+647
+648
+649
+650
+651
+652
+653
+654
+655
+656
+657
+658
+659
+660
+661
+662
+663
+664
+665
+666
+667
+668
+669
+670
+671
+672
+673
+674
+675
+676
+677
+678
+679
+680
+681
+682
+683
+684
+685
+686
+687
+688
+689
+690
+691
+692
+693
+694
+695
+696
+697
+698
+699
+700
+701
+702
+703
+704
+705
+706
+707
+708
+709
+710
+711
+712
+713
+714
+715
+716
+717
+718
+719
+720
+721
+722
+723
+724
+725
+726
+727
+728
+729
+730
+731
+732
+733
+734
+735
+736
+737
+738
+739
+740
+741
+742
+743
+744
+745
+746
+747
+748
+749
+750
+751
+752
+753
+754
+755
+756
+757
+758
+759
+760
+761
+762
+763
+764
+765
+766
+767
+768
+769
+770
+771
+772
+773
+774
+775
+776
+777
+778
+779
+780
+781
+782
+783
+784
+785
+786
+787
+788
+789
+790
+791
+792
+793
+794
+795
+796
+797
+798
+799
+800
+801
+802
+803
+804
+805
+806
+807
+808
+809
+810
+811
+812
+813
+814
+815
+816
+817
+818
+819
+820
+821
+822
+823
+824
+825
+826
+827
+828
+829
+830
+831
+832
+833
+834
+835
+836
+837
+838
+839
+840
+841
+842
+843
+844
+845
+846
+847
+848
+849
+850
+851
+852
+853
+854
+855
+856
+857
+858
+859
+860
+861
+862
+863
+864
+865
+866
+867
+868
+869
+870
+871
+872
+873
+874</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/*
+ * MelonJS Game Engine
+ * Copyright (C) 2011 - 2018 Olivier Biot
+ * http://www.melonjs.org
+ *
+ * Separating Axis Theorem implementation, based on the SAT.js library by Jim Riecken &lt;jimr@jimr.ca&gt;
+ * Available under the MIT License - https://github.com/jriecken/sat-js
+ */
+&nbsp;
+(function () {
+&nbsp;
+    /**
+     * Constants for Vornoi regions
+     * @ignore
+     */
+    var LEFT_VORNOI_REGION = -1;
+&nbsp;
+    /**
+     * Constants for Vornoi regions
+     * @ignore
+     */
+    var MIDDLE_VORNOI_REGION = 0;
+&nbsp;
+    /**
+     * Constants for Vornoi regions
+     * @ignore
+     */
+    var RIGHT_VORNOI_REGION = 1;
+&nbsp;
+&nbsp;
+    /**
+     * A pool of `Vector` objects that are used in calculations to avoid allocating memory.
+     * @type {Array.&lt;Vector&gt;}
+     */
+    var T_VECTORS = [];
+    for (var v = 0; v &lt; 10; v++) { T_VECTORS.push(new me.Vector2d()); }
+&nbsp;
+    /**
+     * A pool of arrays of numbers used in calculations to avoid allocating memory.
+     * @type {Array.&lt;Array.&lt;number&gt;&gt;}
+     */
+    var T_ARRAYS = [];
+    for (var a = 0; a &lt; 5; a++) { T_ARRAYS.push([]); }
+&nbsp;
+    // a dummy entity object when using Line for raycasting
+    var dummyEntity = {
+        pos : new me.Vector2d(0, 0),
+        ancestor : {
+            _absPos : new me.Vector2d(0, 0)
+        }
+    };
+&nbsp;
+    /**
+     * Flattens the specified array of points onto a unit vector axis,
+     * resulting in a one dimensional range of the minimum and
+     * maximum value on that axis.
+     * @param {Array.&lt;Vector&gt;} points The points to flatten.
+     * @param {Vector} normal The unit vector axis to flatten on.
+     * @param {Array.&lt;number&gt;} result An array.  After calling this function,
+     *   result[0] will be the minimum value,
+     *   result[1] will be the maximum value.
+     */
+<span class="fstat-no" title="function not covered" >    function flattenPointsOn(points, normal, result) {</span>
+<span class="cstat-no" title="statement not covered" >        var min = Number.MAX_VALUE;</span>
+<span class="cstat-no" title="statement not covered" >        var max = -Number.MAX_VALUE;</span>
+<span class="cstat-no" title="statement not covered" >        var len = points.length;</span>
+<span class="cstat-no" title="statement not covered" >        for (var i = 0; i &lt; len; i++) {</span>
+            // The magnitude of the projection of the point onto the normal
+<span class="cstat-no" title="statement not covered" >            var dot = points[i].dotProduct(normal);</span>
+<span class="cstat-no" title="statement not covered" >            if (dot &lt; min) { <span class="cstat-no" title="statement not covered" >min = dot; </span>}</span>
+<span class="cstat-no" title="statement not covered" >            if (dot &gt; max) { <span class="cstat-no" title="statement not covered" >max = dot; </span>}</span>
+        }
+<span class="cstat-no" title="statement not covered" >        result[0] = min;</span>
+<span class="cstat-no" title="statement not covered" >        result[1] = max;</span>
+    }
+&nbsp;
+    /**
+     * Check whether two convex polygons are separated by the specified
+     * axis (must be a unit vector).
+     * @param {Vector} aPos The position of the first polygon.
+     * @param {Vector} bPos The position of the second polygon.
+     * @param {Array.&lt;Vector&gt;} aPoints The points in the first polygon.
+     * @param {Array.&lt;Vector&gt;} bPoints The points in the second polygon.
+     * @param {Vector} axis The axis (unit sized) to test against.  The points of both polygons
+     *   will be projected onto this axis.
+     * @param {Response=} response A Response object (optional) which will be populated
+     *   if the axis is not a separating axis.
+     * @return {boolean} true if it is a separating axis, false otherwise.  If false,
+     *   and a response is passed in, information about how much overlap and
+     *   the direction of the overlap will be populated.
+     */
+<span class="fstat-no" title="function not covered" >    function isSeparatingAxis(aPos, bPos, aPoints, bPoints, axis, response) {</span>
+<span class="cstat-no" title="statement not covered" >        var rangeA = T_ARRAYS.pop();</span>
+<span class="cstat-no" title="statement not covered" >        var rangeB = T_ARRAYS.pop();</span>
+        // The magnitude of the offset between the two polygons
+<span class="cstat-no" title="statement not covered" >        var offsetV = T_VECTORS.pop().copy(bPos).sub(aPos);</span>
+<span class="cstat-no" title="statement not covered" >        var projectedOffset = offsetV.dotProduct(axis);</span>
+&nbsp;
+        // Project the polygons onto the axis.
+<span class="cstat-no" title="statement not covered" >        flattenPointsOn(aPoints, axis, rangeA);</span>
+<span class="cstat-no" title="statement not covered" >        flattenPointsOn(bPoints, axis, rangeB);</span>
+        // Move B's range to its position relative to A.
+<span class="cstat-no" title="statement not covered" >        rangeB[0] += projectedOffset;</span>
+<span class="cstat-no" title="statement not covered" >        rangeB[1] += projectedOffset;</span>
+        // Check if there is a gap. If there is, this is a separating axis and we can stop
+<span class="cstat-no" title="statement not covered" >        if (rangeA[0] &gt; rangeB[1] || rangeB[0] &gt; rangeA[1]) {</span>
+<span class="cstat-no" title="statement not covered" >            T_VECTORS.push(offsetV);</span>
+<span class="cstat-no" title="statement not covered" >            T_ARRAYS.push(rangeA);</span>
+<span class="cstat-no" title="statement not covered" >            T_ARRAYS.push(rangeB);</span>
+<span class="cstat-no" title="statement not covered" >            return true;</span>
+        }
+&nbsp;
+        // This is not a separating axis. If we're calculating a response, calculate the overlap.
+<span class="cstat-no" title="statement not covered" >        if (response) {</span>
+<span class="cstat-no" title="statement not covered" >            var overlap = 0;</span>
+            // A starts further left than B
+<span class="cstat-no" title="statement not covered" >            if (rangeA[0] &lt; rangeB[0]) {</span>
+<span class="cstat-no" title="statement not covered" >                response.aInB = false;</span>
+                // A ends before B does. We have to pull A out of B
+<span class="cstat-no" title="statement not covered" >                if (rangeA[1] &lt; rangeB[1]) {</span>
+<span class="cstat-no" title="statement not covered" >                    overlap = rangeA[1] - rangeB[0];</span>
+<span class="cstat-no" title="statement not covered" >                    response.bInA = false;</span>
+                // B is fully inside A.  Pick the shortest way out.
+                } else {
+<span class="cstat-no" title="statement not covered" >                    var option1 = rangeA[1] - rangeB[0];</span>
+<span class="cstat-no" title="statement not covered" >                    var option2 = rangeB[1] - rangeA[0];</span>
+<span class="cstat-no" title="statement not covered" >                    overlap = option1 &lt; option2 ? option1 : -option2;</span>
+                }
+            // B starts further left than A
+            } else {
+<span class="cstat-no" title="statement not covered" >                response.bInA = false;</span>
+                // B ends before A ends. We have to push A out of B
+<span class="cstat-no" title="statement not covered" >                if (rangeA[1] &gt; rangeB[1]) {</span>
+<span class="cstat-no" title="statement not covered" >                    overlap = rangeA[0] - rangeB[1];</span>
+<span class="cstat-no" title="statement not covered" >                    response.aInB = false;</span>
+                // A is fully inside B.  Pick the shortest way out.
+                } else {
+<span class="cstat-no" title="statement not covered" >                    var option11 = rangeA[1] - rangeB[0];</span>
+<span class="cstat-no" title="statement not covered" >                    var option22 = rangeB[1] - rangeA[0];</span>
+<span class="cstat-no" title="statement not covered" >                    overlap = option11 &lt; option22 ? option11 : -option22;</span>
+                }
+            }
+&nbsp;
+            // If this is the smallest amount of overlap we've seen so far, set it as the minimum overlap.
+<span class="cstat-no" title="statement not covered" >            var absOverlap = Math.abs(overlap);</span>
+<span class="cstat-no" title="statement not covered" >            if (absOverlap &lt; response.overlap) {</span>
+<span class="cstat-no" title="statement not covered" >                response.overlap = absOverlap;</span>
+<span class="cstat-no" title="statement not covered" >                response.overlapN.copy(axis);</span>
+<span class="cstat-no" title="statement not covered" >                if (overlap &lt; 0) {</span>
+<span class="cstat-no" title="statement not covered" >                    response.overlapN.negateSelf();</span>
+                }
+            }
+        }
+<span class="cstat-no" title="statement not covered" >        T_VECTORS.push(offsetV);</span>
+<span class="cstat-no" title="statement not covered" >        T_ARRAYS.push(rangeA);</span>
+<span class="cstat-no" title="statement not covered" >        T_ARRAYS.push(rangeB);</span>
+<span class="cstat-no" title="statement not covered" >        return false;</span>
+    }
+&nbsp;
+&nbsp;
+    /**
+     * Calculates which Vornoi region a point is on a line segment. &lt;br&gt;
+     * It is assumed that both the line and the point are relative to `(0,0)`&lt;br&gt;
+     * &lt;pre&gt;
+     *             |       (0)      |
+     *      (-1)  [S]--------------[E]  (1)
+     *             |       (0)      |
+     * &lt;/pre&gt;
+     *
+     * @ignore
+     * @param {Vector} line The line segment.
+     * @param {Vector} point The point.
+     * @return  {number} LEFT_VORNOI_REGION (-1) if it is the left region,
+     *          MIDDLE_VORNOI_REGION (0) if it is the middle region,
+     *          RIGHT_VORNOI_REGION (1) if it is the right region.
+     */
+<span class="fstat-no" title="function not covered" >    function vornoiRegion(line, point) {</span>
+<span class="cstat-no" title="statement not covered" >        var len2 = line.length2();</span>
+<span class="cstat-no" title="statement not covered" >        var dp = point.dotProduct(line);</span>
+<span class="cstat-no" title="statement not covered" >        if (dp &lt; 0) {</span>
+            // If the point is beyond the start of the line, it is in the
+            // left vornoi region.
+<span class="cstat-no" title="statement not covered" >            return LEFT_VORNOI_REGION;</span>
+        } else <span class="cstat-no" title="statement not covered" >if (dp &gt; len2) {</span>
+            // If the point is beyond the end of the line, it is in the
+            // right vornoi region.
+<span class="cstat-no" title="statement not covered" >            return RIGHT_VORNOI_REGION;</span>
+        } else {
+            // Otherwise, it's in the middle one.
+<span class="cstat-no" title="statement not covered" >            return MIDDLE_VORNOI_REGION;</span>
+        }
+    }
+&nbsp;
+    /**
+     * A singleton for managing collision detection (and projection-based collision response) of 2D shapes.&lt;br&gt;
+     * Based on the Separating Axis Theorem and supports detecting collisions between simple Axis-Aligned Boxes, convex polygons and circles based shapes.
+     * @namespace me.collision
+     * @memberOf me
+     */
+    me.collision = (function () {
+        // hold public stuff in our singleton
+        var api = {};
+&nbsp;
+        /*
+         * PUBLIC STUFF
+         */
+&nbsp;
+        /**
+         * the world quadtree used for the collision broadphase
+         * @name quadTree
+         * @memberOf me.collision
+         * @public
+         * @type {me.QuadTree}
+         */
+        api.quadTree = null;
+&nbsp;
+        /**
+         * The maximum number of levels that the quadtree will create.
+         * @name maxDepth
+         * @memberOf me.collision
+         * @public
+         * @type {Number}
+         * @default 4
+         * @see me.collision.quadTree
+         *
+         */
+        api.maxDepth = 4;
+&nbsp;
+        /**
+         * The maximum number of children that a quadtree node can contain before it is split into sub-nodes.
+         * @name maxChildren
+         * @memberOf me.collision
+         * @public
+         * @type {Number}
+         * @default 8
+         * @see me.collision.quadTree
+         */
+        api.maxChildren = 8;
+&nbsp;
+        /**
+         * bounds of the physic world.
+         * @name bounds
+         * @memberOf me.collision
+         * @public
+         * @type {me.Rect}
+         */
+        api.bounds = null;
+&nbsp;
+        /**
+         * Enum for collision type values.
+         * @property NO_OBJECT to disable collision check
+         * @property PLAYER_OBJECT
+         * @property NPC_OBJECT
+         * @property ENEMY_OBJECT
+         * @property COLLECTABLE_OBJECT
+         * @property ACTION_OBJECT e.g. doors
+         * @property PROJECTILE_OBJECT e.g. missiles
+         * @property WORLD_SHAPE e.g. walls; for map collision shapes
+         * @property USER user-defined collision types (see example)
+         * @property ALL_OBJECT all of the above (including user-defined types)
+         * @readonly
+         * @enum {Number}
+         * @name types
+         * @memberOf me.collision
+         * @see me.body.setCollisionMask
+         * @see me.body.collisionType
+         * @example
+         * // set the entity body collision type
+         * myEntity.body.collisionType = me.collision.types.PLAYER_OBJECT;
+         *
+         * // filter collision detection with collision shapes, enemies and collectables
+         * myEntity.body.setCollisionMask(
+         *     me.collision.types.WORLD_SHAPE |
+         *     me.collision.types.ENEMY_OBJECT |
+         *     me.collision.types.COLLECTABLE_OBJECT
+         * );
+         *
+         * // User-defined collision types are defined using BITWISE LEFT-SHIFT:
+         * game.collisionTypes = {
+         *     LOCKED_DOOR : me.collision.types.USER &lt;&lt; 0,
+         *     OPEN_DOOR   : me.collision.types.USER &lt;&lt; 1,
+         *     LOOT        : me.collision.types.USER &lt;&lt; 2,
+         * };
+         *
+         * // Set collision type for a door entity
+         * myDoorEntity.body.collisionType = game.collisionTypes.LOCKED_DOOR;
+         *
+         * // Set collision mask for the player entity, so it collides with locked doors and loot
+         * myPlayerEntity.body.setCollisionMask(
+         *     me.collision.types.ENEMY_OBJECT |
+         *     me.collision.types.WORLD_SHAPE |
+         *     game.collisionTypes.LOCKED_DOOR |
+         *     game.collisionTypes.LOOT
+         * );
+         */
+        api.types = {
+            /** to disable collision check */
+            NO_OBJECT           : 0,
+            PLAYER_OBJECT       : 1 &lt;&lt; 0,
+            NPC_OBJECT          : 1 &lt;&lt; 1,
+            ENEMY_OBJECT        : 1 &lt;&lt; 2,
+            COLLECTABLE_OBJECT  : 1 &lt;&lt; 3,
+            ACTION_OBJECT       : 1 &lt;&lt; 4, // door, etc...
+            PROJECTILE_OBJECT   : 1 &lt;&lt; 5, // missiles, etc...
+            WORLD_SHAPE         : 1 &lt;&lt; 6, // walls, etc...
+            USER                : 1 &lt;&lt; 7, // user-defined types start here...
+            ALL_OBJECT          : 0xFFFFFFFF // all objects
+        };
+&nbsp;
+        /**
+         * Initialize the collision/physic world
+         * @ignore
+         */
+        api.init = function () {
+            // default bounds to the game world size
+            api.bounds = me.game.world.getBounds().clone();
+            // initializa the quadtree
+            api.quadTree = new me.QuadTree(api.bounds, api.maxChildren, api.maxDepth);
+&nbsp;
+            // reset the collision detection engine if a new level is loaded
+            me.event.subscribe(me.event.LEVEL_LOADED, <span class="fstat-no" title="function not covered" >function () {</span>
+                // align default bounds to the game world bounds
+<span class="cstat-no" title="statement not covered" >                api.bounds.copy(me.game.world.getBounds());</span>
+                // reset the quadtree
+<span class="cstat-no" title="statement not covered" >                api.quadTree.clear(api.bounds);</span>
+            });
+        };
+&nbsp;
+        /**
+         * An object representing the result of an intersection.
+         * @property {me.Renderable} a The first object participating in the intersection
+         * @property {me.Renderable} b The second object participating in the intersection
+         * @property {Number} overlap Magnitude of the overlap on the shortest colliding axis
+         * @property {me.Vector2d} overlapV The overlap vector (i.e. `overlapN.scale(overlap, overlap)`). If this vector is subtracted from the position of a, a and b will no longer be colliding
+         * @property {me.Vector2d} overlapN The shortest colliding axis (unit-vector)
+         * @property {Boolean} aInB Whether the first object is entirely inside the second
+         * @property {Boolean} bInA Whether the second object is entirely inside the first
+         * @property {Number} indexShapeA The index of the colliding shape for the object a body
+         * @property {Number} indexShapeB The index of the colliding shape for the object b body
+         * @name ResponseObject
+         * @memberOf me.collision
+         * @public
+         * @type {Object}
+         * @see me.collision.check
+         */
+        api.ResponseObject = function () {
+            this.a = null;
+            this.b = null;
+            this.overlapN = new me.Vector2d();
+            this.overlapV = new me.Vector2d();
+            this.aInB = true;
+            this.bInA = true;
+            this.indexShapeA = -1;
+            this.indexShapeB = -1;
+            this.overlap = Number.MAX_VALUE;
+        };
+&nbsp;
+        /**
+         * Set some values of the response back to their defaults. &lt;br&gt;
+         * Call this between tests if you are going to reuse a single &lt;br&gt;
+         * Response object for multiple intersection tests &lt;br&gt;
+         * (recommended as it will avoid allocating extra memory) &lt;br&gt;
+         * @name clear
+         * @memberOf me.collision.ResponseObject
+         * @public
+         * @function
+         */
+        api.ResponseObject.prototype.clear = function () {
+            this.aInB = true;
+            this.bInA = true;
+            this.overlap = Number.MAX_VALUE;
+            this.indexShapeA = -1;
+            this.indexShapeB = -1;
+            return this;
+        };
+&nbsp;
+        /**
+         * a global instance of a response object used for collision detection &lt;br&gt;
+         * this object will be reused amongst collision detection call if not user-defined response is specified
+         * @name response
+         * @memberOf me.collision
+         * @public
+         * @type {me.collision.ResponseObject}
+         */
+        api.response = new api.ResponseObject();
+&nbsp;
+        /**
+         * a callback used to determine if two objects should collide (based on both respective objects collision mask and type).&lt;br&gt;
+         * you can redefine this function if you need any specific rules over what should collide with what.
+         * @name shouldCollide
+         * @memberOf me.collision
+         * @public
+         * @function
+         * @param {me.Renderable} a a reference to the object A.
+         * @param {me.Renderable} b a reference to the object B.
+         * @return {Boolean} true if they should collide, false otherwise
+         */
+        api.shouldCollide = <span class="fstat-no" title="function not covered" >function (a, b) {</span>
+<span class="cstat-no" title="statement not covered" >            return (</span>
+                a.isKinematic !== true &amp;&amp; b.isKinematic !== true &amp;&amp;
+                a.body &amp;&amp; b.body &amp;&amp;
+                (a.body.collisionMask &amp; b.body.collisionType) !== 0 &amp;&amp;
+                (a.body.collisionType &amp; b.body.collisionMask) !== 0
+            );
+        };
+&nbsp;
+        /**
+         * Checks if the specified entity collides with others entities
+         * @name check
+         * @memberOf me.collision
+         * @public
+         * @function
+         * @param {me.Renderable} obj entity to be tested for collision
+         * @param {me.collision.ResponseObject} [respObj=me.collision.response] a user defined response object that will be populated if they intersect.
+         * @return {Boolean} in case of collision, false otherwise
+         * @example
+         * update : function (dt) {
+         *    // ...
+         *
+         *    // handle collisions against other shapes
+         *    me.collision.check(this);
+         *
+         *    // ...
+         * },
+         *
+         * // colision handler
+         * onCollision : function (response) {
+         *     if (response.b.body.collisionType === me.collision.types.ENEMY_OBJECT) {
+         *         // makes the other entity solid, by substracting the overlap vector to the current position
+         *         this.pos.sub(response.overlapV);
+         *         this.hurt();
+         *         // not solid
+         *         return false;
+         *     }
+         *     // Make the object solid
+         *     return true;
+         * },
+         */
+        api.check = <span class="fstat-no" title="function not covered" >function (objA, responseObject) {</span>
+<span class="cstat-no" title="statement not covered" >            var collision = 0;</span>
+<span class="cstat-no" title="statement not covered" >            var response = responseObject || api.response;</span>
+&nbsp;
+            // retreive a list of potential colliding objects
+<span class="cstat-no" title="statement not covered" >            var candidates = api.quadTree.retrieve(objA);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            for (var i = candidates.length, objB; i--, (objB = candidates[i]);) {</span>
+&nbsp;
+                // check if both objects "should" collide
+<span class="cstat-no" title="statement not covered" >                if ((objB !== objA) &amp;&amp; api.shouldCollide(objA, objB) &amp;&amp;</span>
+                    // fast AABB check if both bounding boxes are overlaping
+                    objA.getBounds().overlaps(objB.getBounds())) {
+&nbsp;
+                    // go trough all defined shapes in A
+<span class="cstat-no" title="statement not covered" >                    var aLen = objA.body.shapes.length;</span>
+<span class="cstat-no" title="statement not covered" >                    var bLen = objB.body.shapes.length;</span>
+<span class="cstat-no" title="statement not covered" >                    if (aLen === 0 || bLen === 0) {</span>
+<span class="cstat-no" title="statement not covered" >                        continue;</span>
+                    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                    var indexA = 0;</span>
+<span class="cstat-no" title="statement not covered" >                    do {</span>
+<span class="cstat-no" title="statement not covered" >                        var shapeA = objA.body.getShape(indexA);</span>
+                        // go through all defined shapes in B
+<span class="cstat-no" title="statement not covered" >                        var indexB = 0;</span>
+<span class="cstat-no" title="statement not covered" >                        do {</span>
+<span class="cstat-no" title="statement not covered" >                            var shapeB = objB.body.getShape(indexB);</span>
+&nbsp;
+                            // full SAT collision check
+<span class="cstat-no" title="statement not covered" >                            if (api["test" + shapeA.shapeType + shapeB.shapeType]</span>
+                                .call(
+                                    this,
+                                    objA, // a reference to the object A
+                                    shapeA,
+                                    objB,  // a reference to the object B
+                                    shapeB,
+                                     // clear response object before reusing
+                                    response.clear()) === true
+                            ) {
+                                // we touched something !
+<span class="cstat-no" title="statement not covered" >                                collision++;</span>
+&nbsp;
+                                // set the shape index
+<span class="cstat-no" title="statement not covered" >                                response.indexShapeA = indexA;</span>
+<span class="cstat-no" title="statement not covered" >                                response.indexShapeB = indexB;</span>
+&nbsp;
+                                // execute the onCollision callback
+<span class="cstat-no" title="statement not covered" >                                if (objA.onCollision &amp;&amp; objA.onCollision(response, objB) !== false) {</span>
+<span class="cstat-no" title="statement not covered" >                                    objA.body.respondToCollision.call(objA.body, response);</span>
+                                }
+<span class="cstat-no" title="statement not covered" >                                if (objB.onCollision &amp;&amp; objB.onCollision(response, objA) !== false) {</span>
+<span class="cstat-no" title="statement not covered" >                                    objB.body.respondToCollision.call(objB.body, response);</span>
+                                }
+                            }
+<span class="cstat-no" title="statement not covered" >                            indexB++;</span>
+                        } while (indexB &lt; bLen);
+<span class="cstat-no" title="statement not covered" >                        indexA++;</span>
+                    } while (indexA &lt; aLen);
+                }
+            }
+            // we could return the amount of objects we collided with ?
+<span class="cstat-no" title="statement not covered" >            return collision &gt; 0;</span>
+        };
+&nbsp;
+        /**
+         * Checks for object colliding with the given line
+         * @name rayCast
+         * @memberOf me.collision
+         * @public
+         * @function
+         * @param {me.Line} line line to be tested for collision
+         * @param {Array.&lt;me.Renderable&gt;} [result] a user defined array that will be populated with intersecting physic objects.
+         * @return {Array.&lt;me.Renderable&gt;} an array of intersecting physic objects
+         * @example
+         *    // define a line accross the viewport
+         *    var ray = new me.Line(
+         *        // absolute position of the line
+         *        0, 0, [
+         *        // starting point relative to the initial position
+         *        new me.Vector2d(0, 0),
+         *        // ending point
+         *        new me.Vector2d(me.game.viewport.width, me.game.viewport.height)
+         *    ]);
+         *
+         *    // check for collition
+         *    result = me.collision.rayCast(ray);
+         *
+         *    if (result.length &gt; 0) {
+         *        // ...
+         *    }
+         */
+        api.rayCast = <span class="fstat-no" title="function not covered" >function (line, resultArray) {</span>
+<span class="cstat-no" title="statement not covered" >            var collision = 0;</span>
+<span class="cstat-no" title="statement not covered" >            var result = resultArray || [];</span>
+&nbsp;
+            // retrieve a list of potential colliding objects
+<span class="cstat-no" title="statement not covered" >            var candidates = api.quadTree.retrieve(line.getBounds());</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            for (var i = candidates.length, objB; i--, (objB = candidates[i]);) {</span>
+&nbsp;
+                // fast AABB check if both bounding boxes are overlaping
+<span class="cstat-no" title="statement not covered" >                if (objB.body &amp;&amp; line.getBounds().overlaps(objB.getBounds())) {</span>
+&nbsp;
+                    // go trough all defined shapes in B (if any)
+<span class="cstat-no" title="statement not covered" >                    var bLen = objB.body.shapes.length;</span>
+<span class="cstat-no" title="statement not covered" >                    if ( objB.body.shapes.length === 0) {</span>
+<span class="cstat-no" title="statement not covered" >                        continue;</span>
+                    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                    var shapeA = line;</span>
+&nbsp;
+                    // go through all defined shapes in B
+<span class="cstat-no" title="statement not covered" >                    var indexB = 0;</span>
+<span class="cstat-no" title="statement not covered" >                    do {</span>
+<span class="cstat-no" title="statement not covered" >                        var shapeB = objB.body.getShape(indexB);</span>
+&nbsp;
+                        // full SAT collision check
+<span class="cstat-no" title="statement not covered" >                        if (api["test" + shapeA.shapeType + shapeB.shapeType]</span>
+                            .call(
+                                this,
+                                dummyEntity, // a reference to the object A
+                                shapeA,
+                                objB,  // a reference to the object B
+                                shapeB
+                        )) {
+                            // we touched something !
+<span class="cstat-no" title="statement not covered" >                            result[collision] = objB;</span>
+<span class="cstat-no" title="statement not covered" >                            collision++;</span>
+                        }
+<span class="cstat-no" title="statement not covered" >                        indexB++;</span>
+                    } while (indexB &lt; bLen);
+                }
+            }
+&nbsp;
+            // cap result in case it was not empty
+<span class="cstat-no" title="statement not covered" >            result.length = collision;</span>
+&nbsp;
+            // return the list of colliding objects
+<span class="cstat-no" title="statement not covered" >            return result;</span>
+        };
+&nbsp;
+        /**
+         * Checks whether polygons collide.
+         * @ignore
+         * @param {me.Renderable} a a reference to the object A.
+         * @param {me.Polygon} polyA a reference to the object A Polygon to be tested
+         * @param {me.Renderable} b a reference to the object B.
+         * @param {me.Polygon} polyB a reference to the object B Polygon to be tested
+         * @param {Response=} response Response object (optional) that will be populated if they intersect.
+         * @return {boolean} true if they intersect, false if they don't.
+         */
+        api.testPolygonPolygon = <span class="fstat-no" title="function not covered" >function (a, polyA, b, polyB, response) {</span>
+            // specific point for
+<span class="cstat-no" title="statement not covered" >            var aPoints = polyA.points;</span>
+<span class="cstat-no" title="statement not covered" >            var aNormals = polyA.normals;</span>
+<span class="cstat-no" title="statement not covered" >            var aLen = aNormals.length;</span>
+<span class="cstat-no" title="statement not covered" >            var bPoints = polyB.points;</span>
+<span class="cstat-no" title="statement not covered" >            var bNormals = polyB.normals;</span>
+<span class="cstat-no" title="statement not covered" >            var bLen = bNormals.length;</span>
+            // aboslute shape position
+<span class="cstat-no" title="statement not covered" >            var posA = T_VECTORS.pop().copy(a.pos).add(a.ancestor._absPos).add(polyA.pos);</span>
+<span class="cstat-no" title="statement not covered" >            var posB = T_VECTORS.pop().copy(b.pos).add(b.ancestor._absPos).add(polyB.pos);</span>
+<span class="cstat-no" title="statement not covered" >            var i;</span>
+&nbsp;
+            // If any of the edge normals of A is a separating axis, no intersection.
+<span class="cstat-no" title="statement not covered" >            for (i = 0; i &lt; aLen; i++) {</span>
+<span class="cstat-no" title="statement not covered" >                if (isSeparatingAxis(posA, posB, aPoints, bPoints, aNormals[i], response)) {</span>
+<span class="cstat-no" title="statement not covered" >                    T_VECTORS.push(posA);</span>
+<span class="cstat-no" title="statement not covered" >                    T_VECTORS.push(posB);</span>
+<span class="cstat-no" title="statement not covered" >                    return false;</span>
+                }
+            }
+&nbsp;
+            // If any of the edge normals of B is a separating axis, no intersection.
+<span class="cstat-no" title="statement not covered" >            for (i = 0; i &lt; bLen; i++) {</span>
+<span class="cstat-no" title="statement not covered" >                if (isSeparatingAxis(posA, posB, aPoints, bPoints, bNormals[i], response)) {</span>
+<span class="cstat-no" title="statement not covered" >                    T_VECTORS.push(posA);</span>
+<span class="cstat-no" title="statement not covered" >                    T_VECTORS.push(posB);</span>
+<span class="cstat-no" title="statement not covered" >                    return false;</span>
+                }
+            }
+&nbsp;
+            // Since none of the edge normals of A or B are a separating axis, there is an intersection
+            // and we've already calculated the smallest overlap (in isSeparatingAxis).  Calculate the
+            // final overlap vector.
+<span class="cstat-no" title="statement not covered" >            if (response) {</span>
+<span class="cstat-no" title="statement not covered" >                response.a = a;</span>
+<span class="cstat-no" title="statement not covered" >                response.b = b;</span>
+<span class="cstat-no" title="statement not covered" >                response.overlapV.copy(response.overlapN).scale(response.overlap);</span>
+            }
+<span class="cstat-no" title="statement not covered" >            T_VECTORS.push(posA);</span>
+<span class="cstat-no" title="statement not covered" >            T_VECTORS.push(posB);</span>
+<span class="cstat-no" title="statement not covered" >            return true;</span>
+        };
+&nbsp;
+        /**
+         * Check if two Ellipse collide.
+         * @ignore
+         * @param {me.Renderable} a a reference to the object A.
+         * @param {me.Ellipse} ellipseA a reference to the object A Ellipse to be tested
+         * @param {me.Renderable} b a reference to the object B.
+         * @param {me.Ellipse} ellipseB a reference to the object B Ellipse to be tested
+         * @param {Response=} response Response object (optional) that will be populated if
+         *   the circles intersect.
+         * @return {boolean} true if the circles intersect, false if they don't.
+         */
+        api.testEllipseEllipse = function (a, ellipseA, b, ellipseB, response) {
+            // Check if the distance between the centers of the two
+            // circles is greater than their combined radius.
+            var differenceV = T_VECTORS.pop().copy(b.pos).add(b.ancestor._absPos).add(ellipseB.pos)
+                .sub(a.pos).add(a.ancestor._absPos).sub(ellipseA.pos);
+            var radiusA = ellipseA.radius;
+            var radiusB = ellipseB.radius;
+            var totalRadius = radiusA + radiusB;
+            var totalRadiusSq = totalRadius * totalRadius;
+            var distanceSq = differenceV.length2();
+            // If the distance is bigger than the combined radius, they don't intersect.
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (distanceSq &gt; totalRadiusSq) {
+<span class="cstat-no" title="statement not covered" >                T_VECTORS.push(differenceV);</span>
+<span class="cstat-no" title="statement not covered" >                return false;</span>
+            }
+            // They intersect.  If we're calculating a response, calculate the overlap.
+            <span class="missing-if-branch" title="else path not taken" >E</span>if (response) {
+                var dist = Math.sqrt(distanceSq);
+                response.a = a;
+                response.b = b;
+                response.overlap = totalRadius - dist;
+                response.overlapN.copy(differenceV.normalize());
+                response.overlapV.copy(differenceV).scale(response.overlap);
+                response.aInB = radiusA &lt;= radiusB &amp;&amp; dist &lt;= radiusB - radiusA;
+                response.bInA = radiusB &lt;= radiusA &amp;&amp; dist &lt;= radiusA - radiusB;
+            }
+            T_VECTORS.push(differenceV);
+            return true;
+        };
+&nbsp;
+        /**
+         * Check if a polygon and an ellipse collide.
+         * @ignore
+         * @param {me.Renderable} a a reference to the object A.
+         * @param {me.Polygon} polyA a reference to the object A Polygon to be tested
+         * @param {me.Renderable} b a reference to the object B.
+         * @param {me.Ellipse} ellipseB a reference to the object B Ellipse to be tested
+         * @param {Response=} response Response object (optional) that will be populated if they intersect.
+         * @return {boolean} true if they intersect, false if they don't.
+         */
+        api.testPolygonEllipse = <span class="fstat-no" title="function not covered" >function (a, polyA, b, ellipseB, response) {</span>
+            // Get the position of the circle relative to the polygon.
+<span class="cstat-no" title="statement not covered" >            var circlePos = T_VECTORS.pop().copy(b.pos).add(b.ancestor._absPos).add(ellipseB.pos)</span>
+                .sub(a.pos).add(a.ancestor._absPos).sub(polyA.pos);
+<span class="cstat-no" title="statement not covered" >            var radius = ellipseB.radius;</span>
+<span class="cstat-no" title="statement not covered" >            var radius2 = radius * radius;</span>
+<span class="cstat-no" title="statement not covered" >            var points = polyA.points;</span>
+<span class="cstat-no" title="statement not covered" >            var edges = polyA.edges;</span>
+<span class="cstat-no" title="statement not covered" >            var len = edges.length;</span>
+<span class="cstat-no" title="statement not covered" >            var edge = T_VECTORS.pop();</span>
+<span class="cstat-no" title="statement not covered" >            var normal = T_VECTORS.pop();</span>
+<span class="cstat-no" title="statement not covered" >            var point = T_VECTORS.pop();</span>
+<span class="cstat-no" title="statement not covered" >            var dist = 0;</span>
+&nbsp;
+            // For each edge in the polygon:
+<span class="cstat-no" title="statement not covered" >            for (var i = 0; i &lt; len; i++) {</span>
+<span class="cstat-no" title="statement not covered" >                var next = i === len - 1 ? 0 : i + 1;</span>
+<span class="cstat-no" title="statement not covered" >                var prev = i === 0 ? len - 1 : i - 1;</span>
+<span class="cstat-no" title="statement not covered" >                var overlap = 0;</span>
+<span class="cstat-no" title="statement not covered" >                var overlapN = null;</span>
+&nbsp;
+                // Get the edge.
+<span class="cstat-no" title="statement not covered" >                edge.copy(edges[i]);</span>
+                // Calculate the center of the circle relative to the starting point of the edge.
+<span class="cstat-no" title="statement not covered" >                point.copy(circlePos).sub(points[i]);</span>
+&nbsp;
+                // If the distance between the center of the circle and the point
+                // is bigger than the radius, the polygon is definitely not fully in
+                // the circle.
+<span class="cstat-no" title="statement not covered" >                if (response &amp;&amp; point.length2() &gt; radius2) {</span>
+<span class="cstat-no" title="statement not covered" >                    response.aInB = false;</span>
+                }
+&nbsp;
+                // Calculate which Vornoi region the center of the circle is in.
+<span class="cstat-no" title="statement not covered" >                var region = vornoiRegion(edge, point);</span>
+<span class="cstat-no" title="statement not covered" >                var inRegion = true;</span>
+                // If it's the left region:
+<span class="cstat-no" title="statement not covered" >                if (region === LEFT_VORNOI_REGION) {</span>
+<span class="cstat-no" title="statement not covered" >                    var point2 = null;</span>
+<span class="cstat-no" title="statement not covered" >                    if (len &gt; 1) {</span>
+                        // We need to make sure we're in the RIGHT_VORNOI_REGION of the previous edge.
+<span class="cstat-no" title="statement not covered" >                        edge.copy(edges[prev]);</span>
+                        // Calculate the center of the circle relative the starting point of the previous edge
+<span class="cstat-no" title="statement not covered" >                        point2 = T_VECTORS.pop().copy(circlePos).sub(points[prev]);</span>
+<span class="cstat-no" title="statement not covered" >                        region = vornoiRegion(edge, point2);</span>
+<span class="cstat-no" title="statement not covered" >                        if (region !== RIGHT_VORNOI_REGION) {</span>
+<span class="cstat-no" title="statement not covered" >                            inRegion = false;</span>
+                        }
+                    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                    if (inRegion) {</span>
+                        // It's in the region we want.  Check if the circle intersects the point.
+<span class="cstat-no" title="statement not covered" >                        dist = point.length();</span>
+<span class="cstat-no" title="statement not covered" >                        if (dist &gt; radius) {</span>
+                            // No intersection
+<span class="cstat-no" title="statement not covered" >                            T_VECTORS.push(circlePos);</span>
+<span class="cstat-no" title="statement not covered" >                            T_VECTORS.push(edge);</span>
+<span class="cstat-no" title="statement not covered" >                            T_VECTORS.push(normal);</span>
+<span class="cstat-no" title="statement not covered" >                            T_VECTORS.push(point);</span>
+<span class="cstat-no" title="statement not covered" >                            if (point2) {</span>
+<span class="cstat-no" title="statement not covered" >                                T_VECTORS.push(point2);</span>
+                            }
+<span class="cstat-no" title="statement not covered" >                            return false;</span>
+                        } else <span class="cstat-no" title="statement not covered" >if (response) {</span>
+                            // It intersects, calculate the overlap.
+<span class="cstat-no" title="statement not covered" >                            response.bInA = false;</span>
+<span class="cstat-no" title="statement not covered" >                            overlapN = point.normalize();</span>
+<span class="cstat-no" title="statement not covered" >                            overlap = radius - dist;</span>
+                        }
+                    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                    if (point2) {</span>
+<span class="cstat-no" title="statement not covered" >                        T_VECTORS.push(point2);</span>
+                    }
+                // If it's the right region:
+                } else <span class="cstat-no" title="statement not covered" >if (region === RIGHT_VORNOI_REGION) {</span>
+<span class="cstat-no" title="statement not covered" >                    if (len &gt; 1) {</span>
+                        // We need to make sure we're in the left region on the next edge
+<span class="cstat-no" title="statement not covered" >                        edge.copy(edges[next]);</span>
+                        // Calculate the center of the circle relative to the starting point of the next edge.
+<span class="cstat-no" title="statement not covered" >                        point.copy(circlePos).sub(points[next]);</span>
+<span class="cstat-no" title="statement not covered" >                        region = vornoiRegion(edge, point);</span>
+<span class="cstat-no" title="statement not covered" >                        if (region !== LEFT_VORNOI_REGION) {</span>
+<span class="cstat-no" title="statement not covered" >                            inRegion = false;</span>
+                        }
+                    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                    if (inRegion) {</span>
+                        // It's in the region we want.  Check if the circle intersects the point.
+<span class="cstat-no" title="statement not covered" >                        dist = point.length();</span>
+<span class="cstat-no" title="statement not covered" >                        if (dist &gt; radius) {</span>
+                            // No intersection
+<span class="cstat-no" title="statement not covered" >                            T_VECTORS.push(circlePos);</span>
+<span class="cstat-no" title="statement not covered" >                            T_VECTORS.push(edge);</span>
+<span class="cstat-no" title="statement not covered" >                            T_VECTORS.push(normal);</span>
+<span class="cstat-no" title="statement not covered" >                            T_VECTORS.push(point);</span>
+<span class="cstat-no" title="statement not covered" >                            return false;</span>
+                        } else <span class="cstat-no" title="statement not covered" >if (response) {</span>
+                            // It intersects, calculate the overlap.
+<span class="cstat-no" title="statement not covered" >                            response.bInA = false;</span>
+<span class="cstat-no" title="statement not covered" >                            overlapN = point.normalize();</span>
+<span class="cstat-no" title="statement not covered" >                            overlap = radius - dist;</span>
+                        }
+                    }
+                // Otherwise, it's the middle region:
+                } else {
+                    // Need to check if the circle is intersecting the edge,
+                    // Get the normal.
+<span class="cstat-no" title="statement not covered" >                    normal.copy(polyA.normals[i]);</span>
+                    // Find the perpendicular distance between the center of the
+                    // circle and the edge.
+<span class="cstat-no" title="statement not covered" >                    dist = point.dotProduct(normal);</span>
+<span class="cstat-no" title="statement not covered" >                    var distAbs = Math.abs(dist);</span>
+                    // If the circle is on the outside of the edge, there is no intersection.
+<span class="cstat-no" title="statement not covered" >                    if ((len === 1 || dist &gt; 0) &amp;&amp; distAbs &gt; radius) {</span>
+                        // No intersection
+<span class="cstat-no" title="statement not covered" >                        T_VECTORS.push(circlePos);</span>
+<span class="cstat-no" title="statement not covered" >                        T_VECTORS.push(edge);</span>
+<span class="cstat-no" title="statement not covered" >                        T_VECTORS.push(normal);</span>
+<span class="cstat-no" title="statement not covered" >                        T_VECTORS.push(point);</span>
+<span class="cstat-no" title="statement not covered" >                        return false;</span>
+                    } else <span class="cstat-no" title="statement not covered" >if (response) {</span>
+                        // It intersects, calculate the overlap.
+<span class="cstat-no" title="statement not covered" >                        overlapN = normal;</span>
+<span class="cstat-no" title="statement not covered" >                        overlap = radius - dist;</span>
+                        // If the center of the circle is on the outside of the edge, or part of the
+                        // circle is on the outside, the circle is not fully inside the polygon.
+<span class="cstat-no" title="statement not covered" >                        if (dist &gt;= 0 || overlap &lt; 2 * radius) {</span>
+<span class="cstat-no" title="statement not covered" >                            response.bInA = false;</span>
+                        }
+                    }
+                }
+&nbsp;
+                // If this is the smallest overlap we've seen, keep it.
+                // (overlapN may be null if the circle was in the wrong Vornoi region).
+<span class="cstat-no" title="statement not covered" >                if (overlapN &amp;&amp; response &amp;&amp; Math.abs(overlap) &lt; Math.abs(response.overlap)) {</span>
+<span class="cstat-no" title="statement not covered" >                    response.overlap = overlap;</span>
+<span class="cstat-no" title="statement not covered" >                    response.overlapN.copy(overlapN);</span>
+                }
+            }
+&nbsp;
+            // Calculate the final overlap vector - based on the smallest overlap.
+<span class="cstat-no" title="statement not covered" >            if (response) {</span>
+<span class="cstat-no" title="statement not covered" >                response.a = a;</span>
+<span class="cstat-no" title="statement not covered" >                response.b = b;</span>
+<span class="cstat-no" title="statement not covered" >                response.overlapV.copy(response.overlapN).scale(response.overlap);</span>
+            }
+<span class="cstat-no" title="statement not covered" >            T_VECTORS.push(circlePos);</span>
+<span class="cstat-no" title="statement not covered" >            T_VECTORS.push(edge);</span>
+<span class="cstat-no" title="statement not covered" >            T_VECTORS.push(normal);</span>
+<span class="cstat-no" title="statement not covered" >            T_VECTORS.push(point);</span>
+<span class="cstat-no" title="statement not covered" >            return true;</span>
+        };
+&nbsp;
+        /**
+         * Check if an ellipse and a polygon collide. &lt;br&gt;
+         * **NOTE:** This is slightly less efficient than testPolygonEllipse as it just
+         * runs testPolygonEllipse and reverses the response at the end.
+         * @ignore
+         * @param {me.Renderable} a a reference to the object A.
+         * @param {me.Ellipse} ellipseA a reference to the object A Ellipse to be tested
+         * @param {me.Renderable} a a reference to the object B.
+         * @param {me.Polygon} polyB a reference to the object B Polygon to be tested
+         * @param {Response=} response Response object (optional) that will be populated if
+         *   they intersect.
+         * @return {boolean} true if they intersect, false if they don't.
+         */
+        api.testEllipsePolygon = <span class="fstat-no" title="function not covered" >function (a, ellipseA, b, polyB, response) {</span>
+            // Test the polygon against the circle.
+<span class="cstat-no" title="statement not covered" >            var result = api.testPolygonEllipse(b, polyB, a, ellipseA, response);</span>
+<span class="cstat-no" title="statement not covered" >            if (result &amp;&amp; response) {</span>
+                // Swap A and B in the response.
+<span class="cstat-no" title="statement not covered" >                var resa = response.a;</span>
+<span class="cstat-no" title="statement not covered" >                var aInB = response.aInB;</span>
+<span class="cstat-no" title="statement not covered" >                response.overlapN.negateSelf();</span>
+<span class="cstat-no" title="statement not covered" >                response.overlapV.negateSelf();</span>
+<span class="cstat-no" title="statement not covered" >                response.a = response.b;</span>
+<span class="cstat-no" title="statement not covered" >                response.b = resa;</span>
+<span class="cstat-no" title="statement not covered" >                response.aInB = response.bInA;</span>
+<span class="cstat-no" title="statement not covered" >                response.bInA = aInB;</span>
+            }
+<span class="cstat-no" title="statement not covered" >            return result;</span>
+        };
+&nbsp;
+        // return our object
+        return api;
+    })();
+})();
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sat Jan 26 2019 12:46:17 GMT-0500 (Eastern Standard Time)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

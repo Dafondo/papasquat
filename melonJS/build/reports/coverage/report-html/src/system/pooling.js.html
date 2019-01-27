@@ -1,0 +1,737 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/system/pooling.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">all files</a> / <a href="index.html">src/system/</a> pooling.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">87.88% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>58/66</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">75% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>15/20</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">66.67% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>6/9</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">87.88% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>58/66</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">248×</span>
+<span class="cline-any cline-yes">248×</span>
+<span class="cline-any cline-yes">898×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">248×</span>
+<span class="cline-any cline-yes">248×</span>
+<span class="cline-any cline-yes">248×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">248×</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">236×</span>
+<span class="cline-any cline-yes">236×</span>
+<span class="cline-any cline-yes">236×</span>
+<span class="cline-any cline-yes">236×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">248×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">23×</span>
+<span class="cline-any cline-yes">23×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/*
+ * MelonJS Game Engine
+ * Copyright (C) 2011 - 2018 Olivier Biot
+ * http://www.melonjs.org
+ *
+ */
+(function () {
+    /**
+     * This object is used for object pooling - a technique that might speed up your game if used properly.&lt;br&gt;
+     * If some of your classes will be instantiated and removed a lot at a time, it is a
+     * good idea to add the class to this object pool. A separate pool for that class
+     * will be created, which will reuse objects of the class. That way they won't be instantiated
+     * each time you need a new one (slowing your game), but stored into that pool and taking one
+     * already instantiated when you need it.&lt;br&gt;&lt;br&gt;
+     * This object is also used by the engine to instantiate objects defined in the map,
+     * which means, that on level loading the engine will try to instantiate every object
+     * found in the map, based on the user defined name in each Object Properties&lt;br&gt;
+     * &lt;img src="images/object_properties.png"/&gt;&lt;br&gt;
+     * @namespace me.pool
+     * @memberOf me
+     */
+    me.pool = (function () {
+        // hold public stuff in our singleton
+        var api = {};
+&nbsp;
+        var objectClass = {};
+&nbsp;
+        var instance_counter = 0;
+&nbsp;
+        /*
+         * PUBLIC STUFF
+         */
+&nbsp;
+        /**
+         * Constructor
+         * @ignore
+         */
+        api.init = function () {
+            api.register("me.Entity", me.Entity);
+            api.register("me.CollectableEntity", me.CollectableEntity);
+            api.register("me.LevelEntity", me.LevelEntity);
+            api.register("me.Tween", me.Tween, true);
+            api.register("me.Color", me.Color, true);
+            api.register("me.Particle", me.Particle, true);
+            api.register("me.Sprite", me.Sprite);
+            api.register("me.Text", me.Text, true);
+            api.register("me.BitmapText", me.BitmapText, true);
+            api.register("me.BitmapTextData", me.BitmapTextData, true);
+            api.register("me.ImageLayer", me.ImageLayer, true);
+            api.register("me.ColorLayer", me.ColorLayer, true);
+            api.register("me.Vector2d", me.Vector2d, true);
+            api.register("me.Vector3d", me.Vector3d, true);
+            api.register("me.ObservableVector2d", me.ObservableVector2d, true);
+            api.register("me.ObservableVector3d", me.ObservableVector3d, true);
+            api.register("me.Matrix2d", me.Matrix2d, true);
+            api.register("me.Rect", me.Rect, true);
+            api.register("me.Polygon", me.Polygon, true);
+            api.register("me.Line", me.Line, true);
+            api.register("me.Ellipse", me.Ellipse, true);
+        };
+&nbsp;
+        /**
+         * register an object to the pool. &lt;br&gt;
+         * Pooling must be set to true if more than one such objects will be created. &lt;br&gt;
+         * (note) If pooling is enabled, you shouldn't instantiate objects with `new`.
+         * See examples in {@link me.pool#pull}
+         * @name register
+         * @memberOf me.pool
+         * @public
+         * @function
+         * @param {String} className as defined in the Name field of the Object Properties (in Tiled)
+         * @param {Object} class corresponding Class to be instantiated
+         * @param {Boolean} [objectPooling=false] enables object pooling for the specified class
+         * - speeds up the game by reusing existing objects
+         * @example
+         * // add our users defined entities in the object pool
+         * me.pool.register("playerspawnpoint", PlayerEntity);
+         * me.pool.register("cherryentity", CherryEntity, true);
+         * me.pool.register("heartentity", HeartEntity, true);
+         * me.pool.register("starentity", StarEntity, true);
+         */
+         api.register = function (className, classObj, pooling) {
+             <span class="missing-if-branch" title="else path not taken" >E</span>if (typeof (classObj) !== "undefined") {
+                 objectClass[className] = {
+                     "class" : classObj,
+                     "pool" : (pooling ? [] : undefined)
+                 };
+             } else {
+<span class="cstat-no" title="statement not covered" >                 throw new me.Error("Cannot register object '" + className + "', invalid class");</span>
+             }
+         };
+&nbsp;
+        /**
+         * Pull a new instance of the requested object (if added into the object pool)
+         * @name pull
+         * @memberOf me.pool
+         * @public
+         * @function
+         * @param {String} className as used in {@link me.pool.register}
+         * @param {} [arguments...] arguments to be passed when instantiating/reinitializing the object
+         * @return {Object} the instance of the requested object
+         * @example
+         * me.pool.register("player", PlayerEntity);
+         * var player = me.pool.pull("player");
+         * @example
+         * me.pool.register("bullet", BulletEntity, true);
+         * me.pool.register("enemy", EnemyEntity, true);
+         * // ...
+         * // when we need to manually create a new bullet:
+         * var bullet = me.pool.pull("bullet", x, y, direction);
+         * // ...
+         * // params aren't a fixed number
+         * // when we need new enemy we can add more params, that the object construct requires:
+         * var enemy = me.pool.pull("enemy", x, y, direction, speed, power, life);
+         * // ...
+         * // when we want to destroy existing object, the remove
+         * // function will ensure the object can then be reallocated later
+         * me.game.world.removeChild(enemy);
+         * me.game.world.removeChild(bullet);
+         */
+        api.pull = function (name) {
+            var args = new Array(arguments.length);
+            for (var i = 0; i &lt; arguments.length; i++) {
+                args[i] = arguments[i];
+            }
+            var entity = objectClass[name];
+            <span class="missing-if-branch" title="else path not taken" >E</span>if (entity) {
+                var proto = entity["class"],
+                    pool = entity.pool,
+                    obj;
+&nbsp;
+                if (pool &amp;&amp; ((obj = pool.pop()))) {
+                    args.shift();
+                    // call the object onResetEvent function if defined
+                    if (typeof(obj.onResetEvent) === "function") {
+                        obj.onResetEvent.apply(obj, args);
+                    }
+                    else {
+                        obj.init.apply(obj, args);
+                    }
+                    instance_counter--;
+                }
+                else {
+                    args[0] = proto;
+                    obj = new (proto.bind.apply(proto, args))();
+                    <span class="missing-if-branch" title="else path not taken" >E</span>if (pool) {
+                        obj.className = name;
+                    }
+                }
+                return obj;
+            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            throw new me.Error("Cannot instantiate object of type '" + name + "'");</span>
+        };
+&nbsp;
+        /**
+         * purge the object pool from any inactive object &lt;br&gt;
+         * Object pooling must be enabled for this function to work&lt;br&gt;
+         * note: this will trigger the garbage collector
+         * @name purge
+         * @memberOf me.pool
+         * @public
+         * @function
+         */
+        api.purge = <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            for (var className in objectClass) {</span>
+<span class="cstat-no" title="statement not covered" >                if (objectClass[className]) {</span>
+<span class="cstat-no" title="statement not covered" >                    objectClass[className].pool = [];</span>
+                }
+            }
+<span class="cstat-no" title="statement not covered" >            instance_counter = 0;</span>
+        };
+&nbsp;
+        /**
+         * Push back an object instance into the object pool &lt;br&gt;
+         * Object pooling for the object class must be enabled,
+         * and object must have been instantiated using {@link me.pool#pull},
+         * otherwise this function won't work
+         * @name push
+         * @memberOf me.pool
+         * @public
+         * @function
+         * @param {Object} instance to be recycled
+         */
+        api.push = function (obj) {
+            var name = obj.className;
+            if (typeof(name) === "undefined" || !objectClass[name]) {
+                // object is not registered, don't do anything
+                return;
+            }
+            // store back the object instance for later recycling
+            objectClass[name].pool.push(obj);
+            instance_counter++;
+        };
+&nbsp;
+        /**
+         * Check if an object with the provided name is registered
+         * @name exists
+         * @memberOf me.pool
+         * @public
+         * @function
+         * @param {String} name of the registered object
+         * @return {Boolean} true if the classname is registered
+         */
+        api.exists = <span class="fstat-no" title="function not covered" >function (name) {</span>
+<span class="cstat-no" title="statement not covered" >            return name in objectClass;</span>
+        };
+&nbsp;
+        /**
+         * returns the amount of object instance currently in the pool
+         * @name exists
+         * @memberOf me.pool
+         * @public
+         * @function
+         * @return {Number} amount of object instance
+         */
+        api.getInstanceCount = <span class="fstat-no" title="function not covered" >function (name) {</span>
+<span class="cstat-no" title="statement not covered" >            return instance_counter;</span>
+        };
+&nbsp;
+        // return our object
+        return api;
+    })();
+})();
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sat Jan 26 2019 12:46:17 GMT-0500 (Eastern Standard Time)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

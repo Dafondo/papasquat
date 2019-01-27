@@ -1,0 +1,1790 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/particles/emitter.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">all files</a> / <a href="index.html">src/particles/</a> emitter.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">13.43% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>9/67</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/30</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">10.53% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>2/19</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">13.43% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>9/67</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430
+431
+432
+433
+434
+435
+436
+437
+438
+439
+440
+441
+442
+443
+444
+445
+446
+447
+448
+449
+450
+451
+452
+453
+454
+455
+456
+457
+458
+459
+460
+461
+462
+463
+464
+465
+466
+467
+468
+469
+470
+471
+472
+473
+474
+475
+476
+477
+478
+479
+480
+481
+482
+483
+484
+485
+486
+487
+488
+489
+490
+491
+492
+493
+494
+495
+496
+497
+498
+499
+500
+501
+502
+503
+504
+505
+506
+507
+508
+509
+510
+511
+512
+513
+514
+515
+516
+517
+518
+519
+520
+521
+522
+523
+524
+525
+526
+527
+528
+529
+530
+531
+532
+533
+534
+535
+536
+537
+538
+539
+540
+541
+542
+543
+544
+545
+546
+547
+548
+549
+550
+551
+552
+553
+554
+555
+556
+557
+558
+559
+560
+561
+562
+563
+564
+565
+566
+567
+568
+569
+570
+571
+572
+573
+574
+575
+576</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/*
+ * MelonJS Game Engine
+ * Copyright (C) 2011 - 2018 Olivier Biot
+ * http://www.melonjs.org
+ *
+ */
+(function () {
+    // generate a default image for the particles
+    var pixel = (function () {
+        var canvas = me.video.createCanvas(1, 1);
+        var context = canvas.getContext("2d");
+        context.fillStyle = "#fff";
+        context.fillRect(0, 0, 1, 1);
+        return canvas;
+    })();
+&nbsp;
+    /**
+     * me.ParticleEmitterSettings contains the default settings for me.ParticleEmitter.&lt;br&gt;
+     *
+     * @protected
+     * @class
+     * @memberOf me
+     * @see me.ParticleEmitter
+     */
+    me.ParticleEmitterSettings = {
+        /**
+         * Width of the particle spawn area.&lt;br&gt;
+         * @public
+         * @type Number
+         * @name width
+         * @memberOf me.ParticleEmitterSettings
+         * @default 0
+         */
+        width : 0,
+&nbsp;
+        /**
+         * Height of the particle spawn area.&lt;br&gt;
+         * @public
+         * @type Number
+         * @name height
+         * @memberOf me.ParticleEmitterSettings
+         * @default 0
+         */
+        height : 0,
+&nbsp;
+        /**
+         * Image used for particles.&lt;br&gt;
+         * @public
+         * @type CanvasImageSource
+         * @name image
+         * @memberOf me.ParticleEmitterSettings
+         * @default 1x1 white pixel
+         * @see http://www.whatwg.org/specs/web-apps/current-work/multipage/the-canvas-element.html#canvasimagesource
+         */
+        image : pixel,
+&nbsp;
+        /**
+         * Total number of particles in the emitter.&lt;br&gt;
+         * @public
+         * @type Number
+         * @name totalParticles
+         * @default 50
+         * @memberOf me.ParticleEmitterSettings
+         */
+        totalParticles : 50,
+&nbsp;
+        /**
+         * Start angle for particle launch in Radians.&lt;br&gt;
+         * @public
+         * @type Number
+         * @name angle
+         * @default Math.PI / 2
+         * @memberOf me.ParticleEmitterSettings
+         */
+        angle : Math.PI / 2,
+&nbsp;
+        /**
+         * Variation in the start angle for particle launch in Radians.&lt;br&gt;
+         * @public
+         * @type Number
+         * @name angleVariation
+         * @default 0
+         * @memberOf me.ParticleEmitterSettings
+         */
+        angleVariation : 0,
+&nbsp;
+        /**
+         * Minimum time each particle lives once it is emitted in ms.&lt;br&gt;
+         * @public
+         * @type Number
+         * @name minLife
+         * @default 1000
+         * @memberOf me.ParticleEmitterSettings
+         */
+        minLife : 1000,
+&nbsp;
+        /**
+         * Maximum time each particle lives once it is emitted in ms.&lt;br&gt;
+         * @public
+         * @type Number
+         * @name maxLife
+         * @default 3000
+         * @memberOf me.ParticleEmitterSettings
+         */
+        maxLife : 3000,
+&nbsp;
+        /**
+         * Start speed of particles.&lt;br&gt;
+         * @public
+         * @type Number
+         * @name speed
+         * @default 2
+         * @memberOf me.ParticleEmitterSettings
+         */
+        speed : 2,
+&nbsp;
+        /**
+         * Variation in the start speed of particles.&lt;br&gt;
+         * @public
+         * @type Number
+         * @name speedVariation
+         * @default 1
+         * @memberOf me.ParticleEmitterSettings
+         */
+        speedVariation : 1,
+&nbsp;
+        /**
+         * Minimum start rotation for particles sprites in Radians.&lt;br&gt;
+         * @public
+         * @type Number
+         * @name minRotation
+         * @default 0
+         * @memberOf me.ParticleEmitterSettings
+         */
+        minRotation : 0,
+&nbsp;
+        /**
+         * Maximum start rotation for particles sprites in Radians.&lt;br&gt;
+         * @public
+         * @type Number
+         * @name maxRotation
+         * @default 0
+         * @memberOf me.ParticleEmitterSettings
+         */
+        maxRotation : 0,
+&nbsp;
+        /**
+         * Minimum start scale ratio for particles (1 = no scaling).&lt;br&gt;
+         * @public
+         * @type Number
+         * @name minStartScale
+         * @default 1
+         * @memberOf me.ParticleEmitterSettings
+         */
+        minStartScale : 1,
+&nbsp;
+        /**
+         * Maximum start scale ratio for particles (1 = no scaling).&lt;br&gt;
+         * @public
+         * @type Number
+         * @name maxStartScale
+         * @default 1
+         * @memberOf me.ParticleEmitterSettings
+         */
+        maxStartScale : 1,
+&nbsp;
+        /**
+         * Minimum end scale ratio for particles.&lt;br&gt;
+         * @public
+         * @type Number
+         * @name minEndScale
+         * @default 0
+         * @memberOf me.ParticleEmitterSettings
+         */
+        minEndScale : 0,
+&nbsp;
+        /**
+         * Maximum end scale ratio for particles.&lt;br&gt;
+         * @public
+         * @type Number
+         * @name maxEndScale
+         * @default 0
+         * @memberOf me.ParticleEmitterSettings
+         */
+        maxEndScale : 0,
+&nbsp;
+        /**
+         * Vertical force (Gravity) for each particle.&lt;br&gt;
+         * @public
+         * @type Number
+         * @name gravity
+         * @default 0
+         * @memberOf me.ParticleEmitterSettings
+         * @see me.sys.gravity
+         */
+        gravity : 0,
+&nbsp;
+        /**
+         * Horizontal force (like a Wind) for each particle.&lt;br&gt;
+         * @public
+         * @type Number
+         * @name wind
+         * @default 0
+         * @memberOf me.ParticleEmitterSettings
+         */
+        wind : 0,
+&nbsp;
+        /**
+         * Update the rotation of particle in accordance the particle trajectory.&lt;br&gt;
+         * The particle sprite should aim at zero angle (draw from left to right).&lt;br&gt;
+         * Override the particle minRotation and maxRotation.&lt;br&gt;
+         * @public
+         * @type Boolean
+         * @name followTrajectory
+         * @default false
+         * @memberOf me.ParticleEmitterSettings
+         */
+        followTrajectory : false,
+&nbsp;
+        /**
+         * Enable the Texture Additive by canvas composite operation (lighter).&lt;br&gt;
+         * WARNING: Composite Operation may decreases performance!.&lt;br&gt;
+         * @public
+         * @type Boolean
+         * @name textureAdditive
+         * @default false
+         * @memberOf me.ParticleEmitterSettings
+         */
+        textureAdditive : false,
+&nbsp;
+        /**
+         * Update particles only in the viewport, remove it when out of viewport.&lt;br&gt;
+         * @public
+         * @type Boolean
+         * @name onlyInViewport
+         * @default true
+         * @memberOf me.ParticleEmitterSettings
+         */
+        onlyInViewport : true,
+&nbsp;
+        /**
+         * Render particles in screen space. &lt;br&gt;
+         * @public
+         * @type Boolean
+         * @name floating
+         * @default false
+         * @memberOf me.ParticleEmitterSettings
+         */
+        floating : false,
+&nbsp;
+        /**
+         * Maximum number of particles launched each time in this emitter (used only if emitter is Stream).&lt;br&gt;
+         * @public
+         * @type Number
+         * @name maxParticles
+         * @default 10
+         * @memberOf me.ParticleEmitterSettings
+         */
+        maxParticles : 10,
+&nbsp;
+        /**
+         * How often a particle is emitted in ms (used only if emitter is Stream).&lt;br&gt;
+         * Necessary that value is greater than zero.&lt;br&gt;
+         * @public
+         * @type Number
+         * @name frequency
+         * @default 100
+         * @memberOf me.ParticleEmitterSettings
+         */
+        frequency : 100,
+&nbsp;
+        /**
+         * Duration that the emitter releases particles in ms (used only if emitter is Stream).&lt;br&gt;
+         * After this period, the emitter stop the launch of particles.&lt;br&gt;
+         * @public
+         * @type Number
+         * @name duration
+         * @default Infinity
+         * @memberOf me.ParticleEmitterSettings
+         */
+        duration : Infinity,
+&nbsp;
+        /**
+         * Skip n frames after updating the particle system once. &lt;br&gt;
+         * This can be used to reduce the performance impact of emitters with many particles.&lt;br&gt;
+         * @public
+         * @type Number
+         * @name framesToSkip
+         * @default 0
+         * @memberOf me.ParticleEmitterSettings
+         */
+        framesToSkip : 0
+    };
+&nbsp;
+    /**
+     * Particle Emitter Object.
+     * @class
+     * @extends Rect
+     * @memberOf me
+     * @constructor
+     * @param {Number} x x-position of the particle emitter
+     * @param {Number} y y-position of the particle emitter
+     * @param {object} settings An object containing the settings for the particle emitter. See {@link me.ParticleEmitterSettings}
+     * @example
+     *
+     * // Create a basic emitter at position 100, 100
+     * var emitter = new me.ParticleEmitter(100, 100);
+     *
+     * // Adjust the emitter properties
+     * emitter.totalParticles = 200;
+     * emitter.minLife = 1000;
+     * emitter.maxLife = 3000;
+     * emitter.z = 10;
+     *
+     * // Add the emitter to the game world
+     * me.game.world.addChild(emitter);
+     *
+     * // Launch all particles one time and stop, like a explosion
+     * emitter.burstParticles();
+     *
+     * // Launch constantly the particles, like a fountain
+     * emitter.streamParticles();
+     *
+     * // At the end, remove emitter from the game world
+     * // call this in onDestroyEvent function
+     * me.game.world.removeChild(emitter);
+     *
+     */
+    me.ParticleEmitter = me.Rect.extend(
+    /** @scope me.ParticleEmitter.prototype */
+    {
+        /**
+         * @ignore
+         */
+        init: <span class="fstat-no" title="function not covered" >function (x, y, settings) {</span>
+            // Emitter is Stream, launch particles constantly
+            /** @ignore */
+<span class="cstat-no" title="statement not covered" >            this._stream = false;</span>
+&nbsp;
+            // Frequency timer (in ms) for emitter launch new particles
+            // used only in stream emitter
+            /** @ignore */
+<span class="cstat-no" title="statement not covered" >            this._frequencyTimer = 0;</span>
+&nbsp;
+            // Time of live (in ms) for emitter launch new particles
+            // used only in stream emitter
+            /** @ignore */
+<span class="cstat-no" title="statement not covered" >            this._durationTimer = 0;</span>
+&nbsp;
+            // Emitter is emitting particles
+            /** @ignore */
+<span class="cstat-no" title="statement not covered" >            this._enabled = false;</span>
+            // Emitter will always update
+<span class="cstat-no" title="statement not covered" >            this.isRenderable = false;</span>
+            // call the super constructor
+<span class="cstat-no" title="statement not covered" >            this._super(</span>
+                me.Rect,
+                "init",
+                [x, y,
+                Infinity,
+                Infinity]
+            );
+&nbsp;
+            // don't sort the particles by z-index
+<span class="cstat-no" title="statement not covered" >            this.autoSort = false;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            this.container = new me.ParticleContainer(this);</span>
+&nbsp;
+            /**
+             * @ignore
+             */
+<span class="cstat-no" title="statement not covered" >            Object.defineProperty(this.pos, "z", {</span>
+                /**
+                 * @ignore
+                 */
+                get : (<span class="fstat-no" title="function not covered" >function () {</span> <span class="cstat-no" title="statement not covered" >return this.container.pos.z; </span>}).bind(this),
+                /**
+                 * @ignore
+                 */
+                set : (<span class="fstat-no" title="function not covered" >function (value) {</span> <span class="cstat-no" title="statement not covered" >this.container.pos.z = value; </span>}).bind(this),
+                enumerable : true,
+                configurable : true
+            });
+&nbsp;
+            /**
+             * Floating property for particles, value is forwarded to the particle container &lt;br&gt;
+             * @type Boolean
+             * @name floating
+             * @memberOf me.ParticleEmitter
+             */
+<span class="cstat-no" title="statement not covered" >            Object.defineProperty(this, "floating", {</span>
+                /**
+                 * @ignore
+                 */
+                get : <span class="fstat-no" title="function not covered" >function () {</span> <span class="cstat-no" title="statement not covered" >return this.container.floating; </span>},
+                /**
+                 * @ignore
+                 */
+                set : <span class="fstat-no" title="function not covered" >function (value) {</span> <span class="cstat-no" title="statement not covered" >this.container.floating = value; </span>},
+                enumerable : true,
+                configurable : true
+            });
+&nbsp;
+            // Reset the emitter to defaults
+<span class="cstat-no" title="statement not covered" >            this.reset(settings);</span>
+        },
+&nbsp;
+        /**
+         * @ignore
+         */
+        onActivateEvent: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >            this.ancestor.addChild(this.container);</span>
+<span class="cstat-no" title="statement not covered" >            this.container.pos.z = this.pos.z;</span>
+<span class="cstat-no" title="statement not covered" >            if (!this.ancestor.autoSort) {</span>
+<span class="cstat-no" title="statement not covered" >                this.ancestor.sort();</span>
+            }
+        },
+&nbsp;
+        /**
+         * @ignore
+         */
+        onDeactivateEvent: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >            if (this.ancestor.hasChild(this.container)) {</span>
+<span class="cstat-no" title="statement not covered" >                this.ancestor.removeChildNow(this.container);</span>
+            }
+        },
+&nbsp;
+        /**
+         * @ignore
+         */
+        destroy: <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            this.reset();</span>
+        },
+&nbsp;
+        /**
+         * returns a random point inside the bounds x axis of this emitter
+         * @name getRandomPointX
+         * @memberOf me.ParticleEmitter
+         * @function
+         * @return {Number}
+         */
+        getRandomPointX: <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            return this.pos.x + me.Math.randomFloat(0, this.width);</span>
+        },
+&nbsp;
+        /**
+         * returns a random point inside the bounds y axis of this emitter
+         * @name getRandomPointY
+         * @memberOf me.ParticleEmitter
+         * @function
+         * @return {Number}
+         */
+        getRandomPointY: <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            return this.pos.y + me.Math.randomFloat(0, this.height);</span>
+        },
+&nbsp;
+        /**
+         * Reset the emitter with default values.&lt;br&gt;
+         * @function
+         * @param {Object} settings [optional] object with emitter settings. See {@link me.ParticleEmitterSettings}
+         * @name reset
+         * @memberOf me.ParticleEmitter
+         */
+        reset: <span class="fstat-no" title="function not covered" >function (settings) {</span>
+            // check if settings exists and create a dummy object if necessary
+<span class="cstat-no" title="statement not covered" >            settings = settings || {};</span>
+<span class="cstat-no" title="statement not covered" >            var defaults = me.ParticleEmitterSettings;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            var width = (typeof settings.width === "number") ? settings.width : defaults.width;</span>
+<span class="cstat-no" title="statement not covered" >            var height = (typeof settings.height === "number") ? settings.height : defaults.height;</span>
+<span class="cstat-no" title="statement not covered" >            this.resize(width, height);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            Object.assign(this, defaults, settings);</span>
+&nbsp;
+            // reset particle container values
+<span class="cstat-no" title="statement not covered" >            this.container.reset();</span>
+        },
+&nbsp;
+        // Add count particles in the game world
+        /** @ignore */
+        addParticles: <span class="fstat-no" title="function not covered" >function (count) {</span>
+<span class="cstat-no" title="statement not covered" >            for (var i = 0; i &lt; ~~count; i++) {</span>
+                // Add particle to the container
+<span class="cstat-no" title="statement not covered" >                var particle = me.pool.pull("me.Particle", this);</span>
+<span class="cstat-no" title="statement not covered" >                this.container.addChild(particle);</span>
+            }
+        },
+&nbsp;
+        /**
+         * Emitter is of type stream and is launching particles &lt;br&gt;
+         * @function
+         * @returns {Boolean} Emitter is Stream and is launching particles
+         * @name isRunning
+         * @memberOf me.ParticleEmitter
+         */
+        isRunning: <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            return this._enabled &amp;&amp; this._stream;</span>
+        },
+&nbsp;
+        /**
+         * Launch particles from emitter constantly &lt;br&gt;
+         * Particles example: Fountains
+         * @param {Number} duration [optional] time that the emitter releases particles in ms
+         * @function
+         * @name streamParticles
+         * @memberOf me.ParticleEmitter
+         */
+        streamParticles: <span class="fstat-no" title="function not covered" >function (duration) {</span>
+<span class="cstat-no" title="statement not covered" >            this._enabled = true;</span>
+<span class="cstat-no" title="statement not covered" >            this._stream = true;</span>
+<span class="cstat-no" title="statement not covered" >            this.frequency = Math.max(this.frequency, 1);</span>
+<span class="cstat-no" title="statement not covered" >            this._durationTimer = (typeof duration === "number") ? duration : this.duration;</span>
+        },
+&nbsp;
+        /**
+         * Stop the emitter from generating new particles (used only if emitter is Stream) &lt;br&gt;
+         * @function
+         * @name stopStream
+         * @memberOf me.ParticleEmitter
+         */
+        stopStream: <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            this._enabled = false;</span>
+        },
+&nbsp;
+        /**
+         * Launch all particles from emitter and stop &lt;br&gt;
+         * Particles example: Explosions &lt;br&gt;
+         * @param {Number} total [optional] number of particles to launch
+         * @function
+         * @name burstParticles
+         * @memberOf me.ParticleEmitter
+         */
+        burstParticles: <span class="fstat-no" title="function not covered" >function (total) {</span>
+<span class="cstat-no" title="statement not covered" >            this._enabled = true;</span>
+<span class="cstat-no" title="statement not covered" >            this._stream = false;</span>
+<span class="cstat-no" title="statement not covered" >            this.addParticles((typeof total === "number") ? total : this.totalParticles);</span>
+<span class="cstat-no" title="statement not covered" >            this._enabled = false;</span>
+        },
+&nbsp;
+        /**
+         * @ignore
+         */
+        update: <span class="fstat-no" title="function not covered" >function (dt) {</span>
+            // Launch new particles, if emitter is Stream
+<span class="cstat-no" title="statement not covered" >            if ((this._enabled) &amp;&amp; (this._stream)) {</span>
+                // Check if the emitter has duration set
+<span class="cstat-no" title="statement not covered" >                if (this._durationTimer !== Infinity) {</span>
+<span class="cstat-no" title="statement not covered" >                    this._durationTimer -= dt;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                    if (this._durationTimer &lt;= 0) {</span>
+<span class="cstat-no" title="statement not covered" >                        this.stopStream();</span>
+<span class="cstat-no" title="statement not covered" >                        return false;</span>
+                    }
+                }
+&nbsp;
+                // Increase the emitter launcher timer
+<span class="cstat-no" title="statement not covered" >                this._frequencyTimer += dt;</span>
+&nbsp;
+                // Check for new particles launch
+<span class="cstat-no" title="statement not covered" >                var particlesCount = this.container.children.length;</span>
+<span class="cstat-no" title="statement not covered" >                if ((particlesCount &lt; this.totalParticles) &amp;&amp; (this._frequencyTimer &gt;= this.frequency)) {</span>
+<span class="cstat-no" title="statement not covered" >                    if ((particlesCount + this.maxParticles) &lt;= this.totalParticles) {</span>
+<span class="cstat-no" title="statement not covered" >                        this.addParticles(this.maxParticles);</span>
+                    }
+                    else {
+<span class="cstat-no" title="statement not covered" >                        this.addParticles(this.totalParticles - particlesCount);</span>
+                    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                    this._frequencyTimer = 0;</span>
+                }
+            }
+<span class="cstat-no" title="statement not covered" >            return true;</span>
+        }
+    });
+})();
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sat Jan 26 2019 12:46:17 GMT-0500 (Eastern Standard Time)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

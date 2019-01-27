@@ -1,0 +1,2015 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/renderable/sprite.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">all files</a> / <a href="index.html">src/renderable/</a> sprite.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">62.11% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>100/161</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">55.24% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>58/105</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">72.22% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>13/18</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">62.11% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>100/161</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line medium'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430
+431
+432
+433
+434
+435
+436
+437
+438
+439
+440
+441
+442
+443
+444
+445
+446
+447
+448
+449
+450
+451
+452
+453
+454
+455
+456
+457
+458
+459
+460
+461
+462
+463
+464
+465
+466
+467
+468
+469
+470
+471
+472
+473
+474
+475
+476
+477
+478
+479
+480
+481
+482
+483
+484
+485
+486
+487
+488
+489
+490
+491
+492
+493
+494
+495
+496
+497
+498
+499
+500
+501
+502
+503
+504
+505
+506
+507
+508
+509
+510
+511
+512
+513
+514
+515
+516
+517
+518
+519
+520
+521
+522
+523
+524
+525
+526
+527
+528
+529
+530
+531
+532
+533
+534
+535
+536
+537
+538
+539
+540
+541
+542
+543
+544
+545
+546
+547
+548
+549
+550
+551
+552
+553
+554
+555
+556
+557
+558
+559
+560
+561
+562
+563
+564
+565
+566
+567
+568
+569
+570
+571
+572
+573
+574
+575
+576
+577
+578
+579
+580
+581
+582
+583
+584
+585
+586
+587
+588
+589
+590
+591
+592
+593
+594
+595
+596
+597
+598
+599
+600
+601
+602
+603
+604
+605
+606
+607
+608
+609
+610
+611
+612
+613
+614
+615
+616
+617
+618
+619
+620
+621
+622
+623
+624
+625
+626
+627
+628
+629
+630
+631
+632
+633
+634
+635
+636
+637
+638
+639
+640
+641
+642
+643
+644
+645
+646
+647
+648
+649
+650
+651</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">68×</span>
+<span class="cline-any cline-yes">68×</span>
+<span class="cline-any cline-yes">68×</span>
+<span class="cline-any cline-yes">68×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">68×</span>
+<span class="cline-any cline-yes">68×</span>
+<span class="cline-any cline-yes">68×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">24×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">24×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">79×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">79×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">79×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">79×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">79×</span>
+<span class="cline-any cline-yes">79×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">79×</span>
+<span class="cline-any cline-yes">78×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">79×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">79×</span>
+<span class="cline-any cline-yes">79×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">212×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">61×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">61×</span>
+<span class="cline-any cline-yes">61×</span>
+<span class="cline-any cline-yes">61×</span>
+<span class="cline-any cline-yes">61×</span>
+<span class="cline-any cline-yes">72×</span>
+<span class="cline-any cline-yes">72×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">72×</span>
+<span class="cline-any cline-yes">72×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">72×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">18×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">72×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">61×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">61×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">84×</span>
+<span class="cline-any cline-yes">84×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">84×</span>
+<span class="cline-any cline-yes">82×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">84×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">83×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">83×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/*
+ * MelonJS Game Engine
+ * Copyright (C) 2011 - 2018 Olivier Biot
+ * http://www.melonjs.org
+ *
+ */
+(function () {
+&nbsp;
+    /**
+     * An object to display a fixed or animated sprite on screen.
+     * @class
+     * @extends me.Renderable
+     * @memberOf me
+     * @constructor
+     * @param {Number} x the x coordinates of the sprite object
+     * @param {Number} y the y coordinates of the sprite object
+     * @param {Object} settings Configuration parameters for the Sprite object
+     * @param {me.video.renderer.Texture|HTMLImageElement|HTMLCanvasElement|String} settings.image reference to a texture, spritesheet image or to a texture atlas
+     * @param {String} [settings.name=""] name of this object
+     * @param {String} [settings.region] region name of a specific region to use when using a texture atlas, see {@link me.Renderer.Texture}
+     * @param {Number} [settings.framewidth] Width of a single frame within the spritesheet
+     * @param {Number} [settings.frameheight] Height of a single frame within the spritesheet
+     * @param {Number} [settings.flipX] flip the sprite on the horizontal axis
+     * @param {Number} [settings.flipY] flip the sprite on the vertical axis
+     * @param {me.Vector2d} [settings.anchorPoint={x:0.5, y:0.5}] Anchor point to draw the frame at (defaults to the center of the frame).
+     * @example
+     * // create a single sprite from a standalone image, with anchor in the center
+     * var sprite = new me.Sprite(0, 0, {
+     *     image : "PlayerTexture",
+     *     framewidth : 64,
+     *     frameheight : 64,
+     *     anchorPoint : new me.Vector2d(0.5, 0.5)
+     * });
+     *
+     * // create a single sprite from a packed texture
+     * game.texture = new me.video.renderer.Texture(
+     *     me.loader.getJSON("texture"),
+     *     me.loader.getImage("texture")
+     * );
+     * var sprite = new me.Sprite(0, 0, {
+     *     image : game.texture,
+     *     region : "npc2.png",
+     * });
+     */
+    me.Sprite = me.Renderable.extend(
+    /** @scope .prototype */
+    {
+        /** @ignore */
+        init : function (x, y, settings) {
+&nbsp;
+            /**
+             * pause and resume animation
+             * @public
+             * @type Boolean
+             * @default false
+             * @name me.Sprite#animationpause
+             */
+            this.animationpause = false;
+&nbsp;
+            /**
+             * animation cycling speed (delay between frame in ms)
+             * @public
+             * @type Number
+             * @default 100
+             * @name me.Sprite#animationspeed
+             */
+            this.animationspeed = 100;
+&nbsp;
+            /**
+             * global offset for the position to draw from on the source image.
+             * @public
+             * @type me.Vector2d
+             * @default &lt;0.0,0.0&gt;
+             * @name offset
+             * @memberOf me.Sprite
+             */
+            this.offset = me.pool.pull("me.Vector2d", 0, 0);
+&nbsp;
+            /**
+             * The source texture object this sprite object is using
+             * @public
+             * @type me.video.renderer.Texture
+             * @name source
+             * @memberOf me.Sprite
+             */
+            this.source = null;
+&nbsp;
+            // hold all defined animation
+            this.anim = {};
+&nbsp;
+            // a flag to reset animation
+            this.resetAnim = undefined;
+&nbsp;
+            // current frame information
+            // (reusing current, any better/cleaner place?)
+            this.current = {
+                // the current animation name
+                name : "default",
+                // length of the current animation name
+                length : 0,
+                //current frame texture offset
+                offset : new me.Vector2d(),
+                // current frame size
+                width : 0,
+                height : 0,
+                // Source rotation angle for pre-rotating the source image
+                angle : 0,
+                // current frame index
+                idx : 0
+            };
+&nbsp;
+            // animation frame delta
+            this.dt = 0;
+&nbsp;
+            // flicker settings
+            this._flicker = {
+                isFlickering : false,
+                duration : 0,
+                callback : null,
+                state : false
+            };
+&nbsp;
+            // call the super constructor
+            this._super(me.Renderable, "init", [ x, y, 0, 0 ]);
+&nbsp;
+            // set the proper image/texture to use
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (settings.image instanceof me.Renderer.prototype.Texture) {
+<span class="cstat-no" title="statement not covered" >                this.source = settings.image;</span>
+<span class="cstat-no" title="statement not covered" >                this.image = this.source.getTexture();</span>
+<span class="cstat-no" title="statement not covered" >                this.textureAtlas = settings.image;</span>
+                // check for defined region
+<span class="cstat-no" title="statement not covered" >                if (typeof (settings.region) !== "undefined") {</span>
+                    // use a texture atlas
+<span class="cstat-no" title="statement not covered" >                    var region = this.source.getRegion(settings.region);</span>
+<span class="cstat-no" title="statement not covered" >                    if (region) {</span>
+                        // set the sprite region within the texture
+<span class="cstat-no" title="statement not covered" >                        this.setRegion(region);</span>
+                        // update the default "current" frame size
+<span class="cstat-no" title="statement not covered" >                        this.current.width  = settings.framewidth || region.width;</span>
+<span class="cstat-no" title="statement not covered" >                        this.current.height = settings.frameheight || region.height;</span>
+                    } else {
+                        // throw an error
+<span class="cstat-no" title="statement not covered" >                        throw new me.Renderable.Error("Texture - region for " + settings.region + " not found");</span>
+                    }
+                }
+            } else {
+                // HTMLImageElement/Canvas or String
+                this.image = (typeof settings.image === "object") ? settings.image : me.loader.getImage(settings.image);
+                // update the default "current" frame size
+                this.current.width = settings.framewidth = settings.framewidth || <span class="branch-1 cbranch-no" title="branch not covered" >this.image.width;</span>
+                this.current.height = settings.frameheight = settings.frameheight || <span class="branch-1 cbranch-no" title="branch not covered" >this.image.height;</span>
+                this.source = me.video.renderer.cache.get(this.image, settings);
+                this.textureAtlas = this.source.getAtlas();
+            }
+&nbsp;
+            // store/reset the current atlas information if specified
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (typeof(settings.atlas) !== "undefined") {
+<span class="cstat-no" title="statement not covered" >                this.textureAtlas = settings.atlas;</span>
+<span class="cstat-no" title="statement not covered" >                this.atlasIndices = settings.atlasIndices;</span>
+            } else {
+                this.atlasIndices = null;
+            }
+&nbsp;
+            // resize based on the active frame
+            this.width = this.current.width;
+            this.height = this.current.height;
+&nbsp;
+            // apply flip flags if specified
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (typeof (settings.flipX) !== "undefined") {
+<span class="cstat-no" title="statement not covered" >                this.flipX(!!settings.flipX);</span>
+            }
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (typeof (settings.flipY) !== "undefined") {
+<span class="cstat-no" title="statement not covered" >                this.flipY(!!settings.flipY);</span>
+            }
+&nbsp;
+            // set the default rotation angle is defined in the settings
+            // * WARNING: rotating sprites decreases performance with Canvas Renderer
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (typeof (settings.rotation) !== "undefined") {
+<span class="cstat-no" title="statement not covered" >                this.currentTransform.rotate(settings.rotation);</span>
+            }
+&nbsp;
+            // update anchorPoint
+            if (settings.anchorPoint) {
+                this.anchorPoint.set(settings.anchorPoint.x, settings.anchorPoint.y);
+            }
+&nbsp;
+            // set the sprite name if specified
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (typeof (settings.name) === "string") {
+<span class="cstat-no" title="statement not covered" >                this.name = settings.name;</span>
+            }
+&nbsp;
+            // for sprite, addAnimation will return !=0
+            <span class="missing-if-branch" title="else path not taken" >E</span>if (this.addAnimation("default", null) !== 0) {
+                // set as default
+                this.setCurrentAnimation("default");
+            }
+&nbsp;
+            // enable currentTransform for me.Sprite based objects
+            this.autoTransform = true;
+        },
+&nbsp;
+        /**
+         * return the flickering state of the object
+         * @name isFlickering
+         * @memberOf me.Sprite
+         * @function
+         * @return {Boolean}
+         */
+        isFlickering : <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            return this._flicker.isFlickering;</span>
+        },
+&nbsp;
+        /**
+         * make the object flicker
+         * @name flicker
+         * @memberOf me.Sprite
+         * @function
+         * @param {Number} duration expressed in milliseconds
+         * @param {Function} callback Function to call when flickering ends
+         * @return {me.Sprite} Reference to this object for method chaining
+         * @example
+         * // make the object flicker for 1 second
+         * // and then remove it
+         * this.flicker(1000, function () {
+         *     me.game.world.removeChild(this);
+         * });
+         */
+        flicker : <span class="fstat-no" title="function not covered" >function (duration, callback) {</span>
+<span class="cstat-no" title="statement not covered" >            this._flicker.duration = duration;</span>
+<span class="cstat-no" title="statement not covered" >            if (this._flicker.duration &lt;= 0) {</span>
+<span class="cstat-no" title="statement not covered" >                this._flicker.isFlickering = false;</span>
+<span class="cstat-no" title="statement not covered" >                this._flicker.callback = null;</span>
+            }
+            else <span class="cstat-no" title="statement not covered" >if (!this._flicker.isFlickering) {</span>
+<span class="cstat-no" title="statement not covered" >                this._flicker.callback = callback;</span>
+<span class="cstat-no" title="statement not covered" >                this._flicker.isFlickering = true;</span>
+            }
+<span class="cstat-no" title="statement not covered" >            return this;</span>
+        },
+&nbsp;
+        /**
+         * add an animation &lt;br&gt;
+         * For fixed-sized cell sprite sheet, the index list must follow the
+         * logic as per the following example :&lt;br&gt;
+         * &lt;img src="images/spritesheet_grid.png"/&gt;
+         * @name addAnimation
+         * @memberOf me.Sprite
+         * @function
+         * @param {String} name animation id
+         * @param {Number[]|String[]|Object[]} index list of sprite index or name
+         * defining the animation. Can also use objects to specify delay for each frame, see below
+         * @param {Number} [animationspeed] cycling speed for animation in ms
+         * @return {Number} frame amount of frame added to the animation (delay between each frame).
+         * @see me.Sprite#animationspeed
+         * @example
+         * // walking animation
+         * this.addAnimation("walk", [ 0, 1, 2, 3, 4, 5 ]);
+         * // standing animation
+         * this.addAnimation("stand", [ 11, 12 ]);
+         * // eating animation
+         * this.addAnimation("eat", [ 6, 6 ]);
+         * // rolling animation
+         * this.addAnimation("roll", [ 7, 8, 9, 10 ]);
+         * // slower animation
+         * this.addAnimation("roll", [ 7, 8, 9, 10 ], 200);
+         * // or get more specific with delay for each frame. Good solution instead of repeating:
+         * this.addAnimation("turn", [{ name: 0, delay: 200 }, { name: 1, delay: 100 }])
+         * // can do this with atlas values as well:
+         * this.addAnimation("turn", [{ name: "turnone", delay: 200 }, { name: "turntwo", delay: 100 }])
+         * // define an dying animation that stop on the last frame
+         * this.addAnimation("die", [{ name: 3, delay: 200 }, { name: 4, delay: 100 }, { name: 5, delay: Infinity }])
+         * // set the standing animation as default
+         * this.setCurrentAnimation("stand");
+         */
+        addAnimation : function (name, index, animationspeed) {
+            this.anim[name] = {
+                name : name,
+                frames : [],
+                idx : 0,
+                length : 0
+            };
+&nbsp;
+            // # of frames
+            var counter = 0;
+&nbsp;
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (typeof (this.textureAtlas) !== "object") {
+<span class="cstat-no" title="statement not covered" >                return 0;</span>
+            }
+&nbsp;
+&nbsp;
+            if (index == null) {
+                index = [];
+                // create a default animation with all frame
+                Object.keys(this.textureAtlas).forEach(function (v, i) {
+                    index[i] = i;
+                });
+            }
+&nbsp;
+            // set each frame configuration (offset, size, etc..)
+            for (var i = 0, len = index.length; i &lt; len; i++) {
+                var frame = index[i];
+                var frameObject;
+                <span class="missing-if-branch" title="else path not taken" >E</span>if (typeof(frame) === "number" || <span class="branch-1 cbranch-no" title="branch not covered" >typeof(frame) === "string")</span> {
+                    frameObject = {
+                        name: frame,
+                        delay: animationspeed || this.animationspeed
+                    };
+                }
+                else {
+<span class="cstat-no" title="statement not covered" >                  frameObject = frame;</span>
+                }
+                var frameObjectName = frameObject.name;
+                <span class="missing-if-branch" title="else path not taken" >E</span>if (typeof(frameObjectName) === "number") {
+                    if (typeof (this.textureAtlas[frameObjectName]) !== "undefined") {
+                        // TODO: adding the cache source coordinates add undefined entries in webGL mode
+                        this.anim[name].frames[i] = Object.assign(
+                            {},
+                            this.textureAtlas[frameObjectName],
+                            frameObject
+                        );
+                        counter++;
+                    }
+                } else { // string
+<span class="cstat-no" title="statement not covered" >                    if (this.atlasIndices === null) {</span>
+<span class="cstat-no" title="statement not covered" >                        throw new me.Renderable.Error(</span>
+                            "string parameters for addAnimation are not allowed for standard spritesheet based Texture"
+                        );
+                    } else {
+<span class="cstat-no" title="statement not covered" >                        this.anim[name].frames[i] = Object.assign(</span>
+                            {},
+                            this.textureAtlas[this.atlasIndices[frameObjectName]],
+                            frameObject
+                        );
+<span class="cstat-no" title="statement not covered" >                        counter++;</span>
+                    }
+                }
+            }
+            this.anim[name].length = counter;
+&nbsp;
+            return counter;
+        },
+&nbsp;
+        /**
+         * set the current animation
+         * this will always change the animation &amp; set the frame to zero
+         * @name setCurrentAnimation
+         * @memberOf me.Sprite
+         * @function
+         * @param {String} name animation id
+         * @param {String|Function} [onComplete] animation id to switch to when complete, or callback
+         * @return {me.Sprite} Reference to this object for method chaining
+         * @example
+         * // set "walk" animation
+         * this.setCurrentAnimation("walk");
+         *
+         * // set "walk" animation if it is not the current animation
+         * if (this.isCurrentAnimation("walk")) {
+         *     this.setCurrentAnimation("walk");
+         * }
+         *
+         * // set "eat" animation, and switch to "walk" when complete
+         * this.setCurrentAnimation("eat", "walk");
+         *
+         * // set "die" animation, and remove the object when finished
+         * this.setCurrentAnimation("die", (function () {
+         *    me.game.world.removeChild(this);
+         *    return false; // do not reset to first frame
+         * }).bind(this));
+         *
+         * // set "attack" animation, and pause for a short duration
+         * this.setCurrentAnimation("die", (function () {
+         *    this.animationpause = true;
+         *
+         *    // back to "standing" animation after 1 second
+         *    setTimeout(function () {
+         *        this.setCurrentAnimation("standing");
+         *    }, 1000);
+         *
+         *    return false; // do not reset to first frame
+         * }).bind(this));
+         **/
+        setCurrentAnimation : function (name, resetAnim, _preserve_dt) {
+            <span class="missing-if-branch" title="else path not taken" >E</span>if (this.anim[name]) {
+                this.current.name = name;
+                this.current.length = this.anim[this.current.name].length;
+                if (typeof resetAnim === "string") {
+                    this.resetAnim = this.setCurrentAnimation.bind(this, resetAnim, null, true);
+                } else if (typeof resetAnim === "function") {
+                    this.resetAnim = resetAnim;
+                } else {
+                    this.resetAnim = undefined;
+                }
+                this.setAnimationFrame(this.current.idx);
+                if (!_preserve_dt) {
+                    this.dt = 0;
+                }
+            } else {
+<span class="cstat-no" title="statement not covered" >                throw new me.Renderable.Error("animation id '" + name + "' not defined");</span>
+            }
+            return this;
+        },
+&nbsp;
+        /**
+         * reverse the given or current animation if none is specified
+         * @name reverseAnimation
+         * @memberOf me.Sprite
+         * @function
+         * @param {String} [name] animation id
+         * @return {me.Sprite} Reference to this object for method chaining
+         * @see me.Sprite#animationspeed
+         */
+        reverseAnimation : function (name) {
+            if (typeof name !== "undefined" &amp;&amp; typeof this.anim[name] !== "undefined") {
+                this.anim[name].frames.reverse();
+            } else {
+                this.anim[this.current.name].frames.reverse();
+            }
+            return this;
+        },
+&nbsp;
+        /**
+         * return true if the specified animation is the current one.
+         * @name isCurrentAnimation
+         * @memberOf me.Sprite
+         * @function
+         * @param {String} name animation id
+         * @return {Boolean}
+         * @example
+         * if (!this.isCurrentAnimation("walk")) {
+         *     // do something funny...
+         * }
+         */
+        isCurrentAnimation : function (name) {
+            return this.current.name === name;
+        },
+&nbsp;
+        /**
+         * change the current texture atlas region for this sprite
+         * @see me.Texture.getRegion
+         * @name setRegion
+         * @memberOf me.Sprite
+         * @function
+         * @param {Object} region typically returned through me.Texture.getRegion()
+         * @return {me.Sprite} Reference to this object for method chaining
+         * @example
+         * // change the sprite to "shadedDark13.png";
+         * mySprite.setRegion(game.texture.getRegion("shadedDark13.png"));
+         */
+        setRegion : function (region) {
+            <span class="missing-if-branch" title="else path not taken" >E</span>if (this.source !== null) {
+                // set the source texture for the given region
+                this.image = this.source.getTexture(region);
+            }
+            // set the sprite offset within the texture
+            this.current.offset.setV(region.offset);
+            // set angle if defined
+            this.current.angle = region.angle;
+            // update the default "current" size
+            this.width = this.current.width = region.width;
+            this.height = this.current.height = region.height;
+            // set global anchortPoint if defined
+            if (region.anchorPoint) {
+                this.anchorPoint.set(
+                    this._flip.x &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >region.trimmed === true </span>? <span class="branch-0 cbranch-no" title="branch not covered" >1 - region.anchorPoint.x </span>: region.anchorPoint.x,
+                    this._flip.y &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >region.trimmed === true </span>? <span class="branch-0 cbranch-no" title="branch not covered" >1 - region.anchorPoint.y </span>: region.anchorPoint.y
+                );
+            }
+            return this;
+        },
+&nbsp;
+        /**
+         * force the current animation frame index.
+         * @name setAnimationFrame
+         * @memberOf me.Sprite
+         * @function
+         * @param {Number} [index=0] animation frame index
+         * @return {me.Sprite} Reference to this object for method chaining
+         * @example
+         * // reset the current animation to the first frame
+         * this.setAnimationFrame();
+         */
+        setAnimationFrame : function (idx) {
+            this.current.idx = (idx || 0) % this.current.length;
+            return this.setRegion(this.getAnimationFrameObjectByIndex(this.current.idx));
+        },
+&nbsp;
+        /**
+         * return the current animation frame index.
+         * @name getCurrentAnimationFrame
+         * @memberOf me.Sprite
+         * @function
+         * @return {Number} current animation frame index
+         */
+        getCurrentAnimationFrame : <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            return this.current.idx;</span>
+        },
+&nbsp;
+        /**
+         * Returns the frame object by the index.
+         * @name getAnimationFrameObjectByIndex
+         * @memberOf me.Sprite
+         * @function
+         * @private
+         * @return {Number} if using number indices. Returns {Object} containing frame data if using texture atlas
+         */
+        getAnimationFrameObjectByIndex : function (id) {
+            return this.anim[this.current.name].frames[id];
+        },
+&nbsp;
+        /**
+         * @ignore
+         */
+        update : function (dt) {
+            var result = false;
+            // Update animation if necessary
+            <span class="missing-if-branch" title="else path not taken" >E</span>if (!this.animationpause &amp;&amp; this.current &amp;&amp; this.current.length &gt; 0) {
+                var duration = this.getAnimationFrameObjectByIndex(this.current.idx).delay;
+                this.dt += dt;
+                while (this.dt &gt;= duration) {
+                    result = true;
+                    this.dt -= duration;
+&nbsp;
+                    var nextFrame = (this.current.length &gt; 1? this.current.idx+1: <span class="branch-1 cbranch-no" title="branch not covered" >this.current.idx)</span>;
+                    this.setAnimationFrame(nextFrame);
+&nbsp;
+                    // Switch animation if we reach the end of the strip and a callback is defined
+                    if (this.current.idx === 0 &amp;&amp; typeof this.resetAnim === "function")  {
+                        // Otherwise is must be callable
+                        <span class="missing-if-branch" title="if path not taken" >I</span>if (this.resetAnim() === false) {
+                            // Reset to last frame
+<span class="cstat-no" title="statement not covered" >                            this.setAnimationFrame(this.current.length - 1);</span>
+&nbsp;
+                            // Bail early without skipping any more frames.
+<span class="cstat-no" title="statement not covered" >                            this.dt %= duration;</span>
+<span class="cstat-no" title="statement not covered" >                            break;</span>
+                        }
+                    }
+                    // Get next frame duration
+                    duration = this.getAnimationFrameObjectByIndex(this.current.idx).delay;
+                }
+            }
+&nbsp;
+            //update the "flickering" state if necessary
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (this._flicker.isFlickering) {
+<span class="cstat-no" title="statement not covered" >                this._flicker.duration -= dt;</span>
+<span class="cstat-no" title="statement not covered" >                if (this._flicker.duration &lt; 0) {</span>
+<span class="cstat-no" title="statement not covered" >                    if (typeof (this._flicker.callback) === "function") {</span>
+<span class="cstat-no" title="statement not covered" >                        this._flicker.callback();</span>
+                    }
+<span class="cstat-no" title="statement not covered" >                    this.flicker(-1);</span>
+                }
+<span class="cstat-no" title="statement not covered" >                result = true;</span>
+            }
+&nbsp;
+            return result;
+        },
+&nbsp;
+&nbsp;
+        /**
+         * update the renderable's bounding rect (private)
+         * @ignore
+         * @name updateBoundsPos
+         * @memberOf me.Sprite
+         * @function
+         */
+        updateBoundsPos : function (newX, newY) {
+            var bounds = this.getBounds();
+            bounds.pos.set(
+                newX - (this.anchorPoint.x * bounds.width),
+                newY - (this.anchorPoint.y * bounds.height)
+            );
+            // XXX: This is called from the constructor, before it gets an ancestor
+            if (this.ancestor instanceof me.Container &amp;&amp; !this.floating) {
+                bounds.pos.add(this.ancestor._absPos);
+            }
+            return bounds;
+        },
+&nbsp;
+        /**
+         * called when the anchor point value is changed
+         * @private
+         * @name onAnchorUpdate
+         * @memberOf me.Sprite
+         * @function
+         */
+        onAnchorUpdate : function (newX, newY) {
+            // since the callback is called before setting the new value
+            // manually update the anchor point (required for updateBoundsPos)
+            this.anchorPoint.setMuted(newX, newY);
+            // then call updateBouds
+            this.updateBoundsPos(this.pos.x, this.pos.y);
+        },
+&nbsp;
+        /**
+         * Destroy function&lt;br&gt;
+         * @ignore
+         */
+        destroy : <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            me.pool.push(this.offset);</span>
+<span class="cstat-no" title="statement not covered" >            this.offset = undefined;</span>
+<span class="cstat-no" title="statement not covered" >            this._super(me.Renderable, "destroy");</span>
+        },
+&nbsp;
+        /**
+         * @ignore
+         */
+        draw : <span class="fstat-no" title="function not covered" >function (renderer) {</span>
+            // do nothing if we are flickering
+<span class="cstat-no" title="statement not covered" >            if (this._flicker.isFlickering) {</span>
+<span class="cstat-no" title="statement not covered" >                this._flicker.state = !this._flicker.state;</span>
+<span class="cstat-no" title="statement not covered" >                if (!this._flicker.state) {</span>
+<span class="cstat-no" title="statement not covered" >                    return;</span>
+                }
+            }
+&nbsp;
+            // the frame to draw
+<span class="cstat-no" title="statement not covered" >            var frame = this.current;</span>
+&nbsp;
+            // cache the current position and size
+<span class="cstat-no" title="statement not covered" >            var xpos = this.pos.x,</span>
+                ypos = this.pos.y;
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            var w = frame.width,</span>
+                h = frame.height;
+&nbsp;
+            // frame offset in the texture/atlas
+<span class="cstat-no" title="statement not covered" >            var frame_offset = frame.offset;</span>
+<span class="cstat-no" title="statement not covered" >            var g_offset = this.offset;</span>
+&nbsp;
+&nbsp;
+            // remove image's TexturePacker/ShoeBox rotation
+<span class="cstat-no" title="statement not covered" >            if (frame.angle !== 0) {</span>
+<span class="cstat-no" title="statement not covered" >                renderer.translate(-xpos, -ypos);</span>
+<span class="cstat-no" title="statement not covered" >                renderer.rotate(frame.angle);</span>
+<span class="cstat-no" title="statement not covered" >                xpos -= h;</span>
+<span class="cstat-no" title="statement not covered" >                w = frame.height;</span>
+<span class="cstat-no" title="statement not covered" >                h = frame.width;</span>
+            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            renderer.drawImage(</span>
+                this.image,
+                g_offset.x + frame_offset.x, // sx
+                g_offset.y + frame_offset.y, // sy
+                w, h,                        // sw,sh
+                xpos, ypos,                  // dx,dy
+                w, h                         // dw,dh
+            );
+        }
+    });
+})();
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sat Jan 26 2019 12:46:17 GMT-0500 (Eastern Standard Time)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

@@ -1,0 +1,2360 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/input/pointerevent.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">all files</a> / <a href="index.html">src/input/</a> pointerevent.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">66.8% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>163/244</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">40.13% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>61/152</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">72.22% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>13/18</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">66.8% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>163/244</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line medium'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430
+431
+432
+433
+434
+435
+436
+437
+438
+439
+440
+441
+442
+443
+444
+445
+446
+447
+448
+449
+450
+451
+452
+453
+454
+455
+456
+457
+458
+459
+460
+461
+462
+463
+464
+465
+466
+467
+468
+469
+470
+471
+472
+473
+474
+475
+476
+477
+478
+479
+480
+481
+482
+483
+484
+485
+486
+487
+488
+489
+490
+491
+492
+493
+494
+495
+496
+497
+498
+499
+500
+501
+502
+503
+504
+505
+506
+507
+508
+509
+510
+511
+512
+513
+514
+515
+516
+517
+518
+519
+520
+521
+522
+523
+524
+525
+526
+527
+528
+529
+530
+531
+532
+533
+534
+535
+536
+537
+538
+539
+540
+541
+542
+543
+544
+545
+546
+547
+548
+549
+550
+551
+552
+553
+554
+555
+556
+557
+558
+559
+560
+561
+562
+563
+564
+565
+566
+567
+568
+569
+570
+571
+572
+573
+574
+575
+576
+577
+578
+579
+580
+581
+582
+583
+584
+585
+586
+587
+588
+589
+590
+591
+592
+593
+594
+595
+596
+597
+598
+599
+600
+601
+602
+603
+604
+605
+606
+607
+608
+609
+610
+611
+612
+613
+614
+615
+616
+617
+618
+619
+620
+621
+622
+623
+624
+625
+626
+627
+628
+629
+630
+631
+632
+633
+634
+635
+636
+637
+638
+639
+640
+641
+642
+643
+644
+645
+646
+647
+648
+649
+650
+651
+652
+653
+654
+655
+656
+657
+658
+659
+660
+661
+662
+663
+664
+665
+666
+667
+668
+669
+670
+671
+672
+673
+674
+675
+676
+677
+678
+679
+680
+681
+682
+683
+684
+685
+686
+687
+688
+689
+690
+691
+692
+693
+694
+695
+696
+697
+698
+699
+700
+701
+702
+703
+704
+705
+706
+707
+708
+709
+710
+711
+712
+713
+714
+715
+716
+717
+718
+719
+720
+721
+722
+723
+724
+725
+726
+727
+728
+729
+730
+731
+732
+733
+734
+735
+736
+737
+738
+739
+740
+741
+742
+743
+744
+745
+746
+747
+748
+749
+750
+751
+752
+753
+754
+755
+756
+757
+758
+759
+760
+761
+762
+763
+764
+765
+766</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">28×</span>
+<span class="cline-any cline-yes">28×</span>
+<span class="cline-any cline-yes">84×</span>
+<span class="cline-any cline-yes">84×</span>
+<span class="cline-any cline-yes">28×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">28×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">11×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11×</span>
+<span class="cline-any cline-yes">11×</span>
+<span class="cline-any cline-yes">11×</span>
+<span class="cline-any cline-yes">11×</span>
+<span class="cline-any cline-yes">11×</span>
+<span class="cline-any cline-yes">11×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11×</span>
+<span class="cline-any cline-yes">11×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11×</span>
+<span class="cline-any cline-yes">11×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/*
+ * MelonJS Game Engine
+ * Copyright (C) 2011 - 2018 Olivier Biot
+ * http://www.melonjs.org/
+ *
+ */
+(function (api) {
+&nbsp;
+    /**
+     * A pool of `Pointer` objects to cache pointer/touch event coordinates.
+     * @type {Array.&lt;Vector&gt;}
+     */
+    var T_POINTERS = [];
+&nbsp;
+    // list of registered Event handlers
+    var eventHandlers = new Map();
+&nbsp;
+    // a cache rect represeting the current pointer area
+    var currentPointer = new me.Rect(0, 0, 1, 1);
+&nbsp;
+    // some useful flags
+    var pointerInitialized = false;
+&nbsp;
+    // Track last event timestamp to prevent firing events out of order
+    var lastTimeStamp = 0;
+&nbsp;
+    // "active" list of supported events
+    var activeEventList = [];
+&nbsp;
+    // internal constants
+    var WHEEL           = ["wheel"];
+    var POINTER_MOVE    = ["pointermove",   "mousemove",    "touchmove"];
+    var POINTER_DOWN    = ["pointerdown",   "mousedown",    "touchstart"];
+    var POINTER_UP      = ["pointerup",     "mouseup",      "touchend"];
+    var POINTER_CANCEL  = ["pointercancel", "mousecancel",  "touchcancel"];
+    var POINTER_ENTER   = ["pointerenter",  "mouseenter",   "touchenter"];
+    var POINTER_OVER    = ["pointerover",   "mouseover",    "touchover"];
+    var POINTER_LEAVE   = ["pointerleave",  "mouseleave",   "touchleave"];
+&nbsp;
+    // list of standard pointer event type
+    var pointerEventList = [
+        WHEEL[0],
+        POINTER_MOVE[0],
+        POINTER_DOWN[0],
+        POINTER_UP[0],
+        POINTER_CANCEL[0],
+        POINTER_ENTER[0],
+        POINTER_OVER[0],
+        POINTER_LEAVE[0]
+    ];
+&nbsp;
+    // legacy mouse event type
+    var mouseEventList = [
+        WHEEL[0],
+        POINTER_MOVE[1],
+        POINTER_DOWN[1],
+        POINTER_UP[1],
+        POINTER_CANCEL[1],
+        POINTER_ENTER[1],
+        POINTER_OVER[1],
+        POINTER_LEAVE[1]
+    ];
+&nbsp;
+    // iOS style touch event type
+    var touchEventList = [
+        POINTER_MOVE[2],
+        POINTER_DOWN[2],
+        POINTER_UP[2],
+        POINTER_CANCEL[2],
+        POINTER_ENTER[2],
+        POINTER_OVER[2],
+        POINTER_LEAVE[2]
+    ];
+&nbsp;
+    var pointerEventMap = {
+        wheel : WHEEL,
+        pointermove: POINTER_MOVE,
+        pointerdown: POINTER_DOWN,
+        pointerup: POINTER_UP,
+        pointercancel: POINTER_CANCEL,
+        pointerenter: POINTER_ENTER,
+        pointerover: POINTER_OVER,
+        pointerleave: POINTER_LEAVE
+    };
+&nbsp;
+    /**
+     * Array of normalized events (mouse, touch, pointer)
+     * @ignore
+     */
+    var normalizedEvents = [];
+&nbsp;
+    /**
+     * addEventListerner for the specified event list and callback
+     * @ignore
+     */
+    function registerEventListener(eventList, callback) {
+        for (var x = 0; x &lt; eventList.length; x++) {
+            if (POINTER_MOVE.indexOf(eventList[x]) === -1) {
+                me.video.renderer.getScreenCanvas().addEventListener(eventList[x], callback, false);
+            }
+        }
+    }
+&nbsp;
+    /**
+     * enable pointer event (Pointer/Mouse/Touch)
+     * @ignore
+     */
+    function enablePointerEvent() {
+        if (!pointerInitialized) {
+&nbsp;
+            // instantiate a pool of pointer catched
+            for (var v = 0; v &lt; me.device.maxTouchPoints; v++) {
+                T_POINTERS.push(new me.Pointer());
+            }
+&nbsp;
+            <span class="missing-if-branch" title="else path not taken" >E</span>if (me.device.PointerEvent) {
+                // standard Pointer Events
+                activeEventList = pointerEventList;
+            } else {
+                // Regular Mouse events
+<span class="cstat-no" title="statement not covered" >                activeEventList = mouseEventList;</span>
+            }
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (me.device.touch &amp;&amp; !me.device.PointerEvent) {
+                // touch event on mobile devices
+<span class="cstat-no" title="statement not covered" >                activeEventList = activeEventList.concat(touchEventList);</span>
+            }
+            registerEventListener(activeEventList, onPointerEvent);
+&nbsp;
+            // If W3C standard wheel events are not available, use non-standard
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (!me.device.wheel) {
+<span class="cstat-no" title="statement not covered" >                window.addEventListener("mousewheel", onMouseWheel, false);</span>
+            }
+&nbsp;
+            // set the PointerMove/touchMove/MouseMove event
+            <span class="missing-if-branch" title="else path not taken" >E</span>if (typeof(api.throttlingInterval) === "undefined") {
+                // set the default value
+                api.throttlingInterval = ~~(1000 / me.sys.fps);
+            }
+&nbsp;
+            <span class="missing-if-branch" title="else path not taken" >E</span>if (me.sys.autoFocus === true) {
+                me.device.focus();
+                me.video.renderer.getScreenCanvas().addEventListener(
+                    activeEventList[2], // MOUSE/POINTER DOWN
+                    function () {
+                        me.device.focus();
+                    }, { passive: true }
+                );
+            }
+&nbsp;
+            // if time interval &lt;= 16, disable the feature
+            var i;
+            var events = findAllActiveEvents(activeEventList, POINTER_MOVE);
+            <span class="missing-if-branch" title="else path not taken" >E</span>if (api.throttlingInterval &lt; 17) {
+                for (i = 0; i &lt; events.length; i++) {
+                    <span class="missing-if-branch" title="else path not taken" >E</span>if (activeEventList.indexOf(events[i]) !== -1) {
+                        me.video.renderer.getScreenCanvas().addEventListener(
+                            events[i],
+                            onMoveEvent,
+                            false
+                        );
+                    }
+&nbsp;
+                }
+            }
+            else {
+<span class="cstat-no" title="statement not covered" >                for (i = 0; i &lt; events.length; i++) {</span>
+<span class="cstat-no" title="statement not covered" >                    if (activeEventList.indexOf(events[i]) !== -1) {</span>
+<span class="cstat-no" title="statement not covered" >                        me.video.renderer.getScreenCanvas().addEventListener(</span>
+                            events[i],
+                            me.utils.function.throttle(
+                                onMoveEvent,
+                                api.throttlingInterval,
+                                false
+                            ),
+                            false
+                        );
+                    }
+                }
+            }
+            // disable all gesture by default
+            me.input.setTouchAction(me.video.renderer.getScreenCanvas());
+&nbsp;
+            pointerInitialized = true;
+        }
+    }
+&nbsp;
+    /**
+     * @ignore
+     */
+<span class="fstat-no" title="function not covered" >    function findActiveEvent(activeEventList, eventTypes) {</span>
+<span class="cstat-no" title="statement not covered" >        for (var i = 0; i &lt; eventTypes.length; i++) {</span>
+<span class="cstat-no" title="statement not covered" >            var event = activeEventList.indexOf(eventTypes[i]);</span>
+<span class="cstat-no" title="statement not covered" >            if (event !== -1) {</span>
+<span class="cstat-no" title="statement not covered" >                return eventTypes[i];</span>
+            }
+        }
+    }
+&nbsp;
+    /**
+     * @ignore
+     */
+    function findAllActiveEvents(activeEventList, eventTypes) {
+        var events = [];
+        for (var i = 0; i &lt; eventTypes.length; i++) {
+            var event = activeEventList.indexOf(eventTypes[i]);
+            if (event !== -1) {
+                events.push(eventTypes[i]);
+            }
+        }
+&nbsp;
+        return events;
+    }
+&nbsp;
+    /**
+     * @ignore
+     */
+    function triggerEvent(handlers, type, pointer, pointerId) {
+        var callback;
+        <span class="missing-if-branch" title="else path not taken" >E</span>if (handlers.callbacks[type]) {
+            handlers.pointerId = pointerId;
+            for (var i = handlers.callbacks[type].length - 1; (i &gt;= 0) &amp;&amp; (callback = handlers.callbacks[type][i]); i--) {
+                <span class="missing-if-branch" title="if path not taken" >I</span>if (callback(pointer) === false) {
+                    // stop propagating the event if return false
+<span class="cstat-no" title="statement not covered" >                    return true;</span>
+                }
+            }
+        }
+        return false;
+    }
+&nbsp;
+    /**
+     * propagate events to registered objects
+     * @ignore
+     */
+    function dispatchEvent(normalizedEvents) {
+        var handled = false;
+&nbsp;
+        while (normalizedEvents.length &gt; 0) {
+&nbsp;
+            // keep a reference to the last item
+            var pointer = normalizedEvents.pop();
+            // and put it back into our cache
+            T_POINTERS.push(pointer);
+&nbsp;
+            // Do not fire older events
+            <span class="missing-if-branch" title="else path not taken" >E</span>if (typeof(pointer.event.timeStamp) !== "undefined") {
+                <span class="missing-if-branch" title="if path not taken" >I</span>if (pointer.event.timeStamp &lt; lastTimeStamp) {
+<span class="cstat-no" title="statement not covered" >                    continue;</span>
+                }
+                lastTimeStamp = pointer.event.timeStamp;
+            }
+&nbsp;
+            currentPointer.setShape(
+                pointer.gameWorldX,
+                pointer.gameWorldY,
+                pointer.width,
+                pointer.height
+            );
+&nbsp;
+            // trigger a global event for pointer move
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (POINTER_MOVE.includes(pointer.type)) {
+<span class="cstat-no" title="statement not covered" >                pointer.gameX = pointer.gameLocalX = pointer.gameScreenX;</span>
+<span class="cstat-no" title="statement not covered" >                pointer.gameY = pointer.gameLocalY = pointer.gameScreenY;</span>
+<span class="cstat-no" title="statement not covered" >                me.event.publish(me.event.POINTERMOVE, [pointer]);</span>
+            }
+&nbsp;
+            var candidates = me.collision.quadTree.retrieve(currentPointer, me.Container.prototype._sortReverseZ);
+&nbsp;
+            // add the main viewport to the list of candidates
+            candidates = candidates.concat([ me.game.viewport ]);
+&nbsp;
+            for (var c = candidates.length, candidate; c--, (candidate = candidates[c]);) {
+                if (eventHandlers.has(candidate) &amp;&amp; (candidate.isKinematic !== true)) {
+                    var handlers = eventHandlers.get(candidate);
+                    var region = handlers.region;
+                    var ancestor = region.ancestor;
+                    var bounds = region.getBounds();
+                    var eventInBounds = false;
+&nbsp;
+                    <span class="missing-if-branch" title="if path not taken" >I</span>if (region.floating === true) {
+<span class="cstat-no" title="statement not covered" >                        pointer.gameX = pointer.gameLocalX = pointer.gameScreenX;</span>
+<span class="cstat-no" title="statement not covered" >                        pointer.gameY = pointer.gameLocalY = pointer.gameScreenY;</span>
+                    } else {
+                        pointer.gameX = pointer.gameLocalX = pointer.gameWorldX;
+                        pointer.gameY = pointer.gameLocalY = pointer.gameWorldY;
+                    }
+                    // adjust gameLocalX to specify coordinates
+                    // within the region ancestor container
+                    <span class="missing-if-branch" title="else path not taken" >E</span>if (typeof ancestor !== "undefined") {
+                        var parentPos = ancestor.getBounds().pos;
+                        pointer.gameLocalX = pointer.gameX - parentPos.x;
+                        pointer.gameLocalY = pointer.gameY - parentPos.y;
+                    }
+&nbsp;
+                    <span class="missing-if-branch" title="if path not taken" >I</span>if (region instanceof me.Sprite) {
+<span class="cstat-no" title="statement not covered" >                        var gameX = pointer.gameX;</span>
+<span class="cstat-no" title="statement not covered" >                        var gameY = pointer.gameY;</span>
+<span class="cstat-no" title="statement not covered" >                        if (!region.currentTransform.isIdentity()) {</span>
+<span class="cstat-no" title="statement not covered" >                            var invV = region.currentTransform.multiplyVectorInverse(</span>
+                                me.pool.pull("me.Vector2d", gameX, gameY)
+                            );
+<span class="cstat-no" title="statement not covered" >                            gameX = invV.x;</span>
+<span class="cstat-no" title="statement not covered" >                            gameY = invV.y;</span>
+<span class="cstat-no" title="statement not covered" >                            me.pool.push(invV);</span>
+                        }
+<span class="cstat-no" title="statement not covered" >                        eventInBounds = bounds.containsPoint(gameX, gameY);</span>
+                    } else {
+                        eventInBounds =
+                            bounds.containsPoint(pointer.gameX, pointer.gameY) &amp;&amp;
+                            (bounds === region ||
+                            // if the given target is another shape than me.Rect
+                            region.containsPoint(pointer.gameLocalX, pointer.gameLocalY));
+                    }
+&nbsp;
+                    switch (pointer.type) {
+<span class="branch-0 cbranch-no" title="branch not covered" >                        case POINTER_MOVE[0]:</span>
+<span class="branch-1 cbranch-no" title="branch not covered" >                        case POINTER_MOVE[1]:</span>
+<span class="branch-2 cbranch-no" title="branch not covered" >                        case POINTER_MOVE[2]:</span>
+<span class="branch-3 cbranch-no" title="branch not covered" >                        case POINTER_MOVE[3]:</span>
+                            // moved out of bounds: trigger the POINTER_LEAVE callbacks
+<span class="cstat-no" title="statement not covered" >                            if (handlers.pointerId === pointer.pointerId &amp;&amp; !eventInBounds) {</span>
+<span class="cstat-no" title="statement not covered" >                                if (triggerEvent(handlers, findActiveEvent(activeEventList, POINTER_LEAVE), pointer, null)) {</span>
+<span class="cstat-no" title="statement not covered" >                                    handled = true;</span>
+<span class="cstat-no" title="statement not covered" >                                    break;</span>
+                                }
+                            }
+                            // no pointer &amp; moved inside of bounds: trigger the POINTER_ENTER callbacks
+                            else <span class="cstat-no" title="statement not covered" >if (handlers.pointerId === null &amp;&amp; eventInBounds) {</span>
+<span class="cstat-no" title="statement not covered" >                                if (triggerEvent(handlers, findActiveEvent(activeEventList, POINTER_ENTER), pointer, pointer.pointerId)) {</span>
+<span class="cstat-no" title="statement not covered" >                                    handled = true;</span>
+<span class="cstat-no" title="statement not covered" >                                    break;</span>
+                                }
+                            }
+&nbsp;
+                            // trigger the POINTER_MOVE callbacks
+<span class="cstat-no" title="statement not covered" >                            if (eventInBounds &amp;&amp; triggerEvent(handlers, pointer.type, pointer, pointer.pointerId)) {</span>
+<span class="cstat-no" title="statement not covered" >                                handled = true;</span>
+<span class="cstat-no" title="statement not covered" >                                break;</span>
+                            }
+<span class="cstat-no" title="statement not covered" >                            break;</span>
+&nbsp;
+<span class="branch-4 cbranch-no" title="branch not covered" >                        case POINTER_UP[0]:</span>
+<span class="branch-5 cbranch-no" title="branch not covered" >                        case POINTER_UP[1]:</span>
+<span class="branch-6 cbranch-no" title="branch not covered" >                        case POINTER_UP[2]:</span>
+<span class="branch-7 cbranch-no" title="branch not covered" >                        case POINTER_UP[3]:</span>
+                            // pointer defined &amp; inside of bounds: trigger the POINTER_UP callback
+<span class="cstat-no" title="statement not covered" >                            if (handlers.pointerId === pointer.pointerId &amp;&amp; eventInBounds) {</span>
+                                // trigger the corresponding callback
+<span class="cstat-no" title="statement not covered" >                                if (triggerEvent(handlers, pointer.type, pointer, null)) {</span>
+<span class="cstat-no" title="statement not covered" >                                    handled = true;</span>
+<span class="cstat-no" title="statement not covered" >                                    break;</span>
+                                }
+                            }
+<span class="cstat-no" title="statement not covered" >                            break;</span>
+&nbsp;
+<span class="branch-8 cbranch-no" title="branch not covered" >                        case POINTER_CANCEL[0]:</span>
+<span class="branch-9 cbranch-no" title="branch not covered" >                        case POINTER_CANCEL[1]:</span>
+<span class="branch-10 cbranch-no" title="branch not covered" >                        case POINTER_CANCEL[2]:</span>
+<span class="branch-11 cbranch-no" title="branch not covered" >                        case POINTER_CANCEL[3]:</span>
+                            // pointer defined: trigger the POINTER_CANCEL callback
+<span class="cstat-no" title="statement not covered" >                            if (handlers.pointerId === pointer.pointerId) {</span>
+                                // trigger the corresponding callback
+<span class="cstat-no" title="statement not covered" >                                if (triggerEvent(handlers, pointer.type, pointer, null)) {</span>
+<span class="cstat-no" title="statement not covered" >                                    handled = true;</span>
+<span class="cstat-no" title="statement not covered" >                                    break;</span>
+                                }
+                            }
+<span class="cstat-no" title="statement not covered" >                            break;</span>
+&nbsp;
+                        default:
+                            // event inside of bounds: trigger the POINTER_DOWN or WHEEL callback
+                            <span class="missing-if-branch" title="else path not taken" >E</span>if (eventInBounds) {
+&nbsp;
+                                // trigger the corresponding callback
+                                <span class="missing-if-branch" title="if path not taken" >I</span>if (triggerEvent(handlers, pointer.type, pointer, pointer.pointerId)) {
+<span class="cstat-no" title="statement not covered" >                                    handled = true;</span>
+<span class="cstat-no" title="statement not covered" >                                    if (pointer.type === "wheel") {</span>
+<span class="cstat-no" title="statement not covered" >                                        api._preventDefaultFn(pointer.event);</span>
+                                    }
+<span class="cstat-no" title="statement not covered" >                                    break;</span>
+                                }
+                            }
+                            break;
+                    }
+                }
+                <span class="missing-if-branch" title="if path not taken" >I</span>if (handled === true) {
+                    // stop iterating through this list of candidates
+<span class="cstat-no" title="statement not covered" >                    break;</span>
+                }
+            }
+        }
+        return handled;
+    }
+&nbsp;
+    /**
+     * translate event coordinates
+     * @ignore
+     */
+    function normalizeEvent(event) {
+        var pointer;
+&nbsp;
+        // PointerEvent or standard Mouse event
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (me.device.TouchEvent &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >event.changedTouches)</span> {
+            // iOS/Android Touch event
+<span class="cstat-no" title="statement not covered" >            for (var i = 0, l = event.changedTouches.length; i &lt; l; i++) {</span>
+<span class="cstat-no" title="statement not covered" >                var touchEvent = event.changedTouches[i];</span>
+<span class="cstat-no" title="statement not covered" >                pointer = T_POINTERS.pop();</span>
+<span class="cstat-no" title="statement not covered" >                pointer.setEvent(</span>
+                    event,
+                    touchEvent.pageX,
+                    touchEvent.pageY,
+                    touchEvent.clientX,
+                    touchEvent.clientY,
+                    touchEvent.identifier
+                );
+<span class="cstat-no" title="statement not covered" >                normalizedEvents.push(pointer);</span>
+            }
+        } else {
+            // Mouse or PointerEvent
+            pointer = T_POINTERS.pop();
+            pointer.setEvent(
+                event,
+                event.pageX,
+                event.pageY,
+                event.clientX,
+                event.clientY,
+                event.pointerId
+            );
+            normalizedEvents.push(pointer);
+        }
+&nbsp;
+        // if event.isPrimary is defined and false, return
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (event.isPrimary === false) {
+<span class="cstat-no" title="statement not covered" >            return normalizedEvents;</span>
+        }
+&nbsp;
+        // else use the first entry to simulate mouse event
+        normalizedEvents[0].isPrimary = true;
+        Object.assign(api.pointer, normalizedEvents[0]);
+&nbsp;
+        return normalizedEvents;
+    }
+&nbsp;
+&nbsp;
+    /**
+     * mouse event management (mousewheel)
+     * XXX: mousewheel is deprecated
+     * @ignore
+     */
+<span class="fstat-no" title="function not covered" >    function onMouseWheel(e) {</span>
+        /* jshint expr:true */
+<span class="cstat-no" title="statement not covered" >        if (e.target === me.video.renderer.getScreenCanvas()) {</span>
+            // create a (fake) normalized event object
+<span class="cstat-no" title="statement not covered" >            e.type = "wheel";</span>
+            // dispatch mouse event to registered object
+<span class="cstat-no" title="statement not covered" >            return dispatchEvent(normalizeEvent(e));</span>
+        }
+<span class="cstat-no" title="statement not covered" >        return true;</span>
+    }
+&nbsp;
+&nbsp;
+    /**
+     * mouse/touch/pointer event management (move)
+     * @ignore
+     */
+<span class="fstat-no" title="function not covered" >    function onMoveEvent(e) {</span>
+        // dispatch mouse event to registered object
+<span class="cstat-no" title="statement not covered" >        dispatchEvent(normalizeEvent(e));</span>
+        // do not prevent default on moveEvent :
+        // - raise a deprectated warning in latest chrome version for touchEvent
+        // - uncessary for pointer Events
+<span class="cstat-no" title="statement not covered" >        return true;</span>
+    }
+&nbsp;
+    /**
+     * mouse/touch/pointer event management (start/down, end/up)
+     * @ignore
+     */
+    function onPointerEvent(e)  {
+        var ret = true;
+&nbsp;
+        // normalize eventTypes
+        normalizeEvent(e);
+&nbsp;
+        // remember/use the first "primary" normalized event for pointer.bind
+        var button = normalizedEvents[0].button;
+&nbsp;
+        // dispatch event to registered objects
+        <span class="missing-if-branch" title="else path not taken" >E</span>if (dispatchEvent(normalizedEvents) || api.preventDefault) {
+            // prevent default action
+            ret = api._preventDefaultFn(e);
+        }
+&nbsp;
+        var keycode = api.pointer.bind[button];
+&nbsp;
+        // check if mapped to a key
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (keycode) {
+<span class="cstat-no" title="statement not covered" >            if (POINTER_DOWN.includes(e.type)) {</span>
+<span class="cstat-no" title="statement not covered" >                return api._keydown(e, keycode, button + 1);</span>
+            }
+            else { // 'mouseup' or 'touchend'
+<span class="cstat-no" title="statement not covered" >                return api._keyup(e, keycode, button + 1);</span>
+            }
+        }
+&nbsp;
+        return ret;
+    }
+&nbsp;
+    /*
+     * PUBLIC STUFF
+     */
+&nbsp;
+    /**
+     * Pointer information (current position and size) &lt;br&gt;
+     * properties : &lt;br&gt;
+     * LEFT : constant for left button &lt;br&gt;
+     * MIDDLE : constant for middle button &lt;br&gt;
+     * RIGHT : constant for right button
+     * @public
+     * @type {me.Rect}
+     * @name pointer
+     * @memberOf me.input
+     */
+    api.pointer = new me.Pointer(0, 0, 1, 1);
+&nbsp;
+    // bind list for mouse buttons
+    api.pointer.bind = [ 0, 0, 0 ];
+&nbsp;
+    // W3C button constants
+    api.pointer.LEFT = 0;
+    api.pointer.MIDDLE = 1;
+    api.pointer.RIGHT = 2;
+&nbsp;
+    /**
+     * time interval for event throttling in milliseconds&lt;br&gt;
+     * default value : "1000/me.sys.fps" ms&lt;br&gt;
+     * set to 0 ms to disable the feature
+     * @public
+     * @type Number
+     * @name throttlingInterval
+     * @memberOf me.input
+     */
+    api.throttlingInterval = undefined;
+&nbsp;
+    /**
+     * Translate the specified x and y values from the global (absolute)
+     * coordinate to local (viewport) relative coordinate.
+     * @name globalToLocal
+     * @memberOf me.input
+     * @public
+     * @function
+     * @param {Number} x the global x coordinate to be translated.
+     * @param {Number} y the global y coordinate to be translated.
+     * @param {Number} [v] an optional vector object where to set the
+     * @return {me.Vector2d} A vector object with the corresponding translated coordinates.
+     * @example
+     * onMouseEvent : function (pointer) {
+     *    // convert the given into local (viewport) relative coordinates
+     *    var pos = me.input.globalToLocal(pointer.clientX, pointer.clientY);
+     *    // do something with pos !
+     * };
+     */
+    api.globalToLocal = function (x, y, v) {
+        v = v || <span class="branch-1 cbranch-no" title="branch not covered" >new me.Vector2d();</span>
+        var offset = me.video.getPos();
+        var pixelRatio = me.device.devicePixelRatio;
+        x -= offset.left;
+        y -= offset.top;
+        var scale = me.sys.scale;
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (scale.x !== 1.0 || scale.y !== 1.0) {
+<span class="cstat-no" title="statement not covered" >            x /= scale.x;</span>
+<span class="cstat-no" title="statement not covered" >            y /= scale.y;</span>
+        }
+        return v.set(x * pixelRatio, y * pixelRatio);
+    };
+&nbsp;
+    /**
+     * enable/disable all gestures on the given element.&lt;br&gt;
+     * by default melonJS will disable browser handling of all panning and zooming gestures.
+     * @name setTouchAction
+     * @memberOf me.input
+     * @see https://developer.mozilla.org/en-US/docs/Web/CSS/touch-action
+     * @public
+     * @function
+     * @param {HTMLCanvasElement} element
+     * @param {String} [value="none"]
+     */
+    api.setTouchAction = function (element, value) {
+        element.style["touch-action"] = value || "none";
+    };
+&nbsp;
+    /**
+     * Associate a pointer event to a keycode&lt;br&gt;
+     * Left button – 0
+     * Middle button – 1
+     * Right button – 2
+     * @name bindPointer
+     * @memberOf me.input
+     * @public
+     * @function
+     * @param {Number} [button=me.input.pointer.LEFT] (accordingly to W3C values : 0,1,2 for left, middle and right buttons)
+     * @param {me.input.KEY} keyCode
+     * @example
+     * // enable the keyboard
+     * me.input.bindKey(me.input.KEY.X, "shoot");
+     * // map the left button click on the X key (default if the button is not specified)
+     * me.input.bindPointer(me.input.KEY.X);
+     * // map the right button click on the X key
+     * me.input.bindPointer(me.input.pointer.RIGHT, me.input.KEY.X);
+     */
+    api.bindPointer = <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >        var button = (arguments.length &lt; 2) ? api.pointer.LEFT : arguments[0];</span>
+<span class="cstat-no" title="statement not covered" >        var keyCode = (arguments.length &lt; 2) ? arguments[0] : arguments[1];</span>
+&nbsp;
+        // make sure the mouse is initialized
+<span class="cstat-no" title="statement not covered" >        enablePointerEvent();</span>
+&nbsp;
+        // throw an exception if no action is defined for the specified keycode
+<span class="cstat-no" title="statement not covered" >        if (!api._KeyBinding[keyCode]) {</span>
+<span class="cstat-no" title="statement not covered" >            throw new me.Error("no action defined for keycode " + keyCode);</span>
+        }
+        // map the mouse button to the keycode
+<span class="cstat-no" title="statement not covered" >        api.pointer.bind[button] = keyCode;</span>
+    };
+&nbsp;
+    /**
+     * unbind the defined keycode
+     * @name unbindPointer
+     * @memberOf me.input
+     * @public
+     * @function
+     * @param {Number} [button=me.input.pointer.LEFT] (accordingly to W3C values : 0,1,2 for left, middle and right buttons)
+     * @example
+     * me.input.unbindPointer(me.input.pointer.LEFT);
+     */
+    api.unbindPointer = <span class="fstat-no" title="function not covered" >function (button) {</span>
+        // clear the event status
+<span class="cstat-no" title="statement not covered" >        api.pointer.bind[</span>
+            typeof(button) === "undefined" ?
+            api.pointer.LEFT : button
+        ] = null;
+    };
+&nbsp;
+&nbsp;
+    /**
+     * allows registration of event listeners on the object target. &lt;br&gt;
+     * melonJS will pass a me.Pointer object to the defined callback.
+     * @see me.Pointer
+     * @see {@link http://www.w3.org/TR/pointerevents/#list-of-pointer-events|W3C Pointer Event list}
+     * @name registerPointerEvent
+     * @memberOf me.input
+     * @public
+     * @function
+     * @param {String} eventType The event type for which the object is registering &lt;br&gt;
+     * melonJS currently supports: &lt;br&gt;
+     * &lt;ul&gt;
+     *   &lt;li&gt;&lt;code&gt;"pointermove"&lt;/code&gt;&lt;/li&gt;
+     *   &lt;li&gt;&lt;code&gt;"pointerdown"&lt;/code&gt;&lt;/li&gt;
+     *   &lt;li&gt;&lt;code&gt;"pointerup"&lt;/code&gt;&lt;/li&gt;
+     *   &lt;li&gt;&lt;code&gt;"pointerenter"&lt;/code&gt;&lt;/li&gt;
+     *   &lt;li&gt;&lt;code&gt;"pointerover"&lt;/code&gt;&lt;/li&gt;
+     *   &lt;li&gt;&lt;code&gt;"pointerleave"&lt;/code&gt;&lt;/li&gt;
+     *   &lt;li&gt;&lt;code&gt;"pointercancel"&lt;/code&gt;&lt;/li&gt;
+     *   &lt;li&gt;&lt;code&gt;"wheel"&lt;/code&gt;&lt;/li&gt;
+     * &lt;/ul&gt;
+     * @param {me.Rect|me.Polygon|me.Line|me.Ellipse} region a shape representing the region to register on
+     * @param {Function} callback methods to be called when the event occurs.
+     * Returning `false` from the defined callback will prevent the event to be propagated to other objects
+     * @example
+     *  // onActivate function
+     *  onActivateEvent: function () {
+     *     // register on the 'pointerdown' event
+     *     me.input.registerPointerEvent('pointerdown', this, this.pointerDown.bind(this));
+     *  },
+     *
+     *  // pointerDown event callback
+     *  pointerDown: function (pointer) {
+     *    // do something
+     *    ....
+     *    // don"t propagate the event to other objects
+     *    return false;
+     *  },
+     */
+    api.registerPointerEvent = function (eventType, region, callback) {
+        // make sure the mouse/touch events are initialized
+        enablePointerEvent();
+&nbsp;
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (pointerEventList.indexOf(eventType) === -1) {
+<span class="cstat-no" title="statement not covered" >            throw new me.Error("invalid event type : " + eventType);</span>
+        }
+&nbsp;
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (typeof region === "undefined") {
+<span class="cstat-no" title="statement not covered" >            throw new me.Error("registerPointerEvent: region for " + region + " event is undefined ");</span>
+        }
+&nbsp;
+        var eventTypes = findAllActiveEvents(activeEventList, pointerEventMap[eventType]);
+&nbsp;
+        // register the event
+        if (!eventHandlers.has(region)) {
+            eventHandlers.set(region, {
+                region : region,
+                callbacks : {},
+                pointerId : null
+            });
+        }
+&nbsp;
+        // allocate array if not defined
+        var handlers = eventHandlers.get(region);
+        for (var i = 0; i &lt; eventTypes.length; i++) {
+            eventType = eventTypes[i];
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (handlers.callbacks[eventType]) {
+<span class="cstat-no" title="statement not covered" >                handlers.callbacks[eventType].push(callback);</span>
+            } else {
+                handlers.callbacks[eventType] = [callback];
+            }
+        }
+    };
+&nbsp;
+    /**
+     * allows the removal of event listeners from the object target.
+     * @see {@link http://www.w3.org/TR/pointerevents/#list-of-pointer-events|W3C Pointer Event list}
+     * @name releasePointerEvent
+     * @memberOf me.input
+     * @public
+     * @function
+     * @param {String} eventType The event type for which the object was registered. See {@link me.input.registerPointerEvent}
+     * @param {me.Rect|me.Polygon|me.Line|me.Ellipse} region the registered region to release for this event
+     * @param {Function} [callback="all"] if specified unregister the event only for the specific callback
+     * @example
+     * // release the registered region on the 'pointerdown' event
+     * me.input.releasePointerEvent('pointerdown', this);
+     */
+    api.releasePointerEvent = function (eventType, region, callback) {
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (pointerEventList.indexOf(eventType) === -1) {
+<span class="cstat-no" title="statement not covered" >            throw new me.Error("invalid event type : " + eventType);</span>
+        }
+&nbsp;
+        // convert to supported event type if pointerEvent not natively supported
+        var eventTypes = findAllActiveEvents(activeEventList, pointerEventMap[eventType]);
+&nbsp;
+        var handlers = eventHandlers.get(region);
+        <span class="missing-if-branch" title="else path not taken" >E</span>if (typeof (handlers) !== "undefined") {
+            for (var i = 0; i &lt; eventTypes.length; i++) {
+                eventType = eventTypes[i];
+                <span class="missing-if-branch" title="else path not taken" >E</span>if (handlers.callbacks[eventType]) {
+                    <span class="missing-if-branch" title="if path not taken" >I</span>if (typeof (callback) !== "undefined") {
+<span class="cstat-no" title="statement not covered" >                        me.utils.array.remove(handlers.callbacks[eventType], callback);</span>
+                    } else {
+                        while (handlers.callbacks[eventType].length &gt; 0) {
+                            handlers.callbacks[eventType].pop();
+                        }
+                    }
+                    // free the array if empty
+                    <span class="missing-if-branch" title="else path not taken" >E</span>if (handlers.callbacks[eventType].length === 0) {
+                        delete handlers.callbacks[eventType];
+                    }
+                }
+            }
+            if (Object.keys(handlers.callbacks).length === 0) {
+                eventHandlers.delete(region);
+            }
+        }
+    };
+&nbsp;
+})(me.input);
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sat Jan 26 2019 12:46:17 GMT-0500 (Eastern Standard Time)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

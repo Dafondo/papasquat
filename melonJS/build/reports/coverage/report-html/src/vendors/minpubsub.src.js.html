@@ -1,0 +1,1217 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/vendors/minpubsub.src.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">all files</a> / <a href="index.html">src/vendors/</a> minpubsub.src.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">97.67% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>42/43</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">71.43% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>10/14</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>5/5</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">97.67% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>42/43</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">20×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20×</span>
+<span class="cline-any cline-yes">57×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">40×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">40×</span>
+<span class="cline-any cline-yes">40×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">19×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">19×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">19×</span>
+<span class="cline-any cline-yes">115×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/**
+ * @preserve MinPubSub
+ * a micro publish/subscribe messaging framework
+ * @see https://github.com/daniellmb/MinPubSub
+ * @author Daniel Lamb &lt;daniellmb.com&gt;
+ *
+ * Released under the MIT License
+ */
+(function () {
+    /**
+     * There is no constructor function for me.event
+     * @namespace me.event
+     * @memberOf me
+     */
+    me.event = (function () {
+        // hold public stuff inside the singleton
+        var api = {};
+&nbsp;
+        /**
+         * the channel/subscription hash
+         * @ignore
+         */
+        var cache = {};
+&nbsp;
+        /*
+         * PUBLIC
+         */
+&nbsp;
+        /**
+         * Channel Constant when the game is paused &lt;br&gt;
+         * Data passed : none &lt;br&gt;
+         * @public
+         * @constant
+         * @type String
+         * @name me.event#STATE_PAUSE
+         */
+        api.STATE_PAUSE = "me.state.onPause";
+&nbsp;
+        /**
+         * Channel Constant for when the game is resumed &lt;br&gt;
+         * Data passed : {Number} time in ms the game was paused
+         * @public
+         * @constant
+         * @type String
+         * @name me.event#STATE_RESUME
+         */
+        api.STATE_RESUME = "me.state.onResume";
+&nbsp;
+        /**
+         * Channel Constant when the game is stopped &lt;br&gt;
+         * Data passed : none &lt;br&gt;
+         * @public
+         * @constant
+         * @type String
+         * @name me.event#STATE_STOP
+         */
+        api.STATE_STOP = "me.state.onStop";
+&nbsp;
+        /**
+         * Channel Constant for when the game is restarted &lt;br&gt;
+         * Data passed : {Number} time in ms the game was stopped
+         * @public
+         * @constant
+         * @type String
+         * @name me.event#STATE_RESTART
+         */
+        api.STATE_RESTART = "me.state.onRestart";
+&nbsp;
+        /**
+         * Channel Constant for when the game manager is initialized &lt;br&gt;
+         * Data passed : none &lt;br&gt;
+         * @public
+         * @constant
+         * @type String
+         * @name me.event#GAME_INIT
+         */
+        api.GAME_INIT = "me.game.onInit";
+&nbsp;
+        /**
+         * Channel Constant for when the game manager is resetted &lt;br&gt;
+         * Data passed : none &lt;br&gt;
+         * @public
+         * @constant
+         * @type String
+         * @name me.event#GAME_RESET
+         */
+        api.GAME_RESET = "me.game.onReset";
+&nbsp;
+        /**
+         * Channel Constant for when a level is loaded &lt;br&gt;
+         * Data passed : {String} Level Name
+         * @public
+         * @constant
+         * @type String
+         * @name me.event#LEVEL_LOADED
+         */
+        api.LEVEL_LOADED = "me.game.onLevelLoaded";
+&nbsp;
+        /**
+         * Channel Constant for when everything has loaded &lt;br&gt;
+         * Data passed : none &lt;br&gt;
+         * @public
+         * @constant
+         * @type String
+         * @name me.event#LOADER_COMPLETE
+         */
+        api.LOADER_COMPLETE = "me.loader.onload";
+&nbsp;
+        /**
+         * Channel Constant for displaying a load progress indicator &lt;br&gt;
+         * Data passed : {Number} [0 .. 1], {Resource} resource object&lt;br&gt;
+         * @public
+         * @constant
+         * @type String
+         * @name me.event#LOADER_PROGRESS
+         */
+        api.LOADER_PROGRESS = "me.loader.onProgress";
+&nbsp;
+        /**
+         * Channel Constant for pressing a binded key &lt;br&gt;
+         * Data passed : {String} user-defined action, {Number} keyCode,
+         * {Boolean} edge state &lt;br&gt;
+         * Edge-state is for detecting "locked" key bindings. When a locked key
+         * is pressed and held, the first event will have the third argument
+         * set true. Subsequent events will continue firing with the third
+         * argument set false.
+         * @public
+         * @constant
+         * @type String
+         * @name me.event#KEYDOWN
+         * @example
+         * me.input.bindKey(me.input.KEY.X, "jump", true); // Edge-triggered
+         * me.input.bindKey(me.input.KEY.Z, "shoot"); // Level-triggered
+         * me.event.subscribe(me.event.KEYDOWN, function (action, keyCode, edge) {
+         *   // Checking bound keys
+         *   if (action === "jump") {
+         *       if (edge) {
+         *           this.doJump();
+         *       }
+         *
+         *       // Make character fall slower when holding the jump key
+         *       this.vel.y = this.body.gravity;
+         *   }
+         * });
+         */
+        api.KEYDOWN = "me.input.keydown";
+&nbsp;
+        /**
+         * Channel Constant for releasing a binded key &lt;br&gt;
+         * Data passed : {String} user-defined action, {Number} keyCode &lt;br&gt;
+         * @public
+         * @constant
+         * @type String
+         * @name me.event#KEYUP
+         * @example
+         * me.event.subscribe(me.event.KEYUP, function (action, keyCode) {
+         *   // Checking unbound keys
+         *   if (keyCode == me.input.KEY.ESC) {
+         *       if (me.state.isPaused()) {
+         *           me.state.resume();
+         *       }
+         *       else {
+         *           me.state.pause();
+         *       }
+         *   }
+         * });
+         */
+        api.KEYUP = "me.input.keyup";
+&nbsp;
+        /**
+         * Channel Constant for when a gamepad is connected &lt;br&gt;
+         * Data passed : {Object} gamepad object
+         * @public
+         * @constant
+         * @type String
+         * @name me.event#GAMEPAD_CONNECTED
+         */
+        api.GAMEPAD_CONNECTED = "gamepad.connected";
+&nbsp;
+        /**
+         * Channel Constant for when a gamepad is disconnected &lt;br&gt;
+         * Data passed : {Object} gamepad object
+         * @public
+         * @constant
+         * @type String
+         * @name me.event#GAMEPAD_DISCONNECTED
+         */
+        api.GAMEPAD_DISCONNECTED = "gamepad.disconnected";
+&nbsp;
+        /**
+         * Channel Constant for when gamepad button/axis state is updated &lt;br&gt;
+         * Data passed : {Number} index &lt;br&gt;
+         * Data passed : {String} type : "axes" or "buttons" &lt;br&gt;
+         * Data passed : {Number} button &lt;br&gt;
+         * Data passed : {Number} current.value &lt;br&gt;
+         * Data passed : {Boolean} current.pressed &lt;br&gt;
+         * @public
+         * @constant
+         * @type String
+         * @name me.event#GAMEPAD_UPDATE
+         */
+        api.GAMEPAD_UPDATE = "gamepad.update";
+&nbsp;
+        /**
+         * Channel Constant for pointermove events on the screen area &lt;br&gt;
+         * Data passed : {me.Pointer} a Pointer object
+         * @public
+         * @constant
+         * @type String
+         * @name me.event#POINTERMOVE
+         */
+        api.POINTERMOVE = "me.event.pointermove";
+&nbsp;
+        /**
+         * Channel Constant for dragstart events on a Draggable entity &lt;br&gt;
+         * Data passed:
+         * {Object} the drag event &lt;br&gt;
+         * {Object} the Draggable entity &lt;br&gt;
+         * @public
+         * @constant
+         * @type String
+         * @name me.event#DRAGSTART
+         */
+        api.DRAGSTART = "me.game.dragstart";
+&nbsp;
+        /**
+         * Channel Constant for dragend events on a Draggable entity &lt;br&gt;
+         * Data passed:
+         * {Object} the drag event &lt;br&gt;
+         * {Object} the Draggable entity &lt;br&gt;
+         * @public
+         * @constant
+         * @type String
+         * @name me.event#DRAGEND
+         */
+        api.DRAGEND = "me.game.dragend";
+&nbsp;
+        /**
+         * Channel Constant for when the (browser) window is resized &lt;br&gt;
+         * Data passed : {Event} Event object &lt;br&gt;
+         * @public
+         * @constant
+         * @type String
+         * @name me.event#WINDOW_ONRESIZE
+         */
+        api.WINDOW_ONRESIZE = "window.onresize";
+&nbsp;
+        /**
+         * Channel Constant for when the canvas is resized &lt;br&gt;
+         * (this usually follows a WINDOW_ONRESIZE event).&lt;br&gt;
+         * Data passed : {Number} canvas width &lt;br&gt;
+         * Data passed : {Number} canvas height &lt;br&gt;
+         * @public
+         * @constant
+         * @type String
+         * @name me.event#CANVAS_ONRESIZE
+         */
+        api.CANVAS_ONRESIZE = "canvas.onresize";
+&nbsp;
+        /**
+         * Channel Constant for when the viewport is resized &lt;br&gt;
+         * (this usually follows a WINDOW_ONRESIZE event, when using the `flex` scaling mode is used and after the viewport was updated).&lt;br&gt;
+         * Data passed : {Number} viewport width &lt;br&gt;
+         * Data passed : {Number} viewport height &lt;br&gt;
+         * @public
+         * @constant
+         * @type String
+         * @name me.event#VIEWPORT_ONRESIZE
+         */
+        api.VIEWPORT_ONRESIZE = "viewport.onresize";
+&nbsp;
+        /**
+         * Channel Constant for when the device is rotated &lt;br&gt;
+         * Data passed : {Event} Event object &lt;br&gt;
+         * @public
+         * @constant
+         * @type String
+         * @name me.event#WINDOW_ONORIENTATION_CHANGE
+         */
+        api.WINDOW_ONORIENTATION_CHANGE = "window.orientationchange";
+&nbsp;
+        /**
+         * Channel Constant for when the (browser) window is scrolled &lt;br&gt;
+         * Data passed : {Event} Event object &lt;br&gt;
+         * @public
+         * @constant
+         * @type String
+         * @name me.event#WINDOW_ONSCROLL
+         */
+        api.WINDOW_ONSCROLL = "window.onscroll";
+&nbsp;
+        /**
+         * Channel Constant for when the viewport position is updated &lt;br&gt;
+         * Data passed : {me.Vector2d} viewport position vector &lt;br&gt;
+         * @public
+         * @constant
+         * @type String
+         * @name me.event#VIEWPORT_ONCHANGE
+         */
+        api.VIEWPORT_ONCHANGE = "viewport.onchange";
+&nbsp;
+        /**
+         * Publish some data on a channel
+         * @name me.event#publish
+         * @public
+         * @function
+         * @param {String} channel The channel to publish on
+         * @param {Array} arguments The data to publish
+         *
+         * @example Publish stuff on '/some/channel'.
+         * Anything subscribed will be called with a function
+         * signature like: function (a,b,c){ ... }
+         *
+         * me.event.publish("/some/channel", ["a","b","c"]);
+         *
+         */
+        api.publish = function (channel, args) {
+            var subs = cache[channel],
+                len = subs ? subs.length : 0;
+&nbsp;
+            //can change loop or reverse array if the order matters
+            while (len--) {
+                subs[len].apply(window, args || []); // is window correct here?
+            }
+        };
+&nbsp;
+        /**
+         * Register a callback on a named channel.
+         * @name me.event#subscribe
+         * @public
+         * @function
+         * @param {String} channel The channel to subscribe to
+         * @param {Function} callback The event handler, any time something is
+         * published on a subscribed channel, the callback will be called
+         * with the published array as ordered arguments
+         * @return {handle} A handle which can be used to unsubscribe this
+         * particular subscription
+         * @example
+         * me.event.subscribe("/some/channel", function (a, b, c){ doSomething(); });
+         */
+&nbsp;
+        api.subscribe = function (channel, callback) {
+            if (!cache[channel]) {
+                cache[channel] = [];
+            }
+            cache[channel].push(callback);
+            return [ channel, callback ]; // Array
+        };
+&nbsp;
+        /**
+         * Disconnect a subscribed function for a channel.
+         * @name me.event#unsubscribe
+         * @public
+         * @function
+         * @param {Array|String} handle The return value from a subscribe call or the
+         * name of a channel as a String
+         * @param {Function} [callback] The callback to be unsubscribed.
+         * @example
+         * var handle = me.event.subscribe("/some/channel", function (){});
+         * me.event.unsubscribe(handle);
+         *
+         * // Or alternatively ...
+         *
+         * var callback = function (){};
+         * me.event.subscribe("/some/channel", callback);
+         * me.event.unsubscribe("/some/channel", callback);
+         */
+        api.unsubscribe = function (handle, callback) {
+            var subs = cache[callback ? handle : <span class="branch-1 cbranch-no" title="branch not covered" >handle[0]]</span>,
+                len = subs ? subs.length : <span class="branch-1 cbranch-no" title="branch not covered" >0;</span>
+&nbsp;
+            callback = callback || <span class="branch-1 cbranch-no" title="branch not covered" >handle[1];</span>
+&nbsp;
+            while (len--) {
+                <span class="missing-if-branch" title="if path not taken" >I</span>if (subs[len] === callback) {
+<span class="cstat-no" title="statement not covered" >                    subs.splice(len, 1);</span>
+                }
+            }
+        };
+&nbsp;
+        // return our object
+        return api;
+    })();
+})();
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sat Jan 26 2019 12:46:17 GMT-0500 (Eastern Standard Time)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

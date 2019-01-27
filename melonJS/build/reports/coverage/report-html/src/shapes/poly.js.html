@@ -1,0 +1,1313 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/shapes/poly.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">all files</a> / <a href="index.html">src/shapes/</a> poly.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">78.1% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>82/105</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">77.27% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>17/22</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">63.64% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>14/22</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">78.1% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>82/105</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line medium'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">124×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">124×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">124×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">124×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">124×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">124×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">124×</span>
+<span class="cline-any cline-yes">124×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">150×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">150×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">150×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">22×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">144×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">150×</span>
+<span class="cline-any cline-yes">147×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">147×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">245×</span>
+<span class="cline-any cline-yes">245×</span>
+<span class="cline-any cline-yes">245×</span>
+<span class="cline-any cline-yes">245×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">245×</span>
+<span class="cline-any cline-yes">245×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">245×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">244×</span>
+<span class="cline-any cline-yes">982×</span>
+<span class="cline-any cline-yes">486×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">982×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">982×</span>
+<span class="cline-any cline-yes">486×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">982×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">244×</span>
+<span class="cline-any cline-yes">244×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">244×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">244×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">20×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">17×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">23×</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">23×</span>
+<span class="cline-any cline-yes">23×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">23×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/*
+ * MelonJS Game Engine
+ * Copyright (C) 2011 - 2018 Olivier Biot
+ * http://www.melonjs.org
+ *
+ */
+(function () {
+    /**
+     * a polygon Object.&lt;br&gt;
+     * Please do note that melonJS implements a simple Axis-Aligned Boxes collision algorithm, which requires all polygons used for collision to be convex with all vertices defined with clockwise winding.
+     * A polygon is convex when all line segments connecting two points in the interior do not cross any edge of the polygon
+     * (which means that all angles are less than 180 degrees), as described here below : &lt;br&gt;
+     * &lt;center&gt;&lt;img src="images/convex_polygon.png"/&gt;&lt;/center&gt;&lt;br&gt;
+     * A polygon's `winding` is clockwise iff its vertices (points) are declared turning to the right. The image above shows COUNTERCLOCKWISE winding.
+     * @class
+     * @extends me.Object
+     * @memberOf me
+     * @constructor
+     * @param {Number} x origin point of the Polygon
+     * @param {Number} y origin point of the Polygon
+     * @param {me.Vector2d[]} points array of vector defining the Polygon
+     */
+    me.Polygon = me.Object.extend(
+    /** @scope me.Polygon.prototype */ {
+&nbsp;
+        /** @ignore */
+        init : function (x, y, points) {
+            /**
+             * origin point of the Polygon
+             * @public
+             * @type {me.Vector2d}
+             * @name pos
+             * @memberOf me.Polygon
+             */
+            this.pos = new me.Vector2d();
+&nbsp;
+            /**
+             * The bounding rectangle for this shape
+             * @ignore
+             * @type {me.Rect}
+             * @name _bounds
+             * @memberOf me.Polygon
+             */
+            this._bounds = undefined;
+&nbsp;
+            /**
+             * Array of points defining the Polygon &lt;br&gt;
+             * Note: If you manually change `points`, you **must** call `recalc`afterwards so that the changes get applied correctly.
+             * @public
+             * @type {me.Vector2d[]}
+             * @name points
+             * @memberOf me.Polygon
+             */
+            this.points = null;
+&nbsp;
+            /**
+             * The edges here are the direction of the `n`th edge of the polygon, relative to
+             * the `n`th point. If you want to draw a given edge from the edge value, you must
+             * first translate to the position of the starting point.
+             * @ignore
+             */
+            this.edges = [];
+&nbsp;
+            /**
+             * a list of indices for all vertices composing this polygon (@see earcut)
+             * @ignore
+             */
+            this.indices = [];
+&nbsp;
+            /**
+             * The normals here are the direction of the normal for the `n`th edge of the polygon, relative
+             * to the position of the `n`th point. If you want to draw an edge normal, you must first
+             * translate to the position of the starting point.
+             * @ignore
+             */
+            this.normals = [];
+&nbsp;
+            // the shape type
+            this.shapeType = "Polygon";
+            this.setShape(x, y, points);
+        },
+&nbsp;
+        /** @ignore */
+        onResetEvent : <span class="fstat-no" title="function not covered" >function (x, y, points) {</span>
+<span class="cstat-no" title="statement not covered" >            this.setShape(x, y, points);</span>
+        },
+&nbsp;
+        /**
+         * set new value to the Polygon
+         * @name setShape
+         * @memberOf me.Polygon
+         * @function
+         * @param {Number} x position of the Polygon
+         * @param {Number} y position of the Polygon
+         * @param {me.Vector2d[]} points array of vector defining the Polygon
+         */
+        setShape : function (x, y, points) {
+            this.pos.set(x, y);
+&nbsp;
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (!Array.isArray(points)) {
+<span class="cstat-no" title="statement not covered" >                return this;</span>
+            }
+&nbsp;
+            // convert given points to me.Vector2d if required
+            if (!(points[0] instanceof me.Vector2d)) {
+                var _points = this.points = [];
+                points.forEach(function (point) {
+                   _points.push(new me.Vector2d(point.x, point.y));
+                });
+            } else {
+                // array of me.Vector2d
+                this.points = points;
+            }
+&nbsp;
+            this.recalc();
+            this.updateBounds();
+&nbsp;
+            return this;
+        },
+&nbsp;
+        /**
+         * apply the given transformation matrix to this Polygon
+         * @name transform
+         * @memberOf me.Polygon
+         * @function
+         * @param {me.Matrix2d} matrix the transformation matrix
+         * @return {me.Polygon} Reference to this object for method chaining
+         */
+        transform : function (m) {
+            var points = this.points;
+            var len = points.length;
+            for (var i = 0; i &lt; len; i++) {
+                m.multiplyVector(points[i]);
+            }
+            this.recalc();
+            this.updateBounds();
+            return this;
+        },
+&nbsp;
+        /**
+         * apply an isometric projection to this shape
+         * @name toIso
+         * @memberOf me.Polygon
+         * @function
+         * @return {me.Polygon} Reference to this object for method chaining
+         */
+        toIso : function () {
+            return this.rotate(Math.PI / 4).scale(Math.SQRT2, Math.SQRT1_2);
+        },
+&nbsp;
+        /**
+         * apply a 2d projection to this shape
+         * @name to2d
+         * @memberOf me.Polygon
+         * @function
+         * @return {me.Polygon} Reference to this object for method chaining
+         */
+        to2d : function () {
+            return this.scale(Math.SQRT1_2, Math.SQRT2).rotate(-Math.PI / 4);
+        },
+&nbsp;
+        /**
+         * Rotate this Polygon (counter-clockwise) by the specified angle (in radians).
+         * @name rotate
+         * @memberOf me.Polygon
+         * @function
+         * @param {Number} angle The angle to rotate (in radians)
+         * @return {me.Polygon} Reference to this object for method chaining
+         */
+        rotate : function (angle) {
+            <span class="missing-if-branch" title="else path not taken" >E</span>if (angle !== 0) {
+                var points = this.points;
+                var len = points.length;
+                for (var i = 0; i &lt; len; i++) {
+                    points[i].rotate(angle);
+                }
+                this.recalc();
+                this.updateBounds();
+            }
+            return this;
+        },
+&nbsp;
+        /**
+         * Scale this Polygon by the given scalar.
+         * @name scale
+         * @memberOf me.Polygon
+         * @function
+         * @param {Number} x
+         * @param {Number} [y=x]
+         * @return {me.Polygon} Reference to this object for method chaining
+         */
+        scale : function (x, y) {
+            y = typeof (y) !== "undefined" ? y : <span class="branch-1 cbranch-no" title="branch not covered" >x;</span>
+&nbsp;
+            var points = this.points;
+            var len = points.length;
+            for (var i = 0; i &lt; len; i++) {
+                points[i].scale(x, y);
+            }
+            this.recalc();
+            this.updateBounds();
+            return this;
+        },
+&nbsp;
+        /**
+         * Scale this Polygon by the given vector
+         * @name scaleV
+         * @memberOf me.Polygon
+         * @function
+         * @param {me.Vector2d} v
+         * @return {me.Polygon} Reference to this object for method chaining
+         */
+        scaleV : <span class="fstat-no" title="function not covered" >function (v) {</span>
+<span class="cstat-no" title="statement not covered" >            return this.scale(v.x, v.y);</span>
+        },
+&nbsp;
+        /**
+         * Computes the calculated collision polygon.
+         * This **must** be called if the `points` array, `angle`, or `offset` is modified manually.
+         * @name recalc
+         * @memberOf me.Polygon
+         * @function
+         * @return {me.Polygon} Reference to this object for method chaining
+         */
+        recalc : function () {
+            var i;
+            var edges = this.edges;
+            var normals = this.normals;
+            var indices = this.indices;
+&nbsp;
+            // Copy the original points array and apply the offset/angle
+            var points = this.points;
+            var len = points.length;
+&nbsp;
+            if (len &lt; 3) {
+                throw new me.Polygon.Error("Requires at least 3 points");
+            }
+&nbsp;
+            // Calculate the edges/normals
+            for (i = 0; i &lt; len; i++) {
+                if (edges[i] === undefined) {
+                    edges[i] = new me.Vector2d();
+                }
+                edges[i].copy(points[(i + 1) % len]).sub(points[i]);
+&nbsp;
+                if (normals[i] === undefined) {
+                    normals[i] = new me.Vector2d();
+                }
+                normals[i].copy(edges[i]).perp().normalize();
+            }
+            // trunc array
+            edges.length = len;
+            normals.length = len;
+            // do not do anything here, indices will be computed by
+            // toIndices if array is empty upon function call
+            indices.length = 0;
+&nbsp;
+            return this;
+        },
+&nbsp;
+        /**
+         * returns a list of indices for all triangles defined in this polygon
+         * @name getIndices
+         * @memberOf me.Polygon
+         * @function
+         * @param {Vector2d[]} a list of vector
+         * @return {me.Polygon} this Polygon
+         */
+        getIndices : <span class="fstat-no" title="function not covered" >function (x, y) {</span>
+<span class="cstat-no" title="statement not covered" >            if (this.indices.length === 0) {</span>
+<span class="cstat-no" title="statement not covered" >                var points = this.points;</span>
+<span class="cstat-no" title="statement not covered" >                var data = [];</span>
+&nbsp;
+                // flatten the points vector array
+<span class="cstat-no" title="statement not covered" >                for (var i = 0; i &lt; points.length; i++) {</span>
+                    // XXX Optimize me
+<span class="cstat-no" title="statement not covered" >                    data.push(points[i].x);</span>
+<span class="cstat-no" title="statement not covered" >                    data.push(points[i].y);</span>
+                }
+<span class="cstat-no" title="statement not covered" >                this.indices = me.earcut(data);</span>
+            }
+<span class="cstat-no" title="statement not covered" >            return this.indices;</span>
+        },
+&nbsp;
+        /**
+         * translate the Polygon by the specified offset
+         * @name translate
+         * @memberOf me.Polygon
+         * @function
+         * @param {Number} x x offset
+         * @param {Number} y y offset
+         * @return {me.Polygon} this Polygon
+         */
+        translate : <span class="fstat-no" title="function not covered" >function (x, y) {</span>
+<span class="cstat-no" title="statement not covered" >            this.pos.x += x;</span>
+<span class="cstat-no" title="statement not covered" >            this.pos.y += y;</span>
+<span class="cstat-no" title="statement not covered" >            this._bounds.translate(x, y);</span>
+<span class="cstat-no" title="statement not covered" >            return this;</span>
+        },
+&nbsp;
+        /**
+         * translate the Polygon by the specified vector
+         * @name translateV
+         * @memberOf me.Polygon
+         * @function
+         * @param {me.Vector2d} v vector offset
+         * @return {me.Polygon} Reference to this object for method chaining
+         */
+        translateV : <span class="fstat-no" title="function not covered" >function (v) {</span>
+<span class="cstat-no" title="statement not covered" >            this.pos.add(v);</span>
+<span class="cstat-no" title="statement not covered" >            this._bounds.translateV(v);</span>
+<span class="cstat-no" title="statement not covered" >            return this;</span>
+        },
+&nbsp;
+        /**
+         * check if this Polygon contains the specified point
+         * @name containsPointV
+         * @memberOf me.Polygon
+         * @function
+         * @param  {me.Vector2d} point
+         * @return {boolean} true if contains
+         */
+        containsPointV: <span class="fstat-no" title="function not covered" >function (v) {</span>
+<span class="cstat-no" title="statement not covered" >            return this.containsPoint(v.x, v.y);</span>
+        },
+&nbsp;
+        /**
+         * check if this Polygon contains the specified point &lt;br&gt;
+         * (Note: it is highly recommended to first do a hit test on the corresponding &lt;br&gt;
+         *  bounding rect, as the function can be highly consuming with complex shapes)
+         * @name containsPoint
+         * @memberOf me.Polygon
+         * @function
+         * @param  {Number} x x coordinate
+         * @param  {Number} y y coordinate
+         * @return {boolean} true if contains
+         */
+        containsPoint: function (x, y) {
+            var intersects = false;
+            var posx = this.pos.x, posy = this.pos.y;
+            var points = this.points;
+            var len = points.length;
+&nbsp;
+            //http://www.ecse.rpi.edu/Homepages/wrf/Research/Short_Notes/pnpoly.html
+            for (var i = 0, j = len - 1; i &lt; len; j = i++) {
+                var iy = points[i].y + posy, ix = points[i].x + posx,
+                    jy = points[j].y + posy, jx = points[j].x + posx;
+                if (((iy &gt; y) !== (jy &gt; y)) &amp;&amp; (x &lt; (jx - ix) * (y - iy) / (jy - iy) + ix)) {
+                    intersects = !intersects;
+                }
+            }
+            return intersects;
+        },
+&nbsp;
+        /**
+         * returns the bounding box for this shape, the smallest Rectangle object completely containing this shape.
+         * @name getBounds
+         * @memberOf me.Polygon
+         * @function
+         * @return {me.Rect} this shape bounding box Rectangle object
+         */
+        getBounds : function () {
+            return this._bounds;
+        },
+&nbsp;
+        /**
+         * update the bounding box for this shape.
+         * @name updateBounds
+         * @memberOf me.Polygon
+         * @function
+         * @return {me.Rect} this shape bounding box Rectangle object
+         */
+        updateBounds : function () {
+            if (!this._bounds) {
+                this._bounds = new me.Rect(0, 0, 0, 0);
+            }
+            this._bounds.setPoints(this.points);
+            this._bounds.translateV(this.pos);
+&nbsp;
+            return this._bounds;
+        },
+&nbsp;
+        /**
+         * clone this Polygon
+         * @name clone
+         * @memberOf me.Polygon
+         * @function
+         * @return {me.Polygon} new Polygon
+         */
+        clone : <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            var copy = [];</span>
+<span class="cstat-no" title="statement not covered" >            this.points.forEach(<span class="fstat-no" title="function not covered" >function (point) {</span></span>
+<span class="cstat-no" title="statement not covered" >                copy.push(point.clone());</span>
+            });
+<span class="cstat-no" title="statement not covered" >            return new me.Polygon(this.pos.x, this.pos.y, copy);</span>
+        }
+    });
+&nbsp;
+    /**
+     * Base class for Polygon exception handling.
+     * @name Error
+     * @class
+     * @memberOf me.Polygon
+     * @constructor
+     * @param {String} msg Error message.
+     */
+    me.Polygon.Error = me.Error.extend({
+        /**
+         * @ignore
+         */
+        init : function (msg) {
+            this._super(me.Error, "init", [ msg ]);
+            this.name = "me.Polygon.Error";
+        }
+    });
+})();
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sat Jan 26 2019 12:46:17 GMT-0500 (Eastern Standard Time)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

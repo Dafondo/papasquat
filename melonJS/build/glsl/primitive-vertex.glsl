@@ -1,0 +1,1 @@
+function anonymous(ctx){var out='precision highp float;attribute vec2 aVertex;uniform mat3 uMatrix;uniform vec4 uColor;varying vec4 vColor;void main(void){gl_Position=vec4((uMatrix*vec3(aVertex,1)).xy,0,1);vColor=vec4(uColor.rgb*uColor.a,uColor.a);}';return out;}

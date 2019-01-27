@@ -1,0 +1,1625 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/video/texture.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">all files</a> / <a href="index.html">src/video/</a> texture.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">36.22% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>46/127</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">23.76% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>24/101</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">37.5% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>6/16</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">36.22% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>46/127</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430
+431
+432
+433
+434
+435
+436
+437
+438
+439
+440
+441
+442
+443
+444
+445
+446
+447
+448
+449
+450
+451
+452
+453
+454
+455
+456
+457
+458
+459
+460
+461
+462
+463
+464
+465
+466
+467
+468
+469
+470
+471
+472
+473
+474
+475
+476
+477
+478
+479
+480
+481
+482
+483
+484
+485
+486
+487
+488
+489
+490
+491
+492
+493
+494
+495
+496
+497
+498
+499
+500
+501
+502
+503
+504
+505
+506
+507
+508
+509
+510
+511
+512
+513
+514
+515
+516
+517
+518
+519
+520
+521</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">79×</span>
+<span class="cline-any cline-yes">79×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/*
+ * MelonJS Game Engine
+ * Copyright (C) 2011 - 2018 Olivier Biot
+ * http://www.melonjs.org
+ *
+ */
+(function () {
+&nbsp;
+    /**
+     * A Texture atlas object, currently supports : &lt;br&gt;
+     * - [TexturePacker]{@link http://www.codeandweb.com/texturepacker/} : through JSON export (standard and multipack texture atlas) &lt;br&gt;
+     * - [ShoeBox]{@link http://renderhjs.net/shoebox/} : through JSON export using the
+     * melonJS setting [file]{@link https://github.com/melonjs/melonJS/raw/master/media/shoebox_JSON_export.sbx} &lt;br&gt;
+     * - Standard (fixed cell size) spritesheet : through a {framewidth:xx, frameheight:xx, anchorPoint:me.Vector2d} object
+     * @class
+     * @extends me.Object
+     * @memberOf me.Renderer
+     * @name Texture
+     * @constructor
+     * @param {Object|Object[]} atlas atlas information. See {@link me.loader.getJSON}
+     * @param {HTMLImageElement|HTMLCanvasElement|String|HTMLImageElement[]|HTMLCanvasElement[]|String[]} [source=atlas.meta.image] Image source
+     * @param {Boolean} [cached=false] Use true to skip caching this Texture
+     * @example
+     * // create a texture atlas from a JSON Object
+     * game.texture = new me.video.renderer.Texture(
+     *     me.loader.getJSON("texture")
+     * );
+     *
+     * // create a texture atlas from a multipack JSON Object
+     * game.texture = new me.video.renderer.Texture([
+     *     me.loader.getJSON("texture-0"),
+     *     me.loader.getJSON("texture-1"),
+     *     me.loader.getJSON("texture-2")
+     * ]);
+     *
+     * // create a texture atlas for a spritesheet with an anchorPoint in the center of each frame
+     * game.texture = new me.video.renderer.Texture(
+     *     {
+     *         framewidth : 32,
+     *         frameheight : 32,
+     *         anchorPoint : new me.Vector2d(0.5, 0.5)
+     *     },
+     *     me.loader.getImage("spritesheet")
+     * );
+     */
+    me.Renderer.prototype.Texture = me.Object.extend(
+    /** @scope me.video.renderer.Texture.prototype */
+    {
+        /**
+         * @ignore
+         */
+        init : function (atlases, src, cache) {
+            /**
+             * to identify the atlas format (e.g. texture packer)
+             * @ignore
+             */
+            this.format = null;
+&nbsp;
+            /**
+             * the texture source(s) itself
+             * @type Map
+             * @ignore
+             */
+            this.sources = new Map();
+&nbsp;
+            /**
+             * the atlas dictionnaries
+             * @type Map
+             * @ignore
+             */
+            this.atlases = new Map();
+&nbsp;
+            // parse given atlas(es) paremeters
+            <span class="missing-if-branch" title="else path not taken" >E</span>if (typeof (atlases) !== "undefined") {
+                // normalize to array to keep the following code generic
+                atlases = Array.isArray(atlases) ? <span class="branch-0 cbranch-no" title="branch not covered" >atlases </span>: [atlases];
+                for (var i in atlases) {
+                    var atlas = atlases[i];
+&nbsp;
+                    <span class="missing-if-branch" title="if path not taken" >I</span>if (typeof(atlas.meta) !== "undefined") {
+                        // Texture Packer
+<span class="cstat-no" title="statement not covered" >                        if (atlas.meta.app.includes("texturepacker")) {</span>
+<span class="cstat-no" title="statement not covered" >                            this.format = "texturepacker";</span>
+                            // set the texture
+<span class="cstat-no" title="statement not covered" >                            if (typeof(src) === "undefined") {</span>
+                                // get the texture name from the atlas meta data
+<span class="cstat-no" title="statement not covered" >                                var image = me.loader.getImage(atlas.meta.image);</span>
+<span class="cstat-no" title="statement not covered" >                                if (!image) {</span>
+<span class="cstat-no" title="statement not covered" >                                    throw new me.video.renderer.Texture.Error(</span>
+                                        "Atlas texture '" + image + "' not found"
+                                    );
+                                }
+<span class="cstat-no" title="statement not covered" >                                this.sources.set(atlas.meta.image, image);</span>
+                            } else {
+<span class="cstat-no" title="statement not covered" >                                this.sources.set(atlas.meta.image || "default", typeof src === "string" ? me.loader.getImage(src) : src);</span>
+                            }
+<span class="cstat-no" title="statement not covered" >                            this.repeat = "no-repeat";</span>
+                        }
+                        // ShoeBox
+                        else <span class="cstat-no" title="statement not covered" >if (atlas.meta.app.includes("ShoeBox")) {</span>
+<span class="cstat-no" title="statement not covered" >                            if (!atlas.meta.exporter || !atlas.meta.exporter.includes("melonJS")) {</span>
+<span class="cstat-no" title="statement not covered" >                                throw new me.video.renderer.Texture.Error(</span>
+                                    "ShoeBox requires the JSON exporter : " +
+                                    "https://github.com/melonjs/melonJS/tree/master/media/shoebox_JSON_export.sbx"
+                                );
+                            }
+<span class="cstat-no" title="statement not covered" >                            this.format = "ShoeBox";</span>
+<span class="cstat-no" title="statement not covered" >                            this.repeat = "no-repeat";</span>
+<span class="cstat-no" title="statement not covered" >                            this.sources.set("default", typeof src === "string" ? me.loader.getImage(src) : src);</span>
+                        }
+                        // Internal texture atlas
+                        else <span class="cstat-no" title="statement not covered" >if (atlas.meta.app.includes("melonJS")) {</span>
+<span class="cstat-no" title="statement not covered" >                            this.format = "melonJS";</span>
+<span class="cstat-no" title="statement not covered" >                            this.repeat = atlas.meta.repeat || "no-repeat";</span>
+<span class="cstat-no" title="statement not covered" >                            this.sources.set("default", typeof src === "string" ? me.loader.getImage(src) : src);</span>
+                        }
+                        // initialize the atlas
+<span class="cstat-no" title="statement not covered" >                        this.atlases.set(atlas.meta.image || "default", this.parse(atlas));</span>
+&nbsp;
+                    } else {
+                        // a regular spritesheet
+                        <span class="missing-if-branch" title="else path not taken" >E</span>if (typeof(atlas.framewidth) !== "undefined" &amp;&amp;
+                            typeof(atlas.frameheight) !== "undefined") {
+                            this.format = "Spritesheet (fixed cell size)";
+                            this.repeat = "no-repeat";
+&nbsp;
+                            <span class="missing-if-branch" title="else path not taken" >E</span>if (typeof(src) !== "undefined") {
+                                // overwrite if specified
+                                atlas.image = typeof src === "string" ? <span class="branch-0 cbranch-no" title="branch not covered" >me.loader.getImage(src) </span>: src;
+                            }
+                            // initialize the atlas
+                            this.atlases.set("default", this.parseFromSpriteSheet(atlas));
+                            this.sources.set("default", atlas.image);
+&nbsp;
+                        }
+                    }
+                } // end forEach
+            }
+&nbsp;
+            // if format not recognized
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (this.atlases.length === 0) {
+<span class="cstat-no" title="statement not covered" >                throw new me.video.renderer.Texture.Error("texture atlas format not supported");</span>
+            }
+&nbsp;
+            // Add self to TextureCache if cache !== false
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (cache !== false) {
+<span class="cstat-no" title="statement not covered" >                src = Array.isArray(src) ? src : [src];</span>
+<span class="cstat-no" title="statement not covered" >                for (var source of this.sources) {</span>
+<span class="cstat-no" title="statement not covered" >                    if (cache instanceof me.Renderer.TextureCache) {</span>
+<span class="cstat-no" title="statement not covered" >                        cache.put(source, this);</span>
+                    } else {
+<span class="cstat-no" title="statement not covered" >                        me.video.renderer.cache.put(source, this);</span>
+                    }
+                }
+            }
+        },
+&nbsp;
+        /**
+         * create a simple 1 frame texture atlas based on the given parameters
+         * @ignore
+         */
+        createAtlas : <span class="fstat-no" title="function not covered" >function (width, height, name, repeat) {</span>
+<span class="cstat-no" title="statement not covered" >            return {</span>
+                "meta" : {
+                    "app" : "melonJS",
+                    "size" : { "w" : width, "h" : height },
+                    "repeat" : repeat || "no-repeat",
+                    "image" : "default"
+                },
+                "frames" : [{
+                    "filename" : name || "default",
+                    "frame" : { "x" : 0, "y" : 0, "w" : width, "h" : height }
+                }]
+            };
+        },
+&nbsp;
+        /**
+         * build an atlas from the given data
+         * @ignore
+         */
+        parse : <span class="fstat-no" title="function not covered" >function (data) {</span>
+<span class="cstat-no" title="statement not covered" >            var atlas = {};</span>
+<span class="cstat-no" title="statement not covered" >            var self = this;</span>
+<span class="cstat-no" title="statement not covered" >            data.frames.forEach(<span class="fstat-no" title="function not covered" >function (frame) {</span></span>
+                // fix wrongly formatted JSON (e.g. last dummy object in ShoeBox)
+<span class="cstat-no" title="statement not covered" >                if (frame.hasOwnProperty("filename")) {</span>
+                    // Source coordinates
+<span class="cstat-no" title="statement not covered" >                    var s = frame.frame;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                    var originX, originY;</span>
+                    // Pixel-based offset origin from the top-left of the source frame
+<span class="cstat-no" title="statement not covered" >                    var hasTextureAnchorPoint = (frame.spriteSourceSize &amp;&amp; frame.sourceSize &amp;&amp; frame.pivot);</span>
+<span class="cstat-no" title="statement not covered" >                    if (hasTextureAnchorPoint) {</span>
+<span class="cstat-no" title="statement not covered" >                        originX = (frame.sourceSize.w * frame.pivot.x) - ((frame.trimmed) ? frame.spriteSourceSize.x : 0);</span>
+<span class="cstat-no" title="statement not covered" >                        originY = (frame.sourceSize.h * frame.pivot.y) - ((frame.trimmed) ? frame.spriteSourceSize.y : 0);</span>
+                    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                    atlas[frame.filename] = {</span>
+                        name         : frame.filename, // frame name
+                        texture      : data.meta.image || "default", // the source texture
+                        offset       : new me.Vector2d(s.x, s.y),
+                        anchorPoint  : (hasTextureAnchorPoint) ? new me.Vector2d(originX / s.w, originY / s.h) : null,
+                        trimmed      : !!frame.trimmed,
+                        width        : s.w,
+                        height       : s.h,
+                        angle        : (frame.rotated === true) ? -me.Math.ETA : 0
+                    };
+<span class="cstat-no" title="statement not covered" >                    self.addUvsMap(atlas, frame.filename, data.meta.size.w, data.meta.size.h);</span>
+                }
+            });
+<span class="cstat-no" title="statement not covered" >            return atlas;</span>
+        },
+&nbsp;
+        /**
+         * build an atlas from the given spritesheet
+         * @ignore
+         */
+        parseFromSpriteSheet : function (data) {
+            var atlas = {};
+            var image = data.image;
+            var spacing = data.spacing || 0;
+            var margin = data.margin || 0;
+&nbsp;
+            var width = image.width;
+            var height = image.height;
+&nbsp;
+            // calculate the sprite count (line, col)
+            var spritecount = me.pool.pull("me.Vector2d",
+                ~~((width - margin + spacing) / (data.framewidth + spacing)),
+                ~~((height - margin + spacing) / (data.frameheight + spacing))
+            );
+&nbsp;
+            // verifying the texture size
+            <span class="missing-if-branch" title="if path not taken" >I</span>if ((width % (data.framewidth + spacing)) !== 0 ||
+                (height % (data.frameheight + spacing)) !== 0) {
+                // "truncate size"
+<span class="cstat-no" title="statement not covered" >                width = spritecount.x * (data.framewidth + spacing);</span>
+<span class="cstat-no" title="statement not covered" >                height = spritecount.y * (data.frameheight + spacing);</span>
+                // warning message
+<span class="cstat-no" title="statement not covered" >                console.warn(</span>
+                    "Spritesheet Texture for image: " + image.src +
+                    " is not divisible by " + (data.framewidth + spacing) +
+                    "x" + (data.frameheight + spacing) +
+                    ", truncating effective size to " + width + "x" + height
+                );
+            }
+&nbsp;
+            // build the local atlas
+            for (var frame = 0, count = spritecount.x * spritecount.y; frame &lt; count; frame++) {
+                var name = "" + frame;
+                atlas[name] = {
+                    name        : name,
+                    texture     : "default", // the source texture
+                    offset      : new me.Vector2d(
+                        margin + (spacing + data.framewidth) * (frame % spritecount.x),
+                        margin + (spacing + data.frameheight) * ~~(frame / spritecount.x)
+                    ),
+                    anchorPoint : (data.anchorPoint || null),
+                    trimmed     : false,
+                    width       : data.framewidth,
+                    height      : data.frameheight,
+                    angle       : 0
+                };
+                this.addUvsMap(atlas, name, width, height);
+            }
+&nbsp;
+            me.pool.push(spritecount);
+&nbsp;
+            return atlas;
+        },
+&nbsp;
+        /**
+         * @ignore
+         */
+        addUvsMap : function (atlas, frame, w, h) {
+            // ignore if using the Canvas Renderer
+            <span class="missing-if-branch" title="else path not taken" >E</span>if (me.video.renderer instanceof me.Renderer) {
+                // Source coordinates
+                var s = atlas[frame].offset;
+                var sw = atlas[frame].width;
+                var sh = atlas[frame].height;
+&nbsp;
+                atlas[frame].uvs = new Float32Array([
+                    s.x / w,        // Left
+                    s.y / h,        // Top
+                    (s.x + sw) / w, // Right
+                    (s.y + sh) / h  // Bottom
+                ]);
+                // Cache source coordinates
+                // TODO: Remove this when the Batcher only accepts a region name
+                var key = s.x + "," + s.y + "," + w + "," + h;
+                atlas[key] = atlas[frame];
+            }
+            return atlas[frame];
+        },
+&nbsp;
+        /**
+         * @ignore
+         */
+        addQuadRegion : <span class="fstat-no" title="function not covered" >function (name, x, y, w, h) {</span>
+            // TODO: Require proper atlas regions instead of caching arbitrary region keys
+<span class="cstat-no" title="statement not covered" >            if (me.video.renderer.settings.verbose === true) {</span>
+<span class="cstat-no" title="statement not covered" >                console.warn("Adding texture region", name, "for texture", this);</span>
+            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            var source = this.getTexture();</span>
+<span class="cstat-no" title="statement not covered" >            var atlas = this.getAtlas();</span>
+<span class="cstat-no" title="statement not covered" >            var dw = source.width;</span>
+<span class="cstat-no" title="statement not covered" >            var dh = source.height;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            atlas[name] = {</span>
+                name    : name,
+                offset  : new me.Vector2d(x, y),
+                width   : w,
+                height  : h,
+                angle   : 0
+            };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            this.addUvsMap(atlas, name, dw, dh);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            return atlas[name];</span>
+        },
+&nbsp;
+        /**
+         * return the default or specified atlas dictionnary
+         * @name getAtlas
+         * @memberOf me.Renderer.Texture
+         * @function
+         * @param {String} [name] atlas name in case of multipack textures
+         * @return {Object}
+         */
+        getAtlas : function (key) {
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (typeof key === "string") {
+<span class="cstat-no" title="statement not covered" >                return this.atlases.get(key);</span>
+            } else {
+                return this.atlases.values().next().value;
+            }
+        },
+&nbsp;
+        /**
+         * return the source texture for the given region (or default one if none specified)
+         * @name getTexture
+         * @memberOf me.Renderer.Texture
+         * @function
+         * @param {Object} [region] region name in case of multipack textures
+         * @return {HTMLImageElement|HTMLCanvasElement}
+         */
+        getTexture : function (region) {
+            <span class="missing-if-branch" title="else path not taken" >E</span>if ((typeof region === "object") &amp;&amp; (typeof region.texture === "string")) {
+                return this.sources.get(region.texture);
+            } else {
+<span class="cstat-no" title="statement not covered" >                return this.sources.values().next().value;</span>
+            }
+        },
+&nbsp;
+        /**
+         * return a normalized region (or frame) information for the specified sprite name
+         * @name getRegion
+         * @memberOf me.Renderer.Texture
+         * @function
+         * @param {String} name name of the sprite
+         * @param {String} [atlas] name of a specific atlas where to search for the region
+         * @return {Object}
+         */
+        getRegion : <span class="fstat-no" title="function not covered" >function (name, atlas) {</span>
+<span class="cstat-no" title="statement not covered" >            var region;</span>
+<span class="cstat-no" title="statement not covered" >            if (typeof atlas === "string") {</span>
+<span class="cstat-no" title="statement not covered" >                region = this.getAtlas(atlas)[name];</span>
+            } else {
+                // look for the given region in each existing atlas
+<span class="cstat-no" title="statement not covered" >                this.atlases.forEach(<span class="fstat-no" title="function not covered" >function (atlas) {</span></span>
+<span class="cstat-no" title="statement not covered" >                    if (typeof atlas[name] !== "undefined") {</span>
+                        // there should be only one
+<span class="cstat-no" title="statement not covered" >                        region = atlas[name];</span>
+                    }
+                });
+            }
+<span class="cstat-no" title="statement not covered" >            return region;</span>
+        },
+&nbsp;
+        /**
+         * return the uvs mapping for the given region
+         * @name getUVs
+         * @memberOf me.Renderer.Texture
+         * @function
+         * @param {Object} region region (or frame) name
+         * @return {Float32Array} region Uvs
+         */
+        getUVs : <span class="fstat-no" title="function not covered" >function (name) {</span>
+            // Get the source texture region
+<span class="cstat-no" title="statement not covered" >            var region = this.getRegion(name);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            if (typeof(region) === "undefined") {</span>
+                // TODO: Require proper atlas regions instead of caching arbitrary region keys
+<span class="cstat-no" title="statement not covered" >                var keys = name.split(","),</span>
+                    sx = +keys[0],
+                    sy = +keys[1],
+                    sw = +keys[2],
+                    sh = +keys[3];
+<span class="cstat-no" title="statement not covered" >                region = this.addQuadRegion(name, sx, sy, sw, sh);</span>
+            }
+<span class="cstat-no" title="statement not covered" >            return region.uvs;</span>
+        },
+&nbsp;
+        /**
+         * Create a sprite object using the first region found using the specified name
+         * @name createSpriteFromName
+         * @memberOf me.Renderer.Texture
+         * @function
+         * @param {String} name name of the sprite
+         * @param {Object} [settings] Additional settings passed to the {@link me.Sprite} contructor
+         * @return {me.Sprite}
+         * @example
+         * // create a new texture object under the `game` namespace
+         * game.texture = new me.video.renderer.Texture(
+         *    me.loader.getJSON("texture"),
+         *    me.loader.getImage("texture")
+         * );
+         * ...
+         * ...
+         * // add the coin sprite as renderable for the entity
+         * this.renderable = game.texture.createSpriteFromName("coin.png");
+         * // set the renderable position to bottom center
+         * this.anchorPoint.set(0.5, 1.0);
+         */
+        createSpriteFromName : <span class="fstat-no" title="function not covered" >function (name, settings) {</span>
+            // instantiate a new sprite object
+<span class="cstat-no" title="statement not covered" >            return me.pool.pull(</span>
+                "me.Sprite",
+                0, 0,
+                Object.assign({
+                    image: this,
+                    region : name
+                }, settings || {})
+            );
+        },
+&nbsp;
+        /**
+         * Create an animation object using the first region found using all specified names
+         * @name createAnimationFromName
+         * @memberOf me.Renderer.Texture
+         * @function
+         * @param {String[]|Number[]} names list of names for each sprite
+         * (when manually creating a Texture out of a spritesheet, only numeric values are authorized)
+         * @param {Object} [settings] Additional settings passed to the {@link me.Sprite} contructor
+         * @return {me.Sprite}
+         * @example
+         * // create a new texture object under the `game` namespace
+         * game.texture = new me.video.renderer.Texture(
+         *     me.loader.getJSON("texture"),
+         *     me.loader.getImage("texture")
+         * );
+         *
+         * // create a new Sprite as renderable for the entity
+         * this.renderable = game.texture.createAnimationFromName([
+         *     "walk0001.png", "walk0002.png", "walk0003.png",
+         *     "walk0004.png", "walk0005.png", "walk0006.png",
+         *     "walk0007.png", "walk0008.png", "walk0009.png",
+         *     "walk0010.png", "walk0011.png"
+         * ]);
+         *
+         * // define an additional basic walking animation
+         * this.renderable.addAnimation ("simple_walk", [0,2,1]);
+         * // you can also use frame name to define your animation
+         * this.renderable.addAnimation ("speed_walk", ["walk0007.png", "walk0008.png", "walk0009.png", "walk0010.png"]);
+         * // set the default animation
+         * this.renderable.setCurrentAnimation("simple_walk");
+         * // set the renderable position to bottom center
+         * this.anchorPoint.set(0.5, 1.0);
+         */
+        createAnimationFromName : <span class="fstat-no" title="function not covered" >function (names, settings) {</span>
+<span class="cstat-no" title="statement not covered" >            var tpAtlas = [], indices = {};</span>
+<span class="cstat-no" title="statement not covered" >            var width = 0, height = 0;</span>
+<span class="cstat-no" title="statement not covered" >            var region;</span>
+            // iterate through the given names
+            // and create a "normalized" atlas
+<span class="cstat-no" title="statement not covered" >            for (var i = 0; i &lt; names.length; ++i) {</span>
+<span class="cstat-no" title="statement not covered" >                region = this.getRegion(names[i]);</span>
+<span class="cstat-no" title="statement not covered" >                if (region == null) {</span>
+                    // throw an error
+<span class="cstat-no" title="statement not covered" >                    throw new me.video.renderer.Texture.Error("Texture - region for " + names[i] + " not found");</span>
+                }
+<span class="cstat-no" title="statement not covered" >                tpAtlas[i] = region;</span>
+                // save the corresponding index
+<span class="cstat-no" title="statement not covered" >                indices[names[i]] = i;</span>
+                // calculate the max size of a frame
+<span class="cstat-no" title="statement not covered" >                width = Math.max(region.width, width);</span>
+<span class="cstat-no" title="statement not covered" >                height = Math.max(region.height, height);</span>
+            }
+            // instantiate a new animation sheet object
+<span class="cstat-no" title="statement not covered" >            return new me.Sprite(0, 0, Object.assign({</span>
+                image: this,
+                framewidth: width,
+                frameheight: height,
+                margin: 0,
+                spacing: 0,
+                atlas: tpAtlas,
+                atlasIndices: indices
+            }, settings || {}));
+        }
+    });
+&nbsp;
+    /**
+     * Base class for Texture exception handling.
+     * @name Error
+     * @class
+     * @memberOf me.Renderer.Texture
+     * @constructor
+     * @param {String} msg Error message.
+     */
+    me.Renderer.prototype.Texture.Error = me.Error.extend({
+        /**
+         * @ignore
+         */
+        init : <span class="fstat-no" title="function not covered" >function (msg) {</span>
+<span class="cstat-no" title="statement not covered" >            this._super(me.Error, "init", [ msg ]);</span>
+<span class="cstat-no" title="statement not covered" >            this.name = "me.Renderer.Texture.Error";</span>
+        }
+    });
+})();
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sat Jan 26 2019 12:46:17 GMT-0500 (Eastern Standard Time)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

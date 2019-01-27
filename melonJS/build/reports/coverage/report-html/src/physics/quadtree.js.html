@@ -1,0 +1,1214 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/physics/quadtree.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">all files</a> / <a href="index.html">src/physics/</a> quadtree.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">35.71% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>40/112</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">15.66% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>13/83</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">46.15% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>6/13</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">35.71% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>40/112</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">135×</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">137×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">137×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">137×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">137×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/*
+ * MelonJS Game Engine
+ * Copyright (C) 2011 - 2018 Olivier Biot
+ * http://www.melonjs.org
+ *
+ * A QuadTree implementation in JavaScript, a 2d spatial subdivision algorithm.
+ * Based on the QuadTree Library by Timo Hausmann and released under the MIT license
+ * https://github.com/timohausmann/quadtree-js/
+**/
+&nbsp;
+(function () {
+&nbsp;
+&nbsp;
+    /**
+     * a pool of `QuadTree` objects
+     */
+    var QT_ARRAY = [];
+&nbsp;
+    /**
+     * will pop a quadtree object from the array
+     * or create a new one if the array is empty
+     */
+    var QT_ARRAY_POP = <span class="fstat-no" title="function not covered" >function (bounds, max_objects, max_levels, level) {</span>
+<span class="cstat-no" title="statement not covered" >        if (QT_ARRAY.length &gt; 0) {</span>
+<span class="cstat-no" title="statement not covered" >            var _qt =  QT_ARRAY.pop();</span>
+<span class="cstat-no" title="statement not covered" >            _qt.bounds = bounds;</span>
+<span class="cstat-no" title="statement not covered" >            _qt.max_objects = max_objects || 4;</span>
+<span class="cstat-no" title="statement not covered" >            _qt.max_levels  = max_levels || 4;</span>
+<span class="cstat-no" title="statement not covered" >            _qt.level = level || 0;</span>
+<span class="cstat-no" title="statement not covered" >            return _qt;</span>
+        } else {
+<span class="cstat-no" title="statement not covered" >            return new me.QuadTree(bounds, max_objects, max_levels, level);</span>
+        }
+    };
+&nbsp;
+    /**
+     * Push back a quadtree back into the array
+     */
+    var QT_ARRAY_PUSH = <span class="fstat-no" title="function not covered" >function (qt) {</span>
+<span class="cstat-no" title="statement not covered" >        QT_ARRAY.push(qt);</span>
+    };
+&nbsp;
+    /**
+     * a temporary vector object to be reused
+     */
+    var QT_VECTOR = new me.Vector2d();
+&nbsp;
+&nbsp;
+    /**
+     * Quadtree Constructor &lt;br&gt;
+     * note: the global quadtree instance is available through `me.collision.quadTree`
+     * @class
+     * @name QuadTree
+     * @extends Object
+     * @memberOf me
+     * @constructor
+     * @see me.collision.quadTree
+     * @param {me.Rect} bounds bounds of the node
+     * @param {Number} [max_objects=4] max objects a node can hold before splitting into 4 subnodes
+     * @param {Number} [max_levels=4] total max levels inside root Quadtree
+     * @param {Number} [level] deepth level, required for subnodes
+     */
+    function Quadtree(bounds, max_objects, max_levels, level) {
+        this.max_objects = max_objects || <span class="branch-1 cbranch-no" title="branch not covered" >4;</span>
+        this.max_levels  = max_levels || <span class="branch-1 cbranch-no" title="branch not covered" >4;</span>
+&nbsp;
+        this.level = level || 0;
+        this.bounds = bounds;
+&nbsp;
+        this.objects = [];
+        this.nodes = [];
+    }
+&nbsp;
+&nbsp;
+    /*
+     * Split the node into 4 subnodes
+     */
+    Quadtree.prototype.split = <span class="fstat-no" title="function not covered" >function () {</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        var nextLevel = this.level + 1,</span>
+            subWidth  = ~~(0.5 + this.bounds.width / 2),
+            subHeight = ~~(0.5 + this.bounds.height / 2),
+            x = ~~(0.5 + this.bounds.pos.x),
+            y = ~~(0.5 + this.bounds.pos.y);
+&nbsp;
+         //top right node
+<span class="cstat-no" title="statement not covered" >        this.nodes[0] = QT_ARRAY_POP({</span>
+            pos : {
+                x : x + subWidth,
+                y : y
+            },
+            width : subWidth,
+            height : subHeight
+        }, this.max_objects, this.max_levels, nextLevel);
+&nbsp;
+        //top left node
+<span class="cstat-no" title="statement not covered" >        this.nodes[1] = QT_ARRAY_POP({</span>
+            pos : {
+                x : x,
+                y : y
+            },
+            width : subWidth,
+            height : subHeight
+        }, this.max_objects, this.max_levels, nextLevel);
+&nbsp;
+        //bottom left node
+<span class="cstat-no" title="statement not covered" >        this.nodes[2] = QT_ARRAY_POP({</span>
+            pos : {
+                x : x,
+                y : y + subHeight
+            },
+            width : subWidth,
+            height : subHeight
+        }, this.max_objects, this.max_levels, nextLevel);
+&nbsp;
+        //bottom right node
+<span class="cstat-no" title="statement not covered" >        this.nodes[3] = QT_ARRAY_POP({</span>
+            pos : {
+                x : x + subWidth,
+                y : y + subHeight
+            },
+            width : subWidth,
+            height : subHeight
+        }, this.max_objects, this.max_levels, nextLevel);
+    };
+&nbsp;
+&nbsp;
+    /*
+     * Determine which node the object belongs to
+     * @param {me.Rect} rect bounds of the area to be checked
+     * @return Integer index of the subnode (0-3), or -1 if rect cannot completely fit within a subnode and is part of the parent node
+     */
+    Quadtree.prototype.getIndex = <span class="fstat-no" title="function not covered" >function (item) {</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        var rect = item.getBounds(),</span>
+            pos = rect.pos;
+&nbsp;
+        // use world coordinates for floating items
+<span class="cstat-no" title="statement not covered" >        if (item.floating || (item.ancestor &amp;&amp; item.ancestor.floating)) {</span>
+<span class="cstat-no" title="statement not covered" >            pos = me.game.viewport.localToWorld(pos.x, pos.y, QT_VECTOR);</span>
+        }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        var index = -1,</span>
+            rx = pos.x,
+            ry = pos.y,
+            rw = rect.width,
+            rh = rect.height,
+            verticalMidpoint = this.bounds.pos.x + (this.bounds.width / 2),
+            horizontalMidpoint = this.bounds.pos.y + (this.bounds.height / 2),
+            //rect can completely fit within the top quadrants
+            topQuadrant = (ry &lt; horizontalMidpoint &amp;&amp; ry + rh &lt; horizontalMidpoint),
+            //rect can completely fit within the bottom quadrants
+            bottomQuadrant = (ry &gt; horizontalMidpoint);
+&nbsp;
+        //rect can completely fit within the left quadrants
+<span class="cstat-no" title="statement not covered" >        if (rx &lt; verticalMidpoint &amp;&amp; rx + rw &lt; verticalMidpoint) {</span>
+<span class="cstat-no" title="statement not covered" >            if (topQuadrant) {</span>
+<span class="cstat-no" title="statement not covered" >                index = 1;</span>
+            } else <span class="cstat-no" title="statement not covered" >if (bottomQuadrant) {</span>
+<span class="cstat-no" title="statement not covered" >                index = 2;</span>
+            }
+        } else <span class="cstat-no" title="statement not covered" >if (rx &gt; verticalMidpoint) {</span>
+            //rect can completely fit within the right quadrants
+<span class="cstat-no" title="statement not covered" >            if (topQuadrant) {</span>
+<span class="cstat-no" title="statement not covered" >                index = 0;</span>
+            } else <span class="cstat-no" title="statement not covered" >if (bottomQuadrant) {</span>
+<span class="cstat-no" title="statement not covered" >                index = 3;</span>
+            }
+        }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        return index;</span>
+    };
+&nbsp;
+    /**
+     * Insert the given object container into the node.
+     * @name insertContainer
+     * @memberOf me.QuadTree
+     * @function
+     * @param {me.Container} container group of objects to be added
+     */
+    Quadtree.prototype.insertContainer = function (container) {
+&nbsp;
+        for (var i = container.children.length, child; i--, (child = container.children[i]);) {
+            <span class="missing-if-branch" title="else path not taken" >E</span>if (child.isKinematic !== true) {
+                <span class="missing-if-branch" title="if path not taken" >I</span>if (child instanceof me.Container) {
+<span class="cstat-no" title="statement not covered" >                    if (child.name !== "rootContainer") {</span>
+<span class="cstat-no" title="statement not covered" >                        this.insert(child);</span>
+                    }
+                    // recursivly insert all childs
+<span class="cstat-no" title="statement not covered" >                    this.insertContainer(child);</span>
+                } else {
+                    // only insert object with a bounding box
+                    // Probably redundant with `isKinematic`
+                    <span class="missing-if-branch" title="else path not taken" >E</span>if (typeof (child.getBounds) === "function") {
+                        this.insert(child);
+                    }
+                }
+            }
+        }
+    };
+&nbsp;
+    /**
+     * Insert the given object into the node. If the node
+     * exceeds the capacity, it will split and add all
+     * objects to their corresponding subnodes.
+     * @name insert
+     * @memberOf me.QuadTree
+     * @function
+     * @param {Object} item object to be added
+     */
+    Quadtree.prototype.insert = function (item) {
+&nbsp;
+        var index = -1;
+&nbsp;
+        //if we have subnodes ...
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (this.nodes.length &gt; 0) {
+<span class="cstat-no" title="statement not covered" >            index = this.getIndex(item);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            if (index !== -1) {</span>
+<span class="cstat-no" title="statement not covered" >                this.nodes[index].insert(item);</span>
+<span class="cstat-no" title="statement not covered" >                return;</span>
+            }
+        }
+&nbsp;
+        this.objects.push(item);
+&nbsp;
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (this.objects.length &gt; this.max_objects &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >this.level &lt; this.max_levels)</span> {
+&nbsp;
+            //split if we don't already have subnodes
+<span class="cstat-no" title="statement not covered" >            if (this.nodes.length === 0) {</span>
+<span class="cstat-no" title="statement not covered" >                this.split();</span>
+            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            var i = 0;</span>
+&nbsp;
+            //add all objects to there corresponding subnodes
+<span class="cstat-no" title="statement not covered" >            while (i &lt; this.objects.length) {</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                index = this.getIndex(this.objects[i]);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                if (index !== -1) {</span>
+<span class="cstat-no" title="statement not covered" >                    this.nodes[index].insert(this.objects.splice(i, 1)[0]);</span>
+                } else {
+<span class="cstat-no" title="statement not covered" >                    i = i + 1;</span>
+                }
+            }
+        }
+    };
+&nbsp;
+    /**
+     * Return all objects that could collide with the given object
+     * @name retrieve
+     * @memberOf me.QuadTree
+     * @function
+     * @param {Object} object object to be checked against
+     * @param {Object} [function] a sorting function for the returned array
+     * @return {Object[]} array with all detected objects
+     */
+    Quadtree.prototype.retrieve = function (item, fn) {
+&nbsp;
+        var returnObjects = this.objects;
+&nbsp;
+        //if we have subnodes ...
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (this.nodes.length &gt; 0) {
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            var index = this.getIndex(item);</span>
+&nbsp;
+            //if rect fits into a subnode ..
+<span class="cstat-no" title="statement not covered" >            if (index !== -1) {</span>
+<span class="cstat-no" title="statement not covered" >                returnObjects = returnObjects.concat(this.nodes[index].retrieve(item));</span>
+            } else {
+                 //if rect does not fit into a subnode, check it against all subnodes
+<span class="cstat-no" title="statement not covered" >                for (var i = 0; i &lt; this.nodes.length; i = i + 1) {</span>
+<span class="cstat-no" title="statement not covered" >                    returnObjects = returnObjects.concat(this.nodes[i].retrieve(item));</span>
+                }
+            }
+        }
+&nbsp;
+        <span class="missing-if-branch" title="else path not taken" >E</span>if (typeof(fn) === "function") {
+            returnObjects.sort(fn);
+        }
+&nbsp;
+        return returnObjects;
+    };
+&nbsp;
+    /**
+     * Remove the given item from the quadtree.
+     * (this function won't recalculate the impacted node)
+     * @name remove
+     * @memberOf me.QuadTree
+     * @function
+     * @param {Object} object object to be removed
+     * @return true if the item was found and removed.
+     */
+     Quadtree.prototype.remove = <span class="fstat-no" title="function not covered" >function (item) {</span>
+<span class="cstat-no" title="statement not covered" >        var found = false;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        if (typeof (item.getBounds) === "undefined") {</span>
+            // ignore object that cannot be added in the first place
+<span class="cstat-no" title="statement not covered" >            return false;</span>
+        }
+&nbsp;
+        //if we have subnodes ...
+<span class="cstat-no" title="statement not covered" >        if (this.nodes.length &gt; 0) {</span>
+            // determine to which node the item belongs to
+<span class="cstat-no" title="statement not covered" >            var index = this.getIndex(item);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            if (index !== -1) {</span>
+<span class="cstat-no" title="statement not covered" >                found = me.utils.array.remove(this.nodes[index], item);</span>
+                // trim node if empty
+<span class="cstat-no" title="statement not covered" >                if (found &amp;&amp; this.nodes[index].isPrunable()) {</span>
+<span class="cstat-no" title="statement not covered" >                    this.nodes.splice(index, 1);</span>
+                }
+            }
+        }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        if (found === false) {</span>
+            // try and remove the item from the list of items in this node
+<span class="cstat-no" title="statement not covered" >            if (this.objects.indexOf(item) !== -1) {</span>
+<span class="cstat-no" title="statement not covered" >                me.utils.array.remove(this.objects, item);</span>
+<span class="cstat-no" title="statement not covered" >                found = true;</span>
+            }
+        }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        return found;</span>
+    };
+&nbsp;
+    /**
+     * return true if the node is prunable
+     * @name isPrunable
+     * @memberOf me.QuadTree
+     * @function
+     * @return true if the node is prunable
+     */
+    Quadtree.prototype.isPrunable = <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >        return !(this.hasChildren() || (this.objects.length &gt; 0));</span>
+    };
+&nbsp;
+    /**
+     * return true if the node has any children
+     * @name hasChildren
+     * @memberOf me.QuadTree
+     * @function
+     * @return true if the node has any children
+     */
+    Quadtree.prototype.hasChildren = <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >        for (var i = 0; i &lt; this.nodes.length; i = i + 1) {</span>
+<span class="cstat-no" title="statement not covered" >            var subnode = this.nodes[i];</span>
+<span class="cstat-no" title="statement not covered" >            if (subnode.length &gt; 0 || subnode.objects.length &gt; 0) {</span>
+<span class="cstat-no" title="statement not covered" >                return true;</span>
+            }
+        }
+<span class="cstat-no" title="statement not covered" >        return false;</span>
+    };
+&nbsp;
+    /**
+     * clear the quadtree
+     * @name clear
+     * @memberOf me.QuadTree
+     * @function
+     */
+    Quadtree.prototype.clear = function (bounds) {
+&nbsp;
+        this.objects.length = 0;
+&nbsp;
+        for (var i = 0; i &lt; this.nodes.length; i = i + 1) {
+<span class="cstat-no" title="statement not covered" >            this.nodes[i].clear();</span>
+            // recycle the quadTree object
+<span class="cstat-no" title="statement not covered" >            QT_ARRAY_PUSH(this.nodes[i]);</span>
+        }
+        // empty the array
+        this.nodes.length = 0;
+&nbsp;
+        // resize the root bounds if required
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (typeof bounds !== "undefined") {
+<span class="cstat-no" title="statement not covered" >            this.bounds.setShape(bounds.pos.x, bounds.pos.y, bounds.width, bounds.height);</span>
+        }
+    };
+&nbsp;
+    //make Quadtree available in the me namespace
+    me.QuadTree = Quadtree;
+&nbsp;
+})();
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sat Jan 26 2019 12:46:17 GMT-0500 (Eastern Standard Time)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

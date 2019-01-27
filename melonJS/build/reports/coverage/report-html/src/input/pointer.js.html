@@ -1,0 +1,887 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/input/pointer.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">all files</a> / <a href="index.html">src/input/</a> pointer.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">84.62% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>44/52</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">71.43% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>25/35</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>3/3</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">84.62% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>44/52</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/*
+ * MelonJS Game Engine
+ * Copyright (C) 2011 - 2018 Olivier Biot
+ * http://www.melonjs.org
+ *
+ */
+(function () {
+&nbsp;
+    /**
+     * cache value for the offset of the canvas position within the page
+     * @ignore
+     */
+    var viewportOffset = new me.Vector2d();
+&nbsp;
+    /**
+     * a pointer object, representing a single finger on a touch enabled device.
+     * @class
+     * @extends me.Rect
+     * @memberOf me
+     * @constructor
+     */
+    me.Pointer = me.Rect.extend(
+    /** @scope me.Pointer.prototype */
+    {
+        /**
+         * @ignore
+         */
+        init : function (x, y, w, h) {
+&nbsp;
+          /**
+            * the originating Event Object
+            * @public
+            * @type {PointerEvent|TouchEvent|MouseEvent}
+            * @name event
+            * @see https://developer.mozilla.org/en-US/docs/Web/API/PointerEvent
+            * @see https://developer.mozilla.org/en-US/docs/Web/API/TouchEvent
+            * @see https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent
+            * @memberOf me.Pointer
+            */
+            this.event = undefined;
+&nbsp;
+           /**
+            * a string containing the event's type.
+            * @public
+            * @type {String}
+            * @name type
+            * @see https://developer.mozilla.org/en-US/docs/Web/API/Event/type
+            * @memberOf me.Pointer
+            */
+            this.type = undefined;
+&nbsp;
+&nbsp;
+           /**
+            * the button property indicates which button was pressed on the mouse to trigger the event.
+            * @public
+            * @type {Number}
+            * @name button
+            * @see https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/button
+            * @memberOf me.Pointer
+            */
+            this.button = 0;
+&nbsp;
+           /**
+            * indicates whether or not the pointer device that created the event is the primary pointer.
+            * @public
+            * @type {Boolean}
+            * @name isPrimary
+            * @see https://developer.mozilla.org/en-US/docs/Web/API/PointerEvent/isPrimary
+            * @memberOf me.Pointer
+            */
+            this.isPrimary = false;
+&nbsp;
+           /**
+            * the horizontal coordinate at which the event occurred, relative to the left edge of the entire document.
+            * @public
+            * @type {Number}
+            * @name pageX
+            * @see https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/pageX
+            * @memberOf me.Pointer
+            */
+            this.pageX = 0;
+&nbsp;
+           /**
+            * the vertical coordinate at which the event occurred, relative to the left edge of the entire document.
+            * @public
+            * @type {Number}
+            * @name pageY
+            * @see https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/pageY
+            * @memberOf me.Pointer
+            */
+            this.pageY = 0;
+&nbsp;
+           /**
+            * the horizontal coordinate within the application's client area at which the event occurred
+            * @public
+            * @type {Number}
+            * @name clientX
+            * @see https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/clientX
+            * @memberOf me.Pointer
+            */
+            this.clientX = 0;
+&nbsp;
+           /**
+            * the vertical coordinate within the application's client area at which the event occurred
+            * @public
+            * @type {Number}
+            * @name clientY
+            * @see https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/clientY
+            * @memberOf me.Pointer
+            */
+            this.clientY = 0;
+&nbsp;
+          /**
+            * Event normalized X coordinate within the game canvas itself&lt;br&gt;
+            * &lt;img src="images/event_coord.png"/&gt;
+            * @public
+            * @type {Number}
+            * @name gameX
+            * @memberOf me.Pointer
+            */
+            this.gameX = 0;
+&nbsp;
+           /**
+            * Event normalized Y coordinate within the game canvas itself&lt;br&gt;
+            * &lt;img src="images/event_coord.png"/&gt;
+            * @public
+            * @type {Number}
+            * @name gameY
+            * @memberOf me.Pointer
+            */
+            this.gameY = 0;
+&nbsp;
+           /**
+            * Event X coordinate relative to the viewport
+            * @public
+            * @type {Number}
+            * @name gameScreenX
+            * @memberOf me.Pointer
+            */
+            this.gameScreenX = 0;
+&nbsp;
+           /**
+            * Event Y coordinate relative to the viewport
+            * @public
+            * @type {Number}
+            * @name gameScreenY
+            * @memberOf me.Pointer
+            */
+            this.gameScreenY = 0;
+&nbsp;
+           /**
+            * Event X coordinate relative to the map
+            * @public
+            * @type {Number}
+            * @name gameWorldX
+            * @memberOf me.Pointer
+            */
+            this.gameWorldX = 0;
+&nbsp;
+           /**
+            * Event Y coordinate relative to the map
+            * @public
+            * @type {Number}
+            * @name gameWorldY
+            * @memberOf me.Pointer
+            */
+            this.gameWorldY = 0;
+&nbsp;
+           /**
+            * Event X coordinate relative to the holding container
+            * @public
+            * @type {Number}
+            * @name gameLocalX
+            * @memberOf me.Pointer
+            */
+            this.gameLocalX = 0;
+&nbsp;
+           /**
+            * Event Y coordinate relative to the holding container
+            * @public
+            * @type {Number}
+            * @name gameLocalY
+            * @memberOf me.Pointer
+            */
+            this.gameLocalY = 0;
+&nbsp;
+           /**
+            * The unique identifier of the contact for a touch, mouse or pen
+            * @public
+            * @type {Number}
+            * @name pointerId
+            * @memberOf me.Pointer
+            * @see https://developer.mozilla.org/en-US/docs/Web/API/PointerEvent/pointerId
+            */
+            this.pointerId = undefined;
+&nbsp;
+            // parent constructor
+            this._super(me.Rect, "init", [x || 0, y || 0, w || 1, h || 1]);
+        },
+&nbsp;
+        /**
+         * initialize the Pointer object using the given Event Object
+         * @name me.Pointer#set
+         * @private
+         * @function
+         * @param {Event} event the original Event object
+         * @param {Number} pageX the horizontal coordinate at which the event occurred, relative to the left edge of the entire document
+         * @param {Number} pageY the vertical coordinate at which the event occurred, relative to the left edge of the entire document
+         * @param {Number} clientX the horizontal coordinate within the application's client area at which the event occurred
+         * @param {Number} clientX the vertical coordinate within the application's client area at which the event occurred
+         * @param {Number} pointedId the Pointer, Touch or Mouse event Id
+         */
+        setEvent : function (event, pageX, pageY, clientX, clientY, pointerId) {
+            var width = 1;
+            var height = 1;
+&nbsp;
+            // the original event object
+            this.event = event;
+&nbsp;
+            this.pageX = pageX || 0;
+            this.pageY = pageY || 0;
+            this.clientX = clientX || <span class="branch-1 cbranch-no" title="branch not covered" >0;</span>
+            this.clientY = clientY || <span class="branch-1 cbranch-no" title="branch not covered" >0;</span>
+&nbsp;
+            // translate to local coordinates
+            me.input.globalToLocal(this.clientX, this.clientY, this.pos);
+&nbsp;
+            // true if not originally a pointer event
+            this.isNormalized = !me.device.PointerEvent || (me.device.PointerEvent &amp;&amp; !(event instanceof window.PointerEvent));
+&nbsp;
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (event.type === "wheel") {
+<span class="cstat-no" title="statement not covered" >                this.deltaMode = 1;</span>
+<span class="cstat-no" title="statement not covered" >                this.deltaX = event.deltaX;</span>
+<span class="cstat-no" title="statement not covered" >                this.deltaY = - 1 / 40 * event.wheelDelta;</span>
+<span class="cstat-no" title="statement not covered" >                event.wheelDeltaX &amp;&amp; (this.deltaX = - 1 / 40 * event.wheelDeltaX);</span>
+            }
+&nbsp;
+            // could be 0, so test if defined
+            this.pointerId = (typeof pointerId !== "undefined") ? pointerId : <span class="branch-1 cbranch-no" title="branch not covered" >1;</span>
+&nbsp;
+            this.isPrimary = (typeof event.isPrimary !== "undefined") ? event.isPrimary : <span class="branch-1 cbranch-no" title="branch not covered" >true;</span>
+&nbsp;
+            // in case of touch events, button is not defined
+            this.button = event.button || 0;
+&nbsp;
+            this.type = event.type;
+&nbsp;
+            this.gameScreenX = this.pos.x;
+            this.gameScreenY = this.pos.y;
+&nbsp;
+            // get the current screen to world offset
+            <span class="missing-if-branch" title="else path not taken" >E</span>if (typeof me.game.viewport !== "undefined") {
+                me.game.viewport.localToWorld(this.gameScreenX, this.gameScreenY, viewportOffset);
+            }
+&nbsp;
+            /* Initialize the two coordinate space properties. */
+            this.gameWorldX = viewportOffset.x;
+            this.gameWorldY = viewportOffset.y;
+&nbsp;
+            // get the pointer size
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (this.isNormalized === false) {
+                // native PointerEvent
+<span class="cstat-no" title="statement not covered" >                width = event.width;</span>
+<span class="cstat-no" title="statement not covered" >                height = event.height;</span>
+            } else <span class="missing-if-branch" title="if path not taken" >I</span>if (typeof(event.radiusX) === "number")  {
+                // TouchEvent
+<span class="cstat-no" title="statement not covered" >                width = event.radiusX * 2;</span>
+<span class="cstat-no" title="statement not covered" >                height = event.radiusY * 2;</span>
+            }
+            // resize the pointer object accordingly
+            this.resize(width, height);
+        }
+    });
+})();
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sat Jan 26 2019 12:46:17 GMT-0500 (Eastern Standard Time)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

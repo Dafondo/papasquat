@@ -1,0 +1,1181 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/level/TMXLayer.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">all files</a> / <a href="index.html">src/level/</a> TMXLayer.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">4.21% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>4/95</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/52</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">7.14% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>1/14</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">4.21% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>4/95</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/*
+ * MelonJS Game Engine
+ * Copyright (C) 2011 - 2018 Olivier Biot
+ * http://www.melonjs.org
+ *
+ */
+(function () {
+&nbsp;
+    /**
+     * Create required arrays for the given layer object
+     * @ignore
+     */
+<span class="fstat-no" title="function not covered" >    function initArray(layer) {</span>
+        // initialize the array
+<span class="cstat-no" title="statement not covered" >        layer.layerData = new Array(layer.cols);</span>
+<span class="cstat-no" title="statement not covered" >        for (var x = 0; x &lt; layer.cols; x++) {</span>
+<span class="cstat-no" title="statement not covered" >            layer.layerData[x] = new Array(layer.rows);</span>
+<span class="cstat-no" title="statement not covered" >            for (var y = 0; y &lt; layer.rows; y++) {</span>
+<span class="cstat-no" title="statement not covered" >                layer.layerData[x][y] = null;</span>
+            }
+        }
+    }
+&nbsp;
+    /**
+     * Set a tiled layer Data
+     * @ignore
+     */
+<span class="fstat-no" title="function not covered" >    function setLayerData(layer, data) {</span>
+<span class="cstat-no" title="statement not covered" >        var idx = 0;</span>
+        // initialize the array
+<span class="cstat-no" title="statement not covered" >        initArray(layer);</span>
+        // set everything
+<span class="cstat-no" title="statement not covered" >        for (var y = 0; y &lt; layer.rows; y++) {</span>
+<span class="cstat-no" title="statement not covered" >            for (var x = 0; x &lt; layer.cols; x++) {</span>
+                // get the value of the gid
+<span class="cstat-no" title="statement not covered" >                var gid = data[idx++];</span>
+                // fill the array
+<span class="cstat-no" title="statement not covered" >                if (gid !== 0) {</span>
+                    // add a new tile to the layer
+<span class="cstat-no" title="statement not covered" >                    layer.setTile(x, y, gid);</span>
+                }
+            }
+        }
+    }
+&nbsp;
+    /**
+     * a TMX Tile Layer Object
+     * Tiled QT 0.7.x format
+     * @class
+     * @extends me.Renderable
+     * @memberOf me
+     * @constructor
+     * @param {Object} data layer data in JSON format ({@link http://docs.mapeditor.org/en/stable/reference/tmx-map-format/#layer})
+     * @param {Number} tilewidth width of each tile in pixels
+     * @param {Number} tileheight height of each tile in pixels
+     * @param {String} orientation "isometric" or "orthogonal"
+     * @param {me.TMXTilesetGroup} tilesets tileset as defined in Tiled
+     * @param {Number} z z-index position
+     */
+    me.TMXLayer = me.Renderable.extend({
+        /**
+         * @ignore
+         */
+        init: <span class="fstat-no" title="function not covered" >function (data, tilewidth, tileheight, orientation, tilesets, z) {</span>
+            // super constructor
+<span class="cstat-no" title="statement not covered" >            this._super(me.Renderable, "init", [0, 0, 0, 0]);</span>
+&nbsp;
+            // tile width &amp; height
+<span class="cstat-no" title="statement not covered" >            this.tilewidth  = data.tilewidth || tilewidth;</span>
+<span class="cstat-no" title="statement not covered" >            this.tileheight = data.tileheight || tileheight;</span>
+&nbsp;
+            // layer orientation
+<span class="cstat-no" title="statement not covered" >            this.orientation = orientation;</span>
+&nbsp;
+            /**
+             * The Layer corresponding Tilesets
+             * @public
+             * @type me.TMXTilesetGroup
+             * @name me.TMXLayer#tilesets
+             */
+<span class="cstat-no" title="statement not covered" >            this.tilesets = tilesets;</span>
+&nbsp;
+            // the default tileset
+            // XXX: Is this even used?
+<span class="cstat-no" title="statement not covered" >            this.tileset = (this.tilesets ? this.tilesets.getTilesetByIndex(0) : null);</span>
+&nbsp;
+            // Biggest tile size to draw
+<span class="cstat-no" title="statement not covered" >            this.maxTileSize = {</span>
+                "width" : 0,
+                "height" : 0
+            };
+<span class="cstat-no" title="statement not covered" >            for (var i = 0; i &lt; this.tilesets.length; i++) {</span>
+<span class="cstat-no" title="statement not covered" >                var tileset = this.tilesets.getTilesetByIndex(i);</span>
+<span class="cstat-no" title="statement not covered" >                this.maxTileSize.width = Math.max(this.maxTileSize.width, tileset.tilewidth);</span>
+<span class="cstat-no" title="statement not covered" >                this.maxTileSize.height = Math.max(this.maxTileSize.height, tileset.tileheight);</span>
+            }
+&nbsp;
+            /**
+             * All animated tilesets in this layer
+             * @ignore
+             * @type Array
+             * @name me.TMXLayer#animatedTilesets
+             */
+<span class="cstat-no" title="statement not covered" >            this.animatedTilesets = [];</span>
+&nbsp;
+            /**
+             * Layer contains tileset animations
+             * @public
+             * @type Boolean
+             * @name me.TMXLayer#isAnimated
+             */
+<span class="cstat-no" title="statement not covered" >            this.isAnimated = false;</span>
+&nbsp;
+            /**
+             * the order in which tiles on orthogonal tile layers are rendered.
+             * (valid values are "left-down", "left-up", "right-down", "right-up")
+             * @public
+             * @type {String}
+             * @default "right-down"
+             * @name me.TMXLayer#renderorder
+             */
+<span class="cstat-no" title="statement not covered" >            this.renderorder = data.renderorder || "right-down";</span>
+&nbsp;
+            // for displaying order
+<span class="cstat-no" title="statement not covered" >            this.pos.z = z;</span>
+&nbsp;
+            // tiled default coordinates are top-left
+<span class="cstat-no" title="statement not covered" >            this.anchorPoint.set(0, 0);</span>
+&nbsp;
+            // additional TMX flags
+<span class="cstat-no" title="statement not covered" >            this.name = data.name;</span>
+<span class="cstat-no" title="statement not covered" >            this.cols = +data.width;</span>
+<span class="cstat-no" title="statement not covered" >            this.rows = +data.height;</span>
+&nbsp;
+            // hexagonal maps only
+<span class="cstat-no" title="statement not covered" >            this.hexsidelength = +data.hexsidelength || undefined;</span>
+<span class="cstat-no" title="statement not covered" >            this.staggeraxis = data.staggeraxis;</span>
+<span class="cstat-no" title="statement not covered" >            this.staggerindex = data.staggerindex;</span>
+&nbsp;
+            // layer opacity
+<span class="cstat-no" title="statement not covered" >            var visible = typeof(data.visible) !== "undefined" ? +data.visible : 1;</span>
+<span class="cstat-no" title="statement not covered" >            this.setOpacity(visible ? +data.opacity : 0);</span>
+&nbsp;
+            // layer "real" size
+<span class="cstat-no" title="statement not covered" >            if (this.orientation === "isometric") {</span>
+<span class="cstat-no" title="statement not covered" >                this.width = (this.cols + this.rows) * (this.tilewidth / 2);</span>
+<span class="cstat-no" title="statement not covered" >                this.height = (this.cols + this.rows) * (this.tileheight / 2);</span>
+            } else {
+<span class="cstat-no" title="statement not covered" >                this.width = this.cols * this.tilewidth;</span>
+<span class="cstat-no" title="statement not covered" >                this.height = this.rows * this.tileheight;</span>
+            }
+&nbsp;
+            // check if we have any user-defined properties
+<span class="cstat-no" title="statement not covered" >            me.TMXUtils.applyTMXProperties(this, data);</span>
+&nbsp;
+            // check for the correct rendering method
+<span class="cstat-no" title="statement not covered" >            if (typeof (this.preRender) === "undefined") {</span>
+<span class="cstat-no" title="statement not covered" >                this.preRender = me.sys.preRender;</span>
+            }
+&nbsp;
+            // if pre-rendering method is use, create an offline canvas/renderer
+<span class="cstat-no" title="statement not covered" >            if (this.preRender === true) {</span>
+<span class="cstat-no" title="statement not covered" >                this.canvasRenderer = new me.CanvasRenderer(</span>
+                    me.video.createCanvas(this.width, this.height),
+                    this.width, this.height,
+                    { transparent : true }
+                );
+            }
+&nbsp;
+            // initialize and set the layer data
+<span class="cstat-no" title="statement not covered" >            setLayerData(this,</span>
+                me.TMXUtils.decode(
+                    data.data,
+                    data.encoding,
+                    data.compression
+                )
+            );
+        },
+&nbsp;
+&nbsp;
+        // called when the layer is added to the game world or a container
+        onActivateEvent : <span class="fstat-no" title="function not covered" >function () {</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            if (this.animatedTilesets === undefined) {</span>
+<span class="cstat-no" title="statement not covered" >                this.animatedTilesets = [];</span>
+            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            if (this.tilesets) {</span>
+<span class="cstat-no" title="statement not covered" >                var tileset = this.tilesets.tilesets;</span>
+<span class="cstat-no" title="statement not covered" >                for (var i = 0; i &lt; tileset.length; i++) {</span>
+<span class="cstat-no" title="statement not covered" >                    if (tileset[i].isAnimated) {</span>
+<span class="cstat-no" title="statement not covered" >                        this.animatedTilesets.push(tileset[i]);</span>
+                    }
+                }
+            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            this.isAnimated = this.animatedTilesets.length &gt; 0;</span>
+&nbsp;
+            // Force pre-render off when tileset animation is used
+<span class="cstat-no" title="statement not covered" >            if (this.isAnimated) {</span>
+<span class="cstat-no" title="statement not covered" >                this.preRender = false;</span>
+            }
+&nbsp;
+            // Resize the bounding rect
+<span class="cstat-no" title="statement not covered" >            this.getBounds().resize(this.width, this.height);</span>
+        },
+&nbsp;
+        // called when the layer is removed from the game world or a container
+        onDeactivateEvent : <span class="fstat-no" title="function not covered" >function () {</span>
+            // clear all allocated objects
+            //this.layerData = undefined;
+<span class="cstat-no" title="statement not covered" >            this.animatedTilesets = undefined;</span>
+        },
+&nbsp;
+        /**
+         * Se the TMX renderer for this layer object
+         * @name setRenderer
+         * @memberOf me.TMXLayer
+         * @public
+         * @function
+         * @param {me.TMXRenderer} renderer
+         */
+        setRenderer : <span class="fstat-no" title="function not covered" >function (renderer) {</span>
+<span class="cstat-no" title="statement not covered" >            this.renderer = renderer;</span>
+        },
+&nbsp;
+        /**
+         * Return the layer current renderer object
+         * @name getRenderer
+         * @memberOf me.TMXLayer
+         * @public
+         * @function
+         * @return {me.TMXRenderer} renderer
+         */
+        getRenderer : <span class="fstat-no" title="function not covered" >function (renderer) {</span>
+<span class="cstat-no" title="statement not covered" >            return this.renderer;</span>
+        },
+&nbsp;
+&nbsp;
+        /**
+         * Return the TileId of the Tile at the specified position
+         * @name getTileId
+         * @memberOf me.TMXLayer
+         * @public
+         * @function
+         * @param {Number} x X coordinate (in world/pixels coordinates)
+         * @param {Number} y Y coordinate (in world/pixels coordinates)
+         * @return {Number} TileId or null if there is no Tile at the given position
+         */
+        getTileId : <span class="fstat-no" title="function not covered" >function (x, y) {</span>
+<span class="cstat-no" title="statement not covered" >            var tile = this.getTile(x, y);</span>
+<span class="cstat-no" title="statement not covered" >            return (tile ? tile.tileId : null);</span>
+        },
+&nbsp;
+        /**
+         * Return the Tile object at the specified position
+         * @name getTile
+         * @memberOf me.TMXLayer
+         * @public
+         * @function
+         * @param {Number} x X coordinate (in world/pixels coordinates)
+         * @param {Number} y Y coordinate (in world/pixels coordinates)
+         * @return {me.Tile} corresponding tile or null if outside of the map area
+         * @example
+         * // get the TMX Map Layer called "Front layer"
+         * var layer = me.game.world.getChildByName("Front Layer")[0];
+         * // get the tile object corresponding to the latest pointer position
+         * var tile = layer.getTile(me.input.pointer.pos.x, me.input.pointer.pos.y);
+         */
+        getTile : <span class="fstat-no" title="function not covered" >function (x, y) {</span>
+<span class="cstat-no" title="statement not covered" >            if (this.containsPoint(x, y)) {</span>
+<span class="cstat-no" title="statement not covered" >                var renderer = this.renderer;</span>
+<span class="cstat-no" title="statement not covered" >                var tile = null;</span>
+<span class="cstat-no" title="statement not covered" >                var coord = renderer.pixelToTileCoords(x, y, me.pool.pull("me.Vector2d"));</span>
+<span class="cstat-no" title="statement not covered" >                if ((coord.x &gt;= 0 &amp;&amp; coord.x &lt; renderer.cols) &amp;&amp; ( coord.y &gt;= 0 &amp;&amp; coord.y &lt; renderer.rows)) {</span>
+<span class="cstat-no" title="statement not covered" >                    tile = this.layerData[~~coord.x][~~coord.y];</span>
+                }
+<span class="cstat-no" title="statement not covered" >                me.pool.push(coord);</span>
+            }
+<span class="cstat-no" title="statement not covered" >            return tile;</span>
+        },
+&nbsp;
+        /**
+         * Create a new Tile at the specified position
+         * @name setTile
+         * @memberOf me.TMXLayer
+         * @public
+         * @function
+         * @param {Number} x X coordinate (in map coordinates: row/column)
+         * @param {Number} y Y coordinate (in map coordinates: row/column)
+         * @param {Number} tileId tileId
+         * @return {me.Tile} the corresponding newly created tile object
+         */
+        setTile : <span class="fstat-no" title="function not covered" >function (x, y, tileId) {</span>
+<span class="cstat-no" title="statement not covered" >            if (!this.tileset.contains(tileId)) {</span>
+                // look for the corresponding tileset
+<span class="cstat-no" title="statement not covered" >                this.tileset = this.tilesets.getTilesetByGid(tileId);</span>
+            }
+<span class="cstat-no" title="statement not covered" >            var tile = this.layerData[x][y] = new me.Tile(x, y, tileId, this.tileset);</span>
+            // draw the corresponding tile
+<span class="cstat-no" title="statement not covered" >            if (this.preRender) {</span>
+<span class="cstat-no" title="statement not covered" >                this.renderer.drawTile(this.canvasRenderer, x, y, tile);</span>
+            }
+<span class="cstat-no" title="statement not covered" >            return tile;</span>
+        },
+&nbsp;
+        /**
+         * clear the tile at the specified position
+         * @name clearTile
+         * @memberOf me.TMXLayer
+         * @public
+         * @function
+         * @param {Number} x X coordinate (in map coordinates: row/column)
+         * @param {Number} y Y coordinate (in map coordinates: row/column)
+         * @example
+         * me.game.world.getChildByType(me.TMXLayer).forEach(function(layer) {
+         *     // clear all tiles at the given x,y coordinates
+         *     layer.clearTile(x, y);
+         * });
+         */
+        clearTile : <span class="fstat-no" title="function not covered" >function (x, y) {</span>
+            // clearing tile
+<span class="cstat-no" title="statement not covered" >            this.layerData[x][y] = null;</span>
+            // erase the corresponding area in the canvas
+<span class="cstat-no" title="statement not covered" >            if (this.preRender) {</span>
+<span class="cstat-no" title="statement not covered" >                this.canvasRenderer.clearRect(x * this.tilewidth, y * this.tileheight, this.tilewidth, this.tileheight);</span>
+            }
+        },
+&nbsp;
+        /**
+         * update animations in a tileset layer
+         * @ignore
+         */
+        update : <span class="fstat-no" title="function not covered" >function (dt) {</span>
+<span class="cstat-no" title="statement not covered" >            if (this.isAnimated) {</span>
+<span class="cstat-no" title="statement not covered" >                var result = false;</span>
+<span class="cstat-no" title="statement not covered" >                for (var i = 0; i &lt; this.animatedTilesets.length; i++) {</span>
+<span class="cstat-no" title="statement not covered" >                    result = this.animatedTilesets[i].update(dt) || result;</span>
+                }
+<span class="cstat-no" title="statement not covered" >                return result;</span>
+            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            return false;</span>
+        },
+&nbsp;
+        /**
+         * draw a tileset layer
+         * @ignore
+         */
+        draw : <span class="fstat-no" title="function not covered" >function (renderer, rect) {</span>
+            // use the offscreen canvas
+<span class="cstat-no" title="statement not covered" >            if (this.preRender) {</span>
+<span class="cstat-no" title="statement not covered" >                var width = Math.min(rect.width, this.width);</span>
+<span class="cstat-no" title="statement not covered" >                var height = Math.min(rect.height, this.height);</span>
+&nbsp;
+                // draw using the cached canvas
+<span class="cstat-no" title="statement not covered" >                renderer.drawImage(</span>
+                    this.canvasRenderer.getCanvas(),
+                    rect.pos.x, rect.pos.y, // sx,sy
+                    width, height,          // sw,sh
+                    rect.pos.x, rect.pos.y, // dx,dy
+                    width, height           // dw,dh
+                );
+            }
+            // dynamically render the layer
+            else {
+                // draw the layer
+<span class="cstat-no" title="statement not covered" >                this.renderer.drawTileLayer(renderer, this, rect);</span>
+            }
+        }
+    });
+})();
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sat Jan 26 2019 12:46:17 GMT-0500 (Eastern Standard Time)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

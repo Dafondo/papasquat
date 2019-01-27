@@ -1,0 +1,1901 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/utils/color.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">all files</a> / <a href="index.html">src/utils/</a> color.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">82.93% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>68/82</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">60% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>18/30</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">82.76% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>24/29</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">82.93% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>68/82</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430
+431
+432
+433
+434
+435
+436
+437
+438
+439
+440
+441
+442
+443
+444
+445
+446
+447
+448
+449
+450
+451
+452
+453
+454
+455
+456
+457
+458
+459
+460
+461
+462
+463
+464
+465
+466
+467
+468
+469
+470
+471
+472
+473
+474
+475
+476
+477
+478
+479
+480
+481
+482
+483
+484
+485
+486
+487
+488
+489
+490
+491
+492
+493
+494
+495
+496
+497
+498
+499
+500
+501
+502
+503
+504
+505
+506
+507
+508
+509
+510
+511
+512
+513
+514
+515
+516
+517
+518
+519
+520
+521
+522
+523
+524
+525
+526
+527
+528
+529
+530
+531
+532
+533
+534
+535
+536
+537
+538
+539
+540
+541
+542
+543
+544
+545
+546
+547
+548
+549
+550
+551
+552
+553
+554
+555
+556
+557
+558
+559
+560
+561
+562
+563
+564
+565
+566
+567
+568
+569
+570
+571
+572
+573
+574
+575
+576
+577
+578
+579
+580
+581
+582
+583
+584
+585
+586
+587
+588
+589
+590
+591
+592
+593
+594
+595
+596
+597
+598
+599
+600
+601
+602
+603
+604
+605
+606
+607
+608
+609
+610
+611
+612
+613</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">28×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">145×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11×</span>
+<span class="cline-any cline-yes">11×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20×</span>
+<span class="cline-any cline-yes">20×</span>
+<span class="cline-any cline-yes">20×</span>
+<span class="cline-any cline-yes">20×</span>
+<span class="cline-any cline-yes">20×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/*
+ * MelonJS Game Engine
+ * Copyright (C) 2011 - 2018 Olivier Biot
+ * http://www.melonjs.org
+ */
+(function () {
+&nbsp;
+    // convert a give color component to it hexadecimal value
+    var toHex = function (component) {
+        return "0123456789ABCDEF".charAt((component - (component % 16)) &gt;&gt; 4) + "0123456789ABCDEF".charAt(component % 16);
+    };
+&nbsp;
+    var rgbaRx = /^rgba?\((\d+), ?(\d+), ?(\d+)(, ?([\d\.]+))?\)$/;
+    var hex3Rx = /^#([\da-fA-F])([\da-fA-F])([\da-fA-F])$/;
+    var hex4Rx = /^#([\da-fA-F])([\da-fA-F])([\da-fA-F])([\da-fA-F])$/;
+    var hex6Rx = /^#([\da-fA-F]{2})([\da-fA-F]{2})([\da-fA-F]{2})$/;
+    var hex8Rx = /^#([\da-fA-F]{2})([\da-fA-F]{2})([\da-fA-F]{2})([\da-fA-F]{2})$/;
+&nbsp;
+    var cssToRGB = new Map();
+&nbsp;
+    [
+        // CSS1
+        [ "black",                  [   0,   0,   0 ] ],
+        [ "silver",                 [ 192, 192, 129 ] ],
+        [ "gray",                   [ 128, 128, 128 ] ],
+        [ "white",                  [ 255, 255, 255 ] ],
+        [ "maroon",                 [ 128,   0,   0 ] ],
+        [ "red",                    [ 255,   0,   0 ] ],
+        [ "purple",                 [ 128,   0, 128 ] ],
+        [ "fuchsia",                [ 255,   0, 255 ] ],
+        [ "green",                  [   0, 128,   0 ] ],
+        [ "lime",                   [   0, 255,   0 ] ],
+        [ "olive",                  [ 128, 128,   0 ] ],
+        [ "yellow",                 [ 255, 255,   0 ] ],
+        [ "navy",                   [   0,   0, 128 ] ],
+        [ "blue",                   [   0,   0, 255 ] ],
+        [ "teal",                   [   0, 128, 128 ] ],
+        [ "aqua",                   [   0, 255, 255 ] ],
+&nbsp;
+        // CSS2
+        [ "orange",                 [ 255, 165,   0 ] ],
+&nbsp;
+        // CSS3
+        [ "aliceblue",              [ 240, 248, 245 ] ],
+        [ "antiquewhite",           [ 250, 235, 215 ] ],
+        [ "aquamarine",             [ 127, 255, 212 ] ],
+        [ "azure",                  [ 240, 255, 255 ] ],
+        [ "beige",                  [ 245, 245, 220 ] ],
+        [ "bisque",                 [ 255, 228, 196 ] ],
+        [ "blanchedalmond",         [ 255, 235, 205 ] ],
+        [ "blueviolet",             [ 138,  43, 226 ] ],
+        [ "brown",                  [ 165,  42,  42 ] ],
+        [ "burlywood",              [ 222, 184,  35 ] ],
+        [ "cadetblue",              [  95, 158, 160 ] ],
+        [ "chartreuse",             [ 127, 255,   0 ] ],
+        [ "chocolate",              [ 210, 105,  30 ] ],
+        [ "coral",                  [ 255, 127,  80 ] ],
+        [ "cornflowerblue",         [ 100, 149, 237 ] ],
+        [ "cornsilk",               [ 255, 248, 220 ] ],
+        [ "crimson",                [ 220,  20,  60 ] ],
+        [ "darkblue",               [   0,   0, 139 ] ],
+        [ "darkcyan",               [   0, 139, 139 ] ],
+        [ "darkgoldenrod",          [ 184, 134,  11 ] ],
+        [ "darkgray[*]",            [ 169, 169, 169 ] ],
+        [ "darkgreen",              [   0, 100,   0 ] ],
+        [ "darkgrey[*]",            [ 169, 169, 169 ] ],
+        [ "darkkhaki",              [ 189, 183, 107 ] ],
+        [ "darkmagenta",            [ 139,   0, 139 ] ],
+        [ "darkolivegreen",         [  85, 107,  47 ] ],
+        [ "darkorange",             [ 255, 140,   0 ] ],
+        [ "darkorchid",             [ 153,  50, 204 ] ],
+        [ "darkred",                [ 139,   0,   0 ] ],
+        [ "darksalmon",             [ 233, 150, 122 ] ],
+        [ "darkseagreen",           [ 143, 188, 143 ] ],
+        [ "darkslateblue",          [  72,  61, 139 ] ],
+        [ "darkslategray",          [  47,  79,  79 ] ],
+        [ "darkslategrey",          [  47,  79,  79 ] ],
+        [ "darkturquoise",          [   0, 206, 209 ] ],
+        [ "darkviolet",             [ 148,   0, 211 ] ],
+        [ "deeppink",               [ 255,  20, 147 ] ],
+        [ "deepskyblue",            [   0, 191, 255 ] ],
+        [ "dimgray",                [ 105, 105, 105 ] ],
+        [ "dimgrey",                [ 105, 105, 105 ] ],
+        [ "dodgerblue",             [  30, 144, 255 ] ],
+        [ "firebrick",              [ 178,  34,  34 ] ],
+        [ "floralwhite",            [ 255, 250, 240 ] ],
+        [ "forestgreen",            [  34, 139,  34 ] ],
+        [ "gainsboro",              [ 220, 220, 220 ] ],
+        [ "ghostwhite",             [ 248, 248, 255 ] ],
+        [ "gold",                   [ 255, 215,   0 ] ],
+        [ "goldenrod",              [ 218, 165,  32 ] ],
+        [ "greenyellow",            [ 173, 255,  47 ] ],
+        [ "grey",                   [ 128, 128, 128 ] ],
+        [ "honeydew",               [ 240, 255, 240 ] ],
+        [ "hotpink",                [ 255, 105, 180 ] ],
+        [ "indianred",              [ 205,  92,  92 ] ],
+        [ "indigo",                 [  75,   0, 130 ] ],
+        [ "ivory",                  [ 255, 255, 240 ] ],
+        [ "khaki",                  [ 240, 230, 140 ] ],
+        [ "lavender",               [ 230, 230, 250 ] ],
+        [ "lavenderblush",          [ 255, 240, 245 ] ],
+        [ "lawngreen",              [ 124, 252,   0 ] ],
+        [ "lemonchiffon",           [ 255, 250, 205 ] ],
+        [ "lightblue",              [ 173, 216, 230 ] ],
+        [ "lightcoral",             [ 240, 128, 128 ] ],
+        [ "lightcyan",              [ 224, 255, 255 ] ],
+        [ "lightgoldenrodyellow",   [ 250, 250, 210 ] ],
+        [ "lightgray",              [ 211, 211, 211 ] ],
+        [ "lightgreen",             [ 144, 238, 144 ] ],
+        [ "lightgrey",              [ 211, 211, 211 ] ],
+        [ "lightpink",              [ 255, 182, 193 ] ],
+        [ "lightsalmon",            [ 255, 160, 122 ] ],
+        [ "lightseagreen",          [  32, 178, 170 ] ],
+        [ "lightskyblue",           [ 135, 206, 250 ] ],
+        [ "lightslategray",         [ 119, 136, 153 ] ],
+        [ "lightslategrey",         [ 119, 136, 153 ] ],
+        [ "lightsteelblue",         [ 176, 196, 222 ] ],
+        [ "lightyellow",            [ 255, 255, 224 ] ],
+        [ "limegreen",              [  50, 205,  50 ] ],
+        [ "linen",                  [ 250, 240, 230 ] ],
+        [ "mediumaquamarine",       [ 102, 205, 170 ] ],
+        [ "mediumblue",             [   0,   0, 205 ] ],
+        [ "mediumorchid",           [ 186,  85, 211 ] ],
+        [ "mediumpurple",           [ 147, 112, 219 ] ],
+        [ "mediumseagreen",         [  60, 179, 113 ] ],
+        [ "mediumslateblue",        [ 123, 104, 238 ] ],
+        [ "mediumspringgreen",      [   0, 250, 154 ] ],
+        [ "mediumturquoise",        [  72, 209, 204 ] ],
+        [ "mediumvioletred",        [ 199,  21, 133 ] ],
+        [ "midnightblue",           [  25,  25, 112 ] ],
+        [ "mintcream",              [ 245, 255, 250 ] ],
+        [ "mistyrose",              [ 255, 228, 225 ] ],
+        [ "moccasin",               [ 255, 228, 181 ] ],
+        [ "navajowhite",            [ 255, 222, 173 ] ],
+        [ "oldlace",                [ 253, 245, 230 ] ],
+        [ "olivedrab",              [ 107, 142,  35 ] ],
+        [ "orangered",              [ 255,  69,   0 ] ],
+        [ "orchid",                 [ 218, 112, 214 ] ],
+        [ "palegoldenrod",          [ 238, 232, 170 ] ],
+        [ "palegreen",              [ 152, 251, 152 ] ],
+        [ "paleturquoise",          [ 175, 238, 238 ] ],
+        [ "palevioletred",          [ 219, 112, 147 ] ],
+        [ "papayawhip",             [ 255, 239, 213 ] ],
+        [ "peachpuff",              [ 255, 218, 185 ] ],
+        [ "peru",                   [ 205, 133,  63 ] ],
+        [ "pink",                   [ 255, 192, 203 ] ],
+        [ "plum",                   [ 221, 160, 221 ] ],
+        [ "powderblue",             [ 176, 224, 230 ] ],
+        [ "rosybrown",              [ 188, 143, 143 ] ],
+        [ "royalblue",              [  65, 105, 225 ] ],
+        [ "saddlebrown",            [ 139,  69,  19 ] ],
+        [ "salmon",                 [ 250, 128, 114 ] ],
+        [ "sandybrown",             [ 244, 164,  96 ] ],
+        [ "seagreen",               [  46, 139,  87 ] ],
+        [ "seashell",               [ 255, 245, 238 ] ],
+        [ "sienna",                 [ 160,  82,  45 ] ],
+        [ "skyblue",                [ 135, 206, 235 ] ],
+        [ "slateblue",              [ 106,  90, 205 ] ],
+        [ "slategray",              [ 112, 128, 144 ] ],
+        [ "slategrey",              [ 112, 128, 144 ] ],
+        [ "snow",                   [ 255, 250, 250 ] ],
+        [ "springgreen",            [   0, 255, 127 ] ],
+        [ "steelblue",              [  70, 130, 180 ] ],
+        [ "tan",                    [ 210, 180, 140 ] ],
+        [ "thistle",                [ 216, 191, 216 ] ],
+        [ "tomato",                 [ 255,  99,  71 ] ],
+        [ "turquoise",              [  64, 224, 208 ] ],
+        [ "violet",                 [ 238, 130, 238 ] ],
+        [ "wheat",                  [ 245, 222, 179 ] ],
+        [ "whitesmoke",             [ 245, 245, 245 ] ],
+        [ "yellowgreen",            [ 154, 205,  50 ] ]
+    ].forEach(function (value) {
+        cssToRGB.set(value[0], value[1]);
+    });
+&nbsp;
+    /**
+     * A color manipulation object.
+     * @class
+     * @extends me.Object
+     * @memberOf me
+     * @constructor
+     * @param {Float32Array|Number} [r=0] red component or array of color components
+     * @param {Number} [g=0] green component
+     * @param {Number} [b=0] blue component
+     * @param {Number} [alpha=1.0] alpha value
+     */
+    me.Color = me.Object.extend(
+    /** @scope me.Color.prototype */
+    {
+&nbsp;
+        /**
+         * @ignore
+         */
+        init : function (r, g, b, alpha) {
+&nbsp;
+            /**
+             * Color components in a Float32Array suitable for WebGL
+             * @name glArray
+             * @memberOf me.Color
+             * @type {Float32Array}
+             * @readonly
+             */
+            <span class="missing-if-branch" title="else path not taken" >E</span>if (typeof (this.glArray) === "undefined") {
+                this.glArray = new Float32Array([ 0.0, 0.0, 0.0, 1.0 ]);
+            }
+&nbsp;
+            return this.setColor(r, g, b, alpha);
+        },
+&nbsp;
+        /**
+         * Set this color to the specified value.
+         * @name setColor
+         * @memberOf me.Color
+         * @function
+         * @param {Number} r red component [0 .. 255]
+         * @param {Number} g green component [0 .. 255]
+         * @param {Number} b blue component [0 .. 255]
+         * @param {Number} [alpha=1.0] alpha value [0.0 .. 1.0]
+         * @return {me.Color} Reference to this object for method chaining
+         */
+        setColor : function (r, g, b, alpha) {
+            // Private initialization: copy Color value directly
+            if (r instanceof me.Color) {
+                this.glArray.set(r.glArray);
+                return r;
+            }
+            this.r = r;
+            this.g = g;
+            this.b = b;
+            this.alpha = alpha;
+            return this;
+        },
+&nbsp;
+        /**
+         * Create a new copy of this color object.
+         * @name clone
+         * @memberOf me.Color
+         * @function
+         * @return {me.Color} Reference to the newly cloned object
+         */
+        clone : function () {
+            return me.pool.pull("me.Color", this);
+        },
+&nbsp;
+        /**
+         * Copy a color object or CSS color into this one.
+         * @name copy
+         * @memberOf me.Color
+         * @function
+         * @param {me.Color|String} color
+         * @return {me.Color} Reference to this object for method chaining
+         */
+        copy : function (color) {
+            <span class="missing-if-branch" title="else path not taken" >E</span>if (color instanceof me.Color) {
+                this.glArray.set(color.glArray);
+                return this;
+            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            return this.parseCSS(color);</span>
+        },
+&nbsp;
+        /**
+         * Blend this color with the given one using addition.
+         * @name add
+         * @memberOf me.Color
+         * @function
+         * @param {me.Color} color
+         * @return {me.Color} Reference to this object for method chaining
+         */
+        add : function (color) {
+            this.glArray[0] = me.Math.clamp(this.glArray[0] + color.glArray[0], 0, 1);
+            this.glArray[1] = me.Math.clamp(this.glArray[1] + color.glArray[1], 0, 1);
+            this.glArray[2] = me.Math.clamp(this.glArray[2] + color.glArray[2], 0, 1);
+            this.glArray[3] = (this.glArray[3] + color.glArray[3]) / 2;
+&nbsp;
+            return this;
+        },
+&nbsp;
+        /**
+         * Darken this color value by 0..1
+         * @name darken
+         * @memberOf me.Color
+         * @function
+         * @param {Number} scale
+         * @return {me.Color} Reference to this object for method chaining
+         */
+        darken : function (scale) {
+            scale = me.Math.clamp(scale, 0, 1);
+            this.glArray[0] *= scale;
+            this.glArray[1] *= scale;
+            this.glArray[2] *= scale;
+&nbsp;
+            return this;
+        },
+&nbsp;
+        /**
+         * Lighten this color value by 0..1
+         * @name lighten
+         * @memberOf me.Color
+         * @function
+         * @param {Number} scale
+         * @return {me.Color} Reference to this object for method chaining
+         */
+        lighten : function (scale) {
+            scale = me.Math.clamp(scale, 0, 1);
+            this.glArray[0] = me.Math.clamp(this.glArray[0] + (1 - this.glArray[0]) * scale, 0, 1);
+            this.glArray[1] = me.Math.clamp(this.glArray[1] + (1 - this.glArray[1]) * scale, 0, 1);
+            this.glArray[2] = me.Math.clamp(this.glArray[2] + (1 - this.glArray[2]) * scale, 0, 1);
+&nbsp;
+            return this;
+        },
+&nbsp;
+        /**
+         * Generate random r,g,b values for this color object
+         * @name random
+         * @memberOf me.Color
+         * @function
+         * @return {me.Color} Reference to this object for method chaining
+         */
+        random : <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            return this.setColor(</span>
+                Math.random() * 256,
+                Math.random() * 256,
+                Math.random() * 256,
+                this.alpha
+            );
+        },
+&nbsp;
+        /**
+         * Return true if the r,g,b,a values of this color are equal with the
+         * given one.
+         * @name equals
+         * @memberOf me.Color
+         * @function
+         * @param {me.Color} color
+         * @return {Boolean}
+         */
+        equals : <span class="fstat-no" title="function not covered" >function (color) {</span>
+<span class="cstat-no" title="statement not covered" >            return (</span>
+                (this.glArray[0] === color.glArray[0]) &amp;&amp;
+                (this.glArray[1] === color.glArray[1]) &amp;&amp;
+                (this.glArray[2] === color.glArray[2]) &amp;&amp;
+                (this.glArray[3] === color.glArray[3])
+            );
+        },
+&nbsp;
+        /**
+         * Parse a CSS color string and set this color to the corresponding
+         * r,g,b values
+         * @name parseCSS
+         * @memberOf me.Color
+         * @function
+         * @param {String} color
+         * @return {me.Color} Reference to this object for method chaining
+         */
+        parseCSS : function (cssColor) {
+            // TODO : Memoize this function by caching its input
+&nbsp;
+            <span class="missing-if-branch" title="else path not taken" >E</span>if (cssToRGB.has(cssColor)) {
+                return this.setColor.apply(this, cssToRGB.get(cssColor));
+            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            return this.parseRGB(cssColor);</span>
+        },
+&nbsp;
+        /**
+         * Parse an RGB or RGBA CSS color string
+         * @name parseRGB
+         * @memberOf me.Color
+         * @function
+         * @param {String} color
+         * @return {me.Color} Reference to this object for method chaining
+         */
+        parseRGB : <span class="fstat-no" title="function not covered" >function (rgbColor) {</span>
+            // TODO : Memoize this function by caching its input
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            var match = rgbaRx.exec(rgbColor);</span>
+<span class="cstat-no" title="statement not covered" >            if (match) {</span>
+<span class="cstat-no" title="statement not covered" >                return this.setColor(+match[1], +match[2], +match[3], +match[5]);</span>
+            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            return this.parseHex(rgbColor);</span>
+        },
+&nbsp;
+        /**
+         * Parse a Hex color ("#RGB", "#RGBA" or "#RRGGBB", "#RRGGBBAA" format) and set this color to
+         * the corresponding r,g,b,a values
+         * @name parseHex
+         * @memberOf me.Color
+         * @function
+         * @param {String} color
+         * @return {me.Color} Reference to this object for method chaining
+         */
+        parseHex : function (hexColor) {
+            // TODO : Memoize this function by caching its input
+&nbsp;
+            var match;
+            if ((match = hex8Rx.exec(hexColor))) {
+                // #AARRGGBB
+                return this.setColor(
+                    parseInt(match[1], 16),
+                    parseInt(match[2], 16),
+                    parseInt(match[3], 16),
+                    (me.Math.clamp(parseInt(match[4], 16), 0, 255) / 255.0).toFixed(1)
+                );
+            }
+&nbsp;
+            if ((match = hex6Rx.exec(hexColor))) {
+                // #RRGGBB
+                return this.setColor(
+                    parseInt(match[1], 16),
+                    parseInt(match[2], 16),
+                    parseInt(match[3], 16)
+                );
+            }
+&nbsp;
+            <span class="missing-if-branch" title="else path not taken" >E</span>if ((match = hex4Rx.exec(hexColor))) {
+                // #ARGB
+                return this.setColor(
+                    parseInt(match[1] + match[1], 16),
+                    parseInt(match[2] + match[2], 16),
+                    parseInt(match[3] + match[3], 16),
+                    (me.Math.clamp(parseInt(match[4] + match[4], 16), 0, 255) / 255.0).toFixed(1)
+                );
+            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            if ((match = hex3Rx.exec(hexColor))) {</span>
+                // #RGB
+<span class="cstat-no" title="statement not covered" >                return this.setColor(</span>
+                    parseInt(match[1] + match[1], 16),
+                    parseInt(match[2] + match[2], 16),
+                    parseInt(match[3] + match[3], 16)
+                );
+            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            throw new me.Color.Error(</span>
+                "invalid parameter: " + hexColor
+            );
+        },
+&nbsp;
+        /**
+         * Returns the private glArray
+         * @ignore
+         */
+        toGL : <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            return this.glArray;</span>
+        },
+&nbsp;
+        /**
+         * Get the color in "#RRGGBB" format
+         * @name toHex
+         * @memberOf me.Color
+         * @function
+         * @return {String}
+         */
+        toHex : function () {
+            // TODO : Memoize this function by caching its result until any of
+            // the r,g,b,a values are changed
+&nbsp;
+            return "#" + toHex(this.r) + toHex(this.g) + toHex(this.b);
+        },
+&nbsp;
+        /**
+         * Get the color in "#RRGGBBAA" format
+         * @name toHex8
+         * @memberOf me.Color
+         * @function
+         * @return {String}
+         */
+        toHex8 : function () {
+            // TODO : Memoize this function by caching its result until any of
+            // the r,g,b,a values are changed
+&nbsp;
+            return "#" + toHex(this.r) + toHex(this.g) + toHex(this.b) + toHex(this.alpha * 255);
+        },
+&nbsp;
+        /**
+         * Get the color in "rgb(R,G,B)" format
+         * @name toRGB
+         * @memberOf me.Color
+         * @function
+         * @return {String}
+         */
+        toRGB : function () {
+            // TODO : Memoize this function by caching its result until any of
+            // the r,g,b,a values are changed
+&nbsp;
+            return "rgb(" +
+                this.r + "," +
+                this.g + "," +
+                this.b +
+            ")";
+        },
+&nbsp;
+        /**
+         * Get the color in "rgba(R,G,B,A)" format
+         * @name toRGBA
+         * @memberOf me.Color
+         * @function
+         * @return {String}
+         */
+        toRGBA : function () {
+            // TODO : Memoize this function by caching its result until any of
+            // the r,g,b,a values are changed
+&nbsp;
+            return "rgba(" +
+                this.r + "," +
+                this.g + "," +
+                this.b + "," +
+                this.alpha +
+            ")";
+        }
+    });
+&nbsp;
+    /**
+     * Color Red Component
+     * @type Number
+     * @name r
+     * @readonly
+     * @memberOf me.Color
+     */
+    Object.defineProperty(me.Color.prototype, "r", {
+        /**
+         * @ignore
+         */
+        get : function () { return ~~(this.glArray[0] * 255); },
+        /**
+         * @ignore
+         */
+        set : function (value) { this.glArray[0] = me.Math.clamp(~~value || 0, 0, 255) / 255.0; },
+        enumerable : true,
+        configurable : true
+    });
+&nbsp;
+    /**
+     * Color Green Component
+     * @type Number
+     * @name g
+     * @readonly
+     * @memberOf me.Color
+     */
+    Object.defineProperty(me.Color.prototype, "g", {
+        /**
+         * @ignore
+         */
+        get : function () { return ~~(this.glArray[1] * 255); },
+        /**
+         * @ignore
+         */
+        set : function (value) { this.glArray[1] = me.Math.clamp(~~value || 0, 0, 255) / 255.0; },
+        enumerable : true,
+        configurable : true
+    });
+&nbsp;
+    /**
+     * Color Blue Component
+     * @type Number
+     * @name b
+     * @readonly
+     * @memberOf me.Color
+     */
+    Object.defineProperty(me.Color.prototype, "b", {
+        /**
+         * @ignore
+         */
+        get : function () { return ~~(this.glArray[2] * 255); },
+        /**
+         * @ignore
+         */
+        set : function (value) { this.glArray[2] = me.Math.clamp(~~value || 0, 0, 255) / 255.0; },
+        enumerable : true,
+        configurable : true
+    });
+&nbsp;
+    /**
+     * Color Alpha Component
+     * @type Number
+     * @name alpha
+     * @readonly
+     * @memberOf me.Color
+     */
+    Object.defineProperty(me.Color.prototype, "alpha", {
+        /**
+         * @ignore
+         */
+        get : function () { return this.glArray[3]; },
+        /**
+         * @ignore
+         */
+        set : function (value) { this.glArray[3] = typeof(value) === "undefined" ? 1.0 : me.Math.clamp(+value, 0, 1.0); },
+        enumerable : true,
+        configurable : true
+    });
+&nbsp;
+    /**
+     * Base class for me.Color exception handling.
+     * @name Error
+     * @class
+     * @memberOf me.Color
+     * @constructor
+     * @param {String} msg Error message.
+     */
+    me.Color.Error = me.Error.extend({
+        /**
+         * @ignore
+         */
+        init : <span class="fstat-no" title="function not covered" >function (msg) {</span>
+<span class="cstat-no" title="statement not covered" >            this._super(me.Error, "init", [ msg ]);</span>
+<span class="cstat-no" title="statement not covered" >            this.name = "me.Color.Error";</span>
+        }
+    });
+})();
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sat Jan 26 2019 12:46:17 GMT-0500 (Eastern Standard Time)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

@@ -1,0 +1,1892 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/audio/audio.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">all files</a> / <a href="index.html">src/audio/</a> audio.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">47.33% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>62/131</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">24.29% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>17/70</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">22.58% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>7/31</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">47.33% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>62/131</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430
+431
+432
+433
+434
+435
+436
+437
+438
+439
+440
+441
+442
+443
+444
+445
+446
+447
+448
+449
+450
+451
+452
+453
+454
+455
+456
+457
+458
+459
+460
+461
+462
+463
+464
+465
+466
+467
+468
+469
+470
+471
+472
+473
+474
+475
+476
+477
+478
+479
+480
+481
+482
+483
+484
+485
+486
+487
+488
+489
+490
+491
+492
+493
+494
+495
+496
+497
+498
+499
+500
+501
+502
+503
+504
+505
+506
+507
+508
+509
+510
+511
+512
+513
+514
+515
+516
+517
+518
+519
+520
+521
+522
+523
+524
+525
+526
+527
+528
+529
+530
+531
+532
+533
+534
+535
+536
+537
+538
+539
+540
+541
+542
+543
+544
+545
+546
+547
+548
+549
+550
+551
+552
+553
+554
+555
+556
+557
+558
+559
+560
+561
+562
+563
+564
+565
+566
+567
+568
+569
+570
+571
+572
+573
+574
+575
+576
+577
+578
+579
+580
+581
+582
+583
+584
+585
+586
+587
+588
+589
+590
+591
+592
+593
+594
+595
+596
+597
+598
+599
+600
+601
+602
+603
+604
+605
+606
+607
+608
+609
+610</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/*
+ * MelonJS Game Engine
+ * Copyright (C) 2011 - 2018 Olivier Biot
+ * http://www.melonjs.org
+ *
+ * Audio Mngt Objects
+ *
+ *
+ */
+(function () {
+    /**
+     * There is no constructor function for me.audio.
+     * @namespace me.audio
+     * @memberOf me
+     */
+    me.audio = (function () {
+        /*
+         * PRIVATE STUFF
+         */
+&nbsp;
+        // hold public stuff in our singleton
+        var api = {};
+&nbsp;
+        // audio channel list
+        var audioTracks = {};
+&nbsp;
+        // current music
+        var current_track_id = null;
+&nbsp;
+        // a retry counter
+        var retry_counter = 0;
+&nbsp;
+        /**
+         * event listener callback on load error
+         * @ignore
+         */
+<span class="fstat-no" title="function not covered" >        function soundLoadError(sound_name, onerror_cb) {</span>
+            // check the retry counter
+<span class="cstat-no" title="statement not covered" >            if (retry_counter++ &gt; 3) {</span>
+                // something went wrong
+<span class="cstat-no" title="statement not covered" >                var errmsg = "melonJS: failed loading " + sound_name;</span>
+<span class="cstat-no" title="statement not covered" >                if (me.sys.stopOnAudioError === false) {</span>
+                    // disable audio
+<span class="cstat-no" title="statement not covered" >                    me.audio.disable();</span>
+                    // call error callback if defined
+<span class="cstat-no" title="statement not covered" >                    if (onerror_cb) {</span>
+<span class="cstat-no" title="statement not covered" >                        onerror_cb();</span>
+                    }
+                    // warning
+<span class="cstat-no" title="statement not covered" >                    console.log(errmsg + ", disabling audio");</span>
+                }
+                else {
+                    // throw an exception and stop everything !
+<span class="cstat-no" title="statement not covered" >                    throw new me.audio.Error(errmsg);</span>
+                }
+            // else try loading again !
+            }
+            else {
+<span class="cstat-no" title="statement not covered" >                audioTracks[sound_name].load();</span>
+            }
+        }
+&nbsp;
+        /*
+         * PUBLIC STUFF
+         */
+&nbsp;
+        /**
+         * Initialize and configure the audio support.&lt;br&gt;
+         * melonJS supports a wide array of audio codecs that have varying browser support :
+         * &lt;i&gt; ("mp3", "mpeg", opus", "ogg", "oga", "wav", "aac", "caf", "m4a", "mp4", "weba", "webm", "dolby", "flac")&lt;/i&gt;.&lt;br&gt;
+         * For a maximum browser coverage the recommendation is to use at least two of them,
+         * typically default to webm and then fallback to mp3 for the best balance of small filesize and high quality,
+         * webm has nearly full browser coverage with a great combination of compression and quality, and mp3 will fallback gracefully for other browsers.
+         * It is important to remember that melonJS selects the first compatible sound based on the list of extensions and given order passed here.
+         * So if you want webm to be used before mp3, you need to put the audio format in that order.
+         * @name init
+         * @memberOf me.audio
+         * @public
+         * @function
+         * @param {String} [audioFormat="mp3"] audio format provided
+         * @return {Boolean} Indicates whether audio initialization was successful
+         * @example
+         * // initialize the "sound engine", giving "webm" as default desired audio format, and "mp3" as a fallback
+         * if (!me.audio.init("webm,mp3")) {
+         *     alert("Sorry but your browser does not support html 5 audio !");
+         *     return;
+         * }
+         */
+        api.init = function (audioFormat) {
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (!me.initialized) {
+<span class="cstat-no" title="statement not covered" >                throw new me.audio.Error("me.audio.init() called before engine initialization.");</span>
+            }
+            // if no param is given to init we use mp3 by default
+            audioFormat = typeof audioFormat === "string" ? audioFormat : <span class="branch-1 cbranch-no" title="branch not covered" >"mp3";</span>
+            // convert it into an array
+            this.audioFormats = audioFormat.split(",");
+&nbsp;
+            return !Howler.noAudio;
+        };
+&nbsp;
+        /**
+         * enable audio output &lt;br&gt;
+         * only useful if audio supported and previously disabled through
+         *
+         * @see me.audio#disable
+         * @name enable
+         * @memberOf me.audio
+         * @public
+         * @function
+         */
+        api.enable = <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            this.unmuteAll();</span>
+        };
+&nbsp;
+        /**
+         * disable audio output
+         *
+         * @name disable
+         * @memberOf me.audio
+         * @public
+         * @function
+         */
+        api.disable = <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            this.muteAll();</span>
+        };
+&nbsp;
+        /**
+         * Load an audio file.&lt;br&gt;
+         * &lt;br&gt;
+         * sound item must contain the following fields :&lt;br&gt;
+         * - name    : name of the sound&lt;br&gt;
+         * - src     : source path&lt;br&gt;
+         * @ignore
+         */
+        api.load = function (sound, html5, onload_cb, onerror_cb) {
+            var urls = [];
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (typeof(this.audioFormats) === "undefined" || this.audioFormats.length === 0) {
+<span class="cstat-no" title="statement not covered" >                throw new me.audio.Error("target audio extension(s) should be set through me.audio.init() before calling the preloader.");</span>
+            }
+            for (var i = 0; i &lt; this.audioFormats.length; i++) {
+                urls.push(sound.src + sound.name + "." + this.audioFormats[i] + me.loader.nocache);
+            }
+            audioTracks[sound.name] = new Howl({
+                src : urls,
+                volume : Howler.volume(),
+                html5 : html5 === true,
+                xhrWithCredentials : me.loader.withCredentials,
+                /**
+                 * @ignore
+                 */
+                onloaderror : <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >                    soundLoadError.call(me.audio, sound.name, onerror_cb);</span>
+                },
+                /**
+                 * @ignore
+                 */
+                onload : function () {
+                    retry_counter = 0;
+                    <span class="missing-if-branch" title="else path not taken" >E</span>if (onload_cb) {
+                        onload_cb();
+                    }
+                }
+            });
+&nbsp;
+            return 1;
+        };
+&nbsp;
+        /**
+         * play the specified sound
+         * @name play
+         * @memberOf me.audio
+         * @public
+         * @function
+         * @param {String} sound_name audio clip name - case sensitive
+         * @param {Boolean} [loop=false] loop audio
+         * @param {Function} [onend] Function to call when sound instance ends playing.
+         * @param {Number} [volume=default] Float specifying volume (0.0 - 1.0 values accepted).
+         * @return {Number} the sound instance ID.
+         * @example
+         * // play the "cling" audio clip
+         * me.audio.play("cling");
+         * // play &amp; repeat the "engine" audio clip
+         * me.audio.play("engine", true);
+         * // play the "gameover_sfx" audio clip and call myFunc when finished
+         * me.audio.play("gameover_sfx", false, myFunc);
+         * // play the "gameover_sfx" audio clip with a lower volume level
+         * me.audio.play("gameover_sfx", false, null, 0.5);
+         */
+        api.play = function (sound_name, loop, onend, volume) {
+            var sound = audioTracks[sound_name];
+            <span class="missing-if-branch" title="else path not taken" >E</span>if (sound &amp;&amp; typeof sound !== "undefined") {
+                var id = sound.play();
+                <span class="missing-if-branch" title="else path not taken" >E</span>if (typeof loop === "boolean") {
+                    // arg[0] can take different types in howler 2.0
+                    sound.loop(loop, id);
+                }
+                sound.volume(typeof(volume) === "number" ? <span class="branch-0 cbranch-no" title="branch not covered" >me.Math.clamp(volume, 0.0, 1.0) </span>: Howler.volume(), id);
+                <span class="missing-if-branch" title="else path not taken" >E</span>if (typeof(onend) === "function") {
+                    if (loop === true) {
+                        sound.on("end", onend, id);
+                    }
+                    else {
+                        sound.once("end", onend, id);
+                    }
+                }
+                return id;
+            } else {
+<span class="cstat-no" title="statement not covered" >                throw new me.audio.Error("audio clip " + sound_name + " does not exist");</span>
+            }
+        };
+&nbsp;
+        /**
+         * Fade a currently playing sound between two volumee.
+         * @name fade
+         * @memberOf me.audio
+         * @public
+         * @function
+         * @param {String} sound_name audio clip name - case sensitive
+         * @param {Number} from Volume to fade from (0.0 to 1.0).
+         * @param {Number} to Volume to fade to (0.0 to 1.0).
+         * @param {Number} duration Time in milliseconds to fade.
+         * @param {Number} [id] the sound instance ID. If none is passed, all sounds in group will fade.
+         */
+        api.fade = <span class="fstat-no" title="function not covered" >function (sound_name, from, to, duration, id) {</span>
+<span class="cstat-no" title="statement not covered" >            var sound = audioTracks[sound_name];</span>
+<span class="cstat-no" title="statement not covered" >            if (sound &amp;&amp; typeof sound !== "undefined") {</span>
+<span class="cstat-no" title="statement not covered" >                sound.fade(from, to, duration, id);</span>
+            } else {
+<span class="cstat-no" title="statement not covered" >                throw new me.audio.Error("audio clip " + sound_name + " does not exist");</span>
+            }
+        };
+&nbsp;
+        /**
+         * get/set the position of playback for a sound.
+         * @name seek
+         * @memberOf me.audio
+         * @public
+         * @function
+         * @param {String} sound_name audio clip name - case sensitive
+         * @param {Number} [seek]  The position to move current playback to (in seconds).
+         * @param {Number} [id] the sound instance ID. If none is passed, all sounds in group will changed.
+         * @return return the current seek position (if no extra parameters were given)
+         * @example
+         * // return the current position of the background music
+         * var current_pos = me.audio.seek("dst-gameforest");
+         * // set back the position of the background music to the beginning
+         * me.audio.seek("dst-gameforest", 0);
+         */
+        api.seek = <span class="fstat-no" title="function not covered" >function (sound_name, seek, id) {</span>
+<span class="cstat-no" title="statement not covered" >            var sound = audioTracks[sound_name];</span>
+<span class="cstat-no" title="statement not covered" >            if (sound &amp;&amp; typeof sound !== "undefined") {</span>
+<span class="cstat-no" title="statement not covered" >                return sound.seek.apply(sound, Array.prototype.slice.call(arguments, 1));</span>
+            } else {
+<span class="cstat-no" title="statement not covered" >                throw new me.audio.Error("audio clip " + sound_name + " does not exist");</span>
+            }
+        };
+&nbsp;
+        /**
+         * get or set the rate of playback for a sound.
+         * @name rate
+         * @memberOf me.audio
+         * @public
+         * @function
+         * @param {String} sound_name audio clip name - case sensitive
+         * @param {Number} [rate] playback rate : 0.5 to 4.0, with 1.0 being normal speed.
+         * @param {Number} [id] the sound instance ID. If none is passed, all sounds in group will be changed.
+         * @return return the current playback rate (if no extra parameters were given)
+         * @example
+         * // get the playback rate of the background music
+         * var rate = me.audio.rate("dst-gameforest");
+         * // speed up the playback of the background music
+         * me.audio.rate("dst-gameforest", 2.0);
+         */
+        api.rate = <span class="fstat-no" title="function not covered" >function (sound_name, rate, id) {</span>
+<span class="cstat-no" title="statement not covered" >            var sound = audioTracks[sound_name];</span>
+<span class="cstat-no" title="statement not covered" >            if (sound &amp;&amp; typeof sound !== "undefined") {</span>
+<span class="cstat-no" title="statement not covered" >                return sound.rate.apply(sound, Array.prototype.slice.call(arguments, 1));</span>
+            } else {
+<span class="cstat-no" title="statement not covered" >                throw new me.audio.Error("audio clip " + sound_name + " does not exist");</span>
+            }
+        };
+&nbsp;
+        /**
+         * stop the specified sound on all channels
+         * @name stop
+         * @memberOf me.audio
+         * @public
+         * @function
+         * @param {String} sound_name audio clip name - case sensitive
+         * @param {Number} [id] the sound instance ID. If none is passed, all sounds in group will stop.
+         * @example
+         * me.audio.stop("cling");
+         */
+        api.stop = function (sound_name, id) {
+            var sound = audioTracks[sound_name];
+            <span class="missing-if-branch" title="else path not taken" >E</span>if (sound &amp;&amp; typeof sound !== "undefined") {
+                sound.stop(id);
+                // remove the defined onend callback (if any defined)
+                sound.off("end", undefined, id);
+            } else {
+<span class="cstat-no" title="statement not covered" >                throw new me.audio.Error("audio clip " + sound_name + " does not exist");</span>
+            }
+        };
+&nbsp;
+        /**
+         * pause the specified sound on all channels&lt;br&gt;
+         * this function does not reset the currentTime property
+         * @name pause
+         * @memberOf me.audio
+         * @public
+         * @function
+         * @param {String} sound_name audio clip name - case sensitive
+         * @param {Number} [id] the sound instance ID. If none is passed, all sounds in group will pause.
+         * @example
+         * me.audio.pause("cling");
+         */
+        api.pause = <span class="fstat-no" title="function not covered" >function (sound_name, id) {</span>
+<span class="cstat-no" title="statement not covered" >            var sound = audioTracks[sound_name];</span>
+<span class="cstat-no" title="statement not covered" >            if (sound &amp;&amp; typeof sound !== "undefined") {</span>
+<span class="cstat-no" title="statement not covered" >                sound.pause(id);</span>
+            } else {
+<span class="cstat-no" title="statement not covered" >                throw new me.audio.Error("audio clip " + sound_name + " does not exist");</span>
+            }
+        };
+&nbsp;
+        /**
+         * resume the specified sound on all channels&lt;br&gt;
+         * @name resume
+         * @memberOf me.audio
+         * @public
+         * @function
+         * @param {String} sound_name audio clip name - case sensitive
+         * @param {Number} [id] the sound instance ID. If none is passed, all sounds in group will resume.
+         * @example
+         * // play a audio clip
+         * var id = me.audio.play("myClip");
+         * ...
+         * // pause it
+         * me.audio.pause("myClip", id);
+         * ...
+         * // resume
+         * me.audio.resume("myClip", id);
+         */
+        api.resume = <span class="fstat-no" title="function not covered" >function (sound_name, id) {</span>
+<span class="cstat-no" title="statement not covered" >            var sound = audioTracks[sound_name];</span>
+<span class="cstat-no" title="statement not covered" >            if (sound &amp;&amp; typeof sound !== "undefined") {</span>
+<span class="cstat-no" title="statement not covered" >                sound.play(id);</span>
+            } else {
+<span class="cstat-no" title="statement not covered" >                throw new me.audio.Error("audio clip " + sound_name + " does not exist");</span>
+            }
+        };
+&nbsp;
+        /**
+         * play the specified audio track&lt;br&gt;
+         * this function automatically set the loop property to true&lt;br&gt;
+         * and keep track of the current sound being played.
+         * @name playTrack
+         * @memberOf me.audio
+         * @public
+         * @function
+         * @param {String} sound_name audio track name - case sensitive
+         * @param {Number} [volume=default] Float specifying volume (0.0 - 1.0 values accepted).
+         * @return {Number} the sound instance ID.
+         * @example
+         * me.audio.playTrack("awesome_music");
+         */
+        api.playTrack = <span class="fstat-no" title="function not covered" >function (sound_name, volume) {</span>
+<span class="cstat-no" title="statement not covered" >            current_track_id = sound_name;</span>
+<span class="cstat-no" title="statement not covered" >            return me.audio.play(</span>
+                current_track_id,
+                true,
+                null,
+                volume
+            );
+        };
+&nbsp;
+        /**
+         * stop the current audio track
+         *
+         * @see me.audio#playTrack
+         * @name stopTrack
+         * @memberOf me.audio
+         * @public
+         * @function
+         * @example
+         * // play a awesome music
+         * me.audio.playTrack("awesome_music");
+         * // stop the current music
+         * me.audio.stopTrack();
+         */
+        api.stopTrack = <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            if (current_track_id !== null) {</span>
+<span class="cstat-no" title="statement not covered" >                audioTracks[current_track_id].stop();</span>
+<span class="cstat-no" title="statement not covered" >                current_track_id = null;</span>
+            }
+        };
+&nbsp;
+        /**
+         * pause the current audio track
+         *
+         * @name pauseTrack
+         * @memberOf me.audio
+         * @public
+         * @function
+         * @example
+         * me.audio.pauseTrack();
+         */
+        api.pauseTrack = <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            if (current_track_id !== null) {</span>
+<span class="cstat-no" title="statement not covered" >                audioTracks[current_track_id].pause();</span>
+            }
+        };
+&nbsp;
+        /**
+         * resume the previously paused audio track
+         *
+         * @name resumeTrack
+         * @memberOf me.audio
+         * @public
+         * @function
+         * @example
+         * // play an awesome music
+         * me.audio.playTrack("awesome_music");
+         * // pause the audio track
+         * me.audio.pauseTrack();
+         * // resume the music
+         * me.audio.resumeTrack();
+         */
+        api.resumeTrack = <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            if (current_track_id !== null) {</span>
+<span class="cstat-no" title="statement not covered" >                audioTracks[current_track_id].play();</span>
+            }
+        };
+&nbsp;
+        /**
+         * returns the current track Id
+         * @name getCurrentTrack
+         * @memberOf me.audio
+         * @public
+         * @function
+         * @return {String} audio track name
+         */
+        api.getCurrentTrack = <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            return current_track_id;</span>
+        };
+&nbsp;
+        /**
+         * set the default global volume
+         * @name setVolume
+         * @memberOf me.audio
+         * @public
+         * @function
+         * @param {Number} volume Float specifying volume (0.0 - 1.0 values accepted).
+         */
+        api.setVolume = <span class="fstat-no" title="function not covered" >function (volume) {</span>
+<span class="cstat-no" title="statement not covered" >            Howler.volume(volume);</span>
+        };
+&nbsp;
+        /**
+         * get the default global volume
+         * @name getVolume
+         * @memberOf me.audio
+         * @public
+         * @function
+         * @returns {Number} current volume value in Float [0.0 - 1.0] .
+         */
+        api.getVolume = <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            return Howler.volume();</span>
+        };
+&nbsp;
+        /**
+         * mute or unmute the specified sound, but does not pause the playback.
+         * @name mute
+         * @memberOf me.audio
+         * @public
+         * @function
+         * @param {String} sound_name audio clip name - case sensitive
+         * @param {Number} [id] the sound instance ID. If none is passed, all sounds in group will mute.
+         * @param {Boolean} [mute=true] True to mute and false to unmute
+         * @example
+         * // mute the background music
+         * me.audio.mute("awesome_music");
+         */
+        api.mute = <span class="fstat-no" title="function not covered" >function (sound_name, id, mute) {</span>
+            // if not defined : true
+<span class="cstat-no" title="statement not covered" >            mute = (typeof(mute) === "undefined" ? true : !!mute);</span>
+<span class="cstat-no" title="statement not covered" >            var sound = audioTracks[sound_name];</span>
+<span class="cstat-no" title="statement not covered" >            if (sound &amp;&amp; typeof(sound) !== "undefined") {</span>
+<span class="cstat-no" title="statement not covered" >                sound.mute(mute, id);</span>
+            } else {
+<span class="cstat-no" title="statement not covered" >                throw new me.audio.Error("audio clip " + sound_name + " does not exist");</span>
+            }
+        };
+&nbsp;
+        /**
+         * unmute the specified sound
+         * @name unmute
+         * @memberOf me.audio
+         * @public
+         * @function
+         * @param {String} sound_name audio clip name
+         * @param {Number} [id] the sound instance ID. If none is passed, all sounds in group will unmute.
+         */
+        api.unmute = <span class="fstat-no" title="function not covered" >function (sound_name, id) {</span>
+<span class="cstat-no" title="statement not covered" >            api.mute(sound_name, id, false);</span>
+        };
+&nbsp;
+        /**
+         * mute all audio
+         * @name muteAll
+         * @memberOf me.audio
+         * @public
+         * @function
+         */
+        api.muteAll = <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            Howler.mute(true);</span>
+        };
+&nbsp;
+        /**
+         * unmute all audio
+         * @name unmuteAll
+         * @memberOf me.audio
+         * @public
+         * @function
+         */
+        api.unmuteAll = <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            Howler.mute(false);</span>
+        };
+&nbsp;
+        /**
+         * Returns true if audio is muted globally.
+         * @name muted
+         * @memberOf me.audio
+         * @public
+         * @function
+         * @return {Boolean} true if audio is muted globally
+         */
+        api.muted = <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            return Howler._muted;</span>
+        };
+&nbsp;
+        /**
+         * unload specified audio track to free memory
+         *
+         * @name unload
+         * @memberOf me.audio
+         * @public
+         * @function
+         * @param {String} sound_name audio track name - case sensitive
+         * @return {Boolean} true if unloaded
+         * @example
+         * me.audio.unload("awesome_music");
+         */
+        api.unload = <span class="fstat-no" title="function not covered" >function (sound_name) {</span>
+<span class="cstat-no" title="statement not covered" >            if (!(sound_name in audioTracks)) {</span>
+<span class="cstat-no" title="statement not covered" >                return false;</span>
+            }
+&nbsp;
+            // destroy the Howl object
+<span class="cstat-no" title="statement not covered" >            audioTracks[sound_name].unload();</span>
+<span class="cstat-no" title="statement not covered" >            if (typeof(audioTracks[sound_name].dispose) === "function") {</span>
+                // cocoonJS implements a dispose function to free
+                // corresponding allocated audio in memory
+<span class="cstat-no" title="statement not covered" >                audioTracks[sound_name].dispose();</span>
+            }
+<span class="cstat-no" title="statement not covered" >            delete audioTracks[sound_name];</span>
+<span class="cstat-no" title="statement not covered" >            return true;</span>
+        };
+&nbsp;
+        /**
+         * unload all audio to free memory
+         *
+         * @name unloadAll
+         * @memberOf me.audio
+         * @public
+         * @function
+         * @example
+         * me.audio.unloadAll();
+         */
+        api.unloadAll = <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            for (var sound_name in audioTracks) {</span>
+<span class="cstat-no" title="statement not covered" >                if (audioTracks.hasOwnProperty(sound_name)) {</span>
+<span class="cstat-no" title="statement not covered" >                    api.unload(sound_name);</span>
+                }
+            }
+        };
+&nbsp;
+        // return our object
+        return api;
+    })();
+&nbsp;
+    /**
+     * Base class for audio exception handling.
+     * @name Error
+     * @class
+     * @memberOf me.audio
+     * @constructor
+     * @param {String} msg Error message.
+     */
+    me.audio.Error = me.Error.extend({
+        /**
+         * @ignore
+         */
+        init : <span class="fstat-no" title="function not covered" >function (msg) {</span>
+<span class="cstat-no" title="statement not covered" >            this._super(me.Error, "init", [ msg ]);</span>
+<span class="cstat-no" title="statement not covered" >            this.name = "me.audio.Error";</span>
+        }
+    });
+})();
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sat Jan 26 2019 12:46:17 GMT-0500 (Eastern Standard Time)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

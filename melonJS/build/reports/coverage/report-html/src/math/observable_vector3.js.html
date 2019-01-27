@@ -1,0 +1,1766 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/math/observable_vector3.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">all files</a> / <a href="index.html">src/math/</a> observable_vector3.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">77.91% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>67/86</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">65.75% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>48/73</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">76.92% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>30/39</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">77.91% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>67/86</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line medium'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430
+431
+432
+433
+434
+435
+436
+437
+438
+439
+440
+441
+442
+443
+444
+445
+446
+447
+448
+449
+450
+451
+452
+453
+454
+455
+456
+457
+458
+459
+460
+461
+462
+463
+464
+465
+466
+467
+468
+469
+470
+471
+472
+473
+474
+475
+476
+477
+478
+479
+480
+481
+482
+483
+484
+485
+486
+487
+488
+489
+490
+491
+492
+493
+494
+495
+496
+497
+498
+499
+500
+501
+502
+503
+504
+505
+506
+507
+508
+509
+510
+511
+512
+513
+514
+515
+516
+517
+518
+519
+520
+521
+522
+523
+524
+525
+526
+527
+528
+529
+530
+531
+532
+533
+534
+535
+536
+537
+538
+539
+540
+541
+542
+543
+544
+545
+546
+547
+548
+549
+550
+551
+552
+553
+554
+555
+556
+557
+558
+559
+560
+561
+562
+563
+564
+565
+566
+567
+568</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">55×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">419×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">55×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">402×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">55×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">95×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20×</span>
+<span class="cline-any cline-yes">20×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">55×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">55×</span>
+<span class="cline-any cline-yes">55×</span>
+<span class="cline-any cline-yes">55×</span>
+<span class="cline-any cline-yes">55×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">74×</span>
+<span class="cline-any cline-yes">74×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">73×</span>
+<span class="cline-any cline-yes">73×</span>
+<span class="cline-any cline-yes">73×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">74×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">55×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">55×</span>
+<span class="cline-any cline-yes">55×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">37×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/*
+ * MelonJS Game Engine
+ * Copyright (C) 2011 - 2018 Olivier Biot
+ * http://www.melonjs.org
+ *
+ */
+(function () {
+    /**
+     * A Vector3d object that provide notification by executing the given callback when the vector is changed.
+     * @class
+     * @extends me.Vector3d
+     * @constructor
+     * @param {Number} [x=0] x value of the vector
+     * @param {Number} [y=0] y value of the vector
+     * @param {Number} [z=0] z value of the vector
+     * @param {Object} settings additional required parameters
+     * @param {Function} settings.onUpdate the callback to be executed when the vector is changed
+     */
+    me.ObservableVector3d = me.Vector3d.extend({
+    /** @scope me.ObservableVector3d.prototype */
+&nbsp;
+        /**
+         * @ignore
+         */
+        init : function (x, y, z, settings) {
+            /**
+             * x value of the vector
+             * @public
+             * @type Number
+             * @name x
+             * @memberOf me.ObservableVector3d
+             */
+            Object.defineProperty(this, "x", {
+                /**
+                 * @ignore
+                 */
+                get : function () {
+                    return this._x;
+                },
+                /**
+                 * @ignore
+                 */
+                set : function (value) {
+                    var ret = this.onUpdate(value, this._y, this._z, this._x, this._y, this._z);
+                    <span class="missing-if-branch" title="if path not taken" >I</span>if (ret &amp;&amp; "x" in ret) {
+<span class="cstat-no" title="statement not covered" >                        this._x = ret.x;</span>
+                    } else {
+                        this._x = value
+                    }
+                },
+                configurable : true
+            });
+&nbsp;
+            /**
+             * y value of the vector
+             * @public
+             * @type Number
+             * @name y
+             * @memberOf me.ObservableVector3d
+             */
+            Object.defineProperty(this, "y", {
+                /**
+                 * @ignore
+                 */
+                get : function () {
+                    return this._y;
+                },
+                /**
+                 * @ignore
+                 */
+                set : function (value) {
+                    var ret = this.onUpdate(this._x, value, this._z, this._x, this._y, this._z);
+                    <span class="missing-if-branch" title="if path not taken" >I</span>if (ret &amp;&amp; "y" in ret) {
+<span class="cstat-no" title="statement not covered" >                        this._y = ret.y;</span>
+                    } else {
+                        this._y = value
+                    }
+                },
+                configurable : true
+            });
+&nbsp;
+            /**
+             * z value of the vector
+             * @public
+             * @type Number
+             * @name z
+             * @memberOf me.ObservableVector3d
+             */
+            Object.defineProperty(this, "z", {
+                /**
+                 * @ignore
+                 */
+                get : function () {
+                    return this._z;
+                },
+                /**
+                 * @ignore
+                 */
+                set : function (value) {
+                    var ret = this.onUpdate(this._x, this._y, value, this._x, this._y, this._z);
+                    <span class="missing-if-branch" title="if path not taken" >I</span>if (ret &amp;&amp; "z" in ret) {
+<span class="cstat-no" title="statement not covered" >                        this._z = ret.z;</span>
+                    } else {
+                        this._z = value
+                    }
+                },
+                configurable : true
+            });
+&nbsp;
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (typeof(settings) === "undefined") {
+<span class="cstat-no" title="statement not covered" >                throw new me.ObservableVector3d.Error(</span>
+                    "undefined `onUpdate` callback"
+                );
+            }
+            this.setCallback(settings.onUpdate);
+            this._x = x || 0;
+            this._y = y || 0;
+            this._z = z || 0;
+        },
+&nbsp;
+        /**
+         * @ignore */
+        _set : function (x, y, z) {
+            var ret = this.onUpdate(x, y, z, this._x, this._y, this._z);
+            if (ret &amp;&amp; "x" in ret &amp;&amp; "y" in ret &amp;&amp; "z" in ret) {
+                this._x = ret.x;
+                this._y = ret.y;
+                this._z = ret.z;
+            } else {
+              this._x = x;
+              this._y = y;
+              this._z = z;
+            }
+            return this;
+        },
+&nbsp;
+        /**
+         * set the vector value without triggering the callback
+         * @name setMuted
+         * @memberOf me.ObservableVector3d
+         * @function
+         * @param {Number} x x value of the vector
+         * @param {Number} y y value of the vector
+         * @param {Number} z z value of the vector
+         * @return {me.ObservableVector3d} Reference to this object for method chaining
+         */
+        setMuted : <span class="fstat-no" title="function not covered" >function (x, y, z) {</span>
+<span class="cstat-no" title="statement not covered" >            this._x = x;</span>
+<span class="cstat-no" title="statement not covered" >            this._y = y;</span>
+<span class="cstat-no" title="statement not covered" >            this._z = z;</span>
+<span class="cstat-no" title="statement not covered" >            return this;</span>
+        },
+&nbsp;
+        /**
+         * set the callback to be executed when the vector is changed
+         * @name setCallback
+         * @memberOf me.ObservableVector3d
+         * @function
+         * @param {function} onUpdate callback
+         * @return {me.ObservableVector3d} Reference to this object for method chaining
+         */
+        setCallback : function (fn) {
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (typeof(fn) !== "function") {
+<span class="cstat-no" title="statement not covered" >                throw new me.ObservableVector3d.Error(</span>
+                    "invalid `onUpdate` callback"
+                );
+            }
+            this.onUpdate = fn;
+            return this;
+        },
+&nbsp;
+        /**
+         * Add the passed vector to this vector
+         * @name add
+         * @memberOf me.ObservableVector3d
+         * @function
+         * @param {me.Vector2d|me.Vector3d|me.ObservableVector2d|me.ObservableVector3d} v
+         * @return {me.ObservableVector3d} Reference to this object for method chaining
+         */
+        add : function (v) {
+            return this._set(this._x + v.x, this._y + v.y, this._z + (v.z || <span class="branch-1 cbranch-no" title="branch not covered" >0)</span>);
+        },
+&nbsp;
+        /**
+         * Substract the passed vector to this vector
+         * @name sub
+         * @memberOf me.ObservableVector3d
+         * @function
+         * @param {me.Vector2d|me.Vector3d|me.ObservableVector2d|me.ObservableVector3d} v
+         * @return {me.ObservableVector3d} Reference to this object for method chaining
+         */
+        sub : function (v) {
+            return this._set(this._x - v.x, this._y - v.y, this._z - (v.z || 0));
+        },
+&nbsp;
+        /**
+         * Multiply this vector values by the given scalar
+         * @name scale
+         * @memberOf me.ObservableVector3d
+         * @function
+         * @param {Number} x
+         * @param {Number} [y=x]
+         * @param {Number} [z=x]
+         * @return {me.ObservableVector3d} Reference to this object for method chaining
+         */
+        scale : function (x, y, z) {
+            y = (typeof (y) !== "undefined" ? <span class="branch-0 cbranch-no" title="branch not covered" >y </span>: x);
+            z = (typeof (z) !== "undefined" ? <span class="branch-0 cbranch-no" title="branch not covered" >z </span>: x);
+            return this._set(this._x * x, this._y * y, this._z * z);
+        },
+&nbsp;
+        /**
+         * Multiply this vector values by the passed vector
+         * @name scaleV
+         * @memberOf me.ObservableVector3d
+         * @function
+         * @param {me.Vector2d|me.Vector3d|me.ObservableVector2d|me.ObservableVector3d} v
+         * @return {me.ObservableVector3d} Reference to this object for method chaining
+         */
+        scaleV : function (v) {
+            return this._set(this._x * v.x, this._y * v.y, this._z * (v.z || <span class="branch-1 cbranch-no" title="branch not covered" >1)</span>);
+        },
+&nbsp;
+        /**
+         * Divide this vector values by the passed value
+         * @name div
+         * @memberOf me.ObservableVector3d
+         * @function
+         * @param {Number} value
+         * @return {me.ObservableVector3d} Reference to this object for method chaining
+         */
+        div : <span class="fstat-no" title="function not covered" >function (n) {</span>
+<span class="cstat-no" title="statement not covered" >            return this._set(this._x / n, this._y / n, this._z / n);</span>
+        },
+&nbsp;
+        /**
+         * Update this vector values to absolute values
+         * @name abs
+         * @memberOf me.ObservableVector3d
+         * @function
+         * @return {me.ObservableVector3d} Reference to this object for method chaining
+         */
+        abs : <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            return this._set(</span>
+                (this._x &lt; 0) ? -this._x : this._x,
+                (this._y &lt; 0) ? -this._y : this._y,
+                (this._Z &lt; 0) ? -this._z : this._z
+            );
+        },
+&nbsp;
+        /**
+         * Clamp the vector value within the specified value range
+         * @name clamp
+         * @memberOf me.ObservableVector3d
+         * @function
+         * @param {Number} low
+         * @param {Number} high
+         * @return {me.ObservableVector3d} new me.ObservableVector3d
+         */
+        clamp : <span class="fstat-no" title="function not covered" >function (low, high) {</span>
+<span class="cstat-no" title="statement not covered" >            return new me.ObservableVector3d(</span>
+                me.Math.clamp(this._x, low, high),
+                me.Math.clamp(this._y, low, high),
+                me.Math.clamp(this._z, low, high),
+                {onUpdate: this.onUpdate}
+            );
+        },
+&nbsp;
+        /**
+         * Clamp this vector value within the specified value range
+         * @name clampSelf
+         * @memberOf me.ObservableVector3d
+         * @function
+         * @param {Number} low
+         * @param {Number} high
+         * @return {me.ObservableVector3d} Reference to this object for method chaining
+         */
+        clampSelf : function (low, high) {
+            return this._set(
+                me.Math.clamp(this._x, low, high),
+                me.Math.clamp(this._y, low, high),
+                me.Math.clamp(this._z, low, high)
+            );
+        },
+&nbsp;
+        /**
+         * Update this vector with the minimum value between this and the passed vector
+         * @name minV
+         * @memberOf me.ObservableVector3d
+         * @function
+         * @param {me.Vector2d|me.Vector3d|me.ObservableVector2d|me.ObservableVector3d} v
+         * @return {me.ObservableVector3d} Reference to this object for method chaining
+         */
+        minV : function (v) {
+            var _vz = v.z || <span class="branch-1 cbranch-no" title="branch not covered" >0;</span>
+            return this._set(
+                (this._x &lt; v.x) ? <span class="branch-0 cbranch-no" title="branch not covered" >this._x </span>: v.x,
+                (this._y &lt; v.y) ? <span class="branch-0 cbranch-no" title="branch not covered" >this._y </span>: v.y,
+                (this._z &lt; _vz) ? <span class="branch-0 cbranch-no" title="branch not covered" >this._z </span>: _vz
+            );
+        },
+&nbsp;
+        /**
+         * Update this vector with the maximum value between this and the passed vector
+         * @name maxV
+         * @memberOf me.ObservableVector3d
+         * @function
+         * @param {me.Vector2d|me.Vector3d|me.ObservableVector2d|me.ObservableVector3d} v
+         * @return {me.ObservableVector3d} Reference to this object for method chaining
+         */
+        maxV : function (v) {
+            var _vz = v.z || <span class="branch-1 cbranch-no" title="branch not covered" >0;</span>
+            return this._set(
+                (this._x &gt; v.x) ? this._x : <span class="branch-1 cbranch-no" title="branch not covered" >v.x,</span>
+                (this._y &gt; v.y) ? this._y : <span class="branch-1 cbranch-no" title="branch not covered" >v.y,</span>
+                (this._z &gt; _vz) ? this._z : <span class="branch-1 cbranch-no" title="branch not covered" >_vz</span>
+            );
+        },
+&nbsp;
+        /**
+         * Floor the vector values
+         * @name floor
+         * @memberOf me.ObservableVector3d
+         * @function
+         * @return {me.ObservableVector3d} new me.ObservableVector3d
+         */
+        floor : <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            return new me.ObservableVector3d(</span>
+                Math.floor(this._x),
+                Math.floor(this._y),
+                Math.floor(this._z),
+                {onUpdate: this.onUpdate}
+            );
+        },
+&nbsp;
+        /**
+         * Floor this vector values
+         * @name floorSelf
+         * @memberOf me.ObservableVector3d
+         * @function
+         * @return {me.ObservableVector3d} Reference to this object for method chaining
+         */
+        floorSelf : function () {
+            return this._set(Math.floor(this._x), Math.floor(this._y), Math.floor(this._z));
+        },
+&nbsp;
+        /**
+         * Ceil the vector values
+         * @name ceil
+         * @memberOf me.ObservableVector3d
+         * @function
+         * @return {me.ObservableVector3d} new me.ObservableVector3d
+         */
+        ceil : <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            return new me.ObservableVector3d(</span>
+                Math.ceil(this._x),
+                Math.ceil(this._y),
+                Math.ceil(this._z),
+                {onUpdate: this.onUpdate}
+            );
+        },
+&nbsp;
+        /**
+         * Ceil this vector values
+         * @name ceilSelf
+         * @memberOf me.ObservableVector3d
+         * @function
+         * @return {me.ObservableVector3d} Reference to this object for method chaining
+         */
+        ceilSelf : function () {
+            return this._set(Math.ceil(this._x), Math.ceil(this._y), Math.ceil(this._z));
+        },
+&nbsp;
+        /**
+         * Negate the vector values
+         * @name negate
+         * @memberOf me.ObservableVector3d
+         * @function
+         * @return {me.ObservableVector3d} new me.ObservableVector3d
+         */
+        negate : <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            return new me.ObservableVector3d(</span>
+                -this._x,
+                -this._y,
+                -this._z,
+                {onUpdate: this.onUpdate}
+            );
+        },
+&nbsp;
+        /**
+         * Negate this vector values
+         * @name negateSelf
+         * @memberOf me.ObservableVector3d
+         * @function
+         * @return {me.ObservableVector3d} Reference to this object for method chaining
+         */
+        negateSelf : function () {
+            return this._set(-this._x, -this._y, -this._z);
+        },
+&nbsp;
+        /**
+         * Copy the x,y,z values of the passed vector to this one
+         * @name copy
+         * @memberOf me.ObservableVector3d
+         * @function
+         * @param {me.Vector2d|me.Vector3d|me.ObservableVector2d|me.ObservableVector3d} v
+         * @return {me.ObservableVector3d} Reference to this object for method chaining
+         */
+        copy : function (v) {
+            return this._set(v.x, v.y, typeof (v.z) !== "undefined" ? v.z : <span class="branch-1 cbranch-no" title="branch not covered" >this._z)</span>;
+        },
+&nbsp;
+        /**
+         * return true if the two vectors are the same
+         * @name equals
+         * @memberOf me.ObservableVector3d
+         * @function
+         * @param {me.Vector2d|me.Vector3d|me.ObservableVector2d|me.ObservableVector3d} v
+         * @return {Boolean}
+         */
+        equals : function (v) {
+            return ((this._x === v.x) &amp;&amp; (this._y === v.y) &amp;&amp; (this._z === (v.z || this._z)));
+        },
+&nbsp;
+        /**
+         * normalize this vector (scale the vector so that its magnitude is 1)
+         * @name normalize
+         * @memberOf me.ObservableVector3d
+         * @function
+         * @return {me.ObservableVector3d} Reference to this object for method chaining
+         */
+        normalize : function () {
+            var d = this.length();
+            <span class="missing-if-branch" title="else path not taken" >E</span>if (d &gt; 0) {
+                return this._set(this._x / d, this._y / d, this._z / d);
+            }
+<span class="cstat-no" title="statement not covered" >            return this;</span>
+        },
+&nbsp;
+        /**
+         * change this vector to be perpendicular to what it was before.&lt;br&gt;
+         * (Effectively rotates it 90 degrees in a clockwise direction)
+         * @name perp
+         * @memberOf me.ObservableVector3d
+         * @function
+         * @return {me.ObservableVector3d} Reference to this object for method chaining
+         */
+        perp : function () {
+            return this._set(this._y, -this._x, this._z);
+        },
+&nbsp;
+        /**
+         * Rotate this vector (counter-clockwise) by the specified angle (in radians).
+         * @name rotate
+         * @memberOf me.ObservableVector3d
+         * @function
+         * @param {number} angle The angle to rotate (in radians)
+         * @return {me.ObservableVector3d} Reference to this object for method chaining
+         */
+        rotate : function (angle) {
+            var x = this._x;
+            var y = this._y;
+            return this._set(
+                x * Math.cos(angle) - y * Math.sin(angle),
+                x * Math.sin(angle) + y * Math.cos(angle),
+                this._z
+            );
+        },
+&nbsp;
+        /**
+         * return the dot product of this vector and the passed one
+         * @name dotProduct
+         * @memberOf me.ObservableVector3d
+         * @function
+         * @param {me.Vector2d|me.Vector3d|me.ObservableVector2d|me.ObservableVector3d} v
+         * @return {Number} The dot product.
+         */
+        dotProduct : function (v) {
+            return this._x * v.x + this._y * v.y + this._z * (v.z || 1);
+        },
+&nbsp;
+        /**
+         * Linearly interpolate between this vector and the given one.
+         * @name lerp
+         * @memberOf me.ObservableVector3d
+         * @function
+         * @param {me.Vector3d|me.ObservableVector3d} v
+         * @param {Number} alpha distance along the line (alpha = 0 will be this vector, and alpha = 1 will be the given one).
+         * @return {me.ObservableVector3d} Reference to this object for method chaining
+         */
+        lerp : function (v, alpha) {
+            this._x += ( v.x - this._x ) * alpha;
+            this._y += ( v.y - this._y ) * alpha;
+            this._z += ( v.z - this._z ) * alpha;
+            return this;
+        },
+&nbsp;
+        /**
+         * return the distance between this vector and the passed one
+         * @name distance
+         * @memberOf me.ObservableVector3d
+         * @function
+         * @param {me.Vector2d|me.Vector3d|me.ObservableVector2d|me.ObservableVector3d} v
+         * @return {Number}
+         */
+        distance : function (v) {
+            var dx = this._x - v.x, dy = this._y - v.y, dz = this._z - (v.z || 0);
+            return Math.sqrt(dx * dx + dy * dy + dz * dz);
+        },
+&nbsp;
+        /**
+         * return a clone copy of this vector
+         * @name clone
+         * @memberOf me.ObservableVector3d
+         * @function
+         * @return {me.ObservableVector3d} new me.ObservableVector3d
+         */
+        clone : function () {
+            return me.pool.pull("me.ObservableVector3d",
+                this._x,
+                this._y,
+                this._z,
+                {onUpdate: this.onUpdate}
+            );
+        },
+&nbsp;
+        /**
+         * return a `me.Vector3d` copy of this `me.ObservableVector3d` object
+         * @name toVector3d
+         * @memberOf me.ObservableVector3d
+         * @function
+         * @return {me.Vector3d} new me.Vector3d
+         */
+        toVector3d : <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            return me.pool.pull("me.Vector3d", this._x, this._y, this._z);</span>
+        },
+&nbsp;
+        /**
+         * convert the object to a string representation
+         * @name toString
+         * @memberOf me.ObservableVector3d
+         * @function
+         * @return {String}
+         */
+        toString : function () {
+            return "x:" + this._x + ",y:" + this._y + ",z:" + this._z;
+        }
+    });
+&nbsp;
+    /**
+     * Base class for Vector3d exception handling.
+     * @name Error
+     * @class
+     * @memberOf me.ObservableVector3d
+     * @constructor
+     * @param {String} msg Error message.
+     */
+    me.ObservableVector3d.Error = me.Error.extend({
+        /**
+         * @ignore
+         */
+        init : <span class="fstat-no" title="function not covered" >function (msg) {</span>
+<span class="cstat-no" title="statement not covered" >            this._super(me.Error, "init", [ msg ]);</span>
+<span class="cstat-no" title="statement not covered" >            this.name = "me.ObservableVector3d.Error";</span>
+        }
+    });
+})();
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sat Jan 26 2019 12:46:17 GMT-0500 (Eastern Standard Time)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

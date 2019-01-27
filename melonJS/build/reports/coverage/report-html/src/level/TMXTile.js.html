@@ -1,0 +1,686 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/level/TMXTile.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">all files</a> / <a href="index.html">src/level/</a> TMXTile.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">4.84% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>3/62</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/33</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">20% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>1/5</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">4.84% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>3/62</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/*
+ * MelonJS Game Engine
+ * Copyright (C) 2011 - 2018 Olivier Biot
+ * http://www.melonjs.org
+ *
+ * Tile QT 0.7.x format
+ * http://www.mapeditor.org/
+ *
+ */
+(function () {
+&nbsp;
+    // bitmask constants to check for flipped &amp; rotated tiles
+    var TMX_FLIP_H          = 0x80000000,
+        TMX_FLIP_V          = 0x40000000,
+        TMX_FLIP_AD         = 0x20000000,
+        TMX_CLEAR_BIT_MASK  = ~(0x80000000 | 0x40000000 | 0x20000000);
+&nbsp;
+    /**
+     * a basic tile object
+     * @class
+     * @extends me.Rect
+     * @memberOf me
+     * @constructor
+     * @param {Number} x x index of the Tile in the map
+     * @param {Number} y y index of the Tile in the map
+     * @param {Number} gid tile gid
+     * @param {me.TMXTileset} tileset the corresponding tileset object
+&nbsp;
+     */
+    me.Tile = me.Rect.extend({
+        /** @ignore */
+        init : <span class="fstat-no" title="function not covered" >function (x, y, gid, tileset) {</span>
+<span class="cstat-no" title="statement not covered" >            var width, height;</span>
+&nbsp;
+            // determine the tile size
+<span class="cstat-no" title="statement not covered" >            if (tileset.isCollection) {</span>
+<span class="cstat-no" title="statement not covered" >                var image = tileset.getTileImage(gid &amp; TMX_CLEAR_BIT_MASK);</span>
+<span class="cstat-no" title="statement not covered" >                width = image.width;</span>
+<span class="cstat-no" title="statement not covered" >                height = image.height;</span>
+            } else {
+<span class="cstat-no" title="statement not covered" >                width = tileset.tilewidth;</span>
+<span class="cstat-no" title="statement not covered" >                height = tileset.tileheight;</span>
+            }
+&nbsp;
+            // call the parent constructor
+<span class="cstat-no" title="statement not covered" >            this._super(me.Rect, "init", [x * width, y * height, width, height]);</span>
+&nbsp;
+            /**
+             * tileset
+             * @public
+             * @type me.TMXTileset
+             * @name me.Tile#tileset
+             */
+<span class="cstat-no" title="statement not covered" >            this.tileset = tileset;</span>
+&nbsp;
+            /**
+             * the tile transformation matrix (if defined)
+             * @ignore
+             */
+<span class="cstat-no" title="statement not covered" >            this.currentTransform = null;</span>
+&nbsp;
+            // Tile col / row pos
+<span class="cstat-no" title="statement not covered" >            this.col = x;</span>
+<span class="cstat-no" title="statement not covered" >            this.row = y;</span>
+&nbsp;
+            /**
+             * tileId
+             * @public
+             * @type Number
+             * @name me.Tile#tileId
+             */
+<span class="cstat-no" title="statement not covered" >            this.tileId = gid;</span>
+            /**
+             * True if the tile is flipped horizontally&lt;br&gt;
+             * @public
+             * @type Boolean
+             * @name me.Tile#flipX
+             */
+<span class="cstat-no" title="statement not covered" >            this.flippedX  = (this.tileId &amp; TMX_FLIP_H) !== 0;</span>
+            /**
+             * True if the tile is flipped vertically&lt;br&gt;
+             * @public
+             * @type Boolean
+             * @name me.Tile#flippedY
+             */
+<span class="cstat-no" title="statement not covered" >            this.flippedY  = (this.tileId &amp; TMX_FLIP_V) !== 0;</span>
+            /**
+             * True if the tile is flipped anti-diagonally&lt;br&gt;
+             * @public
+             * @type Boolean
+             * @name me.Tile#flippedAD
+             */
+<span class="cstat-no" title="statement not covered" >            this.flippedAD = (this.tileId &amp; TMX_FLIP_AD) !== 0;</span>
+&nbsp;
+            /**
+             * Global flag that indicates if the tile is flipped&lt;br&gt;
+             * @public
+             * @type Boolean
+             * @name me.Tile#flipped
+             */
+<span class="cstat-no" title="statement not covered" >            this.flipped = this.flippedX || this.flippedY || this.flippedAD;</span>
+            // create a transformation matrix if required
+<span class="cstat-no" title="statement not covered" >            if (this.flipped === true) {</span>
+<span class="cstat-no" title="statement not covered" >                this.createTransform();</span>
+            }
+&nbsp;
+            // clear out the flags and set the tileId
+<span class="cstat-no" title="statement not covered" >            this.tileId &amp;= TMX_CLEAR_BIT_MASK;</span>
+        },
+&nbsp;
+        /**
+         * create a transformation matrix for this tile
+         * @ignore
+         */
+        createTransform : <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            if (this.currentTransform === null) {</span>
+<span class="cstat-no" title="statement not covered" >                this.currentTransform = new me.Matrix2d();</span>
+            } else {
+                // reset the matrix
+<span class="cstat-no" title="statement not covered" >                this.currentTransform.identity();</span>
+            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            if (this.flippedAD) {</span>
+                // Use shearing to swap the X/Y axis
+<span class="cstat-no" title="statement not covered" >                this.currentTransform.setTransform(</span>
+                    0, 1, 0,
+                    1, 0, 0,
+                    0, 0, 1
+                );
+<span class="cstat-no" title="statement not covered" >                this.currentTransform.translate(0, this.height - this.width);</span>
+            }
+<span class="cstat-no" title="statement not covered" >            if (this.flippedX) {</span>
+<span class="cstat-no" title="statement not covered" >                this.currentTransform.translate(</span>
+                    (this.flippedAD ? 0 : this.width),
+                    (this.flippedAD ? this.height : 0)
+                );
+<span class="cstat-no" title="statement not covered" >                this.currentTransform.scaleX(-1);</span>
+            }
+<span class="cstat-no" title="statement not covered" >            if (this.flippedY) {</span>
+<span class="cstat-no" title="statement not covered" >                this.currentTransform.translate(</span>
+                    (this.flippedAD ? this.width : 0),
+                    (this.flippedAD ? 0 : this.height)
+                );
+<span class="cstat-no" title="statement not covered" >                this.currentTransform.scaleY(-1);</span>
+            }
+        },
+&nbsp;
+        /**
+         * return a renderable object for this Tile object
+         * @name me.Tile#getRenderable
+         * @public
+         * @function
+         * @param {Object} [settings] see {@link me.Sprite}
+         * @return {me.Renderable} a me.Sprite object
+         */
+        getRenderable : <span class="fstat-no" title="function not covered" >function (settings) {</span>
+<span class="cstat-no" title="statement not covered" >            var renderable;</span>
+<span class="cstat-no" title="statement not covered" >            var tileset = this.tileset;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            if (tileset.animations.has(this.tileId)) {</span>
+<span class="cstat-no" title="statement not covered" >                var frames = [];</span>
+<span class="cstat-no" title="statement not covered" >                var frameId = [];</span>
+<span class="cstat-no" title="statement not covered" >                (tileset.animations.get(this.tileId).frames).forEach(<span class="fstat-no" title="function not covered" >function (frame) {</span></span>
+<span class="cstat-no" title="statement not covered" >                    frameId.push(frame.tileid);</span>
+<span class="cstat-no" title="statement not covered" >                    frames.push({</span>
+                        name : "" + frame.tileid,
+                        delay : frame.duration
+                    });
+                });
+<span class="cstat-no" title="statement not covered" >                renderable = tileset.texture.createAnimationFromName(frameId, settings);</span>
+<span class="cstat-no" title="statement not covered" >                renderable.addAnimation(this.tileId - tileset.firstgid, frames);</span>
+<span class="cstat-no" title="statement not covered" >                renderable.setCurrentAnimation(this.tileId - tileset.firstgid);</span>
+&nbsp;
+            } else {
+<span class="cstat-no" title="statement not covered" >                if (tileset.isCollection === true) {</span>
+<span class="cstat-no" title="statement not covered" >                    var image = tileset.getTileImage(this.tileId);</span>
+<span class="cstat-no" title="statement not covered" >                    renderable = new me.Sprite(0, 0,</span>
+                        Object.assign({
+                            image: image
+                        })//, settings)
+                    );
+<span class="cstat-no" title="statement not covered" >                    renderable.anchorPoint.set(0, 0);</span>
+<span class="cstat-no" title="statement not covered" >                    renderable.scale((settings.width / this.width), (settings.height / this.height));</span>
+<span class="cstat-no" title="statement not covered" >                    if (typeof settings.rotation !== "undefined") {</span>
+<span class="cstat-no" title="statement not covered" >                        renderable.anchorPoint.set(0.5, 0.5);</span>
+<span class="cstat-no" title="statement not covered" >                        renderable.currentTransform.rotate(settings.rotation);</span>
+<span class="cstat-no" title="statement not covered" >                        renderable.currentTransform.translate(settings.width / 2, settings.height / 2);</span>
+                        // TODO : move the rotation related code from TMXTiledMap to here (under)
+<span class="cstat-no" title="statement not covered" >                        settings.rotation = undefined;</span>
+                    }
+                } else {
+<span class="cstat-no" title="statement not covered" >                    renderable = tileset.texture.createSpriteFromName(this.tileId - tileset.firstgid, settings);</span>
+                }
+            }
+&nbsp;
+            // any H/V flipping to apply?
+<span class="cstat-no" title="statement not covered" >            if (this.flippedX) {</span>
+<span class="cstat-no" title="statement not covered" >                renderable.currentTransform.scaleX(-1);</span>
+            }
+<span class="cstat-no" title="statement not covered" >            if (this.flippedY) {</span>
+<span class="cstat-no" title="statement not covered" >                renderable.currentTransform.scaleY(-1);</span>
+            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            return renderable;</span>
+        }
+    });
+})();
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sat Jan 26 2019 12:46:17 GMT-0500 (Eastern Standard Time)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

@@ -1,0 +1,2465 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/loader/loader.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">all files</a> / <a href="index.html">src/loader/</a> loader.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">22.78% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>54/237</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">5.61% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>6/107</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">18.18% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>6/33</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">22.78% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>54/237</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430
+431
+432
+433
+434
+435
+436
+437
+438
+439
+440
+441
+442
+443
+444
+445
+446
+447
+448
+449
+450
+451
+452
+453
+454
+455
+456
+457
+458
+459
+460
+461
+462
+463
+464
+465
+466
+467
+468
+469
+470
+471
+472
+473
+474
+475
+476
+477
+478
+479
+480
+481
+482
+483
+484
+485
+486
+487
+488
+489
+490
+491
+492
+493
+494
+495
+496
+497
+498
+499
+500
+501
+502
+503
+504
+505
+506
+507
+508
+509
+510
+511
+512
+513
+514
+515
+516
+517
+518
+519
+520
+521
+522
+523
+524
+525
+526
+527
+528
+529
+530
+531
+532
+533
+534
+535
+536
+537
+538
+539
+540
+541
+542
+543
+544
+545
+546
+547
+548
+549
+550
+551
+552
+553
+554
+555
+556
+557
+558
+559
+560
+561
+562
+563
+564
+565
+566
+567
+568
+569
+570
+571
+572
+573
+574
+575
+576
+577
+578
+579
+580
+581
+582
+583
+584
+585
+586
+587
+588
+589
+590
+591
+592
+593
+594
+595
+596
+597
+598
+599
+600
+601
+602
+603
+604
+605
+606
+607
+608
+609
+610
+611
+612
+613
+614
+615
+616
+617
+618
+619
+620
+621
+622
+623
+624
+625
+626
+627
+628
+629
+630
+631
+632
+633
+634
+635
+636
+637
+638
+639
+640
+641
+642
+643
+644
+645
+646
+647
+648
+649
+650
+651
+652
+653
+654
+655
+656
+657
+658
+659
+660
+661
+662
+663
+664
+665
+666
+667
+668
+669
+670
+671
+672
+673
+674
+675
+676
+677
+678
+679
+680
+681
+682
+683
+684
+685
+686
+687
+688
+689
+690
+691
+692
+693
+694
+695
+696
+697
+698
+699
+700
+701
+702
+703
+704
+705
+706
+707
+708
+709
+710
+711
+712
+713
+714
+715
+716
+717
+718
+719
+720
+721
+722
+723
+724
+725
+726
+727
+728
+729
+730
+731
+732
+733
+734
+735
+736
+737
+738
+739
+740
+741
+742
+743
+744
+745
+746
+747
+748
+749
+750
+751
+752
+753
+754
+755
+756
+757
+758
+759
+760
+761
+762
+763
+764
+765
+766
+767
+768
+769
+770
+771
+772
+773
+774
+775
+776
+777
+778
+779
+780
+781
+782
+783
+784
+785
+786
+787
+788
+789
+790
+791
+792
+793
+794
+795
+796
+797
+798
+799
+800
+801</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/*
+ * MelonJS Game Engine
+ * Copyright (C) 2011 - 2018 Olivier Biot
+ * http://www.melonjs.org
+ *
+ */
+(function () {
+    /**
+     * a small class to manage loading of stuff and manage resources
+     * There is no constructor function for me.input.
+     * @namespace me.loader
+     * @memberOf me
+     */
+    me.loader = (function () {
+        // hold public stuff in our singleton
+        var api = {};
+&nbsp;
+        // contains all the images loaded
+        var imgList = {};
+        // contains all the TMX loaded
+        var tmxList = {};
+        // contains all the binary files loaded
+        var binList = {};
+        // contains all the JSON files
+        var jsonList = {};
+        // baseURL
+        var baseURL = {};
+&nbsp;
+        // flag to check loading status
+        var resourceCount = 0;
+        var loadCount = 0;
+        var timerId = 0;
+&nbsp;
+        /**
+         * check the loading status
+         * @ignore
+         */
+<span class="fstat-no" title="function not covered" >        function checkLoadStatus(onload) {</span>
+<span class="cstat-no" title="statement not covered" >            if (loadCount === resourceCount) {</span>
+                // wait 1/2s and execute callback (cheap workaround to ensure everything is loaded)
+<span class="cstat-no" title="statement not covered" >                if (onload || api.onload) {</span>
+                    // make sure we clear the timer
+<span class="cstat-no" title="statement not covered" >                    clearTimeout(timerId);</span>
+                    // trigger the onload callback
+                    // we call either the supplied callback (which takes precedence) or the global one
+<span class="cstat-no" title="statement not covered" >                    var callback = onload || api.onload;</span>
+<span class="cstat-no" title="statement not covered" >                    setTimeout(<span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >                        callback();</span>
+<span class="cstat-no" title="statement not covered" >                        me.event.publish(me.event.LOADER_COMPLETE);</span>
+                    }, 300);
+                }
+                else {
+<span class="cstat-no" title="statement not covered" >                    console.error("no load callback defined");</span>
+                }
+            }
+            else {
+<span class="cstat-no" title="statement not covered" >                timerId = setTimeout(<span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >                    checkLoadStatus(onload);</span>
+                }, 100);
+            }
+        }
+&nbsp;
+        /**
+         * load Images
+         * @example
+         * preloadImages([
+         *     { name : 'image1', src : 'images/image1.png'},
+         *     { name : 'image2', src : 'images/image2.png'},
+         *     { name : 'image3', src : 'images/image3.png'},
+         *     { name : 'image4', src : 'images/image4.png'}
+         * ]);
+         * @ignore
+         */
+        function preloadImage(img, onload, onerror) {
+            // create new Image object and add to list
+            imgList[img.name] = new Image();
+            imgList[img.name].onload = onload;
+            imgList[img.name].onerror = onerror;
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (typeof (api.crossOrigin) === "string") {
+<span class="cstat-no" title="statement not covered" >                imgList[img.name].crossOrigin = api.crossOrigin;</span>
+            }
+            imgList[img.name].src = img.src + api.nocache;
+        }
+&nbsp;
+        /**
+         * load a font face
+         * @example
+         * preloadFontFace(
+         *     name: "'kenpixel'", type: "fontface",  src: "url('data/font/kenvector_future.woff2')"
+         * ]);
+         * @ignore
+         */
+<span class="fstat-no" title="function not covered" >        function preloadFontFace(data, onload, onerror) {</span>
+<span class="cstat-no" title="statement not covered" >            var font = new FontFace(data.name, data.src);</span>
+            // loading promise
+<span class="cstat-no" title="statement not covered" >            font.load().then(<span class="fstat-no" title="function not covered" >function() {</span></span>
+                // apply the font after the font has finished downloading
+<span class="cstat-no" title="statement not covered" >                document.fonts.add(font);</span>
+<span class="cstat-no" title="statement not covered" >                document.body.style.fontFamily = data.name;</span>
+                // onloaded callback
+<span class="cstat-no" title="statement not covered" >                onload();</span>
+            }, <span class="fstat-no" title="function not covered" >function (e) {</span>
+                // rejected
+<span class="cstat-no" title="statement not covered" >                onerror(data.name);</span>
+            });
+        }
+&nbsp;
+        /**
+         * preload TMX files
+         * @ignore
+         */
+<span class="fstat-no" title="function not covered" >        function preloadTMX(tmxData, onload, onerror) {</span>
+<span class="fstat-no" title="function not covered" >            function addToTMXList(data) {</span>
+                // set the TMX content
+<span class="cstat-no" title="statement not covered" >                tmxList[tmxData.name] = data;</span>
+&nbsp;
+                // add the tmx to the levelDirector
+<span class="cstat-no" title="statement not covered" >                if (tmxData.type === "tmx") {</span>
+<span class="cstat-no" title="statement not covered" >                    me.levelDirector.addTMXLevel(tmxData.name);</span>
+                }
+            }
+&nbsp;
+&nbsp;
+            //if the data is in the tmxData object, don't get it via a XMLHTTPRequest
+<span class="cstat-no" title="statement not covered" >            if (tmxData.data) {</span>
+<span class="cstat-no" title="statement not covered" >                addToTMXList(tmxData.data);</span>
+<span class="cstat-no" title="statement not covered" >                onload();</span>
+<span class="cstat-no" title="statement not covered" >                return;</span>
+            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            var xmlhttp = new XMLHttpRequest();</span>
+            // check the data format ('tmx', 'json')
+<span class="cstat-no" title="statement not covered" >            var format = me.utils.file.getExtension(tmxData.src);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            if (xmlhttp.overrideMimeType) {</span>
+<span class="cstat-no" title="statement not covered" >                if (format === "json") {</span>
+<span class="cstat-no" title="statement not covered" >                    xmlhttp.overrideMimeType("application/json");</span>
+                }
+                else {
+<span class="cstat-no" title="statement not covered" >                    xmlhttp.overrideMimeType("text/xml");</span>
+                }
+            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            xmlhttp.open("GET", tmxData.src + api.nocache, true);</span>
+<span class="cstat-no" title="statement not covered" >            xmlhttp.withCredentials = me.loader.withCredentials;</span>
+            // set the callbacks
+<span class="cstat-no" title="statement not covered" >            xmlhttp.ontimeout = onerror;</span>
+<span class="cstat-no" title="statement not covered" >            xmlhttp.onreadystatechange = <span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >                if (xmlhttp.readyState === 4) {</span>
+                    // status = 0 when file protocol is used, or cross-domain origin,
+                    // (With Chrome use "--allow-file-access-from-files --disable-web-security")
+<span class="cstat-no" title="statement not covered" >                    if ((xmlhttp.status === 200) || ((xmlhttp.status === 0) &amp;&amp; xmlhttp.responseText)) {</span>
+<span class="cstat-no" title="statement not covered" >                        var result = null;</span>
+&nbsp;
+                        // parse response
+<span class="cstat-no" title="statement not covered" >                        switch (format) {</span>
+                            case "xml":
+                            case "tmx":
+                            case "tsx":
+                                // ie9 does not fully implement the responseXML
+<span class="cstat-no" title="statement not covered" >                                if (me.device.ua.match(/msie/i) || !xmlhttp.responseXML) {</span>
+<span class="cstat-no" title="statement not covered" >                                    if (window.DOMParser) {</span>
+                                        // manually create the XML DOM
+<span class="cstat-no" title="statement not covered" >                                        result = (new DOMParser()).parseFromString(xmlhttp.responseText, "text/xml");</span>
+                                    } else {
+<span class="cstat-no" title="statement not covered" >                                        throw new api.Error("XML file format loading not supported, use the JSON file format instead");</span>
+                                    }
+                                }
+                                else {
+<span class="cstat-no" title="statement not covered" >                                    result = xmlhttp.responseXML;</span>
+                                }
+                                // converts to a JS object
+<span class="cstat-no" title="statement not covered" >                                var data = me.TMXUtils.parse(result);</span>
+<span class="cstat-no" title="statement not covered" >                                switch (format) {</span>
+                                    case "tmx":
+<span class="cstat-no" title="statement not covered" >                                        result = data.map;</span>
+<span class="cstat-no" title="statement not covered" >                                        break;</span>
+&nbsp;
+                                    case "tsx":
+<span class="cstat-no" title="statement not covered" >                                        result = data.tilesets[0];</span>
+<span class="cstat-no" title="statement not covered" >                                        break;</span>
+                                }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                                break;</span>
+&nbsp;
+                            case "json":
+<span class="cstat-no" title="statement not covered" >                                result = JSON.parse(xmlhttp.responseText);</span>
+<span class="cstat-no" title="statement not covered" >                                break;</span>
+&nbsp;
+                            default:
+<span class="cstat-no" title="statement not covered" >                                throw new api.Error("TMX file format " + format + "not supported !");</span>
+                        }
+&nbsp;
+                        //set the TMX content
+<span class="cstat-no" title="statement not covered" >                        addToTMXList(result);</span>
+&nbsp;
+                        // fire the callback
+<span class="cstat-no" title="statement not covered" >                        onload();</span>
+                    }
+                    else {
+<span class="cstat-no" title="statement not covered" >                        onerror(tmxData.name);</span>
+                    }
+                }
+            };
+            // send the request
+<span class="cstat-no" title="statement not covered" >            xmlhttp.send();</span>
+        }
+&nbsp;
+        /**
+         * preload JSON files
+         * @ignore
+         */
+<span class="fstat-no" title="function not covered" >        function preloadJSON(data, onload, onerror) {</span>
+<span class="cstat-no" title="statement not covered" >            var xmlhttp = new XMLHttpRequest();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            if (xmlhttp.overrideMimeType) {</span>
+<span class="cstat-no" title="statement not covered" >                xmlhttp.overrideMimeType("application/json");</span>
+            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            xmlhttp.open("GET", data.src + api.nocache, true);</span>
+<span class="cstat-no" title="statement not covered" >            xmlhttp.withCredentials = me.loader.withCredentials;</span>
+&nbsp;
+            // set the callbacks
+<span class="cstat-no" title="statement not covered" >            xmlhttp.ontimeout = onerror;</span>
+<span class="cstat-no" title="statement not covered" >            xmlhttp.onreadystatechange = <span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >                if (xmlhttp.readyState === 4) {</span>
+                    // status = 0 when file protocol is used, or cross-domain origin,
+                    // (With Chrome use "--allow-file-access-from-files --disable-web-security")
+<span class="cstat-no" title="statement not covered" >                    if ((xmlhttp.status === 200) || ((xmlhttp.status === 0) &amp;&amp; xmlhttp.responseText)) {</span>
+                        // get the Texture Packer Atlas content
+<span class="cstat-no" title="statement not covered" >                        jsonList[data.name] = JSON.parse(xmlhttp.responseText);</span>
+                        // fire the callback
+<span class="cstat-no" title="statement not covered" >                        onload();</span>
+                    }
+                    else {
+<span class="cstat-no" title="statement not covered" >                        onerror(data.name);</span>
+                    }
+                }
+            };
+            // send the request
+<span class="cstat-no" title="statement not covered" >            xmlhttp.send();</span>
+        }
+&nbsp;
+        /**
+         * preload Binary files
+         * @ignore
+         */
+<span class="fstat-no" title="function not covered" >        function preloadBinary(data, onload, onerror) {</span>
+<span class="cstat-no" title="statement not covered" >            var httpReq = new XMLHttpRequest();</span>
+&nbsp;
+            // load our file
+<span class="cstat-no" title="statement not covered" >            httpReq.open("GET", data.src + api.nocache, true);</span>
+<span class="cstat-no" title="statement not covered" >            httpReq.withCredentials = me.loader.withCredentials;</span>
+<span class="cstat-no" title="statement not covered" >            httpReq.responseType = "arraybuffer";</span>
+<span class="cstat-no" title="statement not covered" >            httpReq.onerror = onerror;</span>
+<span class="cstat-no" title="statement not covered" >            httpReq.onload = <span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >                var arrayBuffer = httpReq.response;</span>
+<span class="cstat-no" title="statement not covered" >                if (arrayBuffer) {</span>
+<span class="cstat-no" title="statement not covered" >                    var byteArray = new Uint8Array(arrayBuffer);</span>
+<span class="cstat-no" title="statement not covered" >                    var buffer = [];</span>
+<span class="cstat-no" title="statement not covered" >                    for (var i = 0; i &lt; byteArray.byteLength; i++) {</span>
+<span class="cstat-no" title="statement not covered" >                        buffer[i] = String.fromCharCode(byteArray[i]);</span>
+                    }
+<span class="cstat-no" title="statement not covered" >                    binList[data.name] = buffer.join("");</span>
+                    // callback
+<span class="cstat-no" title="statement not covered" >                    onload();</span>
+                }
+            };
+<span class="cstat-no" title="statement not covered" >            httpReq.send();</span>
+        }
+&nbsp;
+        /**
+         * preload Binary files
+         * @ignore
+         */
+<span class="fstat-no" title="function not covered" >        function preloadJavascript(data, onload, onerror) {</span>
+<span class="cstat-no" title="statement not covered" >            var script = document.createElement("script");</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            script.src = data.src;</span>
+<span class="cstat-no" title="statement not covered" >            script.type = "text/javascript";</span>
+<span class="cstat-no" title="statement not covered" >            if (typeof (api.crossOrigin) === "string") {</span>
+<span class="cstat-no" title="statement not covered" >                script.crossOrigin = api.crossOrigin;</span>
+            }
+<span class="cstat-no" title="statement not covered" >            script.defer = true;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            script.onload = <span class="fstat-no" title="function not covered" >function() {</span></span>
+                // callback
+<span class="cstat-no" title="statement not covered" >                onload();</span>
+            };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            script.onerror = <span class="fstat-no" title="function not covered" >function() {</span></span>
+                // callback
+<span class="cstat-no" title="statement not covered" >                onerror(data.name);</span>
+            };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            document.getElementsByTagName("body")[0].appendChild(script);</span>
+        }
+&nbsp;
+        /**
+         * to enable/disable caching
+         * @ignore
+         */
+        api.nocache = "";
+&nbsp;
+        /*
+         * PUBLIC STUFF
+         */
+&nbsp;
+        /**
+         * onload callback
+         * @public
+         * @function
+         * @name onload
+         * @memberOf me.loader
+         * @example
+         * // set a callback when everything is loaded
+         * me.loader.onload = this.loaded.bind(this);
+         */
+        api.onload = undefined;
+&nbsp;
+        /**
+         * onProgress callback&lt;br&gt;
+         * each time a resource is loaded, the loader will fire the specified function,
+         * giving the actual progress [0 ... 1], as argument, and an object describing the resource loaded
+         * @public
+         * @function
+         * @name onProgress
+         * @memberOf me.loader
+         * @example
+         * // set a callback for progress notification
+         * me.loader.onProgress = this.updateProgress.bind(this);
+         */
+        api.onProgress = undefined;
+&nbsp;
+        /**
+         * crossOrigin attribute to configure the CORS requests for Image data element.
+         * By default (that is, when the attribute is not specified), CORS is not used at all.
+         * The "anonymous" keyword means that there will be no exchange of user credentials via cookies,
+         * client-side SSL certificates or HTTP authentication as described in the Terminology section of the CORS specification.&lt;br&gt;
+         * @public
+         * @type String
+         * @name crossOrigin
+         * @default undefined
+         * @memberOf me.loader
+         * @see https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_settings_attributes
+         * @example
+         *  // allow for cross-origin texture loading in WebGL
+         * me.loader.crossOrigin = "anonymous";
+         *
+         * // set all ressources to be loaded
+         * me.loader.preload(game.resources, this.loaded.bind(this));
+         */
+        api.crossOrigin = undefined;
+&nbsp;
+        /**
+         * indicates whether or not cross-site Access-Control requests should be made using credentials such as cookies,
+         * authorization headers or TLS client certificates. Setting withCredentials has no effect on same-site requests.
+         * @public
+         * @type Boolean
+         * @name withCredentials
+         * @default false
+         * @memberOf me.loader
+         * @see https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/withCredentials
+         * @example
+         *  // enable withCredentials
+         * me.loader.withCredentials = true;
+         *
+         * // set all ressources to be loaded
+         * me.loader.preload(game.resources, this.loaded.bind(this));
+         */
+        api.withCredentials = false;
+&nbsp;
+        /**
+         * Base class for Loader exception handling.
+         * @name Error
+         * @class
+         * @memberOf me.loader
+         * @constructor
+         * @param {String} msg Error message.
+         */
+        api.Error = me.Error.extend({
+            /**
+             * @ignore
+             */
+            init : <span class="fstat-no" title="function not covered" >function (msg) {</span>
+<span class="cstat-no" title="statement not covered" >                this._super(me.Error, "init", [ msg ]);</span>
+<span class="cstat-no" title="statement not covered" >                this.name = "me.loader.Error";</span>
+            }
+        });
+&nbsp;
+        /**
+         * just increment the number of already loaded resources
+         * @ignore
+         */
+        api.onResourceLoaded = <span class="fstat-no" title="function not covered" >function (res) {</span>
+            // increment the loading counter
+<span class="cstat-no" title="statement not covered" >            loadCount++;</span>
+&nbsp;
+            // callback ?
+<span class="cstat-no" title="statement not covered" >            var progress = api.getLoadProgress();</span>
+<span class="cstat-no" title="statement not covered" >            if (api.onProgress) {</span>
+                // pass the load progress in percent, as parameter
+<span class="cstat-no" title="statement not covered" >                api.onProgress(progress, res);</span>
+            }
+<span class="cstat-no" title="statement not covered" >            me.event.publish(me.event.LOADER_PROGRESS, [progress, res]);</span>
+        };
+&nbsp;
+        /**
+         * on error callback for image loading
+         * @ignore
+         */
+        api.onLoadingError = <span class="fstat-no" title="function not covered" >function (res) {</span>
+<span class="cstat-no" title="statement not covered" >            throw new api.Error("Failed loading resource " + res.src);</span>
+        };
+&nbsp;
+        /**
+         * enable the nocache mechanism
+         * @ignore
+         */
+        api.setNocache = function (enable) {
+            api.nocache = enable ? <span class="branch-0 cbranch-no" title="branch not covered" >"?" + ~~(Math.random() * 10000000) </span>: "";
+        };
+&nbsp;
+        /**
+         * change the default baseURL for the given asset type.&lt;br&gt;
+         * (this will prepend the asset URL and must finish with a '/')
+         * @name setBaseURL
+         * @memberOf me.loader
+         * @public
+         * @function
+         * @param {String} type  "*", "audio", binary", "image", "json", "js", "tmx", "tsx"
+         * @param {String} [url="./"] default base URL
+         * @example
+         * // change the base URL relative address for audio assets
+         * me.loader.setBaseURL("audio", "data/audio/");
+         * // change the base URL absolute address for all object types
+         * me.loader.setBaseURL("*", "http://myurl.com/")
+         */
+        api.setBaseURL = <span class="fstat-no" title="function not covered" >function (type, url) {</span>
+<span class="cstat-no" title="statement not covered" >            if (type !== "*") {</span>
+<span class="cstat-no" title="statement not covered" >                baseURL[type] = url;</span>
+            } else {
+                // "wildcards"
+<span class="cstat-no" title="statement not covered" >                baseURL["audio"] = url;</span>
+<span class="cstat-no" title="statement not covered" >                baseURL["binary"] = url;</span>
+<span class="cstat-no" title="statement not covered" >                baseURL["image"] = url;</span>
+<span class="cstat-no" title="statement not covered" >                baseURL["json"] = url;</span>
+<span class="cstat-no" title="statement not covered" >                baseURL["js"] = url;</span>
+<span class="cstat-no" title="statement not covered" >                baseURL["tmx"] = url;</span>
+<span class="cstat-no" title="statement not covered" >                baseURL["tsx"] = url;</span>
+                // XXX ?
+                //baseURL["fontface"] = url;
+            }
+        };
+&nbsp;
+&nbsp;
+        /**
+         * set all the specified game resources to be preloaded.
+         * @name preload
+         * @memberOf me.loader
+         * @public
+         * @function
+         * @param {Object[]} resources
+         * @param {String} resources.name internal name of the resource
+         * @param {String} resources.type  "audio", binary", "image", "json","js", "tmx", "tsx", "fontface"
+         * @param {String} resources.src  path and/or file name of the resource (for audio assets only the path is required)
+         * @param {Boolean} [resources.stream] Set to true to force HTML5 Audio, which allows not to wait for large file to be downloaded before playing.
+         * @param {function} [onload=me.loader.onload] function to be called when all resources are loaded
+         * @param {boolean} [switchToLoadState=true] automatically switch to the loading screen
+         * @example
+         * game_resources = [
+         *   // PNG tileset
+         *   {name: "tileset-platformer", type: "image",  src: "data/map/tileset.png"},
+         *   // PNG packed texture
+         *   {name: "texture", type:"image", src: "data/gfx/texture.png"}
+         *   // TSX file
+         *   {name: "meta_tiles", type: "tsx", src: "data/map/meta_tiles.tsx"},
+         *   // TMX level (XML &amp; JSON)
+         *   {name: "map1", type: "tmx", src: "data/map/map1.json"},
+         *   {name: "map2", type: "tmx", src: "data/map/map2.tmx"},
+         *   {name: "map3", type: "tmx", format: "json", data: {"height":15,"layers":[...],"tilewidth":32,"version":1,"width":20}},
+         *   {name: "map4", type: "tmx", format: "xml", data: {xml representation of tmx}},
+         *   // audio resources
+         *   {name: "bgmusic", type: "audio",  src: "data/audio/"},
+         *   {name: "cling",   type: "audio",  src: "data/audio/"},
+         *   // binary file
+         *   {name: "ymTrack", type: "binary", src: "data/audio/main.ym"},
+         *   // JSON file (used for texturePacker)
+         *   {name: "texture", type: "json", src: "data/gfx/texture.json"},
+         *   // JavaScript file
+         *   {name: "plugin", type: "js", src: "data/js/plugin.js"},
+         *   // Font Face
+         *   { name: "'kenpixel'", type: "fontface",  src: "url('data/font/kenvector_future.woff2')" }
+         * ];
+         * ...
+         * // set all resources to be loaded
+         * me.loader.preload(game.resources, this.loaded.bind(this));
+         */
+        api.preload = <span class="fstat-no" title="function not covered" >function (res, onload, switchToLoadState) {</span>
+            // parse the resources
+<span class="cstat-no" title="statement not covered" >            for (var i = 0; i &lt; res.length; i++) {</span>
+<span class="cstat-no" title="statement not covered" >                resourceCount += api.load(</span>
+                    res[i],
+                    api.onResourceLoaded.bind(api, res[i]),
+                    api.onLoadingError.bind(api, res[i])
+                );
+            }
+            // set the onload callback if defined
+<span class="cstat-no" title="statement not covered" >            if (typeof(onload) !== "undefined") {</span>
+<span class="cstat-no" title="statement not covered" >                api.onload = onload;</span>
+            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            if (switchToLoadState !== false) {</span>
+                // swith to the loading screen
+<span class="cstat-no" title="statement not covered" >                me.state.change(me.state.LOADING);</span>
+            }
+&nbsp;
+            // check load status
+<span class="cstat-no" title="statement not covered" >            checkLoadStatus(onload);</span>
+        };
+&nbsp;
+        /**
+         * Load a single resource (to be used if you need to load additional resource during the game)
+         * @name load
+         * @memberOf me.loader
+         * @public
+         * @function
+         * @param {Object} resource
+         * @param {String} resource.name internal name of the resource
+         * @param {String} resource.type  "audio", binary", "image", "json", "tmx", "tsx"
+         * @param {String} resource.src  path and/or file name of the resource (for audio assets only the path is required)
+         * @param {Boolean} [resource.stream] Set to true to force HTML5 Audio, which allows not to wait for large file to be downloaded before playing.
+         * @param {Function} onload function to be called when the resource is loaded
+         * @param {Function} onerror function to be called in case of error
+         * @example
+         * // load an image asset
+         * me.loader.load({name: "avatar",  type:"image",  src: "data/avatar.png"}, this.onload.bind(this), this.onerror.bind(this));
+         *
+         * // start loading music
+         * me.loader.load({
+         *     name   : "bgmusic",
+         *     type   : "audio",
+         *     src    : "data/audio/"
+         * }, function () {
+         *     me.audio.play("bgmusic");
+         * });
+         */
+        api.load = function (res, onload, onerror) {
+            // transform the url if necessary
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (typeof (baseURL[res.type]) !== "undefined") {
+<span class="cstat-no" title="statement not covered" >                res.src = baseURL[res.type] + res.src;</span>
+            }
+            // check ressource type
+            switch (res.type) {
+<span class="branch-0 cbranch-no" title="branch not covered" >                case "binary":</span>
+                    // reuse the preloadImage fn
+<span class="cstat-no" title="statement not covered" >                    preloadBinary.call(this, res, onload, onerror);</span>
+<span class="cstat-no" title="statement not covered" >                    return 1;</span>
+&nbsp;
+                case "image":
+                    // reuse the preloadImage fn
+                    preloadImage.call(this, res, onload, onerror);
+                    return 1;
+&nbsp;
+<span class="branch-2 cbranch-no" title="branch not covered" >                case "json":</span>
+<span class="cstat-no" title="statement not covered" >                    preloadJSON.call(this, res, onload, onerror);</span>
+<span class="cstat-no" title="statement not covered" >                    return 1;</span>
+&nbsp;
+<span class="branch-3 cbranch-no" title="branch not covered" >                case "js":</span>
+<span class="cstat-no" title="statement not covered" >                    preloadJavascript.call(this, res, onload, onerror);</span>
+<span class="cstat-no" title="statement not covered" >                    return 1;</span>
+&nbsp;
+<span class="branch-4 cbranch-no" title="branch not covered" >                case "tmx":</span>
+<span class="branch-5 cbranch-no" title="branch not covered" >                case "tsx":</span>
+<span class="cstat-no" title="statement not covered" >                    preloadTMX.call(this, res, onload, onerror);</span>
+<span class="cstat-no" title="statement not covered" >                    return 1;</span>
+&nbsp;
+                case "audio":
+                    me.audio.load(res, !!res.stream, onload, onerror);
+                    return 1;
+&nbsp;
+<span class="branch-7 cbranch-no" title="branch not covered" >                case "fontface":</span>
+<span class="cstat-no" title="statement not covered" >                    preloadFontFace.call(this, res, onload, onerror);</span>
+<span class="cstat-no" title="statement not covered" >                    return 1;</span>
+&nbsp;
+<span class="branch-8 cbranch-no" title="branch not covered" >                default:</span>
+<span class="cstat-no" title="statement not covered" >                    throw new api.Error("load : unknown or invalid resource type : " + res.type);</span>
+            }
+        };
+&nbsp;
+        /**
+         * unload specified resource to free memory
+         * @name unload
+         * @memberOf me.loader
+         * @public
+         * @function
+         * @param {Object} resource
+         * @return {Boolean} true if unloaded
+         * @example me.loader.unload({name: "avatar",  type:"image",  src: "data/avatar.png"});
+         */
+        api.unload = <span class="fstat-no" title="function not covered" >function (res) {</span>
+<span class="cstat-no" title="statement not covered" >            switch (res.type) {</span>
+                case "binary":
+<span class="cstat-no" title="statement not covered" >                    if (!(res.name in binList)) {</span>
+<span class="cstat-no" title="statement not covered" >                        return false;</span>
+                    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                    delete binList[res.name];</span>
+<span class="cstat-no" title="statement not covered" >                    return true;</span>
+&nbsp;
+                case "image":
+<span class="cstat-no" title="statement not covered" >                    if (!(res.name in imgList)) {</span>
+<span class="cstat-no" title="statement not covered" >                        return false;</span>
+                    }
+<span class="cstat-no" title="statement not covered" >                    if (typeof(imgList[res.name].dispose) === "function") {</span>
+                        // cocoonJS implements a dispose function to free
+                        // corresponding allocated texture in memory
+<span class="cstat-no" title="statement not covered" >                        imgList[res.name].dispose();</span>
+                    }
+<span class="cstat-no" title="statement not covered" >                    delete imgList[res.name];</span>
+<span class="cstat-no" title="statement not covered" >                    return true;</span>
+&nbsp;
+                case "json":
+<span class="cstat-no" title="statement not covered" >                    if (!(res.name in jsonList)) {</span>
+<span class="cstat-no" title="statement not covered" >                        return false;</span>
+                    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                    delete jsonList[res.name];</span>
+<span class="cstat-no" title="statement not covered" >                    return true;</span>
+&nbsp;
+                case "js":
+                    // ??
+<span class="cstat-no" title="statement not covered" >                    return true;</span>
+&nbsp;
+                case "fontface":
+                    // ??
+<span class="cstat-no" title="statement not covered" >                    return true;</span>
+&nbsp;
+                case "tmx":
+                case "tsx":
+<span class="cstat-no" title="statement not covered" >                    if (!(res.name in tmxList)) {</span>
+<span class="cstat-no" title="statement not covered" >                        return false;</span>
+                    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                    delete tmxList[res.name];</span>
+<span class="cstat-no" title="statement not covered" >                    return true;</span>
+&nbsp;
+                case "audio":
+<span class="cstat-no" title="statement not covered" >                    return me.audio.unload(res.name);</span>
+&nbsp;
+                default:
+<span class="cstat-no" title="statement not covered" >                    throw new api.Error("unload : unknown or invalid resource type : " + res.type);</span>
+            }
+        };
+&nbsp;
+        /**
+         * unload all resources to free memory
+         * @name unloadAll
+         * @memberOf me.loader
+         * @public
+         * @function
+         * @example me.loader.unloadAll();
+         */
+        api.unloadAll = <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            var name;</span>
+&nbsp;
+            // unload all binary resources
+<span class="cstat-no" title="statement not covered" >            for (name in binList) {</span>
+<span class="cstat-no" title="statement not covered" >                if (binList.hasOwnProperty(name)) {</span>
+<span class="cstat-no" title="statement not covered" >                    api.unload({</span>
+                        "name" : name,
+                        "type" : "binary"
+                    });
+                }
+            }
+&nbsp;
+            // unload all image resources
+<span class="cstat-no" title="statement not covered" >            for (name in imgList) {</span>
+<span class="cstat-no" title="statement not covered" >                if (imgList.hasOwnProperty(name)) {</span>
+<span class="cstat-no" title="statement not covered" >                    api.unload({</span>
+                        "name" : name,
+                        "type" : "image"
+                    });
+                }
+            }
+&nbsp;
+            // unload all tmx resources
+<span class="cstat-no" title="statement not covered" >            for (name in tmxList) {</span>
+<span class="cstat-no" title="statement not covered" >                if (tmxList.hasOwnProperty(name)) {</span>
+<span class="cstat-no" title="statement not covered" >                    api.unload({</span>
+                        "name" : name,
+                        "type" : "tmx"
+                    });
+                }
+            }
+&nbsp;
+            // unload all in json resources
+<span class="cstat-no" title="statement not covered" >            for (name in jsonList) {</span>
+<span class="cstat-no" title="statement not covered" >                if (jsonList.hasOwnProperty(name)) {</span>
+<span class="cstat-no" title="statement not covered" >                    api.unload({</span>
+                        "name" : name,
+                        "type" : "json"
+                    });
+                }
+            }
+&nbsp;
+            // unload all audio resources
+<span class="cstat-no" title="statement not covered" >            me.audio.unloadAll();</span>
+        };
+&nbsp;
+        /**
+         * return the specified TMX/TSX object
+         * @name getTMX
+         * @memberOf me.loader
+         * @public
+         * @function
+         * @param {String} tmx name of the tmx/tsx element ("map1");
+         * @return {XML|Object} requested element or null if not found
+         */
+        api.getTMX = <span class="fstat-no" title="function not covered" >function (elt) {</span>
+            // force as string
+<span class="cstat-no" title="statement not covered" >            elt = "" + elt;</span>
+<span class="cstat-no" title="statement not covered" >            if (elt in tmxList) {</span>
+<span class="cstat-no" title="statement not covered" >                return tmxList[elt];</span>
+            }
+<span class="cstat-no" title="statement not covered" >            return null;</span>
+        };
+&nbsp;
+        /**
+         * return the specified Binary object
+         * @name getBinary
+         * @memberOf me.loader
+         * @public
+         * @function
+         * @param {String} name of the binary object ("ymTrack");
+         * @return {Object} requested element or null if not found
+         */
+        api.getBinary = <span class="fstat-no" title="function not covered" >function (elt) {</span>
+            // force as string
+<span class="cstat-no" title="statement not covered" >            elt = "" + elt;</span>
+<span class="cstat-no" title="statement not covered" >            if (elt in binList) {</span>
+<span class="cstat-no" title="statement not covered" >                return binList[elt];</span>
+            }
+<span class="cstat-no" title="statement not covered" >            return null;</span>
+        };
+&nbsp;
+        /**
+         * return the specified Image Object
+         * @name getImage
+         * @memberOf me.loader
+         * @public
+         * @function
+         * @param {String} image name of the Image element ("tileset-platformer");
+         * @return {HTMLImageElement} requested element or null if not found
+         */
+        api.getImage = function (image) {
+            // force as string and extract the base name
+            image = me.utils.file.getBasename("" + image);
+            <span class="missing-if-branch" title="else path not taken" >E</span>if (image in imgList) {
+                // return the corresponding Image object
+                return imgList[image];
+            }
+<span class="cstat-no" title="statement not covered" >            return null;</span>
+        };
+&nbsp;
+        /**
+         * return the specified JSON Object
+         * @name getJSON
+         * @memberOf me.loader
+         * @public
+         * @function
+         * @param {String} Name for the json file to load
+         * @return {Object}
+         */
+        api.getJSON = <span class="fstat-no" title="function not covered" >function (elt) {</span>
+            // force as string
+<span class="cstat-no" title="statement not covered" >            elt = "" + elt;</span>
+<span class="cstat-no" title="statement not covered" >            if (elt in jsonList) {</span>
+<span class="cstat-no" title="statement not covered" >                return jsonList[elt];</span>
+            }
+<span class="cstat-no" title="statement not covered" >            return null;</span>
+        };
+&nbsp;
+        /**
+         * Return the loading progress in percent
+         * @name getLoadProgress
+         * @memberOf me.loader
+         * @public
+         * @function
+         * @deprecated use callback instead
+         * @return {Number}
+         */
+        api.getLoadProgress = <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            return loadCount / resourceCount;</span>
+        };
+&nbsp;
+        // return our object
+        return api;
+    })();
+})();
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sat Jan 26 2019 12:46:17 GMT-0500 (Eastern Standard Time)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

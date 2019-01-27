@@ -1,0 +1,1 @@
+function anonymous(ctx){var out='precision '+(ctx.precision)+' float;varying vec4 vColor;void main(void){gl_FragColor=vColor;}';return out;}

@@ -1,0 +1,1834 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta charset="utf-8" />
+        <title>Test Results (HeadlessChrome 0.0.0 (Linux 0.0.0))</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css" />
+        <style>
+            html, body#REPORT_TEMPLATE {height:100%;font-family: Arial, Helvetica, sans-serif;padding:0px;margin:0px;background:#efefef;}
+            #REPORT_TEMPLATE #browser {font-size:12px;}
+            #REPORT_TEMPLATE span.result {display:inline-block;margin-right:20px;background-color:#fff;padding:2px 8px;color:#000;}
+            #REPORT_TEMPLATE table {border:1px solid #ccc;border-collapse:collapse;width:100%;}
+            #REPORT_TEMPLATE th {background-color:#acf;}
+            #REPORT_TEMPLATE td,th {border:1px solid #fff;font-size:14px;}
+            #REPORT_TEMPLATE td.status {width:30px;padding-left:10px;}
+            #REPORT_TEMPLATE td.status {width:100px;padding-left:10px;}
+            #REPORT_TEMPLATE td.error {padding-top:10px;}
+            #REPORT_TEMPLATE #timestamp {font-size:12px;margin-left:10px;}
+            #REPORT_TEMPLATE #refreshToggle {padding-top:8px;color:#fff;}
+            #REPORT_TEMPLATE #refreshToggle button {margin-left:10px;}
+            #REPORT_TEMPLATE .countBox {height:75px;text-align:center;color:#aaa;border:1px solid #fff;font-size:.9em;}
+            #REPORT_TEMPLATE .countBox h2 { color:#000;margin:10px 0px 5px 0px;}
+            #REPORT_TEMPLATE .countBox.success {background-color:#dff0d8;}
+            #REPORT_TEMPLATE .countBox.info {background-color:#d9edf7;}
+            #REPORT_TEMPLATE .countBox.active {background-color:#f5f5f5;}
+            #REPORT_TEMPLATE .countBox.danger {background-color:#f2dede;}
+            #REPORT_TEMPLATE .whiteout {background-color:#fff;padding:1px 15px;}
+            #REPORT_TEMPLATE .row.clear {margin-top:45px;}
+            #REPORT_TEMPLATE h3 {margin-bottom:30px;}
+            #REPORT_TEMPLATE .menu {list-style-type: none;padding-left:10px;font-size:1.1em;}
+            #REPORT_TEMPLATE .menu li {list-style-type: none;}
+            #REPORT_TEMPLATE #refreshBtn {outline:none;} 
+        </style>
+        <script src="https://code.jquery.com/jquery.min.js"></script>
+        <script>
+            var reload = shouldReload();
+            var visibleStates = {"success":true,"danger":true,"active":true};
+
+            function shouldReload() {
+                if (location.search != null && location.search != undefined && location.search.length > 0)
+                    return location.search.substr(1) === 'true' ? true : false;
+                else
+                    return false;
+            };
+
+            var setState = function(status) {
+                if (status) {
+                    $('#refreshBtn').removeClass('btn-danger');
+                    $('#refreshBtn').addClass('btn-success');
+                    $('#refreshBtn').text('Enable Refresh');
+                } else {
+                    $('#refreshBtn').removeClass('btn-success');
+                    $('#refreshBtn').addClass('btn-danger');                        
+                    $('#refreshBtn').text('Disable Refresh');
+                }                    
+            };
+
+            var refresh = function() {
+                if (reload) {
+                    location.reload(true);
+                }
+            };
+
+            var loadValuesFromStorage = function(){
+                try{
+                    var value =  JSON.parse(localStorage['VisibleStates']);
+                    visibleStates = value || visibleStates;
+                }catch(e){
+                    //For some reason we don't support local getValueFromLocalStorage
+                    //Old version of IE?
+                }
+            }
+
+            var saveValueInStorage = function(){
+                try{
+                    localStorage['VisibleStates'] = JSON.stringify(visibleStates);
+                }catch(e){
+                    //For some reason we don't support local getValueFromLocalStorage
+                    //Old version of IE?
+                }
+            }
+
+            var toggleHiddenState = function(){
+                var id = $(this).attr('id');
+                if(!id || !visibleStates.hasOwnProperty(id)) return;
+                visibleStates[id] = !visibleStates[id];
+                displayItems(id);
+                saveValueInStorage();
+            }
+
+            var displayItems = function(id){
+                var visible = visibleStates[id];
+                var eye = $('span', '#'+ id);
+                var items = $(('.' + id), '.whiteout');
+
+                var openEye = 'glyphicon-eye-open';
+                var closedEye = 'glyphicon-eye-close';
+
+                if(visible) {
+                    items.removeClass('hide');
+                    eye.removeClass(closedEye);
+
+                    eye.addClass(openEye);
+                }
+                else {
+                    eye.removeClass(openEye);
+
+                    items.addClass('hide');
+                    eye.addClass(closedEye);
+                }
+            }
+
+            $(document).ready(function() {
+                setState(!reload);
+                loadValuesFromStorage();
+
+                for(name in visibleStates){
+                    displayItems(name);
+                }
+
+                $('.countBox').click(toggleHiddenState);
+                
+                $('#refreshBtn').click(function() {
+                    setState(reload);
+                    if (reload) {
+                        reload = false;
+                    } else {
+                        reload = true;
+                        refresh();
+                    }
+                });
+
+                setTimeout(refresh, 1000);
+            });
+        </script>
+    </head>
+  <body id="REPORT_TEMPLATE">
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <span class="navbar-brand">Test Results <span id="browser">(HeadlessChrome 0.0.0 (Linux 0.0.0))</span></a>
+            </div>
+            <div class="collapse navbar-collapse">
+                <div id="refreshToggle" class="pull-right">
+                    <span id="timestamp">12:46:18</span>
+                    <button class="btn btn-danger" id="refreshBtn">Disable Refresh</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="container-fluid" style="height:100%;">
+        <div class="row" style="height:100%;">
+            <div class="col-sm-2" style="padding:0px;height:100%;">
+                <div class="whiteout col-sm-2" style="height:100%;padding:75px 15px;position:fixed;">
+                    <ul class="menu">
+                        <li><a href="#Overview">Overview</a></li>
+                        <li><a href="#Details">Details</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-sm-10" style="padding-top:75px;" id="Overview">
+                <div class="row">
+                    <div class="col-sm-2">
+                        <div class="countBox info">
+                            <h2>324</h2>
+                            Total Tests
+                        </div>
+                    </div>
+                    <div class="col-sm-2 col-sm-offset-1">
+                        <div class="countBox success" id="success">
+                            <h2>320</h2>
+                            Passed Tests
+                            <span class="glyphicon glyphicon-eye-open"></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-2 col-sm-offset-1">
+                        <div class="countBox danger" id="danger">
+                            <h2>0</h2>
+                            Failed Tests
+                            <span class="glyphicon glyphicon-eye-open"></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-2 col-sm-offset-1">
+                        <div class="countBox active" id="active">
+                            <h2>4</h2>
+                            Skipped Tests
+                            <span class="glyphicon glyphicon-eye-open"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row clear">
+                    <div class="col-sm-12">
+                        <div class="cold-sm-12 whiteout">
+                            <h3 id="Details">Details</h3>
+                            <table class="table">
+  <tr>
+    <th>
+      
+    </th>
+    <th>Status</th>
+    <th>Test</th>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Audio tests :: should load an mp3</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Audio tests :: should load an ogg</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Audio tests :: should load either an mp3 or ogg</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Audio tests :: should run callback on end</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Audio tests :: should run callback on loop</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.BitmapFontData :: parse :: should have 95 glyphs</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.BitmapFontData :: parse :: glyph by character 33 should have set data</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.BitmapFontData :: parse :: glyph by character 70 should have kerning data</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Camera2d :: convert between local and World coords without transforms</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Camera2d :: convert between local and World coords with transforms</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Camera2d :: isVisible function test</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Color :: parseHex Function :: #00F value is rgb(0, 0, 255)</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Color :: parseHex Function :: #0F08 value is rgba(0, 255, 0, 0.5)</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Color :: parseHex Function :: #FF00FF value is rgba(255, 0, 255, 1)</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Color :: parseHex Function :: #0000FF80 value is rgba(0, 0, 255, 0.5)</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Color :: red_color :: is an instance of me.Color</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Color :: red_color :: red_color.r == 255</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Color :: red_color :: red_color.g == 0</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Color :: red_color :: red_color.b == 0</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Color :: red_color :: red_color.alpha == 0.5</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Color :: red_color :: red_color hex value is #FF0000</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Color :: red_color :: red_color RGBA hex value is #FF0000FF</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Color :: red_color :: red_color rgba value is rgba(255,0,0,0.5)</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Color :: green_color :: green_color.r == 0</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Color :: green_color :: green_color.g == 128</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Color :: green_color :: green_color.b == 0</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Color :: green_color :: green_color.alpha == 1</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Color :: green_color :: green_color hex value is #008000</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Color :: green_color :: (green_color + red_color) hex value is #FF8000</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Color :: green_color :: darken (green_color + red_color) by 0.5 hex value is #7F4000</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Color :: green_color :: final red_color rgba value is rgba(127,64,0,0.75)</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Color :: blue_color :: blue_color hex value is #0000FF</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Color :: blue_color :: blue_color rgb value is rgb(0, 0, 255)</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Color :: blue_color :: blue_color rgba value is rgba(0, 0, 255, 0.5)</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Color :: blue_color :: lighten blue_color hex by 0.5 value is #7F7FFF</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Color :: color clone function :: cloned color hex value is #2060FF</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Color :: color copy function :: copied color hex value is #8040FF</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Container :: isAttachedToRoot :: should return true</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Container :: isAttachedToRoot :: a new container should not be root</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Container :: isAttachedToRoot :: a new container when attached to game world should find root</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Container :: Container bounds test :: me.Container bounds return default assigned size</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Container :: Container bounds test :: me.Container childbounds return the union of all child bounds</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Container :: Container utility function :: forEach iterate through all children</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Container :: Container utility function :: onChildChange callback</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>entity.draggable :: Should be able to drag an entity to a new location</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>entity.droptarget :: checkmethod: contains :: Should be able to detect a valid drop of a draggable</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>entity.droptarget :: checkmethod: contains :: Should not accept a drop outside of the check area</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>entity.droptarget :: checkmethod: overlap :: Should be able to detect a valid drop of a draggable</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>entity.droptarget :: checkmethod: overlap :: Should not accept a drop outside of the check area</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Shape : me.Ellipse :: Ellipse  :: Ellipse max radius is 50</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Shape : me.Ellipse :: Ellipse  :: Ellipse x radius is 50</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Shape : me.Ellipse :: Ellipse  :: Ellipse y radius is 50</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Shape : me.Ellipse :: Ellipse  :: Ellipse pos is (50, 50)</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Shape : me.Ellipse :: Ellipse  :: Ellipse contains the point (75, 75)</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Shape : me.Ellipse :: Ellipse  :: Ellipse does not contains the point (75, 500)</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Shape : me.Ellipse :: Ellipse  :: collision response is correct</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Shape : me.Ellipse :: Ellipse Bounding Rect :: Ellipse Bounding Rect width is 100</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Shape : me.Ellipse :: Ellipse Bounding Rect :: Ellipse Bounding Rect height is 100</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Shape : me.Ellipse :: Ellipse Bounding Rect :: Ellipse Bounding Rect pos is (0,0)</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Entity :: can load the image</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Entity :: can be created</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Entity :: has an empty set of shapes</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Entity :: has a first shape</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Entity :: has the correct body bounds: A</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Entity :: has the correct renderable bounds: A</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Entity :: has the correct entity bounds: A</td>
+  </tr>
+  <tr class="active">
+    <td class="expand"/>
+    <td class="status">Skipped</td>
+    <td>Entity :: has the correct entity geometry: A</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Entity :: has a second shape</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Entity :: has the correct body bounds: B</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Entity :: has the correct renderable bounds: B</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Entity :: has the correct entity bounds: B</td>
+  </tr>
+  <tr class="active">
+    <td class="expand"/>
+    <td class="status">Skipped</td>
+    <td>Entity :: has the correct entity geometry: B</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Entity :: removes the second shape</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Entity :: has the correct body bounds: C</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Entity :: has the correct renderable bounds: C</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Entity :: has the correct entity bounds: C</td>
+  </tr>
+  <tr class="active">
+    <td class="expand"/>
+    <td class="status">Skipped</td>
+    <td>Entity :: has the correct entity geometry: C</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Entity :: moves properly</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Entity :: has the correct body bounds: D</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Entity :: has the correct renderable bounds: D</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Entity :: has the correct entity bounds: D</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>ES5 Features :: Function functions : :: Function.bind</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>ES5 Features :: Object functions : :: Object.create</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>ES5 Features :: Object functions : :: Object.defineProperty</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>ES5 Features :: String functions : :: trim both sides</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>ES5 Features :: Array functions : :: Array.forEach</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>ES5 Features :: Array functions : :: Array.isArray</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>ES6 Collections test :: WeakMap existence</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>ES6 Collections test :: WeakMap constructor behavior</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>ES6 Collections test :: WeakMap#has</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>ES6 Collections test :: WeakMap#get</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>ES6 Collections test :: WeakMap#set</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>ES6 Collections test :: WeakMap#[&apos;delete&apos;]</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>ES6 Collections test :: Map existence</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>ES6 Collections test :: Map constructor behavior</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>ES6 Collections test :: Map#has</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>ES6 Collections test :: Map#get</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>ES6 Collections test :: Map#set</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>ES6 Collections test :: Map#[&apos;delete&apos;]</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>ES6 Collections test :: keys, values, entries behavior</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>ES6 Collections test :: Map#forEach</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>ES6 Collections test :: Map#forEach with mutations</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>ES6 Collections test :: Map#clear</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>ES6-Promises :: Success</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>ES6-Promises :: Resolving an array</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>ES6-Promises :: Resolving another promise</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>ES6 Features :: String functions : :: contains &apos;To Be&apos;</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>ES6 Features :: String functions : :: contains &apos;question&apos;</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>ES6 Features :: String functions : :: does no contain &apos;nonexistent&apos;</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>ES6 Features :: String functions : :: does not contains &apos;To be&apos; at index 1</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>ES6 Features :: String functions : :: does not contain &apos;TO BE&apos;</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>ES6 Features :: math functions : :: 123 is positive</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>ES6 Features :: math functions : :: -123 is negative</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>ES6 Features :: math functions : :: 0 is 0</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Shape : me.Font :: font set Size :: default font size is 8</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Shape : me.Font :: font set Size :: default font size is &apos;10&apos;</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Shape : me.Font :: font set Size :: set font size to 12px</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Shape : me.Font :: font set Size :: set font size to 2ex</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Shape : me.Font :: font set Size :: set font size to 1.5em</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Shape : me.Font :: font set Size :: set font size to 18pt</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Jay Inheritance :: Simple inheritance tests :: p = new Person(true) :: is an instance of Person</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Jay Inheritance :: Simple inheritance tests :: p = new Person(true) :: is not an instance of Ninja</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Jay Inheritance :: Simple inheritance tests :: p = new Person(true) :: is not an instance of Pirate</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Jay Inheritance :: Simple inheritance tests :: p = new Person(true) :: can dance</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Jay Inheritance :: Simple inheritance tests :: p = new Person(true) :: cannot swing a sword</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Jay Inheritance :: Simple inheritance tests :: p = new Person(true) :: inherits from Object</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Jay Inheritance :: Simple inheritance tests :: n = new Ninja() :: is an instance of Ninja</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Jay Inheritance :: Simple inheritance tests :: n = new Ninja() :: is also an instance of Person</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Jay Inheritance :: Simple inheritance tests :: n = new Ninja() :: is not an instance of Pirate</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Jay Inheritance :: Simple inheritance tests :: n = new Ninja() :: cannot dance</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Jay Inheritance :: Simple inheritance tests :: n = new Ninja() :: can swing a sword</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Jay Inheritance :: Simple inheritance tests :: n = new Ninja() :: inherits from Person</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Jay Inheritance :: Simple inheritance tests :: n = new Ninja() :: inherits from Object</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Jay Inheritance :: Simple inheritance tests :: r = new Pirate() :: is an instance of Pirate</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Jay Inheritance :: Simple inheritance tests :: r = new Pirate() :: is also an instance of Person</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Jay Inheritance :: Simple inheritance tests :: r = new Pirate() :: is not an instance of Ninja</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Jay Inheritance :: Simple inheritance tests :: r = new Pirate() :: can dance</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Jay Inheritance :: Simple inheritance tests :: r = new Pirate() :: can swing a sword</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Jay Inheritance :: Simple inheritance tests :: r = new Pirate() :: inherits from Person</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Jay Inheritance :: Simple inheritance tests :: r = new Pirate() :: inherits from Object</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Jay Inheritance :: Complex inheritance tests :: d = new D() :: has the correct call chain</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Jay Inheritance :: Complex inheritance tests :: z = new Z() :: can perform sibling method calls</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Jay Inheritance :: Correctness tests :: throws an exception when the constructor is missing</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Jay Inheritance :: Correctness tests :: throws an exception when non-methods are described</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Jay Inheritance :: Mixin tests :: m = new MixedIn() :: has foo</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Jay Inheritance :: Mixin tests :: m = new MixedIn() :: has bar</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Jay Inheritance :: Mixin tests :: m = new MixedIn() :: is an instance of MixedIn</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Jay Inheritance :: Mixin tests :: m = new MixedIn() :: inherits from Base</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Jay Inheritance :: Mixin tests :: m = new MixedIn() :: inherits from Object</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Jay Inheritance :: Mixin tests :: m = new MixedIn() :: does not inherit from Extended</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Jay Inheritance :: Inheritance binding tests :: e = new E() :: is an instance of Error</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Jay Inheritance :: Inheritance binding tests :: e = new E() :: is not an instance of me.Object</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Jay Inheritance :: Inheritance binding tests :: m = new MyE() :: is an instance of Error</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Jay Inheritance :: Inheritance binding tests :: m = new MyE() :: is not an instance of me.Object</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.input :: Pointer Event :: PointerDown event triggering</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Shape : me.Line :: Line :: requires exactly 2 points</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Shape : me.Line :: Line :: contains the point (0, 0)</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Shape : me.Line :: Line :: contains the point (14, 30)</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Shape : me.Line :: Line :: contains the point (60, -28) after rotating the line by -90 degrees</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Shape : me.Line :: Line :: does not contain the point (60, 28) after rotating back</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Shape : me.Line :: Line :: contains the point (28, 60)</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Shape : me.Line :: Line :: does not contain the point (15, 30)</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Shape : me.Line :: Line :: does not contain the point (29, 61)</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Shape : me.Line :: Line Bounding Rect :: Polygon Bounding Rect width is 28</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Shape : me.Line :: Line Bounding Rect :: Polygon Bounding Rect height is 60</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Shape : me.Line :: Line Bounding Rect :: Polygon Bounding Rect pos is (0,0)</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Matrix2d :: should be initialized to a 3x3 identity matrix</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Matrix2d :: should be initialized properly with a 2x2 identity matrix</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Matrix2d :: should multiply all values properly</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Matrix2d :: should reset to an identity matrix</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Matrix2d :: should rotate all values properly</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Matrix2d :: should scale all values properly</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Matrix2d :: should translate all values properly</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Matrix2d :: should transpose the matrix properly</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Matrix2d :: should invert the matrix properly</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Matrix2d :: should multiply a vector properly</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Math :: degToRad :: 0 should be 0</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Math :: degToRad :: 180 should be Pi</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Math :: degToRad :: 360 should be Pi * 2</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Math :: clamp :: should clamp low</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Math :: clamp :: should clamp high</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Math :: clamp :: should not clamp</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Math :: random :: should be &gt;= 1</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Math :: random :: should be &lt; 10</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Math :: random :: should be a whole number</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Math :: randomFloat :: should be &gt;= 1</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Math :: randomFloat :: should be &lt; 10</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Math :: weightedRandom :: should be &gt;= 1</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Math :: weightedRandom :: should be &lt; 10</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Math :: weightedRandom :: should be a whole number</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Math :: round :: Pi should be 3.1416</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Math :: POT :: 32 is a Power of 2</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Math :: POT :: 1027 is not a Power of 2</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Math :: POT :: next Power of 2 for 1000</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Math :: POT :: next Power of 2 for 32</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Math :: toBeCloseTo :: 4.3546731 is closed to 4.3547</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Math :: toBeCloseTo :: 4.8 is closed to 5 but not to 4</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.ObservableVector2d :: should be initialized to a (0, 0) 2d vector</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.ObservableVector2d :: setting the vector triggers the callback</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.ObservableVector2d :: callback returns a vector value</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.ObservableVector2d :: add a vector triggers the callback</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.ObservableVector2d :: sub a vector triggers the callback</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.ObservableVector2d :: a(1, 2) should be copied into b</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.ObservableVector2d :: scale (1, 2) by (-1, -2)</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.ObservableVector2d :: negate (1, 2)</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.ObservableVector2d :: dotProduct (1, 2) and (-1, -2)</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.ObservableVector2d :: length/lengthSqrt functions</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.ObservableVector2d :: lerp functions</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.ObservableVector2d :: normalize function</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.ObservableVector2d :: distance function</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.ObservableVector2d :: min/max/clamp</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.ObservableVector2d :: ceil/floor</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.ObservableVector2d :: project a on b</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.ObservableVector2d :: angle between a and b</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.ObservableVector2d :: perp and rotate function</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.ObservableVector3d :: should be initialized to a (0, 0, 0) 3d vector</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.ObservableVector3d :: setting the vector triggers the callback</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.ObservableVector3d :: callback returns a vector value</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.ObservableVector3d :: add a vector triggers the callback</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.ObservableVector3d :: sub a vector triggers the callback</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.ObservableVector3d :: scale a vector triggers the callback</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.ObservableVector3d :: negate (1, 2, 3)</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.ObservableVector3d :: dotProduct (1, 2, 3) and (-1, -2, -3)</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.ObservableVector3d :: length/lengthSqrt functions</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.ObservableVector3d :: lerp functions</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.ObservableVector3d :: normalize function</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.ObservableVector3d :: distance function</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.ObservableVector3d :: min/max/clamp</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.ObservableVector3d :: ceil/floor</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.ObservableVector3d :: project a on b</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.ObservableVector3d :: angle between a and b</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.ObservableVector3d :: perp and rotate function</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.plugin :: patch :: type should be &apos;something_awesome&apos;</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.plugin :: patch :: name should be &apos;John Smith&apos;</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.plugin :: register :: should register to the me.plugins namespace</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.plugin :: register :: should not register to the me.plugin namespace</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Shape : me.Polygon :: Polygon :: requires at least 3 points</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Shape : me.Polygon :: Polygon :: contains the point (75, 75)</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Shape : me.Polygon :: Polygon :: does not contains the point (75, 500)</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Shape : me.Polygon :: Polygon Bounding Rect :: width is 188</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Shape : me.Polygon :: Polygon Bounding Rect :: height is 180</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Shape : me.Polygon :: Polygon Bounding Rect :: pos is (-94,0)</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Shape : me.Polygon :: Polygon transformation :: Bounds should be updated when scaled or rotated</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Shape : me.Polygon :: earcut indices :: decompose a polygon to vertex indices</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Shape : me.Polygon :: Isometric transformation :: shape should have an isometric diamond shape</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Shape : me.Rect :: rect1 :: rect 1 has finite coordinates</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Shape : me.Rect :: rect1 :: scale rect1</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Shape : me.Rect :: rect1 :: center scaled rect1</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Shape : me.Rect :: rect1 :: move rect1 center</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Shape : me.Rect :: rect1 :: rect 1 overlaps rect2</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Shape : me.Rect :: rect1 :: rect 1 overlaps rect3</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Shape : me.Rect :: rect1 :: rect 1 does not overlaps rect4</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Shape : me.Rect :: rect2 :: rect 2 overlaps rect3</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Shape : me.Rect :: rect2 :: rect 2 does not overlaps rect4</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Shape : me.Rect :: rect3 :: rect 3 contains rect1</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Shape : me.Rect :: rect3 :: rect 3 contains rect2</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Shape : me.Rect :: rect3 :: rect 3 contains the point (70, 150)</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Shape : me.Rect :: rect3 :: rect 3 does not overlaps rect4</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Shape : me.Rect :: rect5 :: rect 5 width is 500</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Shape : me.Rect :: rect5 :: rect 5 height is 500</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Shape : me.Rect :: rect5 :: rect 5 pos is (50,50)</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Shape : me.Rect :: rect5 :: rect 5 overlaps rect1</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Shape : me.Rect :: rect5 :: rect 5 contains rect2</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Shape : me.Rect :: rect5 :: rect 5 overlaps rect3</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Shape : me.Rect :: rect5 :: rect 5 contains rect4</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Shape : me.Rect :: rect5 :: rect 5 does not equal rect4</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Shape : me.Rect :: rect5 :: a cloned rect 5 equal rect5</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>Shape : me.Rect :: rect6 :: rect 6 is an infinite plane</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Renderable :: bounds updates :: setting x position changes x bounds</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Renderable :: bounds updates :: setting y position changes y bounds</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Renderable :: bounds updates :: resizing the renderable changes its bounds width</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Renderable :: bounds updates :: resizing the renderable changes its bounds height</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Renderable :: getAbsoluteBounds returns the correct value :: create and add a child container to the root container</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Renderable :: getAbsoluteBounds returns the correct value :: renderable should have a correct absolute position once added</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Renderable :: getAbsoluteBounds returns the correct value :: changing the renderable position, change the absolute pos</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Renderable :: getAbsoluteBounds returns the correct value :: changing the parent container position, also change the renderable absolute pos</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Sprite :: me.Sprite bounds return the visible part of the sprite</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Sprite :: me.Sprite addAnimation should return the correct amount of frame</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Sprite :: me.Sprite reverseAnimation should return the correct amount of frame</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Sprite :: me.Sprite isCurrentAnimation allows to verify which animation is set</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Sprite :: me.Sprite bounds should be updated when the sprite is scaled</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Sprite :: me.Sprite bounds should be updated when the anchor is changed</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Sprite :: me.Sprite onComplete of setCurrentAnimation shall be called when sprite array of addAnimation is &gt; 0</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>utils :: TMX Parsing :: correctly decodes single-line csv</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>utils :: TMX Parsing :: only processes numbers</td>
+  </tr>
+  <tr class="active">
+    <td class="expand"/>
+    <td class="status">Skipped</td>
+    <td>utils :: TMX Parsing :: correctly decodes multiple-line csv</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>utils :: String :: trim left side</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>utils :: String :: trim right side</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Vector2d :: should be initialized to a (0, 0) 2d vector</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Vector2d :: a(1, 2) should be copied into b</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Vector2d :: set (1, 2) into a defined vector</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Vector2d :: add (1, 2) to (-1, -2)</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Vector2d :: sub (1, 2) to (-1, -2)</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Vector2d :: scale (1, 2) by (-1, -2)</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Vector2d :: negate (1, 2)</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Vector2d :: dotProduct (1, 2) and (-1, -2)</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Vector2d :: length/lengthSqrt functions</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Vector2d :: lerp functions</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Vector2d :: normalize function</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Vector2d :: distance function</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Vector2d :: min/max/clamp</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Vector2d :: ceil/floor</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Vector2d :: project a on b</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Vector2d :: angle between a and b</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Vector2d :: perp and rotate function</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Vector2d :: convert vector to iso coordinates</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Vector3d :: should be initialized to a (0, 0, 0) 3d vector</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Vector3d :: a(1, 2, 3) should be copied into b</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Vector3d :: set (1, 2, 3) into a defined vector</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Vector3d :: add (1, 2, 3) to (-1, -2, -3)</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Vector3d :: sub (1, 2, 3) to (-1, -2, -3)</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Vector3d :: scale (1, 2, 3) by (-1, -2, -3)</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Vector3d :: negate (1, 2, 3)</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Vector3d :: dotProduct (1, 2, 3) and (-1, -2, -3)</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Vector3d :: length/lengthSqrt functions</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Vector3d :: lerp functions</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Vector3d :: normalize function</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Vector3d :: distance function</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Vector3d :: min/max/clamp</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Vector3d :: ceil/floor</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Vector3d :: project a on b</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Vector3d :: angle between a and b</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Vector3d :: perp and rotate function</td>
+  </tr>
+  <tr class="success">
+    <td class="expand"/>
+    <td class="status">Passed</td>
+    <td>me.Vector3d :: convert vector to iso coordinates</td>
+  </tr>
+</table>
+
+                        </div>
+                    </div> 
+                </div>       
+            </div>
+        </div>
+    </div>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  </body>
+  </html>

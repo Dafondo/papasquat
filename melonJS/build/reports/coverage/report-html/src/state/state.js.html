@@ -1,0 +1,1841 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/state/state.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">all files</a> / <a href="index.html">src/state/</a> state.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">60.47% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>78/129</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">24.14% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>14/58</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">56.52% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>13/23</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">60.47% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>78/129</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line medium'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430
+431
+432
+433
+434
+435
+436
+437
+438
+439
+440
+441
+442
+443
+444
+445
+446
+447
+448
+449
+450
+451
+452
+453
+454
+455
+456
+457
+458
+459
+460
+461
+462
+463
+464
+465
+466
+467
+468
+469
+470
+471
+472
+473
+474
+475
+476
+477
+478
+479
+480
+481
+482
+483
+484
+485
+486
+487
+488
+489
+490
+491
+492
+493
+494
+495
+496
+497
+498
+499
+500
+501
+502
+503
+504
+505
+506
+507
+508
+509
+510
+511
+512
+513
+514
+515
+516
+517
+518
+519
+520
+521
+522
+523
+524
+525
+526
+527
+528
+529
+530
+531
+532
+533
+534
+535
+536
+537
+538
+539
+540
+541
+542
+543
+544
+545
+546
+547
+548
+549
+550
+551
+552
+553
+554
+555
+556
+557
+558
+559
+560
+561
+562
+563
+564
+565
+566
+567
+568
+569
+570
+571
+572
+573
+574
+575
+576
+577
+578
+579
+580
+581
+582
+583
+584
+585
+586
+587
+588
+589
+590
+591
+592
+593</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">135×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">135×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">135×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">135×</span>
+<span class="cline-any cline-yes">135×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">135×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/*
+ * MelonJS Game Engine
+ * Copyright (C) 2011 - 2018 Olivier Biot
+ * http://www.melonjs.org
+ *
+ * Screens objects &amp; State machine
+ *
+ */
+&nbsp;
+(function () {
+&nbsp;
+    /**
+     * a State Manager (state machine)&lt;p&gt;
+     * There is no constructor function for me.state.
+     * @namespace me.state
+     * @memberOf me
+     */
+    me.state = (function () {
+        // hold public stuff in our singleton
+        var api = {};
+&nbsp;
+        /*-------------------------------------------
+            PRIVATE STUFF
+         --------------------------------------------*/
+&nbsp;
+        // current state
+        var _state = -1;
+&nbsp;
+        // requestAnimeFrame Id
+        var _animFrameId = -1;
+&nbsp;
+        // whether the game state is "paused"
+        var _isPaused = false;
+&nbsp;
+        // list of stages
+        var _stages = {};
+&nbsp;
+        // fading transition parameters between screen
+        var _fade = {
+            color : "",
+            duration : 0
+        };
+&nbsp;
+        // callback when state switch is done
+        /** @ignore */
+        var _onSwitchComplete = null;
+&nbsp;
+        // just to keep track of possible extra arguments
+        var _extraArgs = null;
+&nbsp;
+        // store the elapsed time during pause/stop period
+        var _pauseTime = 0;
+&nbsp;
+        /**
+         * @ignore
+         */
+        function _startRunLoop() {
+            // ensure nothing is running first and in valid state
+            <span class="missing-if-branch" title="else path not taken" >E</span>if ((_animFrameId === -1) &amp;&amp; (_state !== -1)) {
+                // reset the timer
+                me.timer.reset();
+&nbsp;
+                // start the main loop
+                _animFrameId = window.requestAnimationFrame(_renderFrame);
+            }
+        }
+&nbsp;
+        /**
+         * Resume the game loop after a pause.
+         * @ignore
+         */
+<span class="fstat-no" title="function not covered" >        function _resumeRunLoop() {</span>
+            // ensure game is actually paused and in valid state
+<span class="cstat-no" title="statement not covered" >            if (_isPaused &amp;&amp; (_state !== -1)) {</span>
+                // reset the timer
+<span class="cstat-no" title="statement not covered" >                me.timer.reset();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                _isPaused = false;</span>
+            }
+        }
+&nbsp;
+        /**
+         * Pause the loop for most screen objects.
+         * @ignore
+         */
+<span class="fstat-no" title="function not covered" >        function _pauseRunLoop() {</span>
+            // Set the paused boolean to stop updates on (most) entities
+<span class="cstat-no" title="statement not covered" >            _isPaused = true;</span>
+        }
+&nbsp;
+        /**
+         * this is only called when using requestAnimFrame stuff
+         * @param {Number} time current timestamp in milliseconds
+         * @ignore
+         */
+        function _renderFrame(time) {
+            var stage = _stages[_state].stage;
+            // update all game objects
+            me.game.update(time, stage);
+            // render all game objects
+            me.game.draw(stage);
+            // schedule the next frame update
+            <span class="missing-if-branch" title="else path not taken" >E</span>if (_animFrameId !== -1) {
+                _animFrameId = window.requestAnimationFrame(_renderFrame);
+            }
+        }
+&nbsp;
+        /**
+         * stop the SO main loop
+         * @ignore
+         */
+        function _stopRunLoop() {
+            // cancel any previous animationRequestFrame
+            window.cancelAnimationFrame(_animFrameId);
+            _animFrameId = -1;
+        }
+&nbsp;
+        /**
+         * start the SO main loop
+         * @ignore
+         */
+        function _switchState(state) {
+            // clear previous interval if any
+            _stopRunLoop();
+&nbsp;
+            // call the stage destroy method
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (_stages[_state]) {
+                // just notify the object
+<span class="cstat-no" title="statement not covered" >                _stages[_state].stage.destroy();</span>
+            }
+&nbsp;
+            <span class="missing-if-branch" title="else path not taken" >E</span>if (_stages[state]) {
+                // set the global variable
+                _state = state;
+&nbsp;
+                // call the reset function with _extraArgs as arguments
+                _stages[_state].stage.reset.apply(_stages[_state].stage, _extraArgs);
+&nbsp;
+                // and start the main loop of the
+                // new requested state
+                _startRunLoop();
+&nbsp;
+                // execute callback if defined
+                <span class="missing-if-branch" title="if path not taken" >I</span>if (_onSwitchComplete) {
+<span class="cstat-no" title="statement not covered" >                    _onSwitchComplete();</span>
+                }
+&nbsp;
+                // force repaint
+                me.game.repaint();
+            }
+        }
+&nbsp;
+        /*
+         * PUBLIC STUFF
+         */
+&nbsp;
+        /**
+         * default state ID for Loading Screen
+         * @constant
+         * @name LOADING
+         * @memberOf me.state
+         */
+        api.LOADING = 0;
+&nbsp;
+        /**
+         * default state ID for Menu Screen
+         * @constant
+         * @name MENU
+         * @memberOf me.state
+         */
+&nbsp;
+        api.MENU = 1;
+        /**
+         * default state ID for "Ready" Screen
+         * @constant
+         * @name READY
+         * @memberOf me.state
+         */
+&nbsp;
+        api.READY = 2;
+        /**
+         * default state ID for Play Screen
+         * @constant
+         * @name PLAY
+         * @memberOf me.state
+         */
+&nbsp;
+        api.PLAY = 3;
+        /**
+         * default state ID for Game Over Screen
+         * @constant
+         * @name GAMEOVER
+         * @memberOf me.state
+         */
+&nbsp;
+        api.GAMEOVER = 4;
+        /**
+         * default state ID for Game End Screen
+         * @constant
+         * @name GAME_END
+         * @memberOf me.state
+         */
+&nbsp;
+        api.GAME_END = 5;
+        /**
+         * default state ID for High Score Screen
+         * @constant
+         * @name SCORE
+         * @memberOf me.state
+         */
+&nbsp;
+        api.SCORE = 6;
+        /**
+         * default state ID for Credits Screen
+         * @constant
+         * @name CREDITS
+         * @memberOf me.state
+         */
+&nbsp;
+        api.CREDITS = 7;
+        /**
+         * default state ID for Settings Screen
+         * @constant
+         * @name SETTINGS
+         * @memberOf me.state
+         */
+        api.SETTINGS = 8;
+&nbsp;
+        /**
+         * default state ID for user defined constants&lt;br&gt;
+         * @constant
+         * @name USER
+         * @memberOf me.state
+         * @example
+         * var STATE_INFO = me.state.USER + 0;
+         * var STATE_WARN = me.state.USER + 1;
+         * var STATE_ERROR = me.state.USER + 2;
+         * var STATE_CUTSCENE = me.state.USER + 3;
+         */
+        api.USER = 100;
+&nbsp;
+        /**
+         * onPause callback
+         * @function
+         * @name onPause
+         * @memberOf me.state
+         */
+        api.onPause = null;
+&nbsp;
+        /**
+         * onResume callback
+         * @function
+         * @name onResume
+         * @memberOf me.state
+         */
+        api.onResume = null;
+&nbsp;
+        /**
+         * onStop callback
+         * @function
+         * @name onStop
+         * @memberOf me.state
+         */
+        api.onStop = null;
+&nbsp;
+        /**
+         * onRestart callback
+         * @function
+         * @name onRestart
+         * @memberOf me.state
+         */
+        api.onRestart = null;
+&nbsp;
+        /**
+         * @ignore
+         */
+        api.init = function () {
+            // set the embedded loading screen
+            api.set(api.LOADING, new me.DefaultLoadingScreen());
+        };
+&nbsp;
+        /**
+         * Stop the current screen object.
+         * @name stop
+         * @memberOf me.state
+         * @public
+         * @function
+         * @param {Boolean} pauseTrack pause current track on screen stop.
+         */
+        api.stop = <span class="fstat-no" title="function not covered" >function (music) {</span>
+            // only stop when we are not loading stuff
+<span class="cstat-no" title="statement not covered" >            if ((_state !== api.LOADING) &amp;&amp; api.isRunning()) {</span>
+                // stop the main loop
+<span class="cstat-no" title="statement not covered" >                _stopRunLoop();</span>
+                // current music stop
+<span class="cstat-no" title="statement not covered" >                if (music === true) {</span>
+<span class="cstat-no" title="statement not covered" >                    me.audio.pauseTrack();</span>
+                }
+&nbsp;
+                // store time when stopped
+<span class="cstat-no" title="statement not covered" >                _pauseTime = window.performance.now();</span>
+&nbsp;
+                // publish the stop notification
+<span class="cstat-no" title="statement not covered" >                me.event.publish(me.event.STATE_STOP);</span>
+                // any callback defined ?
+<span class="cstat-no" title="statement not covered" >                if (typeof(api.onStop) === "function") {</span>
+<span class="cstat-no" title="statement not covered" >                    api.onStop();</span>
+                }
+            }
+        };
+&nbsp;
+        /**
+         * pause the current screen object
+         * @name pause
+         * @memberOf me.state
+         * @public
+         * @function
+         * @param {Boolean} pauseTrack pause current track on screen pause
+         */
+        api.pause = <span class="fstat-no" title="function not covered" >function (music) {</span>
+            // only pause when we are not loading stuff
+<span class="cstat-no" title="statement not covered" >            if ((_state !== api.LOADING) &amp;&amp; !api.isPaused()) {</span>
+                // stop the main loop
+<span class="cstat-no" title="statement not covered" >                _pauseRunLoop();</span>
+                // current music stop
+<span class="cstat-no" title="statement not covered" >                if (music === true) {</span>
+<span class="cstat-no" title="statement not covered" >                    me.audio.pauseTrack();</span>
+                }
+&nbsp;
+                // store time when paused
+<span class="cstat-no" title="statement not covered" >                _pauseTime = window.performance.now();</span>
+&nbsp;
+                // publish the pause event
+<span class="cstat-no" title="statement not covered" >                me.event.publish(me.event.STATE_PAUSE);</span>
+                // any callback defined ?
+<span class="cstat-no" title="statement not covered" >                if (typeof(api.onPause) === "function") {</span>
+<span class="cstat-no" title="statement not covered" >                    api.onPause();</span>
+                }
+            }
+        };
+&nbsp;
+        /**
+         * Restart the screen object from a full stop.
+         * @name restart
+         * @memberOf me.state
+         * @public
+         * @function
+         * @param {Boolean} resumeTrack resume current track on screen resume
+         */
+        api.restart = <span class="fstat-no" title="function not covered" >function (music) {</span>
+<span class="cstat-no" title="statement not covered" >            if (!api.isRunning()) {</span>
+                // restart the main loop
+<span class="cstat-no" title="statement not covered" >                _startRunLoop();</span>
+                // current music stop
+<span class="cstat-no" title="statement not covered" >                if (music === true) {</span>
+<span class="cstat-no" title="statement not covered" >                    me.audio.resumeTrack();</span>
+                }
+&nbsp;
+                // calculate the elpased time
+<span class="cstat-no" title="statement not covered" >                _pauseTime = window.performance.now() - _pauseTime;</span>
+&nbsp;
+                // force repaint
+<span class="cstat-no" title="statement not covered" >                me.game.repaint();</span>
+&nbsp;
+                // publish the restart notification
+<span class="cstat-no" title="statement not covered" >                me.event.publish(me.event.STATE_RESTART, [ _pauseTime ]);</span>
+                // any callback defined ?
+<span class="cstat-no" title="statement not covered" >                if (typeof(api.onRestart) === "function") {</span>
+<span class="cstat-no" title="statement not covered" >                    api.onRestart();</span>
+                }
+            }
+        };
+&nbsp;
+        /**
+         * resume the screen object
+         * @name resume
+         * @memberOf me.state
+         * @public
+         * @function
+         * @param {Boolean} resumeTrack resume current track on screen resume
+         */
+        api.resume = function (music) {
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (api.isPaused()) {
+                // resume the main loop
+<span class="cstat-no" title="statement not covered" >                _resumeRunLoop();</span>
+                // current music stop
+<span class="cstat-no" title="statement not covered" >                if (music === true) {</span>
+<span class="cstat-no" title="statement not covered" >                    me.audio.resumeTrack();</span>
+                }
+&nbsp;
+                // calculate the elpased time
+<span class="cstat-no" title="statement not covered" >                _pauseTime = window.performance.now() - _pauseTime;</span>
+&nbsp;
+                // publish the resume event
+<span class="cstat-no" title="statement not covered" >                me.event.publish(me.event.STATE_RESUME, [ _pauseTime ]);</span>
+                // any callback defined ?
+<span class="cstat-no" title="statement not covered" >                if (typeof(api.onResume) === "function") {</span>
+<span class="cstat-no" title="statement not covered" >                    api.onResume();</span>
+                }
+            }
+        };
+&nbsp;
+        /**
+         * return the running state of the state manager
+         * @name isRunning
+         * @memberOf me.state
+         * @public
+         * @function
+         * @return {Boolean} true if a "process is running"
+         */
+        api.isRunning = <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            return _animFrameId !== -1;</span>
+        };
+&nbsp;
+        /**
+         * Return the pause state of the state manager
+         * @name isPaused
+         * @memberOf me.state
+         * @public
+         * @function
+         * @return {Boolean} true if the game is paused
+         */
+        api.isPaused = function () {
+            return _isPaused;
+        };
+&nbsp;
+        /**
+         * associate the specified state with a Stage
+         * @name set
+         * @memberOf me.state
+         * @public
+         * @function
+         * @param {Number} state State ID (see constants)
+         * @param {me.Stage} stage Instantiated Stage to associate
+         * with state ID
+         * @example
+         * var MenuButton = me.GUI_Object.extend({
+         *     "onClick" : function () {
+         *         // Change to the PLAY state when the button is clicked
+         *         me.state.change(me.state.PLAY);
+         *         return true;
+         *     }
+         * });
+         *
+         * var MenuScreen = me.Stage.extend({
+         *     onResetEvent: function() {
+         *         // Load background image
+         *         me.game.world.addChild(
+         *             new me.ImageLayer(0, 0, {
+         *                 image : "bg",
+         *                 z: 0 // z-index
+         *             }
+         *         );
+         *
+         *         // Add a button
+         *         me.game.world.addChild(
+         *             new MenuButton(350, 200, { "image" : "start" }),
+         *             1 // z-index
+         *         );
+         *
+         *         // Play music
+         *         me.audio.playTrack("menu");
+         *     },
+         *
+         *     "onDestroyEvent" : function () {
+         *         // Stop music
+         *         me.audio.stopTrack();
+         *     }
+         * });
+         *
+         * me.state.set(me.state.MENU, new MenuScreen());
+         */
+        api.set = function (state, stage) {
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (!(stage instanceof me.Stage)) {
+<span class="cstat-no" title="statement not covered" >                throw new me.Error(stage + " is not an instance of me.Stage");</span>
+            }
+            _stages[state] = {};
+            _stages[state].stage = stage;
+            _stages[state].transition = true;
+        };
+&nbsp;
+        /**
+         * return a reference to the current screen object&lt;br&gt;
+         * useful to call a object specific method
+         * @name current
+         * @memberOf me.state
+         * @public
+         * @function
+         * @return {me.Stage}
+         */
+        api.current = function () {
+            return _stages[_state].stage;
+        };
+&nbsp;
+        /**
+         * specify a global transition effect
+         * @name transition
+         * @memberOf me.state
+         * @public
+         * @function
+         * @param {String} effect (only "fade" is supported for now)
+         * @param {me.Color|String} color a CSS color value
+         * @param {Number} [duration=1000] expressed in milliseconds
+         */
+        api.transition = <span class="fstat-no" title="function not covered" >function (effect, color, duration) {</span>
+<span class="cstat-no" title="statement not covered" >            if (effect === "fade") {</span>
+<span class="cstat-no" title="statement not covered" >                _fade.color = color;</span>
+<span class="cstat-no" title="statement not covered" >                _fade.duration = duration;</span>
+            }
+        };
+&nbsp;
+        /**
+         * enable/disable transition for a specific state (by default enabled for all)
+         * @name setTransition
+         * @memberOf me.state
+         * @public
+         * @function
+         * @param {Number} state State ID (see constants)
+         * @param {Boolean} enable
+         */
+        api.setTransition = <span class="fstat-no" title="function not covered" >function (state, enable) {</span>
+<span class="cstat-no" title="statement not covered" >            _stages[state].transition = enable;</span>
+        };
+&nbsp;
+        /**
+         * change the game/app state
+         * @name change
+         * @memberOf me.state
+         * @public
+         * @function
+         * @param {Number} state State ID (see constants)
+         * @param {} [arguments...] extra arguments to be passed to the reset functions
+         * @example
+         * // The onResetEvent method on the play screen will receive two args:
+         * // "level_1" and the number 3
+         * me.state.change(me.state.PLAY, "level_1", 3);
+         */
+        api.change = function (state) {
+            // Protect against undefined Stage
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (typeof(_stages[state]) === "undefined") {
+<span class="cstat-no" title="statement not covered" >                throw new me.Error("Undefined Stage for state '" + state + "'");</span>
+            }
+&nbsp;
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (api.isCurrent(state)) {
+                // do nothing if already the current state
+<span class="cstat-no" title="statement not covered" >                return;</span>
+            }
+&nbsp;
+            _extraArgs = null;
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (arguments.length &gt; 1) {
+                // store extra arguments if any
+<span class="cstat-no" title="statement not covered" >                _extraArgs = Array.prototype.slice.call(arguments, 1);</span>
+            }
+            // if fading effect
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (_fade.duration &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >_stages[state].transition)</span> {
+                /** @ignore */
+<span class="cstat-no" title="statement not covered" >                _onSwitchComplete = <span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >                    me.game.viewport.fadeOut(_fade.color, _fade.duration);</span>
+                };
+<span class="cstat-no" title="statement not covered" >                me.game.viewport.fadeIn(</span>
+                    _fade.color,
+                    _fade.duration,
+<span class="fstat-no" title="function not covered" >                    function () {</span>
+<span class="cstat-no" title="statement not covered" >                        me.utils.function.defer(_switchState, this, state);</span>
+                    }
+                );
+&nbsp;
+            }
+            // else just switch without any effects
+            else {
+                // wait for the last frame to be
+                // "finished" before switching
+                me.utils.function.defer(_switchState, this, state);
+            }
+        };
+&nbsp;
+        /**
+         * return true if the specified state is the current one
+         * @name isCurrent
+         * @memberOf me.state
+         * @public
+         * @function
+         * @param {Number} state State ID (see constants)
+         */
+        api.isCurrent = function (state) {
+            return _state === state;
+        };
+&nbsp;
+        // return our object
+        return api;
+    })();
+})();
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sat Jan 26 2019 12:46:17 GMT-0500 (Eastern Standard Time)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

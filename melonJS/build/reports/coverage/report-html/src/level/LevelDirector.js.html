@@ -1,0 +1,1091 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/level/LevelDirector.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">all files</a> / <a href="index.html">src/level/</a> LevelDirector.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">27.27% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>21/77</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/26</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">20% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>3/15</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">27.27% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>21/77</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/*
+ * MelonJS Game Engine
+ * Copyright (C) 2011 - 2018 Olivier Biot
+ * http://www.melonjs.org
+ *
+ */
+(function () {
+    /**
+     * a level manager object &lt;br&gt;
+     * once ressources loaded, the level director contains all references of defined levels&lt;br&gt;
+     * There is no constructor function for me.levelDirector, this is a static object
+     * @namespace me.levelDirector
+     * @memberOf me
+     */
+    me.levelDirector = (function () {
+        // hold public stuff in our singletong
+        var api = {};
+&nbsp;
+        /*
+         * PRIVATE STUFF
+         */
+&nbsp;
+        // our levels
+        var levels = {};
+        // level index table
+        var levelIdx = [];
+        // current level index
+        var currentLevelIdx = 0;
+        // onresize handler
+        var onresize_handler = null;
+&nbsp;
+<span class="fstat-no" title="function not covered" >        function safeLoadLevel(levelId, options, restart) {</span>
+            // clean the destination container
+<span class="cstat-no" title="statement not covered" >            options.container.reset();</span>
+&nbsp;
+            // reset the renderer
+<span class="cstat-no" title="statement not covered" >            me.game.reset();</span>
+&nbsp;
+            // clean the current (previous) level
+<span class="cstat-no" title="statement not covered" >            if (levels[api.getCurrentLevelId()]) {</span>
+<span class="cstat-no" title="statement not covered" >                levels[api.getCurrentLevelId()].destroy();</span>
+            }
+&nbsp;
+            // update current level index
+<span class="cstat-no" title="statement not covered" >            currentLevelIdx = levelIdx.indexOf(levelId);</span>
+&nbsp;
+            // add the specified level to the game world
+<span class="cstat-no" title="statement not covered" >            loadTMXLevel(levelId, options.container, options.flatten, options.setViewportBounds);</span>
+&nbsp;
+            // publish the corresponding message
+<span class="cstat-no" title="statement not covered" >            me.event.publish(me.event.LEVEL_LOADED, [ levelId ]);</span>
+&nbsp;
+            // fire the callback
+<span class="cstat-no" title="statement not covered" >            options.onLoaded(levelId);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            if (restart) {</span>
+                // resume the game loop if it was previously running
+<span class="cstat-no" title="statement not covered" >                me.state.restart();</span>
+            }
+        }
+&nbsp;
+        /**
+         * Load a TMX level
+         * @name loadTMXLevel
+         * @memberOf me.game
+         * @private
+         * @param {String} level level id
+         * @param {me.Container} target container
+         * @param {boolean} flatten if true, flatten all objects into the given container
+         * @param {boolean} setViewportBounds if true, set the viewport bounds to the map size
+         * @ignore
+         * @function
+         */
+<span class="fstat-no" title="function not covered" >        function loadTMXLevel(levelId, container, flatten, setViewportBounds) {</span>
+<span class="cstat-no" title="statement not covered" >            var level = levels[levelId];</span>
+&nbsp;
+            // disable auto-sort for the given container
+<span class="cstat-no" title="statement not covered" >            var autoSort = container.autoSort;</span>
+<span class="cstat-no" title="statement not covered" >            container.autoSort = false;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            if (setViewportBounds) {</span>
+                // update the viewport bounds
+<span class="cstat-no" title="statement not covered" >                me.game.viewport.setBounds(</span>
+                    0, 0,
+                    Math.max(level.width, me.game.viewport.width),
+                    Math.max(level.height, me.game.viewport.height)
+                );
+            }
+&nbsp;
+            // reset the GUID generator
+            // and pass the level id as parameter
+<span class="cstat-no" title="statement not covered" >            me.utils.resetGUID(levelId, level.nextobjectid);</span>
+&nbsp;
+            // Tiled use 0,0 anchor coordinates
+<span class="cstat-no" title="statement not covered" >            container.anchorPoint.set(0, 0);</span>
+&nbsp;
+            // add all level elements to the target container
+<span class="cstat-no" title="statement not covered" >            level.addTo(container, flatten);</span>
+&nbsp;
+            // sort everything (recursively)
+<span class="cstat-no" title="statement not covered" >            container.sort(true);</span>
+<span class="cstat-no" title="statement not covered" >            container.autoSort = autoSort;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            container.resize(level.width, level.height);</span>
+&nbsp;
+<span class="fstat-no" title="function not covered" >            function resize_container() {</span>
+                // center the map if smaller than the current viewport
+<span class="cstat-no" title="statement not covered" >                container.pos.set(</span>
+                    Math.max(0, ~~((me.game.viewport.width - level.width) / 2)),
+                    Math.max(0, ~~((me.game.viewport.height - level.height) / 2)),
+                    0
+                );
+            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            if (setViewportBounds) {</span>
+<span class="cstat-no" title="statement not covered" >                resize_container();</span>
+&nbsp;
+                // Replace the resize handler
+<span class="cstat-no" title="statement not covered" >                if (onresize_handler) {</span>
+<span class="cstat-no" title="statement not covered" >                    me.event.unsubscribe(onresize_handler);</span>
+                }
+<span class="cstat-no" title="statement not covered" >                onresize_handler = me.event.subscribe(me.event.VIEWPORT_ONRESIZE, resize_container);</span>
+            }
+        }
+&nbsp;
+        /*
+         * PUBLIC STUFF
+         */
+&nbsp;
+        /**
+         * reset the level director
+         * @ignore
+         */
+        api.reset = function () {};
+&nbsp;
+        /**
+         * add a level
+         * @ignore
+         */
+        api.addLevel = <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            throw new me.Error("no level loader defined");</span>
+        };
+&nbsp;
+        /**
+         * add a TMX level
+         * @ignore
+         */
+        api.addTMXLevel = <span class="fstat-no" title="function not covered" >function (levelId, callback) {</span>
+            // just load the level with the XML stuff
+<span class="cstat-no" title="statement not covered" >            if (levels[levelId] == null) {</span>
+                //console.log("loading "+ levelId);
+<span class="cstat-no" title="statement not covered" >                levels[levelId] = new me.TMXTileMap(levelId, me.loader.getTMX(levelId));</span>
+                // level index
+<span class="cstat-no" title="statement not covered" >                levelIdx.push(levelId);</span>
+            }
+            else  {
+                //console.log("level %s already loaded", levelId);
+<span class="cstat-no" title="statement not covered" >                return false;</span>
+            }
+&nbsp;
+            // call the callback if defined
+<span class="cstat-no" title="statement not covered" >            if (callback) {</span>
+<span class="cstat-no" title="statement not covered" >                callback();</span>
+            }
+            // true if level loaded
+<span class="cstat-no" title="statement not covered" >            return true;</span>
+        };
+&nbsp;
+        /**
+         * load a level into the game manager&lt;br&gt;
+         * (will also create all level defined entities, etc..)
+         * @name loadLevel
+         * @memberOf me.levelDirector
+         * @public
+         * @function
+         * @param {String} level level id
+         * @param {Object} [options] additional optional parameters
+         * @param {me.Container} [options.container=me.game.world] container in which to load the specified level
+         * @param {function} [options.onLoaded=me.game.onLevelLoaded] callback for when the level is fully loaded
+         * @param {boolean} [options.flatten=me.game.mergeGroup] if true, flatten all objects into the given container
+         * @param {boolean} [options.setViewportBounds=true] if true, set the viewport bounds to the map size
+         * @example
+         * // the game assets to be be preloaded
+         * // TMX maps
+         * var resources = [
+         *     {name: "a4_level1",   type: "tmx",   src: "data/level/a4_level1.tmx"},
+         *     {name: "a4_level2",   type: "tmx",   src: "data/level/a4_level2.tmx"},
+         *     {name: "a4_level3",   type: "tmx",   src: "data/level/a4_level3.tmx"},
+         *     // ...
+         * ];
+         *
+         * // ...
+         *
+         * // load a level into the game world
+         * me.levelDirector.loadLevel("a4_level1");
+         * ...
+         * ...
+         * // load a level into a specific container
+         * var levelContainer = new me.Container();
+         * me.levelDirector.loadLevel("a4_level2", {container:levelContainer});
+         * // add a simple transformation
+         * levelContainer.currentTransform.translate(levelContainer.width / 2, levelContainer.height / 2 );
+         * levelContainer.currentTransform.rotate(0.05);
+         * levelContainer.currentTransform.translate(-levelContainer.width / 2, -levelContainer.height / 2 );
+         * // add it to the game world
+         * me.game.world.addChild(levelContainer);
+         */
+        api.loadLevel = <span class="fstat-no" title="function not covered" >function (levelId, options) {</span>
+<span class="cstat-no" title="statement not covered" >            options = Object.assign({</span>
+                "container"         : me.game.world,
+                "onLoaded"          : me.game.onLevelLoaded,
+                "flatten"           : me.game.mergeGroup,
+                "setViewportBounds" : true
+            }, options || {});
+&nbsp;
+            // throw an exception if not existing
+<span class="cstat-no" title="statement not covered" >            if (typeof(levels[levelId]) === "undefined") {</span>
+<span class="cstat-no" title="statement not covered" >                throw new me.Error("level " + levelId + " not found");</span>
+            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            if (levels[levelId] instanceof me.TMXTileMap) {</span>
+&nbsp;
+                // check the status of the state mngr
+<span class="cstat-no" title="statement not covered" >                var wasRunning = me.state.isRunning();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                if (wasRunning) {</span>
+                    // stop the game loop to avoid
+                    // some silly side effects
+<span class="cstat-no" title="statement not covered" >                    me.state.stop();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                    me.utils.function.defer(safeLoadLevel, this, levelId, options, true);</span>
+                }
+                else {
+<span class="cstat-no" title="statement not covered" >                    safeLoadLevel(levelId, options);</span>
+                }
+            }
+            else {
+<span class="cstat-no" title="statement not covered" >                throw new me.Error("no level loader defined");</span>
+            }
+<span class="cstat-no" title="statement not covered" >            return true;</span>
+        };
+&nbsp;
+        /**
+         * return the current level id&lt;br&gt;
+         * @name getCurrentLevelId
+         * @memberOf me.levelDirector
+         * @public
+         * @function
+         * @return {String}
+         */
+        api.getCurrentLevelId = <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            return levelIdx[currentLevelIdx];</span>
+        };
+&nbsp;
+        /**
+         * return the current level definition.
+         * for a reference to the live instantiated level,
+         * rather use the container in which it was loaded (e.g. me.game.world)
+         * @name getCurrentLevel
+         * @memberOf me.levelDirector
+         * @public
+         * @function
+         * @return {me.TMXTileMap}
+         */
+        api.getCurrentLevel = <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            return levels[api.getCurrentLevelId()];</span>
+        };
+&nbsp;
+        /**
+         * reload the current level&lt;br&gt;
+         * @name reloadLevel
+         * @memberOf me.levelDirector
+         * @public
+         * @function
+         * @param {Object} [options] additional optional parameters
+         * @param {me.Container} [options.container=me.game.world] container in which to load the specified level
+         * @param {function} [options.onLoaded=me.game.onLevelLoaded] callback for when the level is fully loaded
+         * @param {boolean} [options.flatten=me.game.mergeGroup] if true, flatten all objects into the given container
+         */
+        api.reloadLevel = <span class="fstat-no" title="function not covered" >function (options) {</span>
+            // reset the level to initial state
+            //levels[currentLevel].reset();
+<span class="cstat-no" title="statement not covered" >            return api.loadLevel(api.getCurrentLevelId(), options);</span>
+        };
+&nbsp;
+        /**
+         * load the next level&lt;br&gt;
+         * @name nextLevel
+         * @memberOf me.levelDirector
+         * @public
+         * @function
+         * @param {Object} [options] additional optional parameters
+         * @param {me.Container} [options.container=me.game.world] container in which to load the specified level
+         * @param {function} [options.onLoaded=me.game.onLevelLoaded] callback for when the level is fully loaded
+         * @param {boolean} [options.flatten=me.game.mergeGroup] if true, flatten all objects into the given container
+         */
+        api.nextLevel = <span class="fstat-no" title="function not covered" >function (options) {</span>
+            //go to the next level
+<span class="cstat-no" title="statement not covered" >            if (currentLevelIdx + 1 &lt; levelIdx.length) {</span>
+<span class="cstat-no" title="statement not covered" >                return api.loadLevel(levelIdx[currentLevelIdx + 1], options);</span>
+            }
+            else {
+<span class="cstat-no" title="statement not covered" >                return false;</span>
+            }
+        };
+&nbsp;
+        /**
+         * load the previous level&lt;br&gt;
+         * @name previousLevel
+         * @memberOf me.levelDirector
+         * @public
+         * @function
+         * @param {Object} [options] additional optional parameters
+         * @param {me.Container} [options.container=me.game.world] container in which to load the specified level
+         * @param {function} [options.onLoaded=me.game.onLevelLoaded] callback for when the level is fully loaded
+         * @param {boolean} [options.flatten=me.game.mergeGroup] if true, flatten all objects into the given container
+         */
+        api.previousLevel = <span class="fstat-no" title="function not covered" >function (options) {</span>
+            // go to previous level
+<span class="cstat-no" title="statement not covered" >            if (currentLevelIdx - 1 &gt;= 0) {</span>
+<span class="cstat-no" title="statement not covered" >                return api.loadLevel(levelIdx[currentLevelIdx - 1], options);</span>
+            }
+            else {
+<span class="cstat-no" title="statement not covered" >                return false;</span>
+            }
+        };
+&nbsp;
+        /**
+         * return the amount of level preloaded&lt;br&gt;
+         * @name levelCount
+         * @memberOf me.levelDirector
+         * @public
+         * @function
+         */
+        api.levelCount = <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            return levelIdx.length;</span>
+        };
+&nbsp;
+        // return our object
+        return api;
+    })();
+})();
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sat Jan 26 2019 12:46:17 GMT-0500 (Eastern Standard Time)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>
