@@ -43,9 +43,9 @@ game.EndScreen.Container = me.Container.extend({
         me.audio.stop("Panic Theme");
         me.audio.play("Lose",false, null, .5);
 
-        setTimeout(() => {me.audio.play("BREAKING NEWS", false, null, .5)}, 800);
+        setTimeout(() => {me.audio.play("BREAKING NEWS", false, null, .5)}, 1000);
         
-        setTimeout(function() {me.audio.play("Bitcrushed PSA", false, null, .8)}, 1500);
+        setTimeout(function() {me.audio.play("Bitcrushed PSA", false, null, .8)}, 1750);
         setTimeout(function() {hapeprere = "false"}, 3000);
     }   
   } 
