@@ -59,14 +59,15 @@ game.PlayerEntity = me.Entity.extend({
 
         if ( game.data.urine > 100 ){
             var puddle = me.pool.pull("puddle", this.pos.x, this.pos.y, {});
-           if(this.renderable.getOpacity() < 0.5){
+            if(this.renderable.getOpacity() < 0.5){
                 puddle = me.pool.pull("puddle", this.pos.x-24, this.pos.y+24, {});
-           }
+            }
 
-           me.audio.play("Piss");
-           game.data.messages.push("you peed on the floor");
-           me.game.world.addChild(puddle);
-           game.data.urine = 1;
+            me.audio.play("Piss", false, null, 0.5);
+            me.audio.play("Sigh 2", false, null, 1.0);
+            game.data.messages.push("you peed on the floor");
+            me.game.world.addChild(puddle);
+            game.data.urine = 1;
         }
 
         if (me.input.isKeyPressed("left")) {
