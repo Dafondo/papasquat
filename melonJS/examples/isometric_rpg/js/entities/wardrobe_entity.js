@@ -7,8 +7,8 @@
 game.WardrobeEntity = me.Entity.extend({
     init: function(x, y, settings) {
         // call the constructor
-        game.data.player = this
-        this._super(me.Entity, "init", [x, y , {width:48, height:32}]);
+        
+        this._super(me.Entity, "init", [x, y , {width:64, height:32}]);
         this.body.collisionType = game.collisionTypes.PLANT;
 
         
@@ -23,14 +23,14 @@ game.WardrobeEntity = me.Entity.extend({
         
         this.renderable.addAnimation ("static", [10]);
         this.renderable.addAnimation ("get in", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
-        this.renderable.addAnimation ("get out", [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]);
+        this.renderable.addAnimation ("get out", [7, 6, 5, 4, 3, 2, 1, 0]);
 
-        this.renderable.setCurrentAnimation([static]);
+        this.renderable.setCurrentAnimation(["static"]);
         
         this.state = "empty";
 
         // set the renderable position to bottom center
-        this.anchorPoint.set(0.5, -.7);
+        this.anchorPoint.set(0, -.7);
         
         me.input.registerPointerEvent("pointerdown", this, this.onMouseDown.bind(this));
     },
@@ -41,7 +41,7 @@ game.WardrobeEntity = me.Entity.extend({
 
     ------            */
     update : function (dt) {
-        
+        this._super(me.Entity, "update", [dt]);
         
     },
     
@@ -53,9 +53,11 @@ game.WardrobeEntity = me.Entity.extend({
             this.renderable.setCurrentAnimation("get in");
            
             me.audio.play("Cabinet Open", false, null, .5);
-            
-
-            game.data.food = 100;
+            var that = this
+            setTimeout(function() {
+                that.renderable.setCurrentAnimation("static");
+                that.state = "full"
+            }, 700);
 
            
             return false;
@@ -64,14 +66,18 @@ game.WardrobeEntity = me.Entity.extend({
         if (this.state === "full") {
             this.state = "empty";
             // set touch animation
-            this.renderable.setCurrentAnimation("empty");
+            this.renderable.setCurrentAnimation("get out");
             // make it flicker
             //this.renderable.flicker(75);
             
-            me.audio.play("Food Get", false, null, .5);
+            me.audio.play("Cabinet Close", false, null, .5);
+            var that = this
+            setTimeout(function() {
+                that.renderable.setCurrentAnimation("static");
+                that.state = "empty"
+            }, 700);
             
 
-            game.data.food = 100;
 
            
             return false;

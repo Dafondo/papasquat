@@ -7,6 +7,7 @@
 game.PlayerEntity = me.Entity.extend({
     init: function(x, y, settings) {
         // call the constructor
+        game.data.player = this
         this._super(me.Entity, "init", [x, y , settings]);
         this.body.collisionType = me.collision.types.PLAYER_OBJECT;
 
