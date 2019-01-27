@@ -5,6 +5,7 @@ game.GameStartScreen = me.ScreenObject.extend({
   onResetEvent : function () {
     this.StartScreen = new game.StartScreen.Container();
     me.game.world.addChild(this.StartScreen);
+    me.audio.play("Game Start");
 
     // change to play state on press Enter or click/tap
     me.input.bindKey(me.input.KEY.ENTER, "enter", true);
