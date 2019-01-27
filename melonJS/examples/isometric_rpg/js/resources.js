@@ -48,6 +48,9 @@ game.resources = [
 
     { name: "wardrobe-block", type:"image", src: "data/img/wardrobe-block.png"},
     { name: "wardrobe-block", type:"tsx", src: "data/map/wardrobe-block.tsx"},
+   
+    { name: "FRIDGE-02", type:"image", src: "data/img/FRIDGE-02.png"},
+    { name: "FRIDGE-02", type:"tsx", src: "data/map/FRIDGE-02.tsx"},
 
     { name: "BED-green-01", type:"image", src: "data/img/BED-green-01.png"},
     { name: "BED-green-01", type:"tsx", src: "data/map/BED-green-01.tsx"},
@@ -86,7 +89,6 @@ game.resources = [
     { name: "Cabinet Open", type: "audio", src: "data/sfx/" },
     { name: "BREAKING NEWS", type: "audio", src: "data/sfx/" },
     { name: "Food Get", type: "audio", src: "data/sfx/" },
-    { name: "Game Start", type: "audio", src: "data/sfx/"},
     /* Atlases
      * @example
      * { name: "example_tps", type: "json", src: "data/img/example_tps.json" },
