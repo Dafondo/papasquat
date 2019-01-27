@@ -5,19 +5,17 @@
 /*                                                                                  */
 /************************************************************************************/
 
-MOTION_CONSTANT = 2.5;
+MAMA_VEL = 2.5;
 
 game.MomEntity = me.Entity.extend({
     init: function(x, y, settings) {
-        // call the constructor
+        // call the constructornpx 
         this._super(me.Entity, "init", [x, y , settings]);
         this.body.collisionType = game.collisionTypes.MOM;
 
         // walking & jumping speed
-        // this.body.setVelocity(2.5, 2.5);
-        // this.body.setFriction(0.4,0.4);
         this.alwaysUpdate = true;
-        roombaLogic(this, 2.5);
+        roombaLogic(this, MAMA_VEL);
 
         // the main player spritesheet
         var texture =  new me.video.renderer.Texture(
@@ -40,17 +38,29 @@ game.MomEntity = me.Entity.extend({
 
     ------            */
     update : function (dt) {
-        // 
-        //this.body.vel.x += 12 * ( Math.random() - .5);
-        //this.body.vel.y += 12 * ( Math.random() - .5);
-
-        // console.log(this.body.vel.x);
-
         // apply physics to the body (this moves the entity)
         this.body.update(dt);
 
         // handle collisions against other shapes
         me.collision.check(this);
+
+        // Check if papasquat is in viewable range
+        papapos = new me.Vector2d(game.data.player.pos.x, game.data.player.pos.y);
+        mamapos = new me.Vector2d(this.centerX, this.centerY);
+        this.sightline = new me.Line(0, 0, [
+            mamapos,
+            papapos
+        ]);
+        result = [];
+        me.collision.rayCast(this.sightline, result);
+
+        // TODO:  add a detection range
+        if (result.length < 3 && game.data.player.renderable.getOpacity() > 0.5) {
+            // Get angle between mama and papa
+            dir = this.angleTo(game.data.player);
+            this.body.vel.x = MAMA_VEL * Math.cos(dir);
+            this.body.vel.y = MAMA_VEL * Math.sin(dir);
+        }
 
         // check if we moved (an "idle" animation would definitely be cleaner)
         if (this.body.vel.x !== 0 || this.body.vel.y !== 0) {
@@ -138,11 +148,11 @@ game.SusieEntity = me.Entity.extend({
              // which mean at top position for this one
              if (this.alive && (response.overlapV.y > 0) && response.a.body.falling) {
                  this.renderable.flicker(750);
-             } else {
-                 roombaLogic(this, 5);
              }
 
              return false;
+         } else {
+             roombaLogic(this, 5);
          }
          // Make all other objects solid
          return true;
@@ -216,7 +226,7 @@ game.SonEntity = me.Entity.extend({
 
 
 function roombaLogic(entityName, baseVel) {
-    initDir = Math.floor(Math.random() * 360);
+    initDir = Math.random() * Math.PI * 2;
     entityName.body.vel.x = baseVel * Math.cos(initDir);
     entityName.body.vel.y = baseVel * Math.sin(initDir);
 }
