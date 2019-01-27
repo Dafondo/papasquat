@@ -106,7 +106,7 @@ game.HUD.ScoreItem = me.Renderable.extend( {
         // this.pos.x, this.pos.y are the relative position from the screen right bottom
         this.font.draw (renderer, "FOOD: " + Math.round(game.data.food), me.game.viewport.width + this.pos.x, me.game.viewport.height + this.pos.y - 90);
         this.peeFont.draw (renderer, "URINE: " + Math.round(game.data.urine), me.game.viewport.width + this.pos.x, me.game.viewport.height + this.pos.y - 60);
-        this.susFont.draw (renderer, "SUS: " + Math.round(game.data.suspicion), me.game.viewport.width + this.pos.x, me.game.viewport.height + this.pos.y - 30);
+        this.susFont.draw (renderer, "SUSPICION: " + Math.round(game.data.suspicion), me.game.viewport.width + this.pos.x, me.game.viewport.height + this.pos.y - 30);
 
 
         //Notifications counter for immediate suspicion and urine counts
