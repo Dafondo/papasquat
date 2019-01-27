@@ -51,9 +51,9 @@ game.WardrobeEntity = me.Entity.extend({
             this.state = "transition";
             // set touch animation
             this.renderable.setCurrentAnimation("get in");
-            game.data.player.pos.x = this.pos.x - 24;
-            game.data.player.pos.y = this.pos.y + 24;
             game.data.player.renderable.setOpacity(0)
+            game.data.player.pos.x = this.pos.x
+            game.data.player.pos.y = this.pos.y
            
             me.audio.play("Cabinet Open", false, null, .5);
             var that = this

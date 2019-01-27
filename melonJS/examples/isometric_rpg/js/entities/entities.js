@@ -84,10 +84,12 @@ game.PlayerEntity = me.Entity.extend({
         }
 
         // apply physics to the body (this moves the entity)
-        this.body.update(dt);
+        if (this.renderable.getOpacity() > 0.5){
+            this.body.update(dt);
 
-        // handle collisions against other shapes
-        me.collision.check(this);
+            //handle collisions against other shapes
+            me.collision.check(this);
+        }
 
         // check if we moved (an "idle" animation would definitely be cleaner)
         if (this.body.vel.x !== 0 || this.body.vel.y !== 0) {
