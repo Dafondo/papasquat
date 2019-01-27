@@ -87,8 +87,9 @@ game.MomEntity = me.Entity.extend({
                     game.data.puddles.splice(i, 1);
 
                     // Momma is suspicious
-                    game.data.suspicion += 30;
-                    
+                    game.data.suspicion += 30
+                    game.data.messages.push("mom saw piss and is sus");
+
                     break;
                 } else if (obs.length < 3) {
                     dir = this.angleTo(puddle);
