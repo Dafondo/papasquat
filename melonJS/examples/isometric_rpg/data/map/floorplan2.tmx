@@ -38,8 +38,8 @@
   <object id="2132" name="wardrobe" type="actoasdfm" x="324" y="760" width="32" height="32"/>
   <object id="211" name="table" type="actoasdfm" x="1460" y="366.667" width="32" height="32"/>
   <object id="212" name="plant" type="actoasdfm" x="1648.67" y="1309" width="32" height="32"/>
-  <object id="212435" name="wardrobe" type="actoasdfm" x="1648.67" y="1409" width="32" height="32"/>
-  <object id="21232" name="desk" type="actoasdfm" x="1748.67" y="1309" width="32" height="32"/>
+  <object id="212435" name="wardrobe" type="actoasdfm" x="1648.67" y="1209" width="32" height="32"/>
+  <object id="21232" name="desk" type="actoasdfm" x="1648.67" y="709" width="32" height="32"/>
  </objectgroup>
  <layer id="24" name="level 3" width="60" height="49">
   <data encoding="base64">
