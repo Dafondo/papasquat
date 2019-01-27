@@ -32,7 +32,7 @@ game.StartScreen.Container = me.Container.extend({
     me.audio.stop("BREAKING NEWS");
     me.audio.stop("Bitcrushed PSA");
     me.audio.unmute("Bitcrushed Footstep");
-    me.audio.play("Game Start", false, null, 0.3);
+    me.audio.stop("Game Start");
     me.audio.play("Start Theme", true, null, 0.3);
 }})
 

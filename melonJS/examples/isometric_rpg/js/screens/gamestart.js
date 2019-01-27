@@ -12,8 +12,9 @@ game.GameStartScreen = me.ScreenObject.extend({
     this.handler = me.event.subscribe(me.event.KEYDOWN, function (action, keyCode, edge) {
       if (action === "enter") {
         // play something on tap / enter
+        me.audio.play("Game Start", false, null, 0.3);
         // this will unlock audio on mobile devices
-        me.state.change(me.state.PLAY);
+        setTimeout(me.state.change(me.state.PLAY), 800);
         
       }
     });
