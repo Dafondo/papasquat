@@ -29,7 +29,6 @@ game.StartScreen.Container = me.Container.extend({
     this.addChild(this.panelSprite)
     this.addChild(new game.StartScreen.PressEnter(-90, -10));
     // scale to match the container size
-
     me.audio.stop("BREAKING NEWS");
     me.audio.stop("Bitcrushed PSA");
     me.audio.play("Game Start", false, null, 0.3);
