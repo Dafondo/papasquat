@@ -1,5 +1,7 @@
 SHIT on the floor
 
+live at snoup.dog/papasquat
+
 
 Dev Instructions:
 ```
