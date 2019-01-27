@@ -103,12 +103,14 @@ game.MomEntity = me.Entity.extend({
             }
         } else {
             // move to bed
-            // this.pos.x = 
-            // this.pos.y = 
+            this.pos.x = 2575;
+            this.pos.y = 1055;
 
             // stop them moving
             this.body.vel.x = 0;
             this.body.vel.y = 0;
+
+            game.data.momsus = false;
         }
 
         // check if we moved (an "idle" animation would definitely be cleaner)
@@ -198,14 +200,12 @@ game.SusieEntity = me.Entity.extend({
                 
         } else {
             // What to do at night
-            // this.body.translate(
-            //     this.body.centerX - 1660,
-            //     this.body.centerY - 1175
-            // );
             this.pos.x = 1680;
             this.pos.y = 1200;
             this.body.vel.x = 0;
             this.body.vel.y = 0;
+
+            game.data.sussus = false;
         }
 
         // check if we moved (an "idle" animation would definitely be cleaner)
@@ -296,8 +296,13 @@ game.SonEntity = me.Entity.extend({
                 game.data.sonsus = false;
             }
         } else {
+            this.pos.x = 2184;
+            this.pos.y = 1340;
+
             this.body.vel.x = 0;
             this.body.vel.y = 0;
+
+            game.data.sonsus = false;
         }
 
         // check if we moved (an "idle" animation would definitely be cleaner)
