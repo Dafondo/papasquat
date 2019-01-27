@@ -49,6 +49,9 @@ game.resources = [
     { name: "wardrobe-block", type:"image", src: "data/img/wardrobe-block.png"},
     { name: "wardrobe-block", type:"tsx", src: "data/map/wardrobe-block.tsx"},
    
+    { name: "TABLE-empty-notiles-01", type:"image", src: "data/img/TABLE-empty-notiles-01.png"},
+    { name: "TABLE-empty-notiles-01", type:"tsx", src: "data/map/TABLE-empty-notiles-01.tsx"},
+
     { name: "Fridge-02", type:"image", src: "data/img/Fridge-02.png"},
     { name: "Fridge-02", type:"tsx", src: "data/map/Fridge-02.tsx"},
 
@@ -63,7 +66,6 @@ game.resources = [
 
     { name: "END-SCREEN", type:"image", src: "data/img/END-SCREEN-01.png"},
     {name: "START-SCREEN", type:"image", src: "data/img/Papa_Squat_start_screen.png"},
-    {name: "NEWS-BOX", type:"image", src: "data/img/text-box-opt2-01.png"},
 
     /* Maps.
      * @example
