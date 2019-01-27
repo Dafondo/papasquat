@@ -52,6 +52,30 @@ game.PlayerEntity = me.Entity.extend({
         game.data.urine += .03
         game.data.food -= .01
 
+        if (game.data.momsus) {
+            game.data.suspicion += 0.3;
+        }
+        if (game.data.sonsus) {
+            game.data.suspicion += 0.1;
+        }
+        if (game.data.sussus) {
+            game.data.suspicion += 0.1;
+        }
+        else if (!game.data.momsus && !game.data.sonsus && !game.data.sussus && game.data.suspicion >= 0.1) {
+            game.data.suspicion -= 0.1;
+        }
+
+        if (game.data.suspicion >= 30) {
+            me.audio.unmute("Panic Theme");
+            me.audio.mute("Gameplay Theme (Day)");
+            me.audio.mute("Gameplay Theme (Night)");
+        }
+        else {
+            me.audio.mute("Panic Theme");
+            me.audio.unmute("Gameplay Theme (Day)");
+            me.audio.unmute("Gameplay Theme (Night)");
+        }
+
         if (game.data.food < 0 || game.data.suspicion > 100){
             this.alive = false;
             me.state.change(me.state.GAMEOVER);

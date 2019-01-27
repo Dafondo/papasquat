@@ -18,6 +18,9 @@ game.PlayScreen = me.Stage.extend({
         game.data.urine = 0;
         game.data.food = 100;
         game.data.suspicion = 0;
+        game.data.momsus = false;
+        game.data.sonsus = false;
+        game.data.sussus = false;
         game.data.messages = ["", "", ""];
         game.data.night = false;
         game.data.days = 0;
@@ -40,6 +43,8 @@ game.PlayScreen = me.Stage.extend({
 
         me.audio.stop("Start Theme");
         me.audio.play("Gameplay Theme (Day)", true, null, 0.3);
+        me.audio.play("Panic Theme", true, null, 0.3);
+        me.audio.mute("Panic Theme", true);
 
         // display a basic tile selector
         me.game.world.addChild(new (me.Renderable.extend({
