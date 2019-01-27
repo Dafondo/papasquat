@@ -68,6 +68,36 @@ game.MomEntity = me.Entity.extend({
         } else if (game.data.momsus === true) {
             game.data.messages.push("mom no longer sees you");
             game.data.momsus = false;
+        } else {
+            // look and see if there any puddles if she can't see a vagrant in her house
+            for (i = 0; i < game.data.puddles.length; i++) {
+            // for (puddle of game.data.puddles) {
+                puddle = game.data.puddles[i];
+
+                puddlepos = new me.Vector2d(puddle.centerX, puddle.centerY)
+                puddleView = new me.Line(0, 0, [
+                    mamapos,
+                    puddlepos
+                ]);
+                obs = me.collision.rayCast(puddleView);
+
+                if (obs.length < 3 && mamapos.distance(puddlepos) < 30) {
+                    // Remove the puddle
+                    me.game.world.removeChildNow(puddle);
+                    game.data.puddles.splice(i, 1);
+
+                    // Momma is suspicious
+                    game.data.suspicion += 30
+                    game.data.messages.push("mom saw piss and is sus");
+
+                    break;
+                } else if (obs.length < 3) {
+                    dir = this.angleTo(puddle);
+                    this.body.vel.x = MAMA_VEL * Math.cos(dir);
+                    this.body.vel.y = MAMA_VEL * Math.sin(dir);
+                    break;
+                }
+            } 
         }
 
         // check if we moved (an "idle" animation would definitely be cleaner)
