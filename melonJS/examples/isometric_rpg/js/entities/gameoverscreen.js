@@ -31,8 +31,8 @@ game.EndScreen.Container = me.Container.extend({
     this.addChild(this.panelSprite);
     this.addChild(new game.EndScreen.NewsItem(-90, -10));
     me.audio.stop("Gameplay Theme (Day)");
-    me.audio.play("BREAKING NEWS", false, null, .05);
-    
+    me.audio.play("BREAKING NEWS", false, null, .1);
+    setTimeout(function() {me.audio.play("Bitcrushed PSA", false, null, .2)}, 1500);   
   } 
 });
 
